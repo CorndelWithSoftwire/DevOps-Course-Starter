@@ -108,3 +108,6 @@ dmypy.json
 
 ### macOS ###
 .DS_Store
+
+### Virtual environment ###
+env/
