@@ -111,3 +111,6 @@ dmypy.json
 
 ### Virtual environment ###
 env/
+
+### Configuration files ###
+.env
