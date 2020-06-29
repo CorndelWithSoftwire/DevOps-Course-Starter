@@ -11,7 +11,41 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
+        <!-- List multiple todo items here -->
+        <form action="/tasks" method="POST">
+          <table class="table">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Status</th>
+              <th scope="col">Mark as Done</th>
+              <th scope="col">Remove</th>
+            </tr>
+            {% for item in items %} 
+              <tr>
+                <th>{{item.id}}</th>
+                <th>{{item.title}}</th>
+                <th>{{item.status}}</th>
+                <th><input name="Done_{{item.id}}" type="submit" value="done"> </th>
+                <th><input name="Remove_{{item.id}}" type="submit" value="remove"></th>
+              </tr>
+            {% endfor %}
+          </table>
+        </form>
+        <!-- List single todo items here -->
+        {% if singleitem %}
+        <li>{{singleitem.id}} -  {{singleitem.title}} - {{singleitem.status}}</li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="col-md-12">
+      <h2>Add New To-Do Task</h2>
+      <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        <form action="/tasks" method="POST">
+          Task: <input type="text" name="addtask" >
+          <input type="submit">
+        </form>
       </ul>
     </div>
   </div>

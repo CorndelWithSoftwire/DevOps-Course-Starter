@@ -67,3 +67,16 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def remove_item(id):
+    
+    items = get_items()
+    key = int(id)
+
+    index = next(index for index, dictionary in enumerate(items)
+                if dictionary['id'] == key)
+
+    items.pop(index)
+    session['items'] =  items
+
+    return items
