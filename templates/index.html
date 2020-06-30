@@ -30,12 +30,20 @@
                 <th><input name="Remove_{{item.id}}" type="submit" value="remove"></th>
               </tr>
             {% endfor %}
+            {% if singleitem %}
+              <!-- List single todo items here -->
+              <tr>
+                <th>{{singleitem.id}}</th>
+                <th>{{singleitem.title}}</th>
+                <th>{{singleitem.status}}</th>
+                <th><input name="Done_{{singleitem.id}}" type="submit" value="done"> </th>
+                <th><input name="Remove_{{singleitem.id}}" type="submit" value="remove"></th>
+              </tr>
+            {% endif %}
           </table>
         </form>
-        <!-- List single todo items here -->
-        {% if singleitem %}
-        <li>{{singleitem.id}} -  {{singleitem.title}} - {{singleitem.status}}</li>
-        {% endif %}
+        
+        
       </ul>
     </div>
     <div class="col-md-12">

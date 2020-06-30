@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import session_items as session
 
 app = Flask(__name__)
@@ -7,6 +7,12 @@ app.config.from_object('flask_config.Config')
 key = "f8a479ff06b7be92d7bd9d6644a35e82"
 token = "4aa46c18e2349cba537fa7169eb9a7733aa16917a12b69d86f44758d8c3faeb2"
 url = "https://api.trello.com/1/"
+
+@app.route('/clearsession')
+def clearsession():
+    session.clearsessions()
+    #items = session.get_items()
+    return render_template("index.html")
 
 @app.route('/tasks')
 def list_tasks():
@@ -21,8 +27,9 @@ def post_item():
     remove = False
     id = 0
 
+    # Take ID from form and split by _ to get item ID
     for key in form:
-        print(key)
+        #print(key)
         if key.startswith('Done_'):
             complete = True
             id = key.partition('_')[-1]
@@ -30,20 +37,21 @@ def post_item():
         if key.startswith('Remove_'):
             remove = True
             id = key.partition('_')[-1]
-            
+    
+    # If new item added
     if "addtask" in form:
          tasktitle = request.form['addtask']
          if(tasktitle != ''):
             session.add_item(tasktitle)
          items = session.get_items()
 
+    # If item marked as Done
     if complete:
-        print("Raj Done " + str(id))
-        print(id)
+        session.markAsDone(id)
         items = session.get_items()
 
+    # If item marked as Remove
     if remove:  
-        print("Raj Remove " + str(id))
         session.remove_item(id)
         items = session.get_items()
 
