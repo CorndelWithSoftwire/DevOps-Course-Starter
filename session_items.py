@@ -1,41 +1,42 @@
 import requests, json
 from flask import session
 
-""" _DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
-] """
-
 key = "f8a479ff06b7be92d7bd9d6644a35e82"
 token = "4aa46c18e2349cba537fa7169eb9a7733aa16917a12b69d86f44758d8c3faeb2"
 uridomain = "https://api.trello.com/1/"
 boardid = "J3hiTYRX"
 
-def callTrelloAPI(method,call,id):
+def callTrelloAPI(method,section,call,id,args):
 
-    if(method=="boards" and call=="lists"):
-        callmethodurl = "boards/" + id + "/lists"
-    elif(method=="lists" and call=="cards"):
-        callmethodurl = "lists/"+ id +"/cards"
+    if(method=="get" and section=="boards" and call=="lists"):
+        callurl = "boards/" + id + "/lists?"
+    elif(method=="get" and section=="lists" and call=="cards"):
+        callurl = "lists/"+ id +"/cards?"
+    elif(method=="post" and section=="lists"and call=="cards"):
+        callurl = "lists/"+ id +"/cards?name=" + args
 
-    requestUrl = uridomain + callmethodurl + "?key=" + key + "&token=" + token
-    response = requests.get(requestUrl)
+    requestUrl = uridomain + callurl + "&key=" + key + "&token=" + token
+
+    if(method == "get"):
+        response = requests.get(requestUrl)
+    elif(method == "post"):
+        response = requests.post(requestUrl)
+        
     jsonResponse = json.loads(response.text)
     return jsonResponse
 
 def getTrelloBoards(boardid):  
-    return callTrelloAPI("boards","lists",boardid)
+    return callTrelloAPI("get","boards","lists",boardid,"")
 
 def getListId(listofboards, cardname):
     _cardName = cardname
     for i in listofboards:
             if i['name'] == _cardName:
-                # print(i['id'])
                 break
     return i['id']
 
 def getCardsOnList(listId):
-    jsonResponse = callTrelloAPI("lists","cards",listId)
+    jsonResponse = callTrelloAPI("get","lists","cards",listId,"")
     items = []
 
     for i in jsonResponse:
@@ -52,9 +53,9 @@ def getCardsOnList(listId):
 def get_items():
     "Fetch cards from Trello board"
     listofboards = getTrelloBoards(boardid)
-    listId = getListId(listofboards,"Things To Do")
-    items = getCardsOnList(listId)
-    #print(listId)
+    ThingsToDolistId = getListId(listofboards,"Things To Do")
+    items = getCardsOnList(ThingsToDolistId)
+
     return session.get('items', items)
 
 
@@ -69,7 +70,7 @@ def get_item(id):
         item: The saved item, or None if no items match the specified ID.
     """
     items = get_items()
-    return next((item for item in items if item['id'] == int(id)), None)
+    return next((item for item in items if item['id'] == id), None)
 
 
 def add_item(title):
@@ -82,18 +83,21 @@ def add_item(title):
     Returns:
         item: The saved item.
     """
-    items = get_items()
+    #items = get_items()
 
     # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
+    #id = items[-1]['id'] + 1 if items else 0
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    #item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    listofboards = getTrelloBoards(boardid)
+    ThingsToDolistId = getListId(listofboards,"Things To Do")
 
+    callTrelloAPI("post","lists","cards",ThingsToDolistId, title)
     # Add the item to the list
-    items.append(item)
-    session['items'] = items
-
-    return item
+    #items.append(item)
+    #session['items'] = items
+    items = get_items()
+    return items
 
 
 def save_item(item):
