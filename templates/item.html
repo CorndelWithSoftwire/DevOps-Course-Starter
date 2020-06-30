@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">To-Do App</h1>
+    <p class="lead">Just another to-do app.</p>
+  </div>
+  <form action="/save" method="POST">
+    <input type="number" hidden id="itemId" name="itemId" required value="{{ item.id }}">
+    <br/>
+    <div class="form-group">
+        <label for="itemTitle">Item Title</label>
+        <input type="text" name="itemTitle" class="form-control" id="itemTitle" value="{{ item.title }}">
+    </div>
+    <div class="form-group">
+        <label for="itemStatus">Item Status</label>
+        <select name="itemStatus" id="itemStatus" class="form-control">
+            <option 
+              value="Not Started"
+              {% if  item.status == 'Not Started' %}
+                selected
+              {% endif %}>
+              Not Started
+            </option>
+            <option 
+              value="Completed"
+              {% if  item.status == 'Completed' %}
+                selected
+              {% endif %}>
+              Completed
+            </option>
+        </select>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary">
+  </form>
+    <form action="{{ url_for('delete', id=item.id) }}" method="POST">
+        <button class="btn btn-primary" type="submit" name="itemDelete">Delete</button>
+    </form>
+{% endblock %}

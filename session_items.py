@@ -62,8 +62,16 @@ def save_item(item):
         item: The item to save.
     """
     existing_items = get_items()
+    print(existing_items)
+    print(item)
     updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
 
     session['items'] = updated_items
 
     return item
+
+def delete_item(id):
+    items = get_items()
+    items.remove(get_item(id))
+    session['items'] = items
+    return session['items']
