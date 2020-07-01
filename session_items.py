@@ -11,6 +11,7 @@ def callTrelloAPI(method,section,call,id,args):
 ### REFACTOR THIS ALL TO THIS FORMAT requests.put(url, params={key: value}, args) ####
 ### requests.put('https://httpbin.org / put', data ={'key':'value'})              ####
 ######################################################################################
+
     if(method=="get" and section=="boards" and call=="lists"):
         callurl = "boards/" + id + "/lists?"
     elif(method=="get" and section=="lists" and call=="cards"):
@@ -19,6 +20,8 @@ def callTrelloAPI(method,section,call,id,args):
         callurl = "lists/"+ id +"/cards?name=" + args
     elif(method=="put" and section=="cards"and call==""):
         callurl = "cards/"+ id +"?idList=" + args
+    elif(method=="delete" and section=="cards"and call==""):
+        callurl = "cards/"+ id +"?" + args
 
     requestUrl = uridomain + callurl + "&key=" + key + "&token=" + token
 
@@ -28,8 +31,15 @@ def callTrelloAPI(method,section,call,id,args):
         response = requests.post(requestUrl)
     elif(method == "put"):
         response = requests.put(requestUrl)
+    elif(method == "delete"):
+        response = requests.delete(requestUrl)
+    
+    try:
+        jsonResponse = json.loads(response.text)
+    except:
+        jsonResponse = ""
+        print("No JSON Data returned from Trello")
 
-    jsonResponse = json.loads(response.text)
     return jsonResponse
 
 def getListsOnBoards(boardid):  
@@ -52,14 +62,17 @@ def getListId(listofboards, cardname):
         session[cardname] = i['id']
         return i['id']
 
-def getCardsOnList(listId):
+def getCardsOnList(listId,status):
     # Get cards on a List and add to a new items list to display in HTML
     listofcards = callTrelloAPI("get","lists","cards",listId,"")
-    items = []
+    if session.get('items') is not None:
+        items = session.get('items')
+    else:
+        items = []
 
     for i in listofcards:
         # Create item array
-        item = { 'id': i['id'], 'title': i['name'], 'status': 'Things To Do' }
+        item = { 'id': i['id'], 'title': i['name'], 'status': status }
         # Add the item to the list
         items.append(item)
         session['items'] = items
@@ -70,7 +83,10 @@ def get_items():
     #Get cards from "Things To Do" list on Trello
     lists = getListsOnBoards(boardid)    
     getListId(lists,"Things To Do")
-    items = getCardsOnList(session.get('Things To Do'))
+    session['items'] = []
+    items = getCardsOnList(session.get('Things To Do'),"Things To Do")
+    items = getCardsOnList(session.get('Doing'),"Doing")
+    items = getCardsOnList(session.get('Done'),"Done")
     return session.get('items', items)
 
 
@@ -109,18 +125,17 @@ def save_item(item):
 
     return item
 
-def remove_item(id):
-    
-    items = get_items()
-    key = int(id)
+def remove_item(cardId):
+    #Delete card on Trello
+    callTrelloAPI("delete","cards","",cardId, "")
 
-    index = next(index for index, dictionary in enumerate(items)
+    #Remove card from Session
+    key = cardId
+    index = next(index for index, dictionary in enumerate(session.get('items'))
                 if dictionary['id'] == key)
+    session.get('items').pop(index)
 
-    items.pop(index)
-    session['items'] =  items
-
-    return items
+    return session.get('items')
 
 def clearsessions():
     [session.pop(key) for key in list(session.keys())]
