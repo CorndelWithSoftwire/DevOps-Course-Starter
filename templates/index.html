@@ -24,7 +24,9 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for item in items %}
-          <li>{{ item.id}} - {{item.status}} - {{item.title}} </li>
+          <li>{{ item.id}} - {{item.status}} - {{item.title}} - 
+            <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+          </li>
         {% endfor %}
       </ul>
     </div>
