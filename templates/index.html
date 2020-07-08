@@ -12,6 +12,9 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+          {% for item in data %}
+              <li>{{ item.title }}</li>
+          {% endfor %}
       </ul>
     </div>
   </div>
