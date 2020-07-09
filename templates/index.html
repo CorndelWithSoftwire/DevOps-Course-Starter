@@ -2,53 +2,96 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-  <form class="form-inline" action="/create" method="POST">
-      <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" name="newItemTitle" id="newItemTitle" placeholder="New Item Title...">
-      </div>
-      <div class="form-group mb-2">
-          <input type="submit" value="Create" class="btn btn-primary">
-      </div>
-  </form>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h2 align=center>Items</h2>
-      <p>SORT</p>
-      
-      
-          <table class="table table-hover">
-              <thead>
-                  <th scope="col">Title
-                    <a href="{{ url_for('sort_items', sortType='title') }}" class="btn btn-primary">
-                      Title
-                    </a>
-                  </th>
-                  <th scope="col"> Status
-                      <a href="{{ url_for('sort_items', sortType='status') }}" class="btn btn-primary">
-                        Status
-                      </a>
-                  </th>
-                  <th scope="col"/>
-                </tr>
-              </thead>
-              <tbody>
-          {% for item in items %}
-            <tr>
-              <td>{{ item.title }}</td>
-              <td>{{ item.status }}</td>
-              <td>
-                  <a href="{{ url_for('view', id=item.id) }}" class="btn btn-primary">Edit</a>
-              </td>
-            </tr>     
-          {% endfor %} 
-        </tbody>
-      </table>
-    </div>
+<form class="form-inline" action="/create" method="POST">
+  <div class="form-group mx-sm-3 mb-2">
+    <input type="text" class="form-control" name="newItemTitle" id="newItemTitle" placeholder="New Item Title...">
   </div>
+  <div class="form-group mb-2">
+    <input type="submit" value="Create" class="btn btn-primary">
+  </div>
+</form>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2 align=center>Items</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+        <th class="th-sm">
+          <a href="{{ url_for('sort_items', sortType='title') }}">
+            Title
+          </a>
+        </th>
+        <th scope="col">
+          <a href="{{ url_for('sort_items', sortType='status') }}">
+            Status
+          </a>
+        </th>
+        <th scope="col" />
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.title }}</td>
+          <td>{{ item.status }}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target='#itemModal-{{ item.id }}'>
+              Edit
+            </button>
+          </td>
+        </tr>
+
+        <div class="modal" tabindex="-1" role="dialog" id='itemModal-{{ item.id }}'>
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">To Do</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/save" method="POST">
+                  <input type="number" hidden id="itemId" name="itemId" required value="{{ item.id }}">
+                  <br />
+                  <div class="form-group">
+                    <label for="itemTitle">Item Title</label>
+                    <input type="text" name="itemTitle" class="form-control" id="itemTitle" value="{{ item.title }}">
+                  </div>
+                  <div class="form-group">
+                    <label for="itemStatus">Item Status</label>
+                    <select name="itemStatus" id="itemStatus" class="form-control">
+                      <option value="Not Started" {% if  item.status == 'Not Started' %} selected {% endif %}>
+                        Not Started
+                      </option>
+                      <option value="Completed" {% if  item.status == 'Completed' %} selected {% endif %}>
+                        Completed
+                      </option>
+                    </select>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+              <form action="{{ url_for('delete', id=item.id) }}" method="POST">
+                <button class="btn btn-primary" type="submit" name="itemDelete">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div 
+        {% endfor %} 
+      </tbody> 
+    </table> 
+  </div> 
+</div>
+</div> 
+</div> 
 {% endblock %}
