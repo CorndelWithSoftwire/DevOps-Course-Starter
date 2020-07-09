@@ -6,7 +6,7 @@ _DEFAULT_ITEMS = [
 ]
 
 
-def get_items():
+def get_items() -> list:
     """
     Fetches all saved items from the session.
 
@@ -16,7 +16,7 @@ def get_items():
     return session.get('items', _DEFAULT_ITEMS)
 
 
-def get_item(id):
+def get_item(id) -> dict:
     """
     Fetches the saved item with the specified ID.
 
@@ -30,7 +30,7 @@ def get_item(id):
     return next((item for item in items if item['id'] == int(id)), None)
 
 
-def add_item(title):
+def add_item(title) -> dict:
     """
     Adds a new item with the specified title to the session.
 
@@ -54,7 +54,7 @@ def add_item(title):
     return item
 
 
-def save_item(item):
+def save_item(item) -> dict:
     """
     Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
 
