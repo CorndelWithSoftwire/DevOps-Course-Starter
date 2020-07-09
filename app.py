@@ -7,6 +7,11 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    if request.method == "POST":
+        session.add_item(request.form.get('item'))
+    else:
+        pass
+    
     return render_template('index.html', data=session.get_items())
 
 
