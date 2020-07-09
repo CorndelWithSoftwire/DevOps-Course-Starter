@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('index.html', data=session.get_items())
 
