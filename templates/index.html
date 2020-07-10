@@ -26,7 +26,7 @@
                 <th>{{item.id}}</th>
                 <th>{{item.title}}</th>
                 <th>{{item.status}}</th>
-                <th><input name="Done_{{item.id}}" type="submit" value="done"> </th>
+                <th><input name="Done_{{item.id}}" type="submit" value="done" {% if item.status == 'Done' %}disabled{% endif %}> </th>
                 <th><input name="Remove_{{item.id}}" type="submit" value="remove"></th>
               </tr>
             {% endfor %}
