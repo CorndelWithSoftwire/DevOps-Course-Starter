@@ -1,12 +1,11 @@
 import requests, json, os
 from flask import session
+import items as myModule
 
-#key = "f8a479ff06b7be92d7bd9d6644a35e82"
-#token = "4aa46c18e2349cba537fa7169eb9a7733aa16917a12b69d86f44758d8c3faeb2"
-key = os.environ.get("key", "")
-token = os.environ.get("token", "")
+key = os.environ.get("trello_key", "")
+token = os.environ.get("trello_token", "")
+boardid = os.environ.get("trello_boardid", "")
 uridomain = "https://api.trello.com/1/"
-boardid = "J3hiTYRX"
 
 def get_items():
     #Get cards from "Things To Do" list on Trello
@@ -39,22 +38,26 @@ def getListId(listofboards, cardname):
         session[cardname] = i['id']
         return i['id']
 
-def getCardsOnList(listId,list):
+def getCardsOnList(listId_,list_):
 
-    if listId is None:
+    if listId_ is None:
         listId = getListId(session.get('lists'),list) # get list ID for the List
     
         # Get ToDo cards on a List and add to a new items list to display in HTML
-    listofcards = callTrelloAPI("get","lists","cards",listId,"")
+    listofcards = callTrelloAPI("get","lists","cards",listId_,"")
+
     if session.get('items') is not None:
         items = session.get('items')
     else:
         items = []
+    
+    #items_obj = MyItems()
+    #items_obj = myModule.Items("Amelia","AmeliaTitle","AmeliaStatus")
+    #print(items_obj.get_items())
 
     for i in listofcards:
         # Create item array
-        item = { 'id': i['id'], 'title': i['name'], 'status': list }
-        #item = new items(i['id'], i['name'], list)
+        item = myModule.Items(i['id'],i['name'],list_).get_items()
         # Add the item to the list
         items.append(item)
         session['items'] = items
@@ -62,26 +65,17 @@ def getCardsOnList(listId,list):
     return items
 
 
+
 def get_item(id):
     # Get specific card based on its ID
     items = get_items()
     return next((item for item in items if item['id'] == id), None)
 
-
 def add_item(title):
-    """
-    Adds a new item with the specified title to the session.
-
-    Args:
-        title: The title of the item.
-
-    Returns:
-        item: The saved item.
-    """
+    # Post item to Trello and retrieve items list from Trello
     callTrelloAPI("post", "lists", "cards", session.get('Things To Do'), title)
     items = get_items()
     return items
-
 
 def save_item(item):
     """

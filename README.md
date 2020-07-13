@@ -29,3 +29,11 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+
+### How to use this app
+1. Obtain a key and code from Trello API, set this in the .env file
+2. Get your board ID from tello and set this in the .env file
+3. Run the app, it should work.
+
+Enjoy!!
