@@ -20,7 +20,11 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
           {% for item in data %}
-              <li>{{ item.title }}</li>
+              <li>{{ item.title }} - {{item.status}} 
+                {% if item.status == 'Not Started' %}
+                <form class="completed" action="/update/{{item.id}}" method="POST"><input type="submit" value="Complete"></form>
+                {% endif %}
+              </li>
           {% endfor %}
       </ul>
     </div>
