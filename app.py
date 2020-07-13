@@ -25,5 +25,11 @@ def mark_complete(id):
     return redirect('/')
 
 
+@app.route('/delete/<int:id>', methods=['GET'])
+def delete_item(id):
+    session.delete_item(id)
+    return redirect('/')    
+
+
 if __name__ == '__main__':
     app.run()

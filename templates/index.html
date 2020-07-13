@@ -21,9 +21,16 @@
         <!-- List the todo items here -->
           {% for item in data %}
               <li>{{ item.title }} - {{item.status}} 
-                {% if item.status == 'Not Started' %}
-                <form class="completed" action="/update/{{item.id}}" method="POST"><input type="submit" value="Complete"></form>
-                {% endif %}
+                <table>
+                  {% if item.status == 'Not Started' %}
+                  <tr>
+                    <form class="completed" action="/update/{{item.id}}" method="POST"><input type="submit" value="Complete"></form>
+                  </tr>
+                  {% endif %}
+                  <tr>
+                    <form class="remove" action="/delete/{{item.id}}"><input type="submit" value="Delete"></form>
+                  </tr>
+                </table>
               </li>
           {% endfor %}
       </ul>
