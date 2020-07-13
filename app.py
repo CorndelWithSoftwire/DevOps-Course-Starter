@@ -11,8 +11,8 @@ def index():
         session.add_item(request.form.get('item'))
     else:
         pass
-    
-    return render_template('index.html', data=session.get_items())
+    sorted_items = sorted(session.get_items(), key=lambda x:x['status'], reverse=True)
+    return render_template('index.html', data=sorted_items)
 
 
 @app.route('/update/<int:id>', methods=['POST'])
