@@ -69,17 +69,16 @@ def save_item(item) -> dict:
     return item
 
 
-def delete_item(item) -> None:
+def delete_item_by_id(id) -> None:
     """
     Deletes the item provided. Does nothing if the item does not exist.
 
     Args:
         item: The item to delete.
     """
-    print(f'Trying to delete an item')
     current_items = session['items']
 
-    item_to_delete = get_item(item)
+    item_to_delete = get_item(id)
     current_items.remove(item_to_delete)
 
     session['items'] = current_items
