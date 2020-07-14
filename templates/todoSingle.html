@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">To-Do App</h1>
+    <p class="lead">Just another to-do app.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Items</h2>
+        <ul class="list-group mb-4">
+            <ul>
+                {{ items.id }} - {{items.title}} - {{items.status}}
+                <a href="/">Back</a>
+
+            </ul>
+        </ul>
+    </div>
+</div>
+{% endblock %}

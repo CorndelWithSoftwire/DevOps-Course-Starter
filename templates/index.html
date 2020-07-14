@@ -12,12 +12,29 @@
         <h2>Items</h2>
         <ul class="list-group mb-4">
             <ul>
-                {% for todo in todos %}
-                <li>
-                    {{ todo.id }} - {{todo.title}} - {{todo.status}}
+                {% for item in items %}
+                    {{ item.id }} - {{item.title}} - {{item.status}}
+                    <a href="/item/{{ item.id }}">View Details</a>
+                <br>
                     {% endfor %}
             </ul>
         </ul>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Add new item</h2>
+        <ul class="list-group mb-4">
+            <form action="/add_item" method="POST">
+                <ul>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="user_name">
+                    <button type="submit">Send your message</button>
+                </ul>
+            </form>
+        </ul>
+    </div>
+</div>
+
 {% endblock %}
