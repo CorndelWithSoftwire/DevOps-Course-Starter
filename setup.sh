@@ -7,11 +7,11 @@ while [[ "$#" -gt 0 ]]; do case $1 in
 esac; shift; done
 
 # Create and enable a virtual environment
-python -m venv env
+python -m venv --clear env
 
 if [ $Windows == 1 ]
-then source env/scripts/activate
-else source env/bin/activate
+    then source env/scripts/activate
+    else source env/bin/activate
 fi
 
 # Upgrade pip and install required packages
