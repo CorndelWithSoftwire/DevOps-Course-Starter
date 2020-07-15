@@ -11,14 +11,14 @@ def index():
 
 @app.route('/add', methods=['POST'])
 def add():
-    add_item(request.form.get('input_field'))
+    add_item(request.form.get('input_field1'))
     return redirect(url_for('index'))
 
 @app.route('/mark', methods=['POST'])
 def mark():
-    id = request.form.get('item_id')
+    id = request.form.get('input_field2')
     item = get_item(id)
-    item.status = 'Completed'
+    item['status'] = 'Completed'
     save_item(item)
     return redirect(url_for('index'))
 

@@ -20,10 +20,15 @@
         </a>
         {% endfor %}
       </div><br>
-      <form action="/item" method="post">
-        <label for="exampleInput">Item to be added:</label><br>
-        <input type="text" name="input_field" placeholder="title" id="exampleInput">
+      <form action="/add" method="post">
+        <label for="exampleInput1">Item to be added:</label><br>
+        <input type="text" name="input_field1" placeholder="title" id="exampleInput1">
         <button class="btn btn-outline-primary" type="submit">Add your item</button>
+      </form>
+      <form action="/mark" method="post">
+        <label for="exampleInput2">Item to be marked as Completed:</label><br>
+        <input type="text" name="input_field2" placeholder="id" id="exampleInput2">
+        <button class="btn btn-outline-primary" type="submit">Complete your item</button>
       </form>
     </div>
   </div>
