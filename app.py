@@ -15,9 +15,7 @@ def index():
 def addItem():
     todoItemTitle = request.form.get('newitem')
     session.add_item(todoItemTitle)
-    items = session.get_items()
-    return render_template('/index.html', items = items)
-
+    return index()
 
 if __name__ == '__main__':
     app.run()
