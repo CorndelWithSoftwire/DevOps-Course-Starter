@@ -28,8 +28,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-2">
-                                <form id="delete_item" method="post"
-                                      action={{  }}>
+                                <form id="delete_item" method="post" >
                                     <a href="#">
                                         <span onclick="delete_item({{ item.id }})" class="float-right">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -90,7 +89,7 @@
 
         function delete_item(id) {
             var form = document.getElementById("delete_item");
-            form.action = '/items/' + item.id + '/delete'
+            form.action = '/items/' + id + '/delete'
             form.submit();
         }
     </script>
