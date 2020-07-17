@@ -48,6 +48,13 @@ def mark_as_completed(id):
     return redirect(url_for('index'))
 
 
+@app.route('/items/<id>/delete', methods=['POST'])
+@app.route('/items/<id>', methods=['DELETE'])
+def delete_item(id):
+    session.delete_item(id)
+    return redirect(url_for('index'))
+
+
 @app.route('/items', methods=['DELETE'])
 @app.route('/items/delete', methods=['POST'])
 def delete_all_items():

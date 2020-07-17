@@ -14,13 +14,16 @@
                 {% for item in items %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">{{ item.title }}
                         {% if item.status == 'Not Started' %}
-                            <form id="complete-task" method="post" action={{ '/items/' + item.id|string }}>
+                            <form id="complete_task" method="post" action={{ '/items/' + item.id|string }}>
                                 <span class="badge badge-danger badge-pill red"
                                       onclick="complete_item()">{{ item.status }}</span>
                             </form>
                         {% elif item.status != 'Not Started' %}
                             <span class="badge badge-success badge-pill red">{{ item.status }}</span>
                         {% endif %}
+                        <form id="delete_item" method="post" action={{ '/items/' + item.id|string + '/delete' }}>
+                            <span onclick="delete_item()"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></span>
+                        </form>
                     </li>
                 {% endfor %}
             </ul>
@@ -48,7 +51,7 @@
                     </div>
                     <div class="modal-body">
                         <label for="title">Title:</label>
-                        <input type="text" id="title" name="title">
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Enter title">
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-primary" data-dismiss="modal">Reset</button>
@@ -61,6 +64,11 @@
     <script type="text/javascript">
         function complete_item() {
             var form = document.getElementById("complete-task");
+            form.submit();
+        }
+
+        function delete_item() {
+            var form = document.getElementById("delete_item");
             form.submit();
         }
     </script>

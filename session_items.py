@@ -69,6 +69,12 @@ def save_item(item):
     return item
 
 
-def delete_all():
-   session['items'] = []
+def delete_item(id):
+    item = get_item(id)
+    session['items'].remove(item)
+    session.modified = True
 
+
+def delete_all():
+    session['items'] = []
+    session.modified = True
