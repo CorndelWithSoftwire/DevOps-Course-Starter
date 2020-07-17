@@ -29,9 +29,9 @@
                             </div>
                             <div class="col-2">
                                 <form id="delete_item" method="post"
-                                      action={{ '/items/' + item.id|string + '/delete' }}>
+                                      action={{  }}>
                                     <a href="#">
-                                        <span onclick="delete_item()" class="float-right">
+                                        <span onclick="delete_item({{ item.id }})" class="float-right">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </span>
                                     </a>
@@ -88,8 +88,9 @@
             form.submit();
         }
 
-        function delete_item() {
+        function delete_item(id) {
             var form = document.getElementById("delete_item");
+            form.action = '/items/' + item.id + '/delete'
             form.submit();
         }
     </script>
