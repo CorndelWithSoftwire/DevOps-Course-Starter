@@ -13,7 +13,7 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    return session.get('items', _DEFAULT_ITEMS)
+    return sorted(session.get('items', _DEFAULT_ITEMS), key = lambda i: i['status'], reverse=True)
 
 
 def get_item(id):

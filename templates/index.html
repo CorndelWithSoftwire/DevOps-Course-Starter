@@ -22,8 +22,21 @@
 <p class="p3"><span class="s1">Just another to-do app.</span></p>
 <h2 style="margin: 0.0px 0.0px 14.9px 0.0px; line-height: 22.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>Items</b></span><span class="s1"><br>
 {% for listitem in mylist %}</span></h2>
-<p class="p1"><span class="s1">{{ listitem.title }}</span></p>
+<p class="p1"><span class="s1">{{ listitem.id }} : {{ listitem.title }} : {{ listitem.status }}</span></p>
 <p class="p5"><span class="s1">{% endfor %}</span></p>
+<form action="/add" method="post">
+  <label>Enter title of new item to be added</label>
+  <br/>
+  <input name="input_title" type="text" placeholder="title" id="exampleInput1">
+  <button type="submit">Add</button>
+</form>
+<br/>
+<form action="/mark" method="post">
+  <label>Enter id of item to be completed</label>
+  <br/>
+  <input name="item_id" type="text" placeholder="id" id="exampleInput2">
+  <button type="submit">Complete</button>
+</form>
 <p class="p1"><span class="s1">{% endblock %}</span></p>
 <p class="p6"><span class="s1"></span><br></p>
 <p class="p7"><span class="s1"></span><br></p>

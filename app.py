@@ -8,6 +8,19 @@ app.config.from_object('flask_config.Config')
 def index():
     session.get_items()
     return render_template('index.html', mylist=session.get_items())
+
+@app.route('/add', methods=['POST'])
+def add():
+    session.add_item(request.form.get('input_title'))
+    return redirect(url_for('index'))
+
+@app.route('/mark', methods=['POST'])
+def mark():
+    id = request.form.get('item_id')
+    item = session.get_item(id)
+    item['status']='Completed'
+    session.save_item(item)
+    return redirect(url_for('index'))
    
 
 if __name__ == '__main__':
