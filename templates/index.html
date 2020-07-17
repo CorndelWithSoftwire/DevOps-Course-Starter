@@ -10,35 +10,55 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Items</h2>
-            <ul class="list-group mb-4">
-                {% for item in items %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">{{ item.title }}
-                        {% if item.status == 'Not Started' %}
-                            <form id="complete_task" method="post" action={{ '/items/' + item.id|string }}>
-                                <span class="badge badge-danger badge-pill red"
-                                      onclick="complete_item()">{{ item.status }}</span>
-                            </form>
-                        {% elif item.status != 'Not Started' %}
-                            <span class="badge badge-success badge-pill red">{{ item.status }}</span>
-                        {% endif %}
-                        <form id="delete_item" method="post" action={{ '/items/' + item.id|string + '/delete' }}>
-                            <span onclick="delete_item()"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></span>
-                        </form>
-                    </li>
-                {% endfor %}
-            </ul>
+            <div class="list-group mb-4 container">
+                {% if items is defined and items %}
+                    {% for item in items %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center row">
+                            <div class="col-8">{{ item.title }}</div>
+                            <div class="col-2">
+                                {% if item.status == 'Not Started' %}
+                                    <form id="complete_item" method="post" action={{ '/items/' + item.id|string }}>
+                                        <a href="#">
+                                    <span class="badge badge-danger badge-pill red"
+                                          onclick="complete_item()">{{ item.status }}</span>
+                                        </a>
+                                    </form>
+                                {% elif item.status != 'Not Started' %}
+                                    <span class="badge badge-success badge-pill red">{{ item.status }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="col-2">
+                                <form id="delete_item" method="post"
+                                      action={{ '/items/' + item.id|string + '/delete' }}>
+                                    <a href="#">
+                                        <span onclick="delete_item()" class="float-right">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </span>
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div><p>No items found</p></div>
+                {% endif %}
+            </div>
         </div>
     </div>
-    <div>
-        <div class="float-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAddItemForm">Add
-                Item
-            </button>
-        </div>
-        <div>
-            <form action="/items/delete" method="POST">
-                <button type="submit" id="delete" class="btn btn-danger">Delete All Items</button>
-            </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalAddItemForm">Add
+                    Item
+                </button>
+            </div>
+            {% if items is defined and items %}
+                <div class="float-right col-2">
+                    <form action="/items/delete" method="POST">
+                        <button type="submit" id="delete" class="btn btn-danger float-right">Delete All Items</button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="modal fade" id="modalAddItemForm" role="dialog">
@@ -63,7 +83,7 @@
     </div>
     <script type="text/javascript">
         function complete_item() {
-            var form = document.getElementById("complete-task");
+            var form = document.getElementById("complete_item");
             form.submit();
         }
 
