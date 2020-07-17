@@ -42,7 +42,9 @@ def get_item(id):
 
 @app.route('/items/<id>', methods=['POST'])
 def mark_as_completed(id):
+    print('index to complete: ' + str(id))
     item = session.get_item(id)
+    print('item found: ' + str(item))
     item['status'] = "Completed"
     session.save_item(item)
     return redirect(url_for('index'))
