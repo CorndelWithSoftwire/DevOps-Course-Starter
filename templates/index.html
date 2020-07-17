@@ -17,7 +17,7 @@
                             <div class="col-8">{{ item.title }}</div>
                             <div class="col-2">
                                 {% if item.status == 'Not Started' %}
-                                    <form id="complete_item" method="post">
+                                    <form id="complete_item" method="post" action="">
                                         <a href="#">
                                     <span class="badge badge-danger badge-pill red"
                                           onclick="complete_item({{ item.id }})">{{ item.status }}</span>
@@ -28,7 +28,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-2">
-                                <form id="delete_item" method="post" >
+                                <form id="delete_item" method="post" action="">
                                     <a href="#">
                                         <span onclick="delete_item({{ item.id }})" class="float-right">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -47,7 +47,8 @@
     <div class="container">
         <div class="row">
             <div class="col-10">
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalAddItemForm">Add
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                        data-target="#modalAddItemForm">Add
                     Item
                 </button>
             </div>
@@ -70,7 +71,8 @@
                     </div>
                     <div class="modal-body">
                         <label for="title">Title:</label>
-                        <input type="text" id="title" name="title" class="form-control" placeholder="Enter title">
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Enter title"
+                               autocomplete="off">
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-primary" data-dismiss="modal">Reset</button>
