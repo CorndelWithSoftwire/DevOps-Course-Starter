@@ -14,13 +14,13 @@
                 {% if items is defined and items %}
                     {% for item in items %}
                         <div class="list-group-item d-flex justify-content-between align-items-center row">
-                            <div class="col-8">{{ item.id }}: {{ item.title }}</div>
+                            <div class="col-8">{{ item.title }}</div>
                             <div class="col-2">
                                 {% if item.status == 'Not Started' %}
                                     <form id="complete_item" method="post">
                                         <a href="#">
                                     <span class="badge badge-danger badge-pill red"
-                                          onclick="complete_item({{ item.id }})">{{ item.id }}{{ item.status }}</span>
+                                          onclick="complete_item({{ item.id }})">{{ item.status }}</span>
                                         </a>
                                     </form>
                                 {% elif item.status != 'Not Started' %}
