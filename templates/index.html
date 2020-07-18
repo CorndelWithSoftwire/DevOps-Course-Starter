@@ -1,25 +1,27 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Quick and Dirty To-Do {% endblock %}
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <h1 class="display-4">Quick and Dirty To-Do</h1>
+    <p class="lead">A no nonsense to-do app.</p>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>To-Do</h2>
       <ul class="list-group mb-4">
           {% for item in items %}
               <li>
-                  <form action="/deleteitem/{{ item.id }}" method="post">
-                      <input name="{{ item.id }}" type="image" alt="Delete" src="/static/images/delete.png" onclick="this.form.submit()" height='20' width='20'/>
-                  </form>
-                  <form action="/check/{{ item.id }}" method="post">
-                      <input name="{{ item.id }}" onChange="this.form.submit()" type="checkbox"  {% if item.status != 'Not Started' %}checked{% endif %} />
-                      <label for="{{ item.id }}">{{ item.title }}</label>
-                  </form>
+                  <p>
+                      <form action="/deleteitem/{{ item.id }}" method="post">
+                          <input class="same-line" name="{{ item.id }}" type="image" alt="Delete" src="/static/images/delete.png" onclick="this.form.submit()" height='30' width='30'/>
+                      </form>
+                      <form action="/check/{{ item.id }}" method="post">
+                          <input id="{{ item.id }}" onChange="this.form.submit()" type="checkbox"  {% if item.status != 'Not Started' %}checked{% endif %} />
+                          <label for="{{ item.id }}">{{ item.title }}</label>
+                      </form>
+                  </p>
               </li>
           {% endfor %}
           <li><form action="/additem" method="post"><input type="text" name="newitem"> <input name="Add" type="submit"></form></li>
