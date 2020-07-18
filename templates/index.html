@@ -12,7 +12,15 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
           {% for item in items %}
-              <li><span style="text-align: left">{{ item.title }}</span> - <span style="text-align: right">{{ item.status }}</span></li>
+              <li>
+                      <form action="/check/{{ item.id }}" method="post">
+                          <input name="{{ item.id }}" onChange="this.form.submit()" type="checkbox"  {% if item.status != 'Not Started' %}checked{% endif %} />
+                          <label for="{{ item.id }}">{{ item.title }}</label>
+                      </form>
+                  <form action="/deleteitem/{{ item.id }}" method="post">
+                      <input name="{{ item.id }}" type="image" alt="Delete" src="/static/images/delete.png" onclick="this.form.submit()" height='32' width='32'/>
+                  </form>
+              </li>
           {% endfor %}
           <li><form action="/additem" method="post"><input type="text" name="newitem"><input name="Add" type="submit"></form></li>
       </ul>
