@@ -25,11 +25,8 @@ def deleteitem(id):
     return index()
 
 
-# TODO
 @app.route('/check/<id>', methods=['POST'])
 def checkitem(id):
-    # todoItemTitle = request.form.get('')
-    # session.add_item(todoItemTitle)
     item = session.get_item(id)
     item['status'] = 'Completed'
     session.save_item(item)
