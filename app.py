@@ -16,13 +16,13 @@ def index():
 def additem():
     todoItemTitle = request.form.get('newitem')
     session.add_item(todoItemTitle)
-    return index()
+    return redirect(request.referrer)
 
 
 @app.route('/deleteitem/<id>', methods=['POST'])
 def deleteitem(id):
     session.delete_item(id)
-    return index()
+    return redirect(request.referrer)
 
 
 @app.route('/check/<id>', methods=['POST'])
@@ -30,7 +30,7 @@ def checkitem(id):
     item = session.get_item(id)
     item['status'] = 'Completed'
     session.save_item(item)
-    return index()
+    return redirect(request.referrer)
 
 
 if __name__ == '__main__':
