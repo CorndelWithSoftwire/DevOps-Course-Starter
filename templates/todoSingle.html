@@ -12,11 +12,24 @@
         <h2>Items</h2>
         <ul class="list-group mb-4">
             <ul>
-                {{ items.id }} - {{items.title}} - {{items.status}}
+                {{items.title}} - {{items.status}} -
                 <a href="/">Back</a>
 
             </ul>
         </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form action="/item/{{ items.id }}" method="POST">
+            <button type="submit" class="btn btn-success">Complete Item</button>
+        </form>
+        <br>
+        <form action="/delete_item/{{ items.id }}" method="POST">
+<!--            <button type="submit">Delete Item</button>-->
+            <button type="submit" class="btn btn-danger">Delete Item</button>
+        </form>
     </div>
 </div>
 {% endblock %}

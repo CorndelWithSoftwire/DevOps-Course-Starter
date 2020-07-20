@@ -10,30 +10,26 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Items</h2>
+        <a href="/sorted_items">Sort by Status</a>
         <ul class="list-group mb-4">
             <ul>
                 {% for item in items %}
-                    {{ item.id }} - {{item.title}} - {{item.status}}
-                    <a href="/item/{{ item.id }}">View Details</a>
+                {{item.title}} - {{item.status}} -
+                <a href="/item/{{ item.id }}">View Details</a>
                 <br>
-                    {% endfor %}
+                {% endfor %}
             </ul>
         </ul>
     </div>
-</div>
-
-<div class="row">
     <div class="col-md-12">
-        <h2>Add new item</h2>
-        <ul class="list-group mb-4">
-            <form action="/add_item" method="POST">
-                <ul>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="user_name">
-                    <button type="submit">Send your message</button>
-                </ul>
-            </form>
-        </ul>
+        <h2>Add New Item</h2>
+        <form action="/" method="POST">
+            <ul>
+                <label for="name">Item Title: </label>
+                <input type="text" id="name" name="item_title">
+                <button type="submit">Create Item</button>
+            </ul>
+        </form>
     </div>
 </div>
 
