@@ -10,7 +10,7 @@ def index():
     if request.method == "POST":
         session.add_item(request.form.get('item'))
     
-    sorted_items = sorted(session.get_items(), key=lambda x:x['status'], reverse=True)
+    sorted_items = sorted(session.get_items(), key=lambda x : x['status'], reverse=True)
     return render_template('index.html', data=sorted_items)
 
 
