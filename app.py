@@ -9,8 +9,7 @@ app.config.from_object('flask_config.Config')
 def index():
     if request.method == "POST":
         session.add_item(request.form.get('item'))
-    else:
-        pass
+    
     sorted_items = sorted(session.get_items(), key=lambda x:x['status'], reverse=True)
     return render_template('index.html', data=sorted_items)
 
