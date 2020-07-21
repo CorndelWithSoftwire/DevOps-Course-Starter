@@ -23,9 +23,9 @@
             <li>{{ item.title }} - {{item.status}} 
               <table>
                 {% if item.status == 'Not Started' %}
-                <tr>
-                  <form class="completed" action="/update/{{item.id}}" method="POST"><input type="submit" value="Complete"></form>
-                </tr>
+                  <tr>
+                    <form class="completed" action="/update/{{item.id}}" method="POST"><input type="submit" value="Complete"></form>
+                  </tr>
                 {% endif %}
                 <tr>
                   <form class="remove" action="/delete/{{item.id}}"><input type="submit" value="Delete"></form>
