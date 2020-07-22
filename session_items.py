@@ -13,6 +13,7 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
+    _DEFAULT_ITEMS.sort()
     return session.get('items', _DEFAULT_ITEMS)
 
 
@@ -67,3 +68,22 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def delete_item(id):
+    """
+    Delete a existing item with the list to the session.
+
+    Args:
+        id: The id of the item.
+
+    Returns:
+        item: The deleted item.
+    """
+    items = get_items()
+    found_item = next((item for item in items if item['id'] == int(id)), None)
+    
+    # Remove the item from the list
+    items.remove(found_item)
+    session['items'] = items
+
+    return found_item

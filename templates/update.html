@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Update Items In To-Do List</h1>
+      <ul class="list-group mb-4">
+        <!-- List the todo items here -->
+        
+        <form action="/update/{{k.id}}" method="POST">
+            <label for="id">ID:</label><br>
+            <input type="text" id="id" name="id" value="{{k.id}}" disabled><br>
+            <label for="Title">Title:</label><br>
+            <input type="text" id="Title" name="Title" value="{{k.title}}"><br>
+            <label for="Status">Status:</label><br>
+            <input type="text" id="Status" name="Status" value="{{k.status}}"><br><br>
+            <input type="submit" value="Update Item">
+        </form>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
