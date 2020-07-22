@@ -5,14 +5,16 @@ app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['GET'])
 def index():
-    if request.method == "POST":
-        session.add_item(request.form.get('item'))
-    
     sorted_items = sorted(session.get_items(), key=lambda x : x['status'], reverse=True)
     return render_template('index.html', data=sorted_items)
 
+
+@app.route('/', methods=['POST'])
+def post_item():
+    session.add_item(request.form.get('item'))
+    return redirect('/')
 
 @app.route('/update/<int:id>', methods=['POST'])
 def mark_complete(id):
