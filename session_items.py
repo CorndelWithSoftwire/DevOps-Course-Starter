@@ -1,12 +1,12 @@
 from flask import session
 
 _DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
+    {'id': 1, 'status': 'Not Started', 'title': 'List saved todo items'},
+    {'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added'}
 ]
 
 
-def get_items():
+def get_items() -> list:
     """
     Fetches all saved items from the session.
 
@@ -16,7 +16,7 @@ def get_items():
     return session.get('items', _DEFAULT_ITEMS)
 
 
-def get_item(id):
+def get_item(id) -> dict:
     """
     Fetches the saved item with the specified ID.
 
@@ -30,7 +30,7 @@ def get_item(id):
     return next((item for item in items if item['id'] == int(id)), None)
 
 
-def add_item(title):
+def add_item(title) -> dict:
     """
     Adds a new item with the specified title to the session.
 
@@ -45,7 +45,7 @@ def add_item(title):
     # Determine the ID for the item based on that of the previously added item
     id = items[-1]['id'] + 1 if items else 0
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    item = {'id': id, 'title': title, 'status': 'Not Started'}
 
     # Add the item to the list
     items.append(item)
@@ -54,7 +54,7 @@ def add_item(title):
     return item
 
 
-def save_item(item):
+def save_item(item) -> dict:
     """
     Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
 
@@ -67,3 +67,18 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+
+def delete_item_by_id(id) -> None:
+    """
+    Deletes the item provided. Does nothing if the item does not exist.
+
+    Args:
+        item: The item to delete.
+    """
+    current_items = session['items']
+
+    item_to_delete = get_item(id)
+    current_items.remove(item_to_delete)
+
+    session['items'] = current_items
