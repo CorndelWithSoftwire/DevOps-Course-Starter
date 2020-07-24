@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">To-Do App</h1>
+        <p class="lead">Just another to-do app.</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Items</h2>
+                <ul class="list-group mb-4">
+                     <ul>
+                        {{ todo.title }} ~ {{ todo.status }}
+                        <br>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="/delete/{{ item.id }}" method="POST">
+            <div class="form-group">
+                {#                    <button type="submit" class="btn btn-primary">Item to Delete</button>#}
+                {#                    <button type="submit" class="btn btn-danger">Item to Delete</button>#}
+                <a href="/delete/{{ item }} " class="btn btn-danger btn-xs"
+                   onclick=" return confirm('Are you sure of Deleting Item?')">Delete</a>
+
+            </div>
+        </form>
+        <form action="/save" method="POST">
+            <div class="form-group">
+                <h2>
+                    <label style="color: blue">Title</label>
+                    <input class="form-control" type="text" name="Title">
+                </h2>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Todo</button>
+        </form>
+    </div>
+{% endblock %}

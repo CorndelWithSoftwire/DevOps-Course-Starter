@@ -67,3 +67,10 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def delete_item(item):
+
+    existing_items = get_items()
+    updated_items = existing_items.remove(item)
+    session['items'] = updated_items
+    return item
