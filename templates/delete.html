@@ -6,12 +6,12 @@
         <h1 style="color: blue" class="display-4">To-Do App</h1>
         <p style="color: blue" class="lead">Just another to-do app.</p>
     </div>
+
     <div class="well text-container">
         <div class="row">
             <div class="col-md-12">
                 <h2>Delete Tasks</h2>
-                <ul class="list-group mb-4">
-                    <ul>
+                    <ul class="list-group mb-4">
                         {% for todo in todos %}
                             {{ todo.title }}
                             <div class="container">
@@ -20,11 +20,9 @@
                             <a href="/delete/{{ item }} " class="btn btn-danger btn-xs"
                                onclick=" return confirm('Are you sure of Deleting Item?')">Delete</a>
                         {% endfor %}
-                        </div>
-                        </form>
                         <br>
                     </ul>
-                </ul>
+                </h2>
             </div>
         </div>
     </div>

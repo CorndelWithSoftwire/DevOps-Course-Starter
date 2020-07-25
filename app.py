@@ -35,13 +35,12 @@ def save_item(item):
 
 
 @app.route('/delete/<id>', methods=['POST'])
-def delete_item(item):
+def delete_item():
     if request.method == "POST":
         item = session.get_item(id)
 
         session.delete(item)
     return redirect("/")
-    # # return render_template('delete.html', item=item)
     # return render_template('index.html', todos=session.get_items())
 
 
