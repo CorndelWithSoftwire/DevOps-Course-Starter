@@ -16,7 +16,7 @@ def get_item(id):
     return render_template('OneItemDisplay.html', item=item)
 
 
-@app.route('/add', methods=['POST'])
+@app.route('/add_item', methods=['POST'])
 def add_item():
     if request.method == "POST":
         session.add_item(request.form.get("title"))
@@ -35,7 +35,7 @@ def save_item(item):
 
 
 @app.route('/delete/<id>', methods=['POST'])
-def delete_item():
+def delete_item(id):
     if request.method == "POST":
         item = session.get_item(id)
 
