@@ -3,23 +3,23 @@
 
 {% block content %}
     <div class="jumbotron">
-        <h1 class="display-4">To-Do App</h1>
-        <p class="lead">Just another to-do app.</p>
+        <h1 style="color: blue" class="display-4">To-Do App</h1>
+        <p style="color: blue" class="lead">Just another to-do app.</p>
     </div>
-    <div class="container">
+    <div class="well text-container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Items</h2>
+                <h2>Item</h2>
                 <ul class="list-group mb-4">
-                     <ul>
-                        {{ todo.title }} ~ {{ todo.status }}
+                    <ul>
+                        {{ item.title }} ~ {{ item.status }}
+                        {#                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">Delete </button>#}
                         <br>
                     </ul>
                 </ul>
             </div>
         </div>
     </div>
-
     <div class="container">
         <form action="/delete/{{ item.id }}" method="POST">
             <div class="form-group">

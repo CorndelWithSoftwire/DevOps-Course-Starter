@@ -2,10 +2,9 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-
     <div class="jumbotron">
-        <h1 style="color: blue"class="display-4">To-Do App</h1>
-        <p style="color: blue"class="lead">Just another to-do app.</p>
+        <h1 style="color: blue" class="display-4">To-Do App</h1>
+        <p style="color: blue" class="lead">Just another to-do app.</p>
     </div>
     <div class="well text-container">
         <div class="row">
@@ -13,25 +12,22 @@
                 <h2 style="color: blue">Items</h2>
                 <ul class="list-group mb-4">
                     <h6>
-                    {% for todo in todos %}
-                        {{ todo.title }}
-                        <a href=" " class="btn btn-warning btn-xs" onclick="  data-toggle="modal" data-target="#mymodal">Edit </button>
-                        <a href=" " class="btn btn-danger btn-xs" onclick=" return confirm('Are you sure of Deleting Item?')" >Delete</a>
-{#                        <button type="button" class="btn btn-success float-center" data-toggle="modal" data-target="#mymodal">Update </button>#}
-{#                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">Delete </button>#}
-{#                        <button type="button" class="btn btn-success">Delete </button>#}
-                        <br></br>
-                    {% endfor %}
+                        {% for todo in todos %}
+                            {{ todo.title }}
+                            <a href=" " class="btn btn-warning btn-xs" onclick="  data-toggle=" modal"data-target="#mymodal">Edit </a>
+                            <a href=" " class="btn btn-danger btn-xs" onclick=" return confirm('Are you sure of Deleting Item?')">Delete</a>
+                            <br></br>
+                        {% endfor %}
                     </h6>
                 </ul>
                 <form action="/add" method="POST">
                     <div class="form-group">
                         <h2>
-                        <label style="color: blue">Title</label>
-                        <input class="form-control" type="text" name="Title">
+                            <label style="color: blue">Title</label>
+                            <input class="form-control" type="text" name="Title">
                         </h2>
                     </div>
-                    <button type="submit" class="btn btn-primary">Create Todo</button>
+                    <button type="submit" class="btn btn-primary">Create New Item</button>
                 </form>
             </div>
         </div>
