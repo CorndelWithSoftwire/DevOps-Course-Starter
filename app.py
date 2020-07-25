@@ -39,11 +39,10 @@ def delete_item(item):
     if request.method == "POST":
         item = session.get_item(id)
 
-        item = session.delete(item)
-        # item = session.remove(item)
-    # return redirect("/")
-    # return render_template('delete.html', item=item)
-    return render_template('index.html', todos=session.get_items())
+        session.delete(item)
+    return redirect("/")
+    # # return render_template('delete.html', item=item)
+    # return render_template('index.html', todos=session.get_items())
 
 
 if __name__ == '__main__':

@@ -6,38 +6,49 @@
         <h1 style="color: blue" class="display-4">To-Do App</h1>
         <p style="color: blue" class="lead">Just another to-do app.</p>
     </div>
+    <br>
     <div class="well text-container">
         <div class="row">
             <div class="col-md-12">
-                <h2>Item</h2>
+                <h2 style="color: blue" class="display-6">Items </h2>
                 <ul class="list-group mb-4">
-                    <ul>
-                        {{ item.title }} ~ {{ item.status }}
-                        {#                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">Delete </button>#}
+                    <h6>
+                        {{ item.id }} - {{ item.title }} - {{ item.status }}
+                        {#                        <a href=" " class="btn btn-danger btn-xs" onclick=" return confirm('Are you sure of Deleting Item?')">Item to Delete</a>#}
+                        {#                        <button type="submit" class="btn btn-danger">Item to Delete</button>#}
                         <br>
-                    </ul>
+                    </h6>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container">
-        <form action="/delete/{{ item.id }}" method="POST">
-            <div class="form-group">
-                {#                    <button type="submit" class="btn btn-primary">Item to Delete</button>#}
-                {#                    <button type="submit" class="btn btn-danger">Item to Delete</button>#}
-                <a href="/delete/{{ item }} " class="btn btn-danger btn-xs"
-                   onclick=" return confirm('Are you sure of Deleting Item?')">Delete</a>
 
+    <div class="well text-container">
+        <div class="row">
+            <form action="/delete_item/{{ item.id }}" method="POST">
+                <div class="form-group">
+                    <h2>
+                        <a href=" " class="btn btn-danger btn-xs" onclick=" return confirm('Are you sure of Deleting Item?')">Item to Delete</a>
+                        <br>
+                    </h2>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <div class="well text-container">
+                <div class="row">
+                    <form action="/save" method="POST">
+                        <div class="form-group">
+                            <h2>
+                                <label style="color: blue">Title</label>
+                                <input class="form-control" type="text" name="Title">
+                            </h2>
+                        </div>
+                        <a href=" " class="btn btn-success" onclick=" return confirm('Item has been added to list?')">Save Item</a>
+                    </form>
+                </div>
             </div>
-        </form>
-        <form action="/save" method="POST">
-            <div class="form-group">
-                <h2>
-                    <label style="color: blue">Title</label>
-                    <input class="form-control" type="text" name="Title">
-                </h2>
-            </div>
-            <button type="submit" class="btn btn-primary">Create Todo</button>
-        </form>
+        </div>
     </div>
 {% endblock %}

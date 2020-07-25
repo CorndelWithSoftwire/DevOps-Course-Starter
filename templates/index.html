@@ -14,21 +14,28 @@
                     <h6>
                         {% for todo in todos %}
                             {{ todo.title }}
-                            <a href=" " class="btn btn-warning btn-xs" onclick="  data-toggle=" modal"data-target="#mymodal">Edit </a>
-                            <a href=" " class="btn btn-danger btn-xs" onclick=" return confirm('Are you sure of Deleting Item?')">Delete</a>
+                            <a href=" " class="btn btn-warning btn-xs" onclick="  data-toggle=" modal
+                            "data-target="#mymodal">Edit </a>
+                            <a href=" " class="btn btn-danger btn-xs"
+                               onclick=" return confirm('Are you sure of Deleting Item?')">Delete</a>
                             <br></br>
                         {% endfor %}
                     </h6>
                 </ul>
-                <form action="/add" method="POST">
-                    <div class="form-group">
-                        <h2>
-                            <label style="color: blue">Title</label>
-                            <input class="form-control" type="text" name="Title">
-                        </h2>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create New Item</button>
-                </form>
+
+
+
+                <div>
+                    <form action="/" method="POST">
+                        <div class="form-group">
+                            <h2>
+                                <label style="color: blue">Add New Item</label>
+                                <input class="form-control" type="text" name="Title">
+                                <button type="submit" class="btn btn-success">Create New Item</button>
+                            </h2>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
