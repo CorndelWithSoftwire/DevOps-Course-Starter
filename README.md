@@ -8,6 +8,10 @@ The project uses a virtual environment to isolate package dependencies. To creat
 ```bash
 $ source setup.sh
 ```
+### On Windows (Using PowerShell)
+```powershell
+$ .\setup.ps1
+```
 ### On Windows (Using Git Bash)
 ```bash
 $ source setup.sh --windows
