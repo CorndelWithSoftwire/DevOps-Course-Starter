@@ -13,13 +13,13 @@ def get_items():
 @app.route('/item/<id>')
 def get_item(id):
     item = session.get_item(id)
-    return render_template('OneItemDisplay.html', item=item)
+    # return render_template('OneItemDisplay.html', item=item)
+    return render_template('index.html', todos=session.get_items())
 
 
-@app.route('/add_item', methods=['POST'])
+@app.route('/add', methods=['POST'])
 def add_item():
-    if request.method == "POST":
-        session.add_item(request.form.get("title"))
+    session.add_item(request.form.get("title"))
     return redirect("/")
 
 
