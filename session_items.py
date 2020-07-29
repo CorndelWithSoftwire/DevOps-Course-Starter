@@ -71,6 +71,7 @@ def save_item(item):
 def delete_item(item):
 
     existing_items = get_items()
-    updated_items = existing_items.remove(item)
+    existing_items.remove(item)
+    updated_items = existing_items
     session['items'] = updated_items
     return item
