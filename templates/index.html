@@ -1,18 +1,21 @@
-{% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
-
-{% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
-    </div>
-  </div>
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block content %}
+<h1>To-Do App</h1>
+<p>Just another to-do app.</p>
+<h2 ><b>Items</b></h2><br>
+{% for listitem in mylist %}</span></h2>
+<p class="p1"><span class="s1">{{ listitem.id }} : {{ listitem.title }} : {{ listitem.status }}</span></p>
+<p class="p5"><span class="s1">{% endfor %}</span></p>
+<form action="/add" method="post">
+  <label>Enter title of new item to be added</label>
+  <br/>
+  <input name="input_title" type="text" required placeholder="title" id="exampleInput1">
+  <button type="submit">Add</button>
+</form>
+<br/>
+<form action="/mark" method="post">
+  <label>Enter id of item to be completed</label>
+  <br/>
+  <input name="item_id" type="text" placeholder="id" id="exampleInput2">
+  <button type="submit">Complete</button>
+</form>
 {% endblock %}
