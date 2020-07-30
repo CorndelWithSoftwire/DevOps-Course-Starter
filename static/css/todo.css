@@ -89,3 +89,11 @@ label::after {
     -o-transition: .25s all ease;
     transition: .25s all ease;
 }
+
+input[type=text]:invalid {
+ border-color: red;
+}
+input[type=text],
+input[type=text]:valid {
+    border-color: #ccc;
+}
