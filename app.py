@@ -6,8 +6,11 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    items = get_items()
-    return render_template('index.html', list=items)
+    full_list = get_items()
+    list_of_titles = []
+    for item in full_list:
+        list_of_titles.append(item['title'])
+    return render_template('index.html', list=list_of_titles)
 
 if __name__ == '__main__':
     app.run()
