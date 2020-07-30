@@ -15,6 +15,10 @@
               <li>{{ item }}</li>
           {% endfor %}
       </ul>
+    <form action="/listitem" method="post">
+        <input type="text" id="textbox" name="textbox">
+        <button type="submit">Add a new item!</button>
+    </form>
     </div>
   </div>
 {% endblock %}
