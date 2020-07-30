@@ -9,7 +9,7 @@ esac; shift; done
 # Create and enable a virtual environment
 python3 -m venv --clear env
 
-if [ $Windows == 1 ]
+if [[ $Windows == 1 ]]
     then source env/scripts/activate
     else source env/bin/activate
 fi
