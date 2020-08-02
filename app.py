@@ -4,6 +4,7 @@ import config as cf
 
 import session_items as session
 import requests
+import json
 
 
 app = Flask(__name__)
@@ -34,24 +35,44 @@ curl -i "localhost:5000/api/foo?a=hello&b=world"
 @app.route('/complete_item/<idCard>', methods=['PUT'])
 def update_card(idCard):
 
-    idCustomField = 'status'
-    data = {'value' : 'Done'}
-    url = f"https://api.trello.com/1/cards/{idCard}/customField/{idCustomField}/item"
-    
+    add_card_to_done()
+
+    url = "https://api.trello.com/1/cards/{idCard}"
+    headers = {"Accept": "application/json"}
     query = cf.get_trello_query()
-    response = requests.request("PUT", url, data, params=query)
-    print(response.text)
+    #No obvious way of retrieving the done List Id, 
+    #therefore reusing/mocking the example one instead 
+    query['idList'] = '5abbe4b7ddc1b351ef961415'
+    response = requests.request( "PUT", url, headers=headers, params=query )
+    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
 
 #create card/item
-def add_card():
+def add_card(list_id):
     url = "https://api.trello.com/1/cards"
     
     query = cf.get_trello_query()
     #No obvious way of retrieving the created List Id, 
     #therefore reusing/mocking the example one instead 
-    query['idList'] = '5abbe4b7ddc1b351ef961414'
+    query['idList'] = list_id
     response = requests.request("POST", url, params=query )
     print(response.text)
+
+
+def add_card_to_todo():
+    add_card('todo_list_id')
+
+
+def add_card_to_done():
+    add_card('done_list_id')
+
+
+#delete card/item
+def remove_card(id):
+    url = f"https://api.trello.com/1/cards/{id}"
+    response = requests.request("DELETE", url )
+    print(response.text)
+
 
 #Fetch Cards on a list
 def get_cards(id):
@@ -62,18 +83,25 @@ def get_cards(id):
     print(response.text)
 
 
-# create list
+# create lists
 def add_list_to_board(name):
     url = "https://api.trello.com/1/lists"
     query = cf.get_trello_query()
     
-    query['name'] = 'MyCorndelDevOpsToDoBoard'
+    #query['name'] = 'MyCorndelDevOpsToDoBoard'
+    query['name'] = name
     #No obvious way of retrieving the created Board Id, 
     #therefore reusing/mocking the example one instead 
     query['idBoard'] = '5abbe4b7ddc1b351ef961414'
 
     response = requests.request( "POST", url, params=query )
     print(response.text)
+
+def create_to_do_list():
+    add_list_to_board('TO_DO')
+
+def create_done_list():
+    add_list_to_board('DONE')
 
 
 #Create New Board
@@ -82,7 +110,7 @@ def create_to_do_board():
     url = "https://api.trello.com/1/boards/"
     query = cf.get_trello_query()
     query['name'] = 'MyCorndelDevOpsToDoBoard'
-
-   response = requests.request(  "POST", url, params=query )
-   print(response.text)
+    
+    response = requests.request(  "POST", url, params=query )
+    print(response.text)
 
