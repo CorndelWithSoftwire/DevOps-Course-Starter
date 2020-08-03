@@ -1,5 +1,5 @@
-"""Flask configuration class."""
 import os
+
 
 class Config:
     """Base configuration variables."""
