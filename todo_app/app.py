@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
+from todo_app.flask_config import Config
+from todo_app.data import session_items as session
 
 app = Flask(__name__)
-app.config.from_object('flask_config.Config')
+app.config.from_object(Config)
 
 @app.route('/')
 def index():

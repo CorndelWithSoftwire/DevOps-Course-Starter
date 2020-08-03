@@ -106,6 +106,9 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/flask
 
+## Intellij ###
+.idea/
+
 ### macOS ###
 .DS_Store
 
