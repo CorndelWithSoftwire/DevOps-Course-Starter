@@ -11,7 +11,21 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
+        {% for todo in todos %}
+          {{todo.id}} - {{todo.title}}
+          <br>
+
+        {% endfor %}
+
         <!-- List the todo items here -->
+        <form action="/add-todo" method="post">
+          <div class="form-example">
+            <label for="todo">Enter your to-do: </label>
+            <input type="text" name="todo" id="todo" required>
+          </div>
+            <input type="submit" value="Submit!">
+          </div>
+        </form>
       </ul>
     </div>
   </div>
