@@ -4,7 +4,7 @@ import session_items as session
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-#changed to the template for local host
+#changed to the template for local host v2.0
 
 #update from work
 
