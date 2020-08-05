@@ -6,7 +6,7 @@ app.config.from_object('flask_config.Config')
 
 #changed to the template for local host v2.0
 
-#update from work
+#update from work 2.0
 
 @app.route('/')
 def index():
