@@ -8,7 +8,7 @@ app.config.from_object('flask_config.Config')
 @app.route('/')
 def index():
     Items=session.get_items()   
-    session.add_item('A super entry')   # This works to add entries
+   # session.add_item('A super entry')   # This works to add entries
     return render_template('index.html',passedItems=Items)
 
 @app.route('/addentry', methods = ['GET','POST','DELETE'])
