@@ -6,6 +6,8 @@ app.config.from_object('flask_config.Config')
 
 #changed to the template for local host
 
+#update from work
+
 @app.route('/')
 def index():
     return render_template('index.html')
