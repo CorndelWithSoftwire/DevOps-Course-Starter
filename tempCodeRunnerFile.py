@@ -1,0 +1,1 @@
+result = [ items for items in get_existing_items() if items.get('id') != item_id ]
