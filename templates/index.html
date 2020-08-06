@@ -13,6 +13,14 @@
       <ul class="list-group mb-4">
         {% for todo in todos %}
           {{todo.id}} - {{todo.title}}
+        
+          <form action="/delete-todo" method="POST">
+            <input type="hidden" name="todo_id" value="{{todo.id}}">
+            <div class="form-example">
+              <input type="submit" value="Delete!">
+            </div>
+          </form>
+
           <br>
 
         {% endfor %}

@@ -1,8 +1,8 @@
 from flask import session
 
 _DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
+  #  { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
+  # { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
 ]
 
 

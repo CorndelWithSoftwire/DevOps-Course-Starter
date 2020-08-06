@@ -16,7 +16,8 @@ def index():
     
 @app.route('/add-todo', methods=["POST"])
 def add_todo():
-    item = request.form.get('name')
+    item = request.form.get('todo')
+    print(item)
 
     session.add_item(item)
 
