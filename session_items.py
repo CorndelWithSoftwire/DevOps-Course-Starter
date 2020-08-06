@@ -67,3 +67,14 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+#loop through exisiting items!!!!
+
+def delete_item(item_id):
+
+    existing_items = get_items()
+    session['items'] = [ items for items in existing_items if items.get('id') != item_id ]
+    print(existing_items)
+    
+    return item_id
+
