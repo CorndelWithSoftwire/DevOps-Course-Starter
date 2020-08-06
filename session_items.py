@@ -73,7 +73,7 @@ def save_item(item):
 def delete_item(item_id):
 
     existing_items = get_items()
-    session['items'] = [ items for items in existing_items if items.get('id') != item_id ]
+    session['items'] = [ items for items in existing_items if int(items.get('id')) != int(item_id) ]
     print(existing_items)
     
     return item_id
