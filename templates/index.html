@@ -12,21 +12,20 @@
     <h2>Items</h2>
     <ul class="list-group mb-4">
       {% for item in items %}
-          <p><li>{{ item.title }}</li></p>
+        <li class="list-group-item">{{ item.title }}</li>
       {% endfor %}
     </ul>
   </div>
 </div>
 
-<div>
+<h3>Add item</h3>
 
-  <h3>Add item</h3>
-
-  <form action="" method="post">
+<form action="" method="post" class="form-inline">
+  <div class="form-group">
     <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title" value="title"><br>
-    <input type="submit" value="Submit">
-  </form>
+    <input type="text" id="title" class="form-control" name="title" placeholder="Enter title"><br>
+  </div>
+  <button type="submit" class="btn btn-success"> Submit</button> </button>
+</form>
 
-</div>
 {% endblock %}
