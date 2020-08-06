@@ -35,3 +35,13 @@ def delete_todo():
 
     return redirect('/')
 
+#update function 
+@app.route('/update-todo', methods=["POST"])
+def update_todo():
+    item = request.form.get('todo_id')
+    new_todo_value = request.form.get("todo_value")
+    print(item)
+
+    session.update_item(item, new_todo_value)
+
+    return redirect('/')

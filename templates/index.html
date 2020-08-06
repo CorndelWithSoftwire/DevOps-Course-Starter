@@ -12,8 +12,18 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for todo in todos %}
-          {{todo.id}} - {{todo.title}}
-        
+        <!-- {{todo.id}} - {{todo.title}} -->
+      
+          <!-- Edit form -->
+          <form action="/update-todo" method="POST">
+            <input type="text" name="todo_value" value="{{todo.title}}">
+            <input type="hidden" name="todo_id" value="{{todo.id}}">
+            <div class="form-example">
+              <input type="submit" value="Update!">
+            </div>
+          </form>
+
+          <!-- Delete form -->
           <form action="/delete-todo" method="POST">
             <input type="hidden" name="todo_id" value="{{todo.id}}">
             <div class="form-example">
@@ -26,6 +36,7 @@
         {% endfor %}
 
         <!-- List the todo items here -->
+        <!-- Add new todo form -->
         <form action="/add-todo" method="post">
           <div class="form-example">
             <label for="name">Enter your todo: </label>

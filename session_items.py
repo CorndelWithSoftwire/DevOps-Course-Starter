@@ -78,3 +78,7 @@ def delete_item(item_id):
     
     return item_id
 
+def update_item(item_id, new_todo_value):
+
+    delete_item(item_id)
+    return add_item(new_todo_value)
