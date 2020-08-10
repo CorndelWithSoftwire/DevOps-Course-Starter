@@ -2,7 +2,7 @@
 name = "todo-app"
 version = "0.1.0"
 description = "A simple ToDo app for your DevOps apprenticeship"
-authors = ["Robert Owen <robert.owen@softwire.com>"]
+authors = []
 
 [tool.poetry.dependencies]
 python = "^3.7"
