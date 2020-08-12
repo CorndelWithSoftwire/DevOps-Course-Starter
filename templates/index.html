@@ -6,22 +6,29 @@
     <h1 class="display-4">Lindsey's To-Do App</h1>
     <p class="lead">Lindsey's to-do app.</p>
   </div>
-
-  <div class="row">
+</div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
+      <h2>Lindsey's Check List</h2>
+      </br>
+        <ul class="list-group mb-4">
+        </br>
         {% for todo in todos %}
-          <li>{{todo.id}} - {{todo.title}} - {{todo.status}}</li>
+          <li> {{todo.id}} - {{todo.title}} - {{todo.status}}</li>
+        </div class="form-example">
+        <button type="button" class="btn btn-success">delete</button>
+        <button type="button" class="btn btn-delete"></button>
+   </div>
         {% endfor %}
-      
         <form action="/add-todo" method="POST">
           <div class="form-example">
-              <label for="name">Enter your todo name: </label>
-              <input type="text" name="name" id="name" required>
+            </br>
+              </br>
+                <label for="name">Enter your todo name: </label>
+                <input type="text" name="name" id="name" required>
             </div>
           </div class="form-example">
-             <input type="Submit" value="Submit>">
+             <input class="btn btn-primary" type="submit" value="Submit">
+             <button type="button" class="btn btn-Submit btn-lg"></button>
         </div>
       </form>
     </ul>

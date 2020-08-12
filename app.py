@@ -17,3 +17,13 @@ def add_todo():
     session.add_item(item)
 
     return redirect("/")
+
+
+@app.route('/delete-todo', methods = ['POST'])
+def delete_todo():
+    item = request.form.delete('todo_id')
+    print(item)
+
+    session.del_item(item)
+
+    return redirect("/")
