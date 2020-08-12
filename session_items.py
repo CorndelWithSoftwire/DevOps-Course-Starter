@@ -78,6 +78,19 @@ def delete_item(item_id):
     
     return item_id
 
+#including the status function 
+def update_status(items, status):
+    # Check if the passed status is a valid value
+    if (status.lower().strip() == 'not started'):
+        status = NOTSTARTED
+    elif (status.lower().strip() == 'in progress'):
+        status = INPROGRESS
+    elif (status.lower().strip() == 'completed'):
+        status = COMPLETED
+    else:
+        print("Invalid Status: " + status)
+        return None
+
 def update_item(item_id, new_todo_value):
 
     delete_item(item_id)

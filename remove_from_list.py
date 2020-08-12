@@ -1,7 +1,7 @@
 expected_result = [{'id': 1, 'status': 'Not Started', 'title': 'test 2'}, {'id': 2, 'status': 'Not Started', 'title': '1'}, {'id': 3, 'status': 'Not Started', 'title': '2'}, {'id': 4, 'status': 'Not Started', 'title': '2'}, {'id': 5, 'status': 'Not Started', 'title': '3'}]
 
 def get_existing_items():
-	return [{'id': 0, 'status': 'Not Started', 'title': 'test 1'}, {'id': 1, 'status': 'Not Started', 'title': 'test 2'}, {'id': 2, 'status': 'Not Started', 'title': '1'}, {'id': 3, 'status': 'Not Started', 'title': '2'}, {'id': 4, 'status': 'Not Started', 'title': '2'}, {'id': 5, 'status': 'Not Started', 'title': '3'}]
+	return [{'id': 1, 'status': 'Not Started', 'title': 'test 1'}, {'id': 1, 'status': 'Not Started', 'title': 'test 2'}, {'id': 2, 'status': 'Not Started', 'title': '1'}, {'id': 3, 'status': 'Not Started', 'title': '2'}, {'id': 4, 'status': 'Not Started', 'title': '2'}, {'id': 5, 'status': 'Not Started', 'title': '3'}]
 
 item_id = 0
 
