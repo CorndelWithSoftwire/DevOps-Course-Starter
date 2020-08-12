@@ -4,22 +4,24 @@
 {% block content %}
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <p class="lead">Toby's To Do List.</p>
   </div>
+
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>Items</h2> 
       <ul class="list-group mb-4">
         {% for todo in todos %}
-        <!-- {{todo.id}} - {{todo.title}} -->
+        {{todo.id}} - {{todo.title}}
+      
       
           <!-- Edit form -->
           <form action="/update-todo" method="POST">
             <input type="text" name="todo_value" value="{{todo.title}}">
             <input type="hidden" name="todo_id" value="{{todo.id}}">
             <div class="form-example">
-              <input type="submit" value="Update!">
+              <input type="submit" class="btn btn-primary" value="Update!">
             </div>
           </form>
 
@@ -27,11 +29,13 @@
           <form action="/delete-todo" method="POST">
             <input type="hidden" name="todo_id" value="{{todo.id}}">
             <div class="form-example">
-              <input type="submit" value="Delete!">
+              <input type="submit" class="btn btn-danger" value="Delete!">
             </div>
           </form>
 
           <br>
+
+        </tr>
 
         {% endfor %}
 
@@ -43,7 +47,7 @@
             <input type="text" name="todo" id="todo" required>
           </div>
           <div class="form-example">
-            <input type="submit" value="Submit!">
+            <input type="submit" class="btn btn-success" value="Submit!">
           </div>
         </form>
       </ul>
