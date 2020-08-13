@@ -40,8 +40,9 @@ def delete_todo():
 def update_todo():
     item = request.form.get('todo_id')
     new_todo_value = request.form.get("todo_value")
+    new_status_value = request.form.get("todo_status")
     print(item)
 
-    session.update_item(item, new_todo_value)
+    session.update_item(item, new_todo_value, new_status_value)
 
     return redirect('/')

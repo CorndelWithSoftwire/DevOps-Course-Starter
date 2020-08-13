@@ -30,7 +30,7 @@ def get_item(id):
     return next((item for item in items if item['id'] == int(id)), None)
 
 
-def add_item(title):
+def add_item(title, todo_status="not started"):
     """
     Adds a new item with the specified title to the session.
 
@@ -45,7 +45,7 @@ def add_item(title):
     # Determine the ID for the item based on that of the previously added item
     id = items[-1]['id'] + 1 if items else 0
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    item = { 'id': id, 'title': title, 'status': todo_status }
 
     # Add the item to the list
     items.append(item)
@@ -91,7 +91,7 @@ def update_status(items, status):
         print("Invalid Status: " + status)
         return None
 
-def update_item(item_id, new_todo_value):
+def update_item(item_id, new_todo_value, new_status_value):
 
     delete_item(item_id)
-    return add_item(new_todo_value)
+    return add_item(new_todo_value, new_status_value)

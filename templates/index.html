@@ -13,12 +13,18 @@
       <h2>Items</h2> 
       <ul class="list-group mb-4">
         {% for todo in todos %}
-        {{todo.id}} - {{todo.title}} - {{todo.status}}
+        <!-- {{todo.id}} - {{todo.title}} - {{todo.status}}-->
       
       
           <!-- Edit form -->
           <form action="/update-todo" method="POST">
-            <input type="text" name="todo_value" value="{{todo.title}}">
+            {{todo.id}} <input type="text" name="todo_value" value="{{todo.title}}"> 
+
+            <select name="todo_status" id="todo_status">
+              <option selected="selected" value="{{todo.status}}">{{todo.status}}</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
             <input type="hidden" name="todo_id" value="{{todo.id}}">
             <div class="form-example">
               <input type="submit" class="btn btn-primary" value="Update!">
