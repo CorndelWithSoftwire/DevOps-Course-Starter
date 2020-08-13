@@ -7,6 +7,7 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
+    session.add_item('Add a new item from app')
     return render_template('index.html', items=session.get_items())
 
 if __name__ == '__main__':
