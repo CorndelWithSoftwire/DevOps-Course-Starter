@@ -8,20 +8,28 @@
   </div>
 
   <div class="row">
+    <form action="/addit" method="post">
+      <div class="col-md-12 form-group row">
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">New Item</span>
+          </div>
+        <input class="form-control" type="text" name="new_item" id="item"/>
+        </div>  
+        <button class="btn btn-primary" type="submit" title="Add Item">Add It</button>
+      </div>
+      
+    </form>
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for item in items %} 
-          <li>ID : {{item['id']}}, Title : {{item['title']}}, Status : {{item['status']}}
-            <button type="button" title="Complete Item"><a href="/complete?item_id={{item['id']}}">Mark Completed</a></button>
+          <li class="list-group-item {% if item['status'] == 'Complete' %}list-group-item-success{% endif %}">ID : {{item['id']}}, Title : {{item['title']}}, Status : {{item['status']}}
+            <button {% if item['status'] == 'Complete' %}hidden{% endif %} class="btn btn-link btn-sm " type="button" title="Complete Item"><a href="/complete?item_id={{item['id']}}">Mark Completed</a></button>
             </li> 
         {% endfor %}
       </ul>
-      <form action="/addit" method="post">
-        <input type="text" name="new_item" id="item"/>
-        <button type="submit" title="Add Item">Add It</button>
-      </form>
     </div>
   </div>
 {% endblock %}

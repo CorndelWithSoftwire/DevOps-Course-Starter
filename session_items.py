@@ -13,7 +13,9 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    return session.get('items', _DEFAULT_ITEMS)
+    # return session.get('items', sorted(_DEFAULT_ITEMS, key=lambda item: item['status'], reverse=True))
+    _SORTED_ITEMS = _DEFAULT_ITEMS.sort(key = lambda item : item['status'], reverse=True)
+    return session.get('items', _SORTED_ITEMS)
 
 
 def get_item(id):
