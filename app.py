@@ -7,8 +7,15 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    session.add_item('Add a new item from app')
     return render_template('index.html', items=session.get_items())
+
+@app.route('/addit', methods=['GET', 'POST'])
+def addit():
+    if request.method == 'GET':
+        return 'Meant for POST requires item'
+    if request.method == 'POST':
+        session.add_item(request.form.get('new_item'))
+        return redirect('/')
 
 if __name__ == '__main__':
     app.run()
