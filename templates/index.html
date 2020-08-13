@@ -13,9 +13,15 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for item in items %} 
-          <li>ID : {{item['id']}}, Title : {{item['title']}}, Status : {{item['status']}}</li> 
+          <li>ID : {{item['id']}}, Title : {{item['title']}}, Status : {{item['status']}}
+            <button type="button" title="Complete Item"><a href="/complete?item_id={{item['id']}}">Mark Completed</a></button>
+            </li> 
         {% endfor %}
       </ul>
+      <form action="/addit" method="post">
+        <input type="text" name="new_item" id="item"/>
+        <button type="submit" title="Add Item">Add It</button>
+      </form>
     </div>
   </div>
 {% endblock %}
