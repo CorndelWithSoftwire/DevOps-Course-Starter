@@ -67,3 +67,12 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def delete_todo(todo_id):
+
+    existing_items = get_items()
+    session['items'] = [ items for items in existing_items if int(items.get('id')) != int(item_id) ]
+    print(existing_items) 
+
+    return item
+

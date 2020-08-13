@@ -2,35 +2,36 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
+<div class="jumbotron">
     <h1 class="display-4">Lindsey's To-Do App</h1>
     <p class="lead">Lindsey's to-do app.</p>
-  </div>
-</div class="row">
+</div>
+<div class="row">
     <div class="col-md-12">
       <h2>Lindsey's Check List</h2>
-      </br>
+      <br/>
         <ul class="list-group mb-4">
-        </br>
+        <br/>
         {% for todo in todos %}
-          <li> {{todo.id}} - {{todo.title}} - {{todo.status}}</li>
-        </div class="form-example">
-        <button type="button" class="btn btn-success">delete</button>
-        <button type="button" class="btn btn-delete"></button>
-   </div>
+        <li> {{todo.id}} - {{todo.title}} - {{todo.status}}</li>
+      <form>
+        <div class="form-example">
+        <button type="button" class="btn btn-success">Delete</button>
+        </div>
+      </form>
         {% endfor %}
         <form action="/add-todo" method="POST">
           <div class="form-example">
-            </br>
-              </br>
+            <br/>
+              <br/>
                 <label for="name">Enter your todo name: </label>
                 <input type="text" name="name" id="name" required>
             </div>
-          </div class="form-example">
-             <input class="btn btn-primary" type="submit" value="Submit">
-             <button type="button" class="btn btn-Submit btn-lg"></button>
-        </div>
-      </form>
-    </ul>
-  </div> 
+          <input type="hidden" name="todo_id" value="todo.id">
+          <div class="form-example">
+            <input type="submit" class="btn btn-danger btn-lg" style="color:rgb(66, 255, 0) !important" value="Submit"> 
+          </div>
+        </form>
+      </ul>
+    </div> 
 {% endblock %}
