@@ -114,3 +114,6 @@ env/
 
 ### Configuration files ###
 .env
+
+### Ignore idea pycharm files ###
+.idea
