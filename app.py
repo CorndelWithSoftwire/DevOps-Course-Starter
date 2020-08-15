@@ -33,8 +33,8 @@ def delete_item(id):
 
     session.delete_item(item)
 
-    return render_template('index.html')
-
+    # return render_template('index.html')
+    return redirect("/")
 
 
 if __name__ == '__main__':
