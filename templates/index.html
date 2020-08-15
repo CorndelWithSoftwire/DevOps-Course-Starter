@@ -1,18 +1,66 @@
-{% extends "layout.html" %}
+{% extends 'layout.html'  %}
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+<div class="jumbotron">
+    <h1 style="color: blue" class="display-4">To-Do App</h1>
+    <p style="color: blue" class="lead">Just another to-do app.</p>
+</div>
+<div class="well text-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="color: blue">Items</h2>
+            <ul class="list-group mb-4">
+                <h6>
+                    {% for todo in todos %}
+                    {{ todo.title }} {{todo.status}}
+                    <a href="/" class="btn btn-danger">Item to Delete</a>
+                    <br>
+                    {% endfor %}
+                </h6>
+            </ul>
+        </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+
+
+
+        <div>
+            
+            <div class="col-md-12"></div>
+            <form action="/" method="POST">
+                    <h2>
+                        <label style="color: blue">Add New Item</label>
+                        <input class="form-control" id="name"  type="text" name="title">
+                        <button type="submit" class="btn btn-success">Create New Item</button>
+                        <br>
+                    </h2>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-12">
+        <div class="well text-container">
+            <div class="row">
+                <form action="/save/{{Item}}" method="POST">
+                    <div class="form-group">
+                        <h2>
+                            <label style="color: blue">Title</label>
+                            <input class="form-control" type="text" name="Title">
+                            <button type="submit" class="btn btn-success">Save Item</button>
+                            <a href=" " class="btn btn-success">Save Item</a>
+                            <br>
+                        </h2>
+                    </div>
+                </form>
+            </div>
+        </div>
+     </div>
+
+    <div>
+>
+    
+            
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}
