@@ -10,5 +10,15 @@ def index():
 
     return render_template('index.html', items = session.get_items())
 
+
+
+@app.route('/', methods = ['POST', 'GET'])
+def update():
+    if request.method == 'POST':
+        NewItem = request.form["NewItem"]
+        session.add_item(NewItem)
+        return render_template('index.html', items = session.get_items())
+        
+
 if __name__ == '__main__':
     app.run()
