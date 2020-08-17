@@ -114,3 +114,6 @@ env/
 
 ### Configuration files ###
 .env
+
+bin/
+pyvenv.cfg

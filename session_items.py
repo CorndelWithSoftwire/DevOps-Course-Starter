@@ -1,10 +1,6 @@
 from flask import session
 
-_DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Delete todo items' }
-]
+_DEFAULT_ITEMS = []
 
 def get_items():
     """
@@ -70,8 +66,21 @@ def save_item(item):
 
 def delete_todo(todo_id):
 
-    existing_items = delete_items()
-    session['items'] = [ items for items in existing_items if int(items.get('id')) != int(item_id) ]
-    print(existing_items) 
+    print("Todo ID========")
+    print(todo_id)
+    print("Todo ID========END")
 
-    return redirect("/")
+
+    existing_items = get_items()
+    print("Existing Items========")
+    print(existing_items)
+    print("Existing Items========END")
+
+    session['items'] = [ items for items in existing_items if int(items.get('id')) != int(todo_id) ]
+
+    print("Session Items========")
+    print(session['items'])
+    print("Session Items========END")
+
+
+    return todo

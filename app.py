@@ -7,20 +7,17 @@ app.config.from_object('flask_config.Config')
 @app.route('/')
 def index():
     items = session.get_items()
-
     return  render_template("index.html",todos = items)
 
 @app.route('/add-todo', methods = ['POST'])
 def add_todo():
     item = request.form.get('name')
-
     session.add_item(item)
-
     return redirect("/")
 
 
-@app.route('/delete-todo', methods = ['POST'])
+@app.route('/delete-todo', methods=['POST'])
 def delete_todo():
-        item = request.form.delete('item')
-
-        return redirect("/")
+    todo_id = request.form.get('todo_id')
+    session.delete_todo(todo_id)
+    return redirect("/")

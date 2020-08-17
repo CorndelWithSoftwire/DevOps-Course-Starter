@@ -13,33 +13,32 @@
       <h2 style="color:#e4acca" >Lindsey's Items</h2>
         <ul class="list-group mb-4">
           <br/>
+          <!-- List / Delete form -->
             {% for todo in todos %}
               <li class="list-group-item" style="color-interpolation-filters: initial;">
-                {{todo.title}}<br/>
+                {{todo.title}} <br/>
                 <span class="badge badge-secondary" style="background-color: plum;">{{todo.id}}</span>
                 <span class="badge badge-warning" style="background-color:rgb(201, 139, 233)">{{todo.status}}</span>
                 <div class="btn-group float-right" role="group" aria-label="item actions">           
-             <button type="button" class="btn btn-dark" style="color:whitesmoke">Delete</button>
-          </div>
-        </form>
-        {% endfor %}
-        <form action="/add-todo" method="POST">
-          <div class="form-example">
+             
+
+                <form action="/delete-todo" method="POST">
+                    <input type="hidden" name="todo_id" value='{{ todo.id }}'>
+                    <input type="submit" class="btn btn-primary btn-lg" style="color:whitesmoke !important" value="Delete"> 
+                </form>
+        
+            {% endfor %}
+        </div>
+        
+        <!-- ADD fORM -->
+
+        <div class="col-md-12">
+          <form action="/add-todo" method="POST">
             <br/>
               <label for="name">Enter your todo name: </label>
-              <input type="text" name="name" id="name" required>
-            <br/>   
-          </div>
-            <input type="hidden" name="todo_id" value="todo.id">
-          <div class="form-example">
+              <input type="text" name="name" id="name">
             <input type="submit" class="btn btn-danger btn-lg" style="color:whitesmoke !important" value="Submit"> 
-          </div>
-        </form>
-        <form action="/delete-todo" method="POST">
-          <div class="form-example">
-            <output type="hidden" name="todo_id" value="todo.id">
-          <div class="form-example">
-        </form>
-      </ul>
-    </div> 
+          </form>
+        </div> 
+</div>
 {% endblock %}
