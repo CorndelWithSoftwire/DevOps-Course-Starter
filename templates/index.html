@@ -1,42 +1,44 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Lindsey's To-Do App{% endblock %}
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">LINDSEY'S TO-DO APP</h1>
-      <p class="lead">Lindsey Raven.</p>
+  <h1 style="color:#cf78a8" class="display-3">LINDSEY'S TO-DO APP</h1>  
+    <Hr color="pink"></Hr>
+      <p style="color: rgb(122, 67, 97)" class="lead">Lindsey Raven</p>
 </div>
+
 <div class="row">
     <div class="col-md-12">
-      <h2>Lindsey's Check List</h2>
-      <br/>
+      <h2 style="color:#e4acca" >Lindsey's Items</h2>
         <ul class="list-group mb-4">
-        <br/>
-        {% for todo in todos %}
-        <li> {{todo.id}} - {{todo.title}}</li>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            Done!
-          </label>
-        </div>
-      <form>
-        <div class="form-example">
-        <button type="button" class="btn btn-dark" style="color:whitesmoke">Delete</button>
-        </div>
-      </form>
+          <br/>
+            {% for todo in todos %}
+              <li class="list-group-item" style="color-interpolation-filters: initial;">
+                {{todo.title}}<br/>
+                <span class="badge badge-secondary" style="background-color: plum;">{{todo.id}}</span>
+                <span class="badge badge-warning" style="background-color:rgb(201, 139, 233)">{{todo.status}}</span>
+                <div class="btn-group float-right" role="group" aria-label="item actions">           
+             <button type="button" class="btn btn-dark" style="color:whitesmoke">Delete</button>
+          </div>
+        </form>
         {% endfor %}
         <form action="/add-todo" method="POST">
           <div class="form-example">
             <br/>
-              <br/>
-                <label for="name">Enter your todo name: </label>
-                <input type="text" name="name" id="name" required>
-            </div>
-          <input type="hidden" name="todo_id" value="todo.id">
+              <label for="name">Enter your todo name: </label>
+              <input type="text" name="name" id="name" required>
+            <br/>   
+          </div>
+            <input type="hidden" name="todo_id" value="todo.id">
           <div class="form-example">
             <input type="submit" class="btn btn-danger btn-lg" style="color:whitesmoke !important" value="Submit"> 
           </div>
+        </form>
+        <form action="/delete-todo" method="POST">
+          <div class="form-example">
+            <output type="hidden" name="todo_id" value="todo.id">
+          <div class="form-example">
         </form>
       </ul>
     </div> 

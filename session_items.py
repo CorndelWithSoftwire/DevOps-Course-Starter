@@ -70,33 +70,8 @@ def save_item(item):
 
 def delete_todo(todo_id):
 
-    existing_items = get_items()
+    existing_items = delete_items()
     session['items'] = [ items for items in existing_items if int(items.get('id')) != int(item_id) ]
     print(existing_items) 
 
-    return item
-
-
-def add_item(title):
-    """
-    Deletes an existing item from the session. 
-
-    Args:
-        title: The title of the item.
-
-    Returns:
-        item: Deletes the item.
-    """
-    items = delete_items()
-
-    # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
-
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
-
-    # Delete the item on the list
-    items.append(item)
-    session['items'] = items
-
-    return item
-
+    return redirect("/")
