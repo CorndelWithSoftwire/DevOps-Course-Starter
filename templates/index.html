@@ -17,12 +17,24 @@
 	      {% endfor %}
 	
       </ul>
+      <h2>Items from TRELLO To-DO list</h2>
+      <ul class="list-group mb-4">
+        <li>{{todisplay}}</li>
+        
+
+
+
+      </ul>  
     </div>
   </div>
   <form action="/addentry" method="post">
     <label for="title">Insert a new title:</label><br>
     <input type="text" id="title" name="title"><br>
   
+  </form>
+  <form action="/complete_item" method="POST">
+    <label for="title">CARD ID of item to be moved to DONE:</label><br>
+    <input type="text" id="title2" name="title2"><br>
   </form>
   
 {% endblock %}

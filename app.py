@@ -17,7 +17,8 @@ cardsurl = "https://api.trello.com/1/cards"      # I could put the bit apart fro
 acardsurl = "https://api.trello.com/1/cards/5f352898cdb592062bb71e23"                   # Used for hardcoded single card transfer from TO DO to DONE.
 boardurl = "https://api.trello.com/1/boards/5f3528983d4fb244aae9f934/cards"             # The board ID is not a secret!
 destinationlistid= "5f35289963b720014dd8a0ce"              # For the TO DO list and our destination for list transfer.  This is not a secret!  But is of course unique to me.  Found using postman API request,
-
+listid = "5f352898dc8a8c31a0a1e439"                         # TO BE DONE list id - necessary for POST API CALL to add new items
+donelistid = "5f3528981725711087e10339"                     # ACTUALLY DONE LIST ID
 # thislist= ["apple", "banana", "cherry", "pumpkin","whatever","whatever2"]                      # Temporary when I didn't know how to initialise a list of multiple entries
 
 # My code deals with a maximum of 100 cards.
@@ -45,20 +46,15 @@ def index():
  #   print(response2.text)                           # Just to check its actually being gotten!
  
     #print(response2.text)                   
-    #print(type(response2.text))                     # OK so response2.text is one massive long string
+    #print(type(response2.text))                     # OK so response2.text is one massive long string.  Which is fairly useless
                                                     # It was a nightmare getting the bit of the JSON I wanted
-    the_list = json.loads(response2.text)           # transfer the one long string into a LIST (Not a dictionary .. pretty useless now I'm gonna have to split it by hand)
-    print(the_list)
+    the_list = json.loads(response2.text)           # transfer the one long string into a LIST (Not a dictionary .. pretty useless now I'm gonna have to split it by hand). I REALLY with I knew how to get it into a dictionery, would have saved hours.
 #    firstcard=str(card_data[1])
 #    nowsplit=firstcard.split()
     #print (nowsplit['Id'])
-    print ("---------------------------------")
  #   thetype = type(card_data)
     #  print(the_list[1])                                 # Here for example is the first card details.  But still, this massive list is actually simply 1 element of a string, which is no use
-                                                    # So now I need to think of some way of getting this single string into seperate elements 
-    # print(Onecard)                                  # OK successfully transferred into a string.  Now I can be really cheeky: 
-    # print(Onecard[8:32])                             # Well it's always in the same place and the same length.  Hey .. at least this line works!  Don't knock it!
-    # print(the_list)
+                                                    # So now I need to think of some way of getting this single string into seperate elements manually
     counter = 0
     for D in the_list:                              # for each of the full cards in the list 
 	    # print(the_list[D])                          # For some totally bizarre reason this doesn't work (show each line) .. So a totally sloppy solution below involving COUNTER all over the place
@@ -70,8 +66,7 @@ def index():
         # print((thislist[counter])[startofcardname+9:endofcardname-2])         # Here for testing purposes
         superlist[counter]=((thislist[counter])[startofcardname+9:endofcardname-2])
         counter = counter +1                        # As said previously - this is really rubbish .. but 'D' won't work, and I'm running out of time .. so this is the only way forward.                  
-    print(superlist)
-
+    # print(superlist)                              For testing purposes
 
 # I tried all the below but nothing would work in order to get those card id's into different parts of the list, hence instead had to use the above totally ugly solution
  #   counter = 0
@@ -99,19 +94,21 @@ def index():
 #        )
 #        counter=counter+1
 
+# ---------------------------------------------
+
 # CHANGE LIST THAT A CARD IS IN.   THE MVP FOR THE SPEC IS I MOVE ANY CARD FROM TO DO INTO DOING.  So this is triggered by execution (or web page refresh) and hard-code moves one of my tasks to a different list.
-
-
-    query = {
-        'key': trellokey,
-        'token': trellotoken,
-        'idList': destinationlistid   
-    }
-    response2 = requests.request(
-         "PUT",
-         acardsurl,
-         params=query
-     )
+# This PUT should be in a different method but I've spent so many hours already.
+# # 10 LINES TEMPORARILY REMOVED
+ #   query = {
+ #       'key': trellokey,
+ #       'token': trellotoken,
+ #       'idList': destinationlistid   
+ #   }
+ #   response2 = requests.request(
+ #        "PUT",
+ #        acardsurl,
+ #        params=query
+ #    )
 
 
 
@@ -127,7 +124,6 @@ def entry():
         'key': trellokey,
         'token': trellotoken,
         'idList': listid,
-     #   'name': 'First added action'                # hard coding at the start to check it works
         'name': request.form['title']
     }
 
@@ -139,6 +135,27 @@ def entry():
 
 
     return redirect("/")
+
+@app.route('/complete_item', methods = ["PUT","GET","POST"])
+
+def complete_item():
+
+    query = {
+        'key': trellokey,
+        'token': trellotoken,     
+        'idList': donelistid,       
+        'daveurl': "https://api.trello.com/1/cards" + request.form['title2']
+    }
+    print(query)
+    response = requests.request(
+        "PUT",
+        "https://api.trello.com/1/cards/" + request.form['title2'],                 # The API demands the number is put into the URL, not as part of the query
+        params=query
+    )
+
+    return redirect("/")
+
+
 
 if __name__ == '__main__':
    
