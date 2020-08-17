@@ -110,9 +110,10 @@ def index():
  #        params=query
  #    )
 
+    print(Items)
+    print(superlist)
 
-
-    return render_template('index.html',passedItems=Items,todisplay=superlist)
+    return render_template('index.html',passedItems=Items,todisplay=superlist[1])
 
 @app.route('/addentry', methods = ["POST"])
 
