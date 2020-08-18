@@ -7,12 +7,53 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">Add New To DO List Item</div>
+          <div class="card-body">
+              <form action="" method="post">
+                <div class="row">
+                  <div class="input-group col-4">
+                      <label class="sr-only">To DO item title</label>
+                      <input type="text" class="form-control" id="NewItemTitle" name="NewToDoItem" placeholder="Enter To Do item here" required>
+                  </div>
+                  <div class="input-group-append col-4">
+                        <button type="submit" class="btn btn-success" >Add Item</button>&nbsp;&nbsp;
+                        <button type="reset" class="btn btn-danger"  >Reset</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+      </div>
+
+    <br>
+    <div class="card">
+      <div class="card-header" align="center">TO DO List</div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <caption id="tcaption" style="color:#005B82"></caption>
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for item in items %}
+          <tr>
+            <th scope="row">{{item['id']}}</th>
+            <td>{{item['title']}}</td>
+            <td>{{item['status']}}</td>
+            <td>
+              <button type="submit" class="btn btn-warning" id="{{item['id']}}">Mark as Complete</button>
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 {% endblock %}
