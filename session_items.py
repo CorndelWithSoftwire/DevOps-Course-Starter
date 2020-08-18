@@ -83,4 +83,4 @@ def delete_todo(todo_id):
     print("Session Items========END")
 
 
-    return todo
+    return todo_id

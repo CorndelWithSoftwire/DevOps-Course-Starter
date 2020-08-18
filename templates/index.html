@@ -3,11 +3,10 @@
 
 {% block content %}
 <div class="jumbotron">
-  <h1 style="color:#cf78a8" class="display-3">LINDSEY'S TO-DO APP</h1>  
+  <h1 style="color:#cf78a8" class="display-3">LINDSEY'S TO-DO APP &#128525;</h1> 
     <Hr color="pink"></Hr>
-      <p style="color: rgb(122, 67, 97)" class="lead">Lindsey Raven</p>
-</div>
-
+      <p style="color: rgb(122, 67, 97)" class="lead">Lindsey Raven &#128151;</p>
+      
 <div class="row">
     <div class="col-md-12">
       <h2 style="color:#e4acca" >Lindsey's Items</h2>
@@ -17,14 +16,14 @@
             {% for todo in todos %}
               <li class="list-group-item" style="color-interpolation-filters: initial;">
                 {{todo.title}} <br/>
-                <span class="badge badge-secondary" style="background-color: plum;">{{todo.id}}</span>
-                <span class="badge badge-warning" style="background-color:rgb(201, 139, 233)">{{todo.status}}</span>
+                <span class="badge badge-secondary" style="background-color:rgb(202, 141, 192)">{{todo.id}}</span>
+                <span class="badge badge-warning" style="background-color:hsl(323, 30%, 62%)">{{todo.status}}</span>
                 <div class="btn-group float-right" role="group" aria-label="item actions">           
              
 
                 <form action="/delete-todo" method="POST">
                     <input type="hidden" name="todo_id" value='{{ todo.id }}'>
-                    <input type="submit" class="btn btn-primary btn-lg" style="color:whitesmoke !important" value="Delete"> 
+                    <input type="submit" class="btn btn-dark btn-lg" style="color:#e4acca !important" value="Delete"> 
                 </form>
         
             {% endfor %}
@@ -32,12 +31,12 @@
         
         <!-- ADD fORM -->
 
-        <div class="col-md-12">
+        <div class="col-md-12 text-center">
           <form action="/add-todo" method="POST">
             <br/>
-              <label for="name">Enter your todo name: </label>
+              <label for="name">&#128151;Enter your todo name: </label>
               <input type="text" name="name" id="name">
-            <input type="submit" class="btn btn-danger btn-lg" style="color:whitesmoke !important" value="Submit"> 
+            <input type="submit" class="btn btn-dark btn-lg" style="color:#e4acca !important" value="Submit"> 
           </form>
         </div> 
 </div>
