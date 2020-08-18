@@ -25,7 +25,18 @@
                     <input type="hidden" name="todo_id" value='{{ todo.id }}'>
                     <input type="submit" class="btn btn-dark btn-lg" style="color:#e4acca !important" value="Delete"> 
                 </form>
-        
+
+                <!-- status update form-->
+
+                <form action="/complete-todo" method="POST">
+                  <input type="hidden" name="todo_id" value='{{ todo.id }}'>
+                  <input type="submit" class="btn btn-dark btn-lg" style="color:#e4acca !important" value="Complete"> 
+                </form>        
+
+                <form action="/started-todo" method="POST">
+                  <input type="hidden" name="todo_id" value='{{ todo.id }}'>
+                  <input type="submit" class="btn btn-dark btn-lg" style="color:#e4acca !important" value="Started"> 
+               </form>   
             {% endfor %}
         </div>
         

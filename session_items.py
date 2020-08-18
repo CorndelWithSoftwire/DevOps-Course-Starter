@@ -84,3 +84,31 @@ def delete_todo(todo_id):
 
 
     return todo_id
+
+
+def complete_todo(id):
+  
+    existing_items = get_items()
+
+    for item in range(len(existing_items)):
+        if existing_items[item]['id'] == int(id):
+            existing_items[item]['status'] = "Completed"
+            break
+
+    session['items'] = existing_items
+
+    return id
+
+
+def started_todo(id):
+  
+    existing_items = get_items()
+
+    for item in range(len(existing_items)):
+        if existing_items[item]['id'] == int(id):
+            existing_items[item]['status'] = "Started"
+            break
+
+    session['items'] = existing_items
+
+    return id
