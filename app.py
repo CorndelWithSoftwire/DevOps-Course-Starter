@@ -15,11 +15,5 @@ def addNew():
         session.add_item(NewItem)
         return render_template('index.html', items = session.get_items())
 
-@app.route('/', methods = ['PUT', 'GET'])
-def markascomplete():
-    if request.method == 'PUT':
-        session.save_item(id)
-        return render_template('index.html', items = session.get_items())
-
 if __name__ == '__main__':
     app.run()

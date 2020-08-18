@@ -2,34 +2,39 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-      <div class="col-md-12">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">id</th>
-              <th scope="col">Title</th>
-              <th scope="col">Status</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in items %}
-            <tr>
-              <th scope="row">{{ item['id']}}</th>
-              <td>{{ item['title']}}</td>
-              <td>{{ item['status'] }}</td>
-              <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-success disabled">
-                  <input type="radio" name="options" id="CompleteTask" autocomplete="off"> <i class="fa fa-check" aria-hidden="true"></i> Complete
-                </label>
-                <label class="btn btn-danger disabled">
-                  <input type="radio" name="options" id="DeleteTask" autocomplete="off"> <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                </label>
-              </div>
-            </td>
-            </tr>
-            {% endfor %}   
-          </tbody>
-        </table>
-      </div>
+<div class="col-md-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <th scope="row">{{ item['id']}}</th>
+        <td>{{ item['title']}}</td>
+        <td>{{ item['status'] }}</td>
+        <td>
+          <form class="form-inline" action="" method="PUT">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-success disabled">
+                <input type="radio" name="options" id="CompleteTask" autocomplete="off"> <i class="fa fa-check"
+                  aria-hidden="true"></i>&nbspComplete
+              </label>
+              <label class="btn btn-danger disabled">
+                <input type="radio" name="options" id="DeleteTask" autocomplete="off"> <i class="fa fa-trash"
+                  aria-hidden="true"></i>&nbspDelete
+              </label>
+            </div>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}
