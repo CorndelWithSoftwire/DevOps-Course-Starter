@@ -13,17 +13,21 @@
       <ul class="list-group mb-4">
 	      
 	      {% for D in passedItems %}     
-	          <li>{{D.title}} </li>
+            <li>{{D.title}} </li>
 	      {% endfor %}
-	
       </ul>
+
+
       <h2>Items from TRELLO To-DO list</h2>
       <ul class="list-group mb-4">
-        <li>{{todisplay}}</li>
+        <!--Literally no for loop would work.  After 4 hours of trying, It seems impossible to display a passed Python list as HTML list - so I had no choice but to do the below-->
         
+        {% for todo in todisplay %}     
+          <li>{{todo}}</li>
+          <button class="button button1">Move to complete</button>
+        {% endfor %}
 
-
-
+      
       </ul>  
     </div>
   </div>
@@ -37,4 +41,28 @@
     <input type="text" id="title2" name="title2"><br>
   </form>
   
+  <style>
+    .button {
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    
+    .button1 {background-color: #4CAF50;} /* Green */
+    .button2 {background-color: #008CBA;} /* Blue */
+    </style>
+    </head>
+    <body>
+    
+    <button class="button button1">Test Button</button>
+    <button class="button button2">Test Button 2</button>
+    
+    </body>
+
 {% endblock %}
