@@ -3,16 +3,37 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+    <div class="col-md-3">
+      <form action="" method="POST">
+        <div class="form-group">
+          <label for="formGroupExampleInput">Title</label>
+          <input type="text" class="form-control" id="NewItemTitle" name="NewItem">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Item</button>
+      </form>
     </div>
   </div>
+
+      <div class="col-md-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Title</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <th scope="row">{{ item['id']}}</th>
+              <td>{{ item['title']}}</td>
+              <td>{{ item['status'] }}</td>
+              <td><form action="" method="PUT"><button type="button" class="btn btn-success" id="{{ item['id']}}">Complete</button></form></td>
+            </tr>
+            {% endfor %}   
+          </tbody>
+        </table>
+      </div>
 {% endblock %}
