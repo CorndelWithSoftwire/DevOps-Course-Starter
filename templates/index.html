@@ -6,8 +6,8 @@
     <div class="col-md-3">
       <form action="" method="POST">
         <div class="form-group">
-          <label for="formGroupExampleInput">Title</label>
-          <input type="text" class="form-control" id="NewItemTitle" name="NewItem">
+          <H3>Add a new item to the list</H3>
+          <input type="text" class="form-control" id="NewItemTitle" name="NewItem" placeholder="Title">
         </div>
         <button type="submit" class="btn btn-primary">Add Item</button>
       </form>
@@ -30,7 +30,15 @@
               <th scope="row">{{ item['id']}}</th>
               <td>{{ item['title']}}</td>
               <td>{{ item['status'] }}</td>
-              <td><form action="" method="PUT"><button type="button" class="btn btn-success" id="{{ item['id']}}">Complete</button></form></td>
+              <td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-success disabled">
+                  <input type="radio" name="options" id="CompleteTask" autocomplete="off" checked> <i class="fa fa-check" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-danger disabled">
+                  <input type="radio" name="options" id="DeleteTask" autocomplete="off"> <i class="fa fa-trash" aria-hidden="true"></i>
+                </label>
+              </div>
+            </td>
             </tr>
             {% endfor %}   
           </tbody>
