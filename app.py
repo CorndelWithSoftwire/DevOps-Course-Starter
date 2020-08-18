@@ -6,7 +6,10 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    #populate variable with the list of saved todo items
+    items = session.get_items()
+    #pass the list into the index template for display
+    return render_template('index.html', items=items)
 
 if __name__ == '__main__':
     app.run()
