@@ -12,7 +12,20 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        {% for item in todoitems %}
+        <li>
+        {%if item.status=='Not Started'%}
+          {{item.title}} - {{item.status}} <a href="/remove/{{ item.id }}">Remove Item</a> <a href="/{{ item.id }}">Complete Item</a>
+        {%else%}
+           {{item.title}} - {{item.status}} <a href="/remove/{{ item.id }}">Remove Item</a>
+        {% endif %}    
+        </li>
+        {% endfor %}
       </ul>
     </div>
+    <form action="/" method="post">
+      <input type="text" name="title">
+      <input type="submit" value="Add Item">
+    </form>
   </div>
 {% endblock %}
