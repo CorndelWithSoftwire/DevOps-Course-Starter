@@ -72,6 +72,7 @@ def delete_todo(todo_id):
 
 
     existing_items = get_items()
+
     print("Existing Items========")
     print(existing_items)
     print("Existing Items========END")

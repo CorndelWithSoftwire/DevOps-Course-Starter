@@ -18,13 +18,13 @@
               <li class="list-group-item" style="color-interpolation-filters: initial;">
                 {{todo.title}} <br/>
                 <span class="badge badge-secondary" style="background-color: plum;">{{todo.id}}</span>
-                <span class="badge badge-warning" style="background-color:rgb(201, 139, 233)">{{todo.status}}</span>
+                <span class="badge badge-warning" style="background-color:#d39ef7">{{todo.status}}</span>
                 <div class="btn-group float-right" role="group" aria-label="item actions">           
              
 
                 <form action="/delete-todo" method="POST">
                     <input type="hidden" name="todo_id" value='{{ todo.id }}'>
-                    <input type="submit" class="btn btn-primary btn-lg" style="color:whitesmoke !important" value="Delete"> 
+                    <input type="submit" class="btn btn-dark btn-lg" style="color:plum !important" value="Delete"> 
                 </form>
         
             {% endfor %}
@@ -37,7 +37,7 @@
             <br/>
               <label for="name">Enter your todo name: </label>
               <input type="text" name="name" id="name">
-            <input type="submit" class="btn btn-danger btn-lg" style="color:whitesmoke !important" value="Submit"> 
+            <input type="submit" class="btn btn-dark btn-lg" style="color:plum !important" value="Submit"> 
           </form>
         </div> 
 </div>
