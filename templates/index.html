@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="jumbotron" style=background-color:silver>
-  <h1 style="color:#fcdeee" class="display-3 text-center">LINDSEY'S TO-DO APP &#128525;</h1> 
+  <h1 style="color:#fcdeee" class="display-3 text-center">&#129412; LINDSEY'S TO-DO APP &#129412;</h1> 
     <Hr color="white"></Hr>
       <p style="color: rgb(122, 67, 97)" class="display-7 text-center"> &#128151; Lindsey Raven &#128151;</p>
       
@@ -24,7 +24,7 @@
 
               <form action="/started-todo" method="POST"> 
                 <input type="hidden" name="todo_id" value='{{ todo.id }}'>
-                <input type="submit" class="btn btn-dark btn-sm" class="btn float-right" style="color:#e4acca !important" value="Started"> 
+                <input type="submit" class="btn btn-dark btn-sm" style="color:#e4acca !important" value="Started"> 
               </form>   
 
                <!-- status update completed form -->
@@ -49,10 +49,10 @@
         <div class="col-md-12 text-center">
           <form action="/add-todo" method="POST">
             <br/>
-            <span style='font-size:80px;'>&#9997;</span>
+            <span style='font-size:60px;'>&#9997;</span>
               <label for="name">Enter your to-do name:</label>
-              <input type="text" name="name" id="name">
-            <input type="submit" class="btn btn-dark btn-sm" style="color:#e4acca !important" value="Submit"> 
+              <input class="text-info" type="text" name="name" id="name">
+            <input class="text-info" type="submit" class="btn btn-dark btn-md" style="color:#e4acca !important" value="Submit"> 
           </form>
         </div> 
 </div>
