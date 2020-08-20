@@ -14,7 +14,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-sm">New Item</span>
           </div>
-        <input class="form-control" type="text" name="new_item" id="item"/>
+        <input class="form-control" type="text" name="new_item" id="item" required/>
         </div>  
         <button class="btn btn-primary" type="submit" title="Add Item">Add It</button>
       </div>
@@ -26,8 +26,10 @@
         <!-- List the todo items here -->
         {% for item in items %} 
           <li class="list-group-item {% if item['status'] == 'Complete' %}list-group-item-success{% endif %}">ID : {{item['id']}}, Title : {{item['title']}}, Status : {{item['status']}}
-            <button {% if item['status'] == 'Complete' %}hidden{% endif %} class="btn btn-link btn-sm " type="button" title="Complete Item"><a href="/complete?item_id={{item['id']}}">Mark Completed</a></button>
-            </li> 
+            <button {% if item['status'] == 'Complete' %}hidden{% endif %} class="btn btn-link btn-sm " type="button" title="Complete Item">
+              <a href="/complete?item_id={{item['id']}}">Mark Completed</a>
+            </button>
+          </li> 
         {% endfor %}
       </ul>
     </div>

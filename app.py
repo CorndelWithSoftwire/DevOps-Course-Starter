@@ -7,13 +7,10 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    return render_template('index.html', items=session.get_items())
+    return render_template('index.html', items=sorted(session.get_items(), key=lambda item: item['status'], reverse=True))
 
-@app.route('/addit', methods=['GET', 'POST'])
-def addit():
-    if request.method == 'GET':
-        return 'Meant for POST requires item'
-    if request.method == 'POST':
+@app.route('/addit', methods=['POST'])
+def add_todo():
         session.add_item(request.form.get('new_item'))
         return redirect('/')
 
