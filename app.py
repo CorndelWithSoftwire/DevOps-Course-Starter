@@ -11,5 +11,12 @@ def index():
     #pass the list into the index template for display
     return render_template('index.html', items=items)
 
+@app.route('/newitems', methods=['POST'])
+def newitems():
+    #capture the title of newitem using a form and pass it to the add_item function
+    session.add_item(request.form.get('Title')) 
+    #redirect to index page
+    return redirect('/') 
+
 if __name__ == '__main__':
     app.run()
