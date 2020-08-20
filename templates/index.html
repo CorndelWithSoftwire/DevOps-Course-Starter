@@ -7,7 +7,18 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
+ 
+
   <div class="row">
+    <div class="col-md-12">
+      <form action="/newitems" method="post">
+      <h2>New Items</h2>
+        <label for="name">Title:</label>
+        <input type="text" id="title_field" name="Title">
+        <button type="submit">Submit</button>
+    </form>
+      <br>
+    </div>
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
@@ -18,4 +29,6 @@
       </ul>
     </div>
   </div>
+
+
 {% endblock %}
