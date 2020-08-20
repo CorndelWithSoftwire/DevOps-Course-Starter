@@ -1,62 +1,63 @@
 {% extends "layout.html" %}
 {% block title %}To-Do App{% endblock %}
-
 {% block content %}
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Toby's To Do List.</p>
   </div>
-
-
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2> 
-      <ul class="list-group mb-4">
-        {% for todo in todos %}
-        <!-- {{todo.id}} - {{todo.title}} - {{todo.status}}-->
-      
-      
-          <!-- Edit form -->
-          <form action="/update-todo" method="POST">
-            {{todo.id}} <input type="text" name="todo_value" value="{{todo.title}}"> 
-
-            <select name="todo_status" id="todo_status">
-              <option selected="selected" value="{{todo.status}}">{{todo.status}}</option>
-              <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
-            </select>
-            <input type="hidden" name="todo_id" value="{{todo.id}}">
-            <div class="form-example">
-              <input type="submit" class="btn btn-primary" value="Update!">
-            </div>
-          </form>
-
-          <!-- Delete form -->
-          <form action="/delete-todo" method="POST">
-            <input type="hidden" name="todo_id" value="{{todo.id}}">
-            <div class="form-example">
-              <input type="submit" class="btn btn-danger" value="Delete!">
-            </div>
-          </form>
-
-          <br>
-
-        </tr>
-
-        {% endfor %}
-
-        <!-- List the todo items here -->
-        <!-- Add new todo form -->
-        <form action="/add-todo" method="post">
-          <div class="form-example">
-            <label for="name">Enter your todo: </label>
-            <input type="text" name="todo" id="todo" required>
+    <div class="col-12-xs">
+      <table class="table table-borderless table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Task Title</th>
+            <th>Task Status</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in todos %}
+            <tr>
+              <td>
+                {{ todo.id }}
+              </td>
+              <form action="/update-todo" method="post">
+                <input type="hidden" name="todo_id" value="{{ todo.id }}">
+                <td>  
+                    <input type="text" name="title" value="{{ todo.title }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </td>
+                <td>
+                    <select name="status" id="status" class="custom-select" id="inputGroupSelect01">
+                      <option selected> {{ todo.status }}</option>
+                      <option value="Not Started">Not Started</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                </td>
+                <td>
+                  <div class="form-example"><input type="submit" class="btn btn-primary" value="Update"></div>
+                </td>
+              </form>
+              <td>
+                <form action="/delete-todo" method="post">
+                  <input type="hidden" name="todo_id" value="{{todo.id}}">
+                  <div class="form-example"><input type="submit" class="btn btn-danger" value="Delete!"></div>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <hr class="mt-3 mb-3"/>
+      <form action="/add-todo" method="post">
+        <div class="input-group mb-3">
+          <input type="text" name="todo_task" id="todo_task" class="form-control" placeholder="New Task Title" aria-label="New Task Title" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-success" type="submit">Add Task</button>
           </div>
-          <div class="form-example">
-            <input type="submit" class="btn btn-success" value="Submit!">
-          </div>
-        </form>
-      </ul>
+        </div>
+      </form>
     </div>
-  </div>
+  
 {% endblock %}
