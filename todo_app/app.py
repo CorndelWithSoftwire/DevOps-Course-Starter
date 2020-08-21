@@ -32,5 +32,11 @@ def update_item(id):
         save_item(item)
         return redirect(url_for('index'))
 
+@app.route('/sort_status', methods=['GET'])
+def sort_statutes():
+    todos = get_items()
+    newlist = sorted(todos, key=lambda k: k['status'])
+    return render_template('index.html', todoList = newlist)
+    
 if __name__ == '__main__':
     app.run()
