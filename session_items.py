@@ -91,9 +91,9 @@ def complete_todo(id):
   
     existing_items = get_items()
 
-    for item in range(len(existing_items)):
-        if existing_items[item]['id'] == int(id):
-            existing_items[item]['status'] = "Completed"
+    for item in existing_items:
+        if item['id'] == int(id):
+            item['status'] = "Completed"
             break
 
     session['items'] = existing_items
@@ -113,3 +113,24 @@ def started_todo(id):
     session['items'] = existing_items
 
     return id
+
+
+#update and status buttons
+
+#including the status function 
+def update_status(items, status):
+    # Check if the passed status is a valid value
+    if (status.lower().strip() == 'not started'):
+        status = NOTSTARTED
+        print("Invalid Status: " + status)
+        return None
+
+def update_item(item_id, new_todo_value, new_status_value):
+    todo_items = []
+    for todo in get_items():
+        if int(todo.get('id')) == int(item_id):
+            todo['title'] = new_todo_value
+            todo['status'] = new_status_value
+        todo_items.append(todo)
+    session['items'] = todo_items
+    return item_id
