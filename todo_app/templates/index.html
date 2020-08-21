@@ -3,26 +3,43 @@
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
 </div>
+<div class="container">
+    <div class="row">
 
-<div class="row">
-    <div class="col-md-12">
-        <h2>Items</h2>
-        <ul class="list-group mb-4">
-            {% for todo in todoList %}
-            <div class="container">
-                <li>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{ todo.title }}
-                        </div>
-                        <div class="col-sm-2">
-                            {{ todo.status }}
-                        </div>
-                    </div>
-                </li>
+        <form class="form-inline" method="post" action="/new_todo">
+            <div class="form-group col-md-3">
+                <label for="title">To do item: </label>
             </div>
-            {% endfor %}
-        </ul>
+            <div class="col-md-4">
+                <input id="title" class="form-control" type="text" name="title">
+            </div>
+            <div class="col-md-2">
+                <input class="btn btn-primary" type="submit" name="title" placeholder="Add title" aria-label="Add Title" aria-describedby="addTitle">
+            </div>
+        </form>
+
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Items</h2>
+            <ul class="list-group mb-4">
+                {% for todo in todoList %}
+                <div class="container">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ todo.title }}
+                            </div>
+                            <div class="col-sm-2">
+                                {{ todo.status }}
+                            </div>
+                        </div>
+                    </li>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
