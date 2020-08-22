@@ -9,35 +9,37 @@
         <form class="form-inline" method="post" action="/new_todo">
             <label for="title">To do item: </label>
             <input id="title" class="form-control" type="text" name="title">
-            <input class="btn btn-primary" type="submit" name="title" placeholder="Add title" aria-label="Add Title" aria-describedby="addTitle">
+            <input class="btn btn-primary" type="submit" name="title" placeholder="Add title" aria-label="Add Title" aria-describedby="addTitle" value="Add to-do">
         </form>
 
     </div>
     <div class="row">
         <div class="col-md-12">
             <h2>Items</h2>
-            <a href="/sort_status">Sort by status</a>
+            <a class="ml-3" href="/sort_status">Sort by status</a>
             <ul class="list-group mb-4">
                 {% for todo in todoList %}
                 <div class="container">
-                    <li>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                {{ todo.title }}
-                            </div>
-                            <div class="col-sm-2">
-                                {{ todo.status }}
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-check form-check-inline">
-                                    <form class="form-inline" method="post" action="/update_todo/{{todo.id}}">
-                                        <input id="my-input" class="form-check-input" type="checkbox" name="completed" {% if todo.status !='Not Started' %} checked {% endif %}>
-                                        <input class="btn btn-primary btn-sm" type="submit" name="update" value="Update" placeholder="Update" aria-label="Update" aria-describedby="updateTask">
-                                        <a class="btn btn-danger btn-sm" href="/remove_todo/{{todo.id}}">Delete</a>
-                                    </form>
+                    <li class="list-group">
+                        <ul class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{ todo.title }}
+                                </div>
+                                <div class="col-sm-2">
+                                    {{ todo.status }}
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <form class="form-inline" method="post" action="/update_todo/{{todo.id}}">
+                                            <input id="my-input" class="form-check-input" type="checkbox" name="completed" {% if todo.status !='Not Started' %} checked {% endif %}>
+                                            <input class="btn btn-primary btn-sm" type="submit" name="update" value="Update" placeholder="Update" aria-label="Update" aria-describedby="updateTask">
+                                            <a class="btn btn-danger btn-sm" href="/remove_todo/{{todo.id}}">Delete</a>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ul>
                     </li>
                 </div>
                 {% endfor %}
