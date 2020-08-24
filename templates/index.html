@@ -24,11 +24,14 @@
       <ul class="list-group mb-4">
         <!-- For loop to List the todo items here -->
         {% for item in items %}
-		    	<li>{{item.title}}</li>
+         <!-- Form to add a toggle status button -->
+          <li><form action="/{{item.id}}" method="post"> 
+            <label for="title">{{item.title}}</label> - <label for="status">{{item.status}} - </label> 
+              <button type="submit" name=sub>Toggle status</button></form></li>
 		    {% endfor %}
       </ul>
     </div>
   </div>
-
+  
 
 {% endblock %}
