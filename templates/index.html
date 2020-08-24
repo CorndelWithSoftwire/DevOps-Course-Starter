@@ -13,7 +13,7 @@
             <ul class="list-group mb-4">
                 <h6>
                     {% for todo in todos %}
-                    {{ todo.name }} {{todo.desc}}
+                    {{ todo.name }} - {{todo.desc}} - {{todo.title}} - {{ todo.due }}
                     <a href="/" class="btn btn-danger">Item to Delete</a>
                     <br>
                     {% endfor %}
