@@ -3,19 +3,21 @@
 <p>Just another to-do app.</p>
 <h2 ><b>Items</b></h2><br>
 {% for listitem in mylist %}</span></h2>
-<p class="p1"><span class="s1">{{ listitem.id }} : {{ listitem.title }} : {{ listitem.status }}</span></p>
+<h5 class="mb-1">{{ listitem.position }}: {{ listitem.name }}</h5>
+<small>status: {{ listitem.status }}</small>
+<small>description: {{ listitem.description }}</small>
+<form action="complete/{{ listitem.id }}" method="post">
+  <button class="btn btn-outline-primary" type="submit">Complete</button>
+</form>
+<form action="undo/{{ listitem.id }}" method="post">
+  <button class="btn btn-outline-primary" type="submit">Undo</button>
+</form>
 <p class="p5"><span class="s1">{% endfor %}</span></p>
 <form action="/add" method="post">
-  <label>Enter title of new item to be added</label>
-  <br/>
-  <input name="input_title" type="text" required placeholder="title" id="exampleInput1">
-  <button type="submit">Add</button>
+  <label for="exampleInput1">Item to be added:</label><br>
+  <input type="text" name="new_item_name" placeholder="title" id="exampleInput1">
+  <input type="text" name="new_item_description" placeholder="description" id="exampleInput2">
+  <button class="btn btn-outline-primary" type="submit">Add your item</button>
 </form>
 <br/>
-<form action="/mark" method="post">
-  <label>Enter id of item to be completed</label>
-  <br/>
-  <input name="item_id" type="text" placeholder="id" id="exampleInput2">
-  <button type="submit">Complete</button>
-</form>
 {% endblock %}
