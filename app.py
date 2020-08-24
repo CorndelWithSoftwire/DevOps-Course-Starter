@@ -5,9 +5,15 @@ app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def get_items():
     return render_template('index.html', todos=session.get_items())
+
+
+@app.route('/trello_cards/new_card', methods=['POST'])
+def add_new_card():
+    trello_cards.add_new_card(request.form['todo.title'], request.form['desc'],)
+    return card
 
 
 @app.route('/item/<id>')
