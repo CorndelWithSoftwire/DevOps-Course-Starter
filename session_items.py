@@ -65,25 +65,8 @@ def save_item(item):
     return item
 
 def delete_todo(todo_id):
-
-    print("Todo ID========")
-    print(todo_id)
-    print("Todo ID========END")
-
-
     existing_items = get_items()
-
-    print("Existing Items========")
-    print(existing_items)
-    print("Existing Items========END")
-
     session['items'] = [ items for items in existing_items if int(items.get('id')) != int(todo_id) ]
-
-    print("Session Items========")
-    print(session['items'])
-    print("Session Items========END")
-
-
     return todo_id
 
 
@@ -117,9 +100,7 @@ def started_todo(id):
 
 #update and status buttons
 
-#including the status function 
 def update_status(items, status):
-    # Check if the passed status is a valid value
     if (status.lower().strip() == 'not started'):
         status = NOTSTARTED
         print("Invalid Status: " + status)

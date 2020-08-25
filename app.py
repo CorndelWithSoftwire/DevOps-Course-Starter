@@ -15,21 +15,21 @@ def add_todo():
     session.add_item(item)
     return redirect("/")
 
-
+#delete button
 @app.route('/delete-todo', methods=['POST'])
 def delete_todo():
     todo_id = request.form.get('todo_id')
     session.delete_todo(todo_id)
     return redirect("/")
 
-
+#completed status
 @app.route('/complete-todo', methods=['POST'])
 def complete_todo():
     todo_id = request.form.get('todo_id')
     session.complete_todo(todo_id)
     return redirect("/")
 
-
+#started status
 @app.route('/started-todo', methods=['POST'])
 def started_todo():
     todo_id = request.form.get('todo_id')
