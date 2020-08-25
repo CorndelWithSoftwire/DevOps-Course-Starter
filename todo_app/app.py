@@ -9,7 +9,14 @@ app.config.from_object(Config)
 
 @app.route('/')
 def index():
-    return render_template('index.html', todoList = get_items())
+    todos = get_items()
+    sort = request.values.get("sort", "")
+    if sort == "asc":
+        todos = sorted(todos, key=lambda k: k['status'])
+    elif sort == "desc":
+        todos = sorted(todos, key=lambda k: k['status'], reverse=True)
+
+    return render_template('index.html', todoList = todos)
 
 @app.route('/new_todo', methods=['POST'])
 def add_item_from_form():
@@ -32,11 +39,6 @@ def sort_statutes():
     todos = get_items()
     newlist = sorted(todos, key=lambda k: k['status'])
     return render_template('index.html', todoList = newlist)
-
-@app.route('/remove_todo/<id>', methods=['GET'])
-def remove_todo(id):
-    remove_item(id)
-    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run()
