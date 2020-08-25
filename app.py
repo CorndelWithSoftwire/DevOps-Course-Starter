@@ -8,7 +8,9 @@ app.config.from_object('flask_config.Config')
 def index():
     #populate variable with the list of saved todo items
     items = session.get_items()
-    #pass the list into the index template for display
+    #sort the list ased on the value of the status field in reverse order
+    items=sorted(items, key=lambda k: k['status'], reverse=True)
+    #pass the sorted list into the index template for display
     return render_template('index.html', items=items)
 
 #route to allow updating of status for each item based on id number
