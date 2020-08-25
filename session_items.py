@@ -15,7 +15,6 @@ def get_items():
     """
     return session.get('items', _DEFAULT_ITEMS)
 
-
 def get_item(id):
     """
     Fetches the saved item with the specified ID.
@@ -28,7 +27,6 @@ def get_item(id):
     """
     items = get_items()
     return next((item for item in items if item['id'] == int(id)), None)
-
 
 def add_item(title):
     """
