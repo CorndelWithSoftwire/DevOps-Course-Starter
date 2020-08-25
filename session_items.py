@@ -1,10 +1,6 @@
 from flask import session
 
-_DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
-]
-
+_DEFAULT_ITEMS = []
 
 def get_items():
     """
@@ -67,3 +63,55 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def delete_todo(todo_id):
+    existing_items = get_items()
+    session['items'] = [ items for items in existing_items if int(items.get('id')) != int(todo_id) ]
+    return todo_id
+
+
+def complete_todo(id):
+  
+    existing_items = get_items()
+
+    for item in existing_items:
+        if item['id'] == int(id):
+            item['status'] = "Completed"
+            break
+
+    session['items'] = existing_items
+
+    return id
+
+
+def started_todo(id):
+  
+    existing_items = get_items()
+
+    for item in range(len(existing_items)):
+        if existing_items[item]['id'] == int(id):
+            existing_items[item]['status'] = "Started"
+            break
+
+    session['items'] = existing_items
+
+    return id
+
+
+#update and status buttons
+
+def update_status(items, status):
+    if (status.lower().strip() == 'not started'):
+        status = NOTSTARTED
+        print("Invalid Status: " + status)
+        return None
+
+def update_item(item_id, new_todo_value, new_status_value):
+    todo_items = []
+    for todo in get_items():
+        if int(todo.get('id')) == int(item_id):
+            todo['title'] = new_todo_value
+            todo['status'] = new_status_value
+        todo_items.append(todo)
+    session['items'] = todo_items
+    return item_id

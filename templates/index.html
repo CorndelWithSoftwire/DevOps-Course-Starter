@@ -1,18 +1,72 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Lindsey's To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+<div class="jumbotron" style=background-color:#fa8dc3">
+  <h1 style="background:linear-gradient(to bottom, hsl(300, 8%, 93%) 0%, #eea4c9 100%)" class="display-3 text-center">&#129412; LINDSEY'S TO-DO APP &#129412;</h1>
+</div>
+       
+      <!-- ADD fORM -->
+        <div class="row">
+        <div class="col-md-12 text-center">
+          <br/>
+          <form action="/add-todo" method="POST">
+            <span style='font-size:25px;'>&#9997;</span>
+              <label style="color:#0e0d0d" for="name">Enter your to-do name:</label>
+              <input class="text-info" type="text" name="name" id="name">
+            <input class="text-info" type="submit" class="btn btn-dark btn-md" style="color:#f5078a !important" value="Submit">
+          </form>
+        </div> 
+</div>
+</br>
+</br>
+          
+          <!-- List / Delete form -->
+            {% for todo in todos %}
+             
+            <li class="list-group-item"  style="color:#e2b1d9">
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
-    </div>
-  </div>
+            {{todo.title}} </br>
+
+              <body style="height: 2000 px; background:linear-gradient(to top, #f1c2da 0%, #f5a9e7 100%);"></body>
+                <span class="badge badge-secondary" style="background-color: plum;">{{todo.id}}</span>
+                <span class="badge badge-warning" style="background-color:#d39ef7">{{todo.status}}</span>
+                <div class="btn float-right" role="group" aria-label="item actions">     
+                <!-- update button -->
+
+              <button class="btn btn-float-center"></button>
+                <form action="/update-todo" method="post">
+                  <input type="hidden" name="todo_id" value="{{ todo.id }}"> 
+                  <input type="text" name="title" value="{{ todo.title }}" class="form-control">
+                  <input class="btn btn-info btn-sm float-left" type="submit" style="color:#fffdfe !important" value="Update"> 
+                 </form> 
+                 </div>
+
+                <!-- update button -->
+                <div>
+              <br>
+              <button class="btn btn-float-right">
+              <form action="/started-todo" method="POST"> 
+                <input type="hidden" name="todo_id" value='{{ todo.id }}'>
+                <input type="submit" class="btn btn-secondary btn-sm" style="background-color:#e2b1d9 !important" value="Started"> 
+              </form>  
+            </button> 
+               <!-- status update completed -->
+            
+              <form action="/complete-todo" method="POST">
+                <input type="hidden" name="todo_id" value='{{ todo.id }}'>
+                <input type="submit" class="btn btn-dark btn-sm" style="background-color:#e4acca !important" value="Completed"> 
+              </form>   
+              
+            
+                <!-- status update delete -->
+   
+                <form action="/delete-todo" method="POST">
+                  <input type="hidden" name="todo_id" value='{{ todo.id }}'>
+                  <input type="submit" class="btn btn-dark btn-sm" style="background-color:#111313" :#e4acca !important" value="Delete"> 
+                </form>
+                </div>
+               
+            {% endfor %}
+
 {% endblock %}
