@@ -19,18 +19,13 @@ def add_item_from_form():
 
 @app.route('/update_todo/<id>', methods=['POST'])
 def update_item(id):
-    ticked = False
-    try:
-        if request.form['completed'] == 'on':
-            ticked = True 
-    finally:
-        item = get_item(id)
-        if ticked:
-            item['status'] = 'Completed'
-        else:
-            item['status'] = 'Not Started'
-        save_item(item)
-        return redirect(url_for('index'))
+    item = get_item(id)
+    if request.form.get('completed'):
+        item['status'] = 'Completed'
+    else:
+        item['status'] = 'Not Started'
+    save_item(item)
+    return redirect(url_for('index'))
 
 @app.route('/sort_status', methods=['GET'])
 def sort_statutes():
