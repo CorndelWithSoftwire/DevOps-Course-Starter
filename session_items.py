@@ -1,9 +1,6 @@
 from flask import session
 
-_DEFAULT_ITEMS = [
-  #  { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-  # { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
-]
+_DEFAULT_ITEMS = []
 
 
 def get_items():
@@ -65,8 +62,6 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
-
-#loop through exisiting items!!!!
 
 def delete_item(item_id):
 
