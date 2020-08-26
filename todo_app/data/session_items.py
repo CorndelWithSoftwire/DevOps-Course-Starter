@@ -67,3 +67,11 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def remove_item(id):
+    existing_items = session.get('items', _DEFAULT_ITEMS)
+    idx = next((index for (index, item) in enumerate(existing_items) if item['id'] == int(id)), None)
+    del existing_items[idx]
+    session['items'] = existing_items
+
+    return existing_items
