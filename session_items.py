@@ -1,25 +1,17 @@
 from flask import session
 import requests
-
-_DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
-]
-
+from trello_cards import make_trello_auth
+import os
 
 def get_items():
-    """
-    Fetches all saved items from the session.
-
-    Returns:
-        list: The list of saved items.
-    """
-    todos = requests.get(
-        "https://api.trello.com/1/lists/5f38fc74a51a6723b3fe75ea/cards?key=58750588def43275eb1a4457a8efe87d&token=fea90c8a2c8ebf27103def869abcf71abfa536b4d119f8bf3cfd680463f7226f").json()
+    """ Simple attempt to get all cards from Trello. """
+    response = requests.get(make_trello_auth(f"https://api.trello.com/1/boards/{os.environ['BOARD_ID']}/cards"))
+    todos = response.json()
+    # doings =
+    # done =
     for card in todos:
         print(card)
     return todos
-    # return session.get('items', _DEFAULT_ITEMS)
 
    
 def get_item(id):

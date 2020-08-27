@@ -1,19 +1,28 @@
 from flask import Flask, redirect, render_template, request, url_for
+import trello_cards
 import session_items as session
+import os
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
 
+# @app.route('/', methods=['POST', 'GET'])
+# def get_items():
+#     return render_template('index.html', todos=session.get_items())
+
+
 @app.route('/', methods=['POST', 'GET'])
 def get_items():
-    return render_template('index.html', todos=session.get_items())
+    todo = session.get_items()
+    return render_template('index.html', todos=todo)
+    # return render_template('index.html', todos=session.get_items())
 
 
 @app.route('/trello_cards/new_card', methods=['POST'])
 def add_new_card():
-    trello_cards.add_new_card(request.form['todo.title'], request.form['desc'],)
-    return card
+    # trello_cards.add_new_card(request.form['todo.title'], request.form['desc'],)
+    return id
 
 
 @app.route('/item/<id>')
