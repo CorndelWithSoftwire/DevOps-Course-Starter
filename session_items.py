@@ -17,31 +17,26 @@ base_request_url = 'https://api.trello.com/1/boards/'+boardId+'/'
 request_credentials = '?key='+key+'&token='+token
 
 def get_items() -> list:
+    """
+    Fetches all saved items from the trello api.
+
+    Returns:
+        list: The list of items.
+    """
     
     cards_request = requests.get(base_request_url+'cards'+request_credentials)
-    lists_request = requests.get(base_request_url+'lists'+request_credentials)
 
     cards_json = json.loads(cards_request.content)
-    lists_json = json.loads(lists_request.content)
+    list_id_dict = get_lists()
 
-    board_id_dict = {}
-    for node in lists_json:
-        board_id_dict[node['id']] = node['name']
+    # board_id_dict = {}
+    # for node in lists_json:
+    #     board_id_dict[node['id']] = node['name']
 
     items = []
     for node in cards_json:
-        items.append(ToDoItem(node['id'], board_id_dict[node['idList']], node['name']))
-        print(node)
-
-    for item in items:
-        print(str(item))   
+        items.append(ToDoItem(node['id'], list_id_dict[node['idList']], node['name']))  
     
-    """
-    Fetches all saved items from the session.
-
-    Returns:
-        list: The list of saved items.
-    """
     return items
 
 def get_item(id) -> dict:
@@ -68,7 +63,26 @@ def add_item(title) -> dict:
     Returns:
         item: The saved item.
     """
-    items = get_items()
+
+    json_list = get_lists()
+
+    todo_list = ''
+    for key, value in json_list.items():
+        if value == 'Not Started':
+            todo_list = key
+
+    url = 'https://api.trello.com/1/cards'+request_credentials+'&idList='+todo_list+'&name='+title
+
+    # query = {
+    #     'key': key,
+    #     'token': token,
+    #     'idList': todo_list,
+    #     'name': title,
+    #     'response_type': 'token'
+    # }
+
+    response = requests.post(url)
+    print(response.text)
 
     # Determine the ID for the item based on that of the previously added item
     # id = items[-1]['id'] + 1 if items else 0
@@ -110,6 +124,13 @@ def delete_item_by_id(id) -> None:
     # current_items.remove(item_to_delete)
 
     # session['items'] = current_items
+
+def get_lists() -> dict:
+    json_response = json.loads(requests.get(base_request_url+'lists'+request_credentials).content)
+    board_id_dict = {}
+    for node in json_response:
+        board_id_dict[node['id']] = node['name']
+    return board_id_dict    
 
 class ToDoItem(object):
     def __init__(self, id, status, title):
