@@ -4,11 +4,12 @@ import session_items as session
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-@app.route('/')
+@app.route('/', methods=['get'])
 def index():
     # return 'Hello World!'
     listall = session.get_items()
     return render_template('index.html', listall=listall)
+
 
 if __name__ == '__main__':
     app.run()
