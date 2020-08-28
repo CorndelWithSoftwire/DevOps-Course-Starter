@@ -10,5 +10,5 @@ def index():
     listall = session.get_items()
     return render_template('index.html', listall=listall)
 
-#if __name__ == '__main__':
-#    app.run()
+if __name__ == '__main__':
+    app.run()
