@@ -29,10 +29,6 @@ def get_items() -> list:
     cards_json = json.loads(cards_request.content)
     list_id_dict = get_lists()
 
-    # board_id_dict = {}
-    # for node in lists_json:
-    #     board_id_dict[node['id']] = node['name']
-
     items = []
     for node in cards_json:
         items.append(ToDoItem(node['id'], list_id_dict[node['idList']], node['name']))  
@@ -53,15 +49,12 @@ def get_item(id) -> dict:
     return next((item for item in items if item['id'] == int(id)), None)
 
 
-def add_item(title) -> dict:
+def add_item(title):
     """
-    Adds a new item with the specified title to the session.
+    Adds a new item with the specified title to the board.
 
     Args:
         title: The title of the item.
-
-    Returns:
-        item: The saved item.
     """
 
     json_list = get_lists()
@@ -73,27 +66,8 @@ def add_item(title) -> dict:
 
     url = 'https://api.trello.com/1/cards'+request_credentials+'&idList='+todo_list+'&name='+title
 
-    # query = {
-    #     'key': key,
-    #     'token': token,
-    #     'idList': todo_list,
-    #     'name': title,
-    #     'response_type': 'token'
-    # }
-
     response = requests.post(url)
     print(response.text)
-
-    # Determine the ID for the item based on that of the previously added item
-    # id = items[-1]['id'] + 1 if items else 0
-
-    # item = {'id': id, 'title': title, 'status': 'Not Started'}
-
-    # # Add the item to the list
-    # items.append(item)
-    # session['items'] = items
-
-    # return item
 
 
 def save_item(item) -> dict:
@@ -118,12 +92,11 @@ def delete_item_by_id(id) -> None:
     Args:
         item: The item to delete.
     """
-    # current_items = session['items']
+    url = 'https://api.trello.com/1/cards/'+id+request_credentials
 
-    # item_to_delete = get_item(id)
-    # current_items.remove(item_to_delete)
+    response = requests.delete(url)
 
-    # session['items'] = current_items
+    print(response.text)
 
 def get_lists() -> dict:
     json_response = json.loads(requests.get(base_request_url+'lists'+request_credentials).content)
