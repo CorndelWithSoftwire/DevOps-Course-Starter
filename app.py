@@ -7,7 +7,7 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/', methods=['GET'])
 def index():
-    sorted_items = sorted(session.get_items(), key=lambda x : x['status'], reverse=True)
+    sorted_items = session.get_items()
     return render_template('index.html', data=sorted_items)
 
 
