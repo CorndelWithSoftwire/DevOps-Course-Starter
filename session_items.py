@@ -5,10 +5,6 @@ import os
 import json
 
 logging.basicConfig(level=logging.DEBUG)
-_DEFAULT_ITEMS = [
-    {'id': 1, 'status': 'Not Started', 'title': 'List saved todo items'},
-    {'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added'}
-]
 boardId = os.environ.get('boardId')
 key = os.environ.get('key')
 token = os.environ.get('token')
@@ -70,19 +66,27 @@ def add_item(title):
     print(response.text)
 
 
-def save_item(item) -> dict:
+def mark_complete(id):
     """
-    Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
+    Marks an item as complete
 
     Args:
         item: The item to save.
     """
-    # existing_items = get_items()
-    # updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
+    json_list = get_lists()
 
-    # session['items'] = updated_items
+    todo_list = ''
+    completed_list = ''
 
-    # return item
+    for key, value in json_list.items():
+        if value == 'Not Started':
+            todo_list = key
+        elif value == 'Completed':
+            completed_list = key    
+
+    url = 'https://api.trello.com/1/cards/'+id+request_credentials+'&idList='+completed_list
+
+    requests.put(url)
 
 
 def delete_item_by_id(id) -> None:

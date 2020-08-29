@@ -16,12 +16,9 @@ def post_item():
     session.add_item(request.form.get('item'))
     return redirect('/')
 
-@app.route('/update/<int:id>', methods=['POST'])
+@app.route('/update/<id>', methods=['POST'])
 def mark_complete(id):
-    item = session.get_item(id)
-    item['status'] = 'Completed'
-
-    session.save_item(item)
+    session.mark_complete(id)
 
     return redirect('/')
 
