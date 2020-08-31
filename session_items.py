@@ -9,6 +9,10 @@ boardId = os.environ.get('boardId')
 key = os.environ.get('key')
 token = os.environ.get('token')
 
+# I understand that this is not the best wat to build urls for requests but using the built in functions 
+# and passing in dictionaries for parameters and auth was return a 401 for every request. After several 
+# hours of looking through docs and I gave up and reverted back to this... If I get time I'll try to get
+# this working properly.
 base_request_url = 'https://api.trello.com/1/boards/'+boardId+'/'
 request_credentials = '?key='+key+'&token='+token
 
