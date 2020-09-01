@@ -4,9 +4,11 @@ import session_items as session
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-key = "f8a479ff06b7be92d7bd9d6644a35e82"
-token = "4aa46c18e2349cba537fa7169eb9a7733aa16917a12b69d86f44758d8c3faeb2"
 url = "https://api.trello.com/1/"
+
+@app.route('/')
+def index():
+    return redirect('tasks')
 
 @app.route('/clearsession')
 def clearsession():

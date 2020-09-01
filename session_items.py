@@ -13,20 +13,22 @@ def get_items():
 
     # store all ToDo card information from all available lists 
     session['items'] = []
-    items = getCardsOnList(session.get('Things To Do'),"Things To Do")
-    items = getCardsOnList(session.get('Doing'),"Doing")
-    items = getCardsOnList(session.get('Done'),"Done")
+
+    items = getCardsOnList("Things To Do")
+    items = getCardsOnList("Doing")
+    items = getCardsOnList("Done")
+
     return session.get('items', items)
 
 def getListsOnBoards(boardid):  
-    # Fetch lists from Trello board and store in session
+    # Fetch lists from Trello board and store in session, if in session then retrive from session
     if session.get('lists') is not None:
         return session.get('lists')
     else:
         session['lists'] = callTrelloAPI("get","boards","lists",boardid,"")
         return session.get('lists')
+    
         
-
 def getListId(listofboards, cardname):
     # Get list ID and set in session to save duplicate Trello calls
     if session.get(cardname) is not None:
@@ -38,12 +40,9 @@ def getListId(listofboards, cardname):
         session[cardname] = i['id']
         return i['id']
 
-def getCardsOnList(listId_,list_):
+def getCardsOnList(list_):
 
-    if listId_ is None:
-        listId = getListId(session.get('lists'),list) # get list ID for the List
-    
-        # Get ToDo cards on a List and add to a new items list to display in HTML
+    listId_ = getListId(session.get('lists'),list_) # get list ID for the List
     listofcards = callTrelloAPI("get","lists","cards",listId_,"")
 
     if session.get('items') is not None:
@@ -131,15 +130,19 @@ def callTrelloAPI(method,section,call,id,args):
 
     requestUrl = uridomain + callurl + "&key=" + key + "&token=" + token
 
-    if(method == "get"):
-        response = requests.get(requestUrl)
-    elif(method == "post"):
-        response = requests.post(requestUrl)
-    elif(method == "put"):
-        response = requests.put(requestUrl)
-    elif(method == "delete"):
-        response = requests.delete(requestUrl)
-    
+    try:
+        if(method == "get"):
+            response = requests.get(requestUrl)
+        elif(method == "post"):
+            response = requests.post(requestUrl)
+        elif(method == "put"):
+            response = requests.put(requestUrl)
+        elif(method == "delete"):
+            response = requests.delete(requestUrl)
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        raise
+
     try:
         jsonResponse = json.loads(response.text)
     except:
