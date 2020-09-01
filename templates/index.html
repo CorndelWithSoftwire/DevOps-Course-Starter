@@ -11,8 +11,23 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
+
         <!-- List the todo items here -->
+        {% for item in all_todo %}
+          <li>{{ item.id }} - {{ item.status }} - {{item.title}} 
+          </li>
+          {% endfor %}
+
       </ul>
     </div>
+    <form method="post">
+      <ul>
+        <li>
+          <label td_title="ToDo">New ToDo ?</label>
+          <textarea rows="1" cols="60" name="td_Title" style="overflow:hidden"> </textarea> <button type="submit">Add</button>
+        </li>
+        
+      </ul>
+      </form>
   </div>
 {% endblock %}
