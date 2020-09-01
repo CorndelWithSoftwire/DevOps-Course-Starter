@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-#from config import TRELLO_URL
 import config as cf
+from model import Item
 
 import session_items as session
 import requests
@@ -13,10 +13,27 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    items = session.get_items()
-    return render_template('index.html', items=items)
+    url = "https://api.trello.com/1/boards/{id}/cards"
+    query = cf.get_trello_query()
+    
+    response = requests.request(
+        "GET",
+        url,
+        params=query
+        )
+    #print(response.text)
+    #items = session.get_items()
+    #return render_template('index.html', items=items)
+    cards = json.loads(response.text)
+    items_list = list()
+    for card in cards:
+        item = Item(card.id, card.status, card.title)
+        items_list.append(item)
 
-@app.route('/add', methods=['POST'])
+    return render_template('index.html', items=items_list)
+
+# To Be Removed
+# @app.route('/add', methods=['POST'])
 def addToDo():
     title = request.form['title']
     session.add_item(title)
@@ -48,6 +65,7 @@ def update_card(idCard):
 
 
 #create card/item
+@app.route('/add', methods=['POST'])
 def add_card(list_id):
     url = "https://api.trello.com/1/cards"
     
@@ -56,7 +74,8 @@ def add_card(list_id):
     #therefore reusing/mocking the example one instead 
     query['idList'] = list_id
     response = requests.request("POST", url, params=query )
-    print(response.text)
+    #print(response.text)
+    return redirect(url_for('index'))
 
 
 def add_card_to_todo():

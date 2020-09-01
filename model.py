@@ -1,12 +1,8 @@
 
-#ID = 0
-
 class Item:
 
-    ID = 0
-
-    def __init__(self, status, title):
-        self.id = Item.ID + 1
+    def __init__(self, id, status, title):
+        self.id = id
         self.status = status
         self.title = title
 

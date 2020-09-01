@@ -13,6 +13,14 @@ $ source setup.sh
 $ source setup.sh --windows
 ```
 
+# Trello API Key And Token
+Ensure your .env file contains the application Trello API_KEY and TOKEN.  See example entries below:
+API_KEY=358x5xx7xxx96x686983250x1x8xx8x7
+TOKEN=xxx61x75051xx88x69x6xxx781x54xx885x16x8394xxx5xxx223x48xxxx19507
+
+# Board and List ID 
+These two IDs are for the sake of simplicity been hardcoded
+
 Once the setup script has completed and all packages have been installed, start the Flask app by running:
 ```bash
 $ flask run
