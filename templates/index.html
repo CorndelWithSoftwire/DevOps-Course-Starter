@@ -21,7 +21,28 @@
               <th scope="col">Mark as Done</th>
               <th scope="col">Remove</th>
             </tr>
-            {% for item in items %} 
+            <tr><td colspan="5"><h3>Things To Do Items</h3></td></tr>
+            {% for item in thingstodo.items%} 
+            <tr>
+              <th>{{item.id}}</th>
+              <th>{{item.title}}</th>
+              <th>{{item.status}}</th>
+              <th><input name="Done_{{item.id}}" type="submit" value="done" {% if item.status == 'Done' %}disabled{% endif %}> </th>
+              <th><input name="Remove_{{item.id}}" type="submit" value="remove"></th>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="5"><h3>Doing Items</h3></td></tr>
+            {% for item in doing.items%} 
+            <tr>
+              <th>{{item.id}}</th>
+              <th>{{item.title}}</th>
+              <th>{{item.status}}</th>
+              <th><input name="Done_{{item.id}}" type="submit" value="done" {% if item.status == 'Done' %}disabled{% endif %}> </th>
+              <th><input name="Remove_{{item.id}}" type="submit" value="remove"></th>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="5"><h3>Done Items</h3></td></tr>
+            {% for item in done.items%} 
               <tr>
                 <th>{{item.id}}</th>
                 <th>{{item.title}}</th>

@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import session_items as session
+import ItemsViewModel as ItemsViewModel
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
-
-url = "https://api.trello.com/1/"
 
 @app.route('/')
 def index():
@@ -13,13 +12,18 @@ def index():
 @app.route('/clearsession')
 def clearsession():
     session.clearsessions()
-    #items = session.get_items()
     return render_template("index.html")
 
 @app.route('/tasks')
 def list_tasks():
     items = session.get_items()
-    return render_template("index.html", items=items)
+    thingstodo = ItemsViewModel.ItemsViewModel(items)
+    thingstodo.get_item_thingstodo()
+    done = ItemsViewModel.ItemsViewModel(items)
+    done.get_item_done()
+    doing = ItemsViewModel.ItemsViewModel(items)
+    doing.get_item_doing()
+    return render_template('index.html', thingstodo=thingstodo, done=done, doing=doing)
 
 @app.route('/tasks', methods=['POST'])
 def post_item():

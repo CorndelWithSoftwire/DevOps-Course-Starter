@@ -17,7 +17,7 @@ def get_items():
     items = getCardsOnList("Things To Do")
     items = getCardsOnList("Doing")
     items = getCardsOnList("Done")
-
+    #print(session.get('items', items))
     return session.get('items', items)
 
 def getListsOnBoards(boardid):  
