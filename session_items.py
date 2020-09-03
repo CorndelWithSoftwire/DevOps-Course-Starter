@@ -50,13 +50,9 @@ def getCardsOnList(list_):
     else:
         items = []
     
-    #items_obj = MyItems()
-    #items_obj = myModule.Items("Amelia","AmeliaTitle","AmeliaStatus")
-    #print(items_obj.get_items())
-
     for i in listofcards:
         # Create item array
-        item = myModule.Items(i['id'],i['name'],list_).get_items()
+        item = myModule.Items(i['id'],i['name'],i['dateLastActivity'],list_).get_items()
         # Add the item to the list
         items.append(item)
         session['items'] = items

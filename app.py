@@ -17,13 +17,27 @@ def clearsession():
 @app.route('/tasks')
 def list_tasks():
     items = session.get_items()
+    # Get ToDo items
     thingstodo = ItemsViewModel.ItemsViewModel(items)
     thingstodo.get_item_thingstodo()
-    done = ItemsViewModel.ItemsViewModel(items)
-    done.get_item_done()
+   
+    # Get Doing items
     doing = ItemsViewModel.ItemsViewModel(items)
     doing.get_item_doing()
-    return render_template('index.html', thingstodo=thingstodo, done=done, doing=doing)
+
+    # Get ALL Done items
+    done_all = ItemsViewModel.ItemsViewModel(items)
+    done_all.show_all_done_items()
+
+    # Get all Done items completed TODAY
+    done_today = ItemsViewModel.ItemsViewModel(items)
+    done_today.recent_done_items()
+
+    #  # Get ALL Done items completed before today
+    done_older = ItemsViewModel.ItemsViewModel(items)
+    done_older.older_done_items()
+
+    return render_template('index.html', thingstodo=thingstodo, doing=doing, done_all=done_all, done_older=done_older, done_today=done_today)
 
 @app.route('/tasks', methods=['POST'])
 def post_item():
