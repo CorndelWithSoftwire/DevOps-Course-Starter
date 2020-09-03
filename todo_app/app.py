@@ -5,11 +5,15 @@ from todo_app.data import session_items
 
 app = Flask(__name__)
 app.config.from_object(Config)
-tasks = [{'id': 1, 'title': 'test'}, {'id': 2, 'title': 'testing'}, {'id': 3, 'title': 'tester'}]
 
-@app.route('/id')
-def index(id):
-    items = get_item(id)
+@app.route('/todo')
+def index():
+    items = session_items.get_items()
+    return render_template('Index.html', items=items)
+
+@app.route('/<id>')
+def task(id):
+    items = session_items.get_item(id)
     return render_template('Index.html', items=items)
 
 @app.route('/index')
