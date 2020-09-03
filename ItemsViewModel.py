@@ -4,7 +4,7 @@ class ItemsViewModel:
 
     def __init__(self, items):
         self._items = items
-        #self._status = status
+        self._items = sorted(self._items, key=lambda x: datetime.strptime(x['dateLastActivity'], '%Y-%m-%dT%H:%M:%S.%fZ'), reverse=True)
 
     @property
     def items(self):
@@ -13,29 +13,29 @@ class ItemsViewModel:
 
     def get_item_done(self, filter_period):
         filteredItems = []
-        todaysDate = datetime.today().date()
-        DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%fZ'
+        todaysDate = datetime.today().date()       
+        counter=1
 
-        if filter_period == "today":
-            for x in self._items:
-                if x['status'] == "Done":
-                    itemLastActivityDate = datetime.strptime(x['dateLastActivity'],DATETIME_FORMAT).date()
+        for x in self._items:
+            if x['status'] == "Done":
+                itemLastActivityDate = datetime.strptime(x['dateLastActivity'],'%Y-%m-%dT%H:%M:%S.%fZ').date()
+                if filter_period == "today": 
                     if itemLastActivityDate == todaysDate:
                         filteredItems.append(x)
-            self._items = filteredItems
-        elif filter_period == "all":
-            for x in self._items:
-                if x['status'] == "Done":
+                elif filter_period == "all":
                     filteredItems.append(x)
-            self._items = filteredItems
-        elif filter_period == "older":
-            for x in self._items:
-                if x['status'] == "Done":
-                    itemLastActivityDate = datetime.strptime(x['dateLastActivity'],DATETIME_FORMAT).date()
+                    if counter > 4 :
+                        break
+                    else :
+                        counter=counter+1
+                elif filter_period == "older":
                     if itemLastActivityDate < todaysDate:
                         filteredItems.append(x)
-            self._items = filteredItems
-
+                        if counter > 4 :
+                            break
+                        else :
+                            counter=counter+1
+        self._items = filteredItems
         return self._items
     
     def get_item_thingstodo(self):
