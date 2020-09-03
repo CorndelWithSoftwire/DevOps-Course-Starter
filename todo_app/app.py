@@ -1,8 +1,8 @@
 from flask import Flask
-from flask import render_template
 from todo_app.flask_config import Config
-import session
-#import session
+from flask import render_template
+import things
+
 
 
 app = Flask(__name__)
