@@ -1,9 +1,7 @@
 from flask import Flask
 from todo_app.flask_config import Config
 from flask import render_template
-import things
-
-
+from todo_app.data import session_items
 
 app = Flask(__name__)
 app.config.from_object(Config)
