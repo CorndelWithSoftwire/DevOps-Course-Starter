@@ -131,7 +131,6 @@ class TrelloUpdateCardStatus:
         print(f"Trello request {url}")
 
         try:
-
             headers = {
                 "Accept": "application/json"
             }
@@ -205,6 +204,13 @@ class TrelloDeleteCard:
             print(f'Other error occurred: {err}')
 
 
+class TodoItem:
+    def __init__(self, id, title, status):
+        self.id = id
+        self.title = title
+        self.status = status
+
+
 app = Flask(__name__, static_url_path='/static')
 app.config.from_object('flask_config.Config')
 
@@ -214,13 +220,13 @@ trelloRequest = TrelloRequest()
 @app.route('/')
 def index():
     getTodoList = TrelloGetCards().makeRequest(TODO_LIST_ID)
-    toDoItems = [{'id': x['id'], 'title': x['name'], 'status': 'Not Started'} for x in getTodoList]
+    toDoItems = [TodoItem(x['id'], x['name'], 'Not Started') for x in getTodoList]
 
     getDoneList = TrelloGetCards().makeRequest(DONE_LIST_ID)
-    doneItems = [{'id': x['id'], 'title': x['name'], 'status': 'Completed'} for x in getDoneList]
+    doneItems = [TodoItem(x['id'], x['name'], 'Completed') for x in getDoneList]
 
     items = toDoItems + doneItems
-    sorteditems = sorted(items, key=lambda item: item['status'], reverse=True)
+    sorteditems = sorted(items, key=lambda item: item.status, reverse=True)
     return render_template('/index.html', items=sorteditems)
 
 
