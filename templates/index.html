@@ -9,9 +9,17 @@
 
   <div class="row">
     <div class="col-md-12">
+      <h2>Add Item</h2>
+      <form action="/add" method="post">
+        <label for="name">Title</label><br /> 
+        <input name="title" type="text" value="" /> <br /> 
+        <button type="submit" value="Submit">Submit</button>
+      </form>
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+          {% for item in items %}
+          <li> <a href={{ url_for('complete_item', id=item.id) }}>  {{ item.title }} - {{ item.status }} </a></li>
+          {% endfor %}
       </ul>
     </div>
   </div>
