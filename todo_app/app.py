@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 from todo_app.flask_config import Config
 from flask import render_template
 from todo_app.data import session_items
@@ -13,8 +14,13 @@ def index():
 
 @app.route('/<id>')
 def task(id):
-    items = session_items.get_item(id)
-    return render_template('Index.html', items=items)
+    item = session_items.get_item(id)
+    return render_template('single_item.html', item=item)
+
+@app.route('/add')
+def add():
+#    items = session_items.get_item(id)
+#    return render_template('Index.html', items=items)
 
 @app.route('/index')
 def yo():
