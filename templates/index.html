@@ -2,31 +2,45 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-  <h1 class="display-4">To-Do App</h1>
-  <p class="lead">Just another to-do app.</p>
-</div>
+    <div class="jumbotron">
+        <h1 class="display-4">To-Do App</h1>
+        <p class="lead">Just another to-do app.</p>
+    </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <h2>Items</h2>
-    <ul class="list-group mb-4">
-      {% for item in items %}
-          <p><li>{{ item.title }}</li></p>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Items</h2>
+            <ul class="list-group mb-4">
+                {% for item in items %}
+                    {% if item.status == 'Not Started' %}
+                        <li class="list-group-item">{{ item.title }}
+                            <span class="badge badge-danger">
+                                <form method="post" action="{{ url_for('complete_item', id =item.id) }}">
+                                    <button class="btn btn-link" type="submit" data-toggle="tooltip"
+                                            title="Mark as completed">
+                                    </button>
+                                </form>{{ item.status }}
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">{{ item.title }} <span
+                                class="badge badge-success">{{ item.status }}</span></li>
+                    {% endif %}
 
-<div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-  <h3>Add item</h3>
+    <div>
 
-  <form action="" method="post">
-    <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title" value="title"><br>
-    <input type="submit" value="Submit">
-  </form>
+        <h3>Add item</h3>
 
-</div>
+        <form action="" method="post">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" value="title"><br>
+            <input type="submit" value="Submit">
+        </form>
+
+    </div>
 {% endblock %}
