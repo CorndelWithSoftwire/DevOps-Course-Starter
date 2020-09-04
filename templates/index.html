@@ -12,11 +12,11 @@
   <div class="row">
     <div class="col-md-12">
       <form action="/newitems" method="post">
-      <h2>New Items</h2>
-        <label for="name">Title:</label>
-        <input type="text" id="title_field" name="Title">
-        <button type="submit">Submit</button>
-    </form>
+        <h2>New Items</h2>
+          <label for="name">Title:</label>
+          <input type="text" id="title_field" name="Title">
+          <button type="submit">Submit</button>
+      </form>
       <br>
     </div>
     <div class="col-md-12">
@@ -25,10 +25,13 @@
         <!-- For loop to List the todo items here -->
         {% for item in items %}
          <!-- Form to add a toggle status button -->
-          <li><form action="/{{item.id}}" method="post"> 
+          <li>
+            <form action="/{{item.id}}" method="post"> 
             <label for="title">{{item.title}}</label> -
             <!-- Button styled to look like a link--> 
-              <button type="submit" name=sub class="btn btn-link">{{item.status}}</button></form></li>
+            <button type="submit" name=sub class="btn btn-link">{{item.status}}</button>
+          </form>
+        </li>
 		    {% endfor %}
       </ul>
     </div>
