@@ -10,11 +10,11 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Items</h2>
-            <ul class="list-group mb-4">
+            <ul class="list-group">
                 {% for item in items %}
                     {% if item.status == 'Not Started' %}
-                        <li class="list-group-item">{{ item.title }}
-                            <span class="badge badge-danger">
+                        <li class="list-group-item">{{ item.title }} <br> {{ item.desc }}
+                            <span class="badge badge-danger" style="float: right">
                                 <form method="post" action="{{ url_for('complete_item', id =item.id) }}">
                                     <button class="btn btn-link" type="submit" data-toggle="tooltip"
                                             title="Mark as completed">
@@ -23,8 +23,9 @@
                             </span>
                         </li>
                     {% else %}
-                        <li class="list-group-item">{{ item.title }} <span
-                                class="badge badge-success">{{ item.status }}</span></li>
+                        <li class="list-group-item">{{ item.title }}
+                            <span class="badge badge-success" style="float: right">{{ item.status }}</span>
+                        </li>
                     {% endif %}
 
                 {% endfor %}
@@ -32,13 +33,16 @@
         </div>
     </div>
 
-    <div>
+    <br><br>
+    <div class="border" style="padding: 10px;">
 
-        <h3>Add item</h3>
+        <h3>Add Item</h3>
 
         <form action="" method="post">
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title" value="title"><br>
+            <label for="desc">Description:</label><br>
+            <input type="text" id="desc" name="desc" value="description"><br>
             <input type="submit" value="Submit">
         </form>
 
