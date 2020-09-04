@@ -3,9 +3,23 @@ import os
 import requests
 from flask import Flask, render_template, request, redirect
 from requests.exceptions import HTTPError
+import json
 
 TODO_LIST_ID = os.getenv("TODO_LIST_ID")
 DONE_LIST_ID = os.getenv("DONE_LIST_ID")
+
+NOT_STARTED = 'Not Started'
+COMPLETED = 'Completed'
+
+STATUS_TO_LIST_MAP = {
+    NOT_STARTED: TODO_LIST_ID,
+    COMPLETED: DONE_LIST_ID
+}
+
+LIST_TO_STATUS_MAP = {
+    TODO_LIST_ID: NOT_STARTED,
+    DONE_LIST_ID: COMPLETED
+}
 
 
 class TrelloRequest:
@@ -55,6 +69,13 @@ class TrelloGetCards(TrelloRequest):
         url = self.URL_PATH.format(idList)
         return super().makeRequest(url, "GET")
 
+    def fetchCard(self, id):
+        url = "/card/{}".format(id)
+
+        jsonData = super().makeRequest(url, "GET")
+
+        return TodoItem(jsonData['name'], LIST_TO_STATUS_MAP[jsonData["idList"]], id)
+
 
 class TrelloAddCard(TrelloRequest):
     URL_PATH = "/cards"
@@ -62,28 +83,29 @@ class TrelloAddCard(TrelloRequest):
     def __init__(self, listId):
         self.listId = listId
 
-    def add(self, name):
+    def add(self, item):
         url = self.URL_PATH
 
         query = {
             'idList': self.listId,
-            'name': name
+            'name': item.title
         }
         return super().makeRequest(url, "POST", query)
 
 
-class TrelloUpdateCardStatus(TrelloRequest):
+class TrelloUpdateCard(TrelloRequest):
     URL_PATH = "/cards/{}"
 
-    def update(self, cardId, status):
-        url = self.URL_PATH.format(cardId)
+    def update(self, todoItem, listId):
+        url = self.URL_PATH.format(todoItem.id)
 
         headers = {
             "Accept": "application/json"
         }
 
         query = {
-            'idList': DONE_LIST_ID
+            'name': todoItem.title,
+            'idList': listId
         }
         return super().makeRequest(url, "PUT", query, headers=headers)
 
@@ -97,7 +119,7 @@ class TrelloDeleteCard(TrelloRequest):
 
 
 class TodoItem:
-    def __init__(self, id, title, status):
+    def __init__(self, title, status, id=None):
         self.id = id
         self.title = title
         self.status = status
@@ -112,10 +134,10 @@ trelloRequest = TrelloRequest()
 @app.route('/')
 def index():
     getTodoList = TrelloGetCards().fetchForList(TODO_LIST_ID)
-    toDoItems = [TodoItem(x['id'], x['name'], 'Not Started') for x in getTodoList]
+    toDoItems = [TodoItem(x['name'], NOT_STARTED, x['id']) for x in getTodoList]
 
     getDoneList = TrelloGetCards().fetchForList(DONE_LIST_ID)
-    doneItems = [TodoItem(x['id'], x['name'], 'Completed') for x in getDoneList]
+    doneItems = [TodoItem(x['name'], COMPLETED, x['id']) for x in getDoneList]
 
     items = toDoItems + doneItems
     sorteditems = sorted(items, key=lambda item: item.status, reverse=True)
@@ -124,8 +146,9 @@ def index():
 
 @app.route('/additem', methods=['POST'])
 def additem():
-    todoItemTitle = request.form.get('newitem')
-    TrelloAddCard(TODO_LIST_ID).add(todoItemTitle)
+    title = request.form.get('newitem')
+
+    TrelloAddCard(TODO_LIST_ID).add(TodoItem(title, NOT_STARTED))
 
     return redirect(request.referrer)
 
@@ -139,7 +162,8 @@ def deleteitem(id):
 
 @app.route('/check/<id>', methods=['POST'])
 def checkitem(id):
-    TrelloUpdateCardStatus().update(id, 'Completed')
+    item = TrelloGetCards().fetchCard(id)
+    TrelloUpdateCard().update(item, DONE_LIST_ID)
 
     return redirect(request.referrer)
 
