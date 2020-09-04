@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
-import requests
-from requests.exceptions import HTTPError
 import os
+
+import requests
+from flask import Flask, render_template, request, redirect
+from requests.exceptions import HTTPError
 
 TODO_LIST_ID = os.getenv("TODO_LIST_ID")
 DONE_LIST_ID = os.getenv("DONE_LIST_ID")
@@ -13,19 +13,24 @@ class TrelloRequest:
     APP_API_KEY = os.getenv("APP_API_KEY")
     APP_TOKEN = os.getenv("APP_TOKEN")
 
-    # def __init__(self):
+    def makeRequest(self, url, method, query_params=None, **kwargs):
+        requestUrl = self.BASE_PATH + url
+        print(f"Trello {method} request {requestUrl} with queryParams: {query_params} and additional request: {kwargs}")
 
-    def makeRequest(self, url, resourceId, method="GET", payload=None):
         try:
-            tokenParams = {
+            query = {
                 'key': self.APP_API_KEY,
                 'token': self.APP_TOKEN
             }
+
+            if query_params:
+                query.update(query_params)
 
             response = requests.request(
                 method,
-                self.BASE_PATH % url.format(resourceId),
-                params=tokenParams.update(payload)
+                requestUrl,
+                params=query,
+                **kwargs
             )
 
             response.raise_for_status()
@@ -40,168 +45,55 @@ class TrelloRequest:
             print(f'HTTP error occurred: {http_err}')
         except Exception as err:
             print(f'Other error occurred: {err}')
-        # raise Exception("Request processing failed!")
+        raise Exception("Request failed. See logs.")
 
 
-class TrelloGetCards:
-    BASE_PATH = "https://api.trello.com/1"
-    APP_API_KEY = os.getenv("APP_API_KEY")
-    APP_TOKEN = os.getenv("APP_TOKEN")
-
+class TrelloGetCards(TrelloRequest):
     URL_PATH = "/lists/{}/cards"
 
-    def makeRequest(self, idList):
-        url = self.BASE_PATH + self.URL_PATH.format(idList)
-        print(f"Trello request {url}")
-
-        try:
-            query = {
-                'key': self.APP_API_KEY,
-                'token': self.APP_TOKEN
-            }
-
-            response = requests.request(
-                "GET",
-                url,
-                params=query
-            )
-
-            response.raise_for_status()
-
-            jsonResponse = response.json()
-
-            print(jsonResponse)
-
-            return jsonResponse
-
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
+    def fetchForList(self, idList):
+        url = self.URL_PATH.format(idList)
+        return super().makeRequest(url, "GET")
 
 
-class TrelloAddCard:
-    BASE_PATH = "https://api.trello.com/1"
-    APP_API_KEY = os.getenv("APP_API_KEY")
-    APP_TOKEN = os.getenv("APP_TOKEN")
-
+class TrelloAddCard(TrelloRequest):
     URL_PATH = "/cards"
 
-    def makeRequest(self, name):
-        url = self.BASE_PATH + self.URL_PATH
-        print(f"Trello request {url}")
+    def __init__(self, listId):
+        self.listId = listId
 
-        try:
-            query = {
-                'key': self.APP_API_KEY,
-                'token': self.APP_TOKEN,
-                'idList': TODO_LIST_ID,
-                'name': name
-            }
+    def add(self, name):
+        url = self.URL_PATH
 
-            response = requests.request(
-                "POST",
-                url,
-                params=query
-            )
-
-            response.raise_for_status()
-
-            jsonResponse = response.json()
-
-            print(jsonResponse)
-
-            return jsonResponse
-
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
+        query = {
+            'idList': self.listId,
+            'name': name
+        }
+        return super().makeRequest(url, "POST", query)
 
 
-class TrelloUpdateCardStatus:
-    BASE_PATH = "https://api.trello.com/1"
-    APP_API_KEY = os.getenv("APP_API_KEY")
-    APP_TOKEN = os.getenv("APP_TOKEN")
-
+class TrelloUpdateCardStatus(TrelloRequest):
     URL_PATH = "/cards/{}"
 
-    def makeRequest(self, cardId, status):
-        url = self.BASE_PATH + self.URL_PATH.format(cardId)
-        print(f"Trello request {url}")
+    def update(self, cardId, status):
+        url = self.URL_PATH.format(cardId)
 
-        try:
-            headers = {
-                "Accept": "application/json"
-            }
+        headers = {
+            "Accept": "application/json"
+        }
 
-            query = {
-                'key': self.APP_API_KEY,
-                'token': self.APP_TOKEN,
-                'idList': DONE_LIST_ID
-            }
-
-            # ,'idLabels': status
-
-            response = requests.request(
-                "PUT",
-                url,
-                headers=headers,
-                params=query
-            )
-
-            response.raise_for_status()
-
-            jsonResponse = response.json()
-
-            print(jsonResponse)
-
-            return jsonResponse
-
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
+        query = {
+            'idList': DONE_LIST_ID
+        }
+        return super().makeRequest(url, "PUT", query, headers=headers)
 
 
-class TrelloDeleteCard:
-    BASE_PATH = "https://api.trello.com/1"
-    APP_API_KEY = os.getenv("APP_API_KEY")
-    APP_TOKEN = os.getenv("APP_TOKEN")
-
-    TODO_LIST_ID = os.getenv("TODO_LIST_ID")
-    DONE_LIST_ID = os.getenv("DONE_LIST_ID")
+class TrelloDeleteCard(TrelloRequest):
     URL_PATH = "/cards/{}"
 
-    def makeRequest(self, cardId):
-        url = self.BASE_PATH + self.URL_PATH.format(cardId)
-        print(f"Trello request {url}")
-
-        try:
-            query = {
-                'key': self.APP_API_KEY,
-                'token': self.APP_TOKEN,
-                'idList': DONE_LIST_ID
-            }
-
-            response = requests.request(
-                "DELETE",
-                url,
-                params=query
-            )
-
-            response.raise_for_status()
-
-            jsonResponse = response.json()
-
-            print(jsonResponse)
-
-            return jsonResponse
-
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
+    def delete(self, cardId):
+        url = self.URL_PATH.format(cardId)
+        return super().makeRequest(url, "DELETE")
 
 
 class TodoItem:
@@ -219,10 +111,10 @@ trelloRequest = TrelloRequest()
 
 @app.route('/')
 def index():
-    getTodoList = TrelloGetCards().makeRequest(TODO_LIST_ID)
+    getTodoList = TrelloGetCards().fetchForList(TODO_LIST_ID)
     toDoItems = [TodoItem(x['id'], x['name'], 'Not Started') for x in getTodoList]
 
-    getDoneList = TrelloGetCards().makeRequest(DONE_LIST_ID)
+    getDoneList = TrelloGetCards().fetchForList(DONE_LIST_ID)
     doneItems = [TodoItem(x['id'], x['name'], 'Completed') for x in getDoneList]
 
     items = toDoItems + doneItems
@@ -233,21 +125,21 @@ def index():
 @app.route('/additem', methods=['POST'])
 def additem():
     todoItemTitle = request.form.get('newitem')
-    TrelloAddCard().makeRequest(todoItemTitle)
+    TrelloAddCard(TODO_LIST_ID).add(todoItemTitle)
 
     return redirect(request.referrer)
 
 
 @app.route('/deleteitem/<id>', methods=['POST'])
 def deleteitem(id):
-    TrelloDeleteCard().makeRequest(id)
+    TrelloDeleteCard().delete(id)
 
     return redirect(request.referrer)
 
 
 @app.route('/check/<id>', methods=['POST'])
 def checkitem(id):
-    TrelloUpdateCardStatus().makeRequest(id, 'Completed')
+    TrelloUpdateCardStatus().update(id, 'Completed')
 
     return redirect(request.referrer)
 
