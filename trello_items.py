@@ -1,6 +1,8 @@
 import requests
 
 from flask_config import Config
+from item import Item
+
 
 def get_items():
     """
@@ -10,33 +12,18 @@ def get_items():
         list: The list of saved items.
     """
     r = requests.get(f'https://api.trello.com/1/lists/{Config.LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
-    done_request = requests.get(f'https://api.trello.com/1/lists/{Config.DONE_LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
+    done_request = requests.get(
+        f'https://api.trello.com/1/lists/{Config.DONE_LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
     response = r.json()
     trello_items = []
     for item in response:
-        it = {'id': item['id'], 'title': item['name'], 'status': 'Not Started'}
-        trello_items.append(it)
+        trello_items.append(Item(item))
     for item in done_request.json():
-        it = {'id': item['id'], 'title': item['name'], 'status': 'Completed'}
-        trello_items.append(it)
+        trello_items.append(Item(item))
     return trello_items
 
 
-def get_item(id):
-    """
-    Fetches the saved item with the specified ID.
-
-    Args:
-        id: The ID of the item.
-
-    Returns:
-        item: The saved item, or None if no items match the specified ID.
-    """
-    items = get_items()
-    return next((item for item in items if item['id'] == int(id)), None)
-
-
-def add_item(title):
+def add_item(title, descr):
     """
     Adds a new item with the specified title to the session.
 
@@ -52,7 +39,8 @@ def add_item(title):
         'key': Config.KEY,
         'token': Config.TOKEN,
         'idList': Config.LIST_ID,
-        'name': title
+        'name': title,
+        'desc': descr,
     }
 
     response = requests.request(
@@ -62,10 +50,6 @@ def add_item(title):
     )
 
     print(response.text)
-
-    item = {'id': id, 'title': title, 'status': 'Not Started'}
-
-    return item
 
 
 def save_item(item):

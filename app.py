@@ -15,14 +15,14 @@ def index():
 @app.route('/', methods=['POST'])
 def add_item():
     item_title = request.form.get('title')
-    trello.add_item(item_title)
+    item_desc = request.form.get('desc')
+    trello.add_item(item_title, item_desc)
     items = trello.get_items()
     return render_template("index.html", items=items)
 
 
 @app.route('/complete/<id>', methods=['POST'])
 def complete_item(id):
-    print('iitemid ***************** ' + id)
     trello.move_to_done(id)
     return redirect(url_for('index'))
 
