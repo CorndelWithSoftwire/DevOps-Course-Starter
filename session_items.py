@@ -1,14 +1,9 @@
-import requests
 from flask import session
 
-from flask_config import Config
-
 _DEFAULT_ITEMS = [
-    {'id': 1, 'status': 'Not Started', 'title': 'List saved todo items'},
-    {'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added'}
+    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
+    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
 ]
-
-_trello_items = []
 
 
 def get_items():
@@ -18,12 +13,7 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    r = requests.get(f'https://api.trello.com/1/lists/{Config.LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
-    response = r.json()
-    for item in response:
-        itt = {'id': item['id'], 'title': item['name'], 'status': 'Not Started'}
-        _trello_items.append(itt)
-    return _trello_items
+    return session.get('items', _DEFAULT_ITEMS)
 
 
 def get_item(id):
@@ -50,29 +40,12 @@ def add_item(title):
     Returns:
         item: The saved item.
     """
-    url = "https://api.trello.com/1/cards"
-
-    query = {
-        'key': f'{Config.KEY}',
-        'token': f'{Config.TOKEN}',
-        'idList': f'{Config.LIST_ID}',
-        'name': f'{title}'
-    }
-
-    response = requests.request(
-        "POST",
-        url,
-        params=query
-    )
-
-    print(response.text)
-
     items = get_items()
 
     # Determine the ID for the item based on that of the previously added item
     id = items[-1]['id'] + 1 if items else 0
 
-    item = {'id': id, 'title': title, 'status': 'Not Started'}
+    item = { 'id': id, 'title': title, 'status': 'Not Started' }
 
     # Add the item to the list
     items.append(item)
