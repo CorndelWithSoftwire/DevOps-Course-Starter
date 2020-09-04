@@ -3,7 +3,6 @@ import os
 import requests
 from flask import Flask, render_template, request, redirect
 from requests.exceptions import HTTPError
-import json
 
 TODO_LIST_ID = os.getenv("TODO_LIST_ID")
 DONE_LIST_ID = os.getenv("DONE_LIST_ID")
