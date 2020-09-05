@@ -67,3 +67,20 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def delete_item(item):
+    """
+    removes item from the dictionary.
+
+    Args:
+        item: The item to remove.
+    """
+   
+    existing_items = get_items()
+    
+    item_id = item['id']-1
+    del existing_items[item_id]
+   
+    session['items'] = existing_items
+    
+

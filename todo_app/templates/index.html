@@ -17,15 +17,27 @@
   <div class="row">
     <table style="width:80%">
       <tr>
-        <th>Item</th>
-        <th>Status</th> 
-        <th>Delete</th>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Item To-Do</th> 
+        <th>Completed</th>
+        <th>Delete Item</th>
       </tr>
        {% for item in items %}
          <tr>
-           <td>{{ item.title }}</td>
-           <td>{{ item.status }}</td> 
-           <td>Delete</td>
+          <td>{{ item.id }}</td>
+           <td>{{ item.status }}</td>
+           <td>{{ item.title }}</td> 
+           <td>
+             <FORM action="http://localhost:5000/completed?id={{ item.id }}" method="post">
+                <INPUT type="submit" value="Completed">
+             </FORM>
+           </td>
+           <td>
+            <FORM action="http://localhost:5000/delete?id={{ item.id }}" method="post">
+               <INPUT type="submit" value="delete">
+            </FORM>
+          </td>
          </tr>
        {% endfor %} 
     </table>
