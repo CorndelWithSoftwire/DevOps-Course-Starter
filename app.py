@@ -3,7 +3,22 @@ import os
 import requests
 from flask import Flask, render_template, request, redirect
 from requests.exceptions import HTTPError
+import dateutil.parser
 
+app = Flask(__name__, static_url_path='/static')
+app.config.from_object('flask_config.Config')
+
+
+# Jinja filters
+@app.template_filter()
+def format_datetime(value):
+    fromisoformat = dateutil.parser.parse(value)
+    return fromisoformat.strftime("%b %d")
+
+
+app.jinja_env.filters['due_date'] = format_datetime
+
+# Constants
 TODO_LIST_ID = os.getenv("TODO_LIST_ID")
 DONE_LIST_ID = os.getenv("DONE_LIST_ID")
 
@@ -28,7 +43,7 @@ class TrelloRequest:
 
     def makeRequest(self, url, method, query_params=None, **kwargs):
         requestUrl = self.BASE_PATH + url
-        print(f"Trello {method} request {requestUrl} with queryParams: {query_params} and additional request: {kwargs}")
+        app.logger.info(f"Trello {method} request {requestUrl} with queryParams: {query_params} and additional request: {kwargs}")
 
         try:
             query = {
@@ -50,14 +65,14 @@ class TrelloRequest:
 
             jsonResponse = response.json()
 
-            print(jsonResponse)
+            app.logger.info(jsonResponse)
 
             return jsonResponse
 
         except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
+            app.logger.error(f'HTTP error occurred: {http_err}')
         except Exception as err:
-            print(f'Other error occurred: {err}')
+            app.logger.error(f'Other error occurred: {err}')
         raise Exception("Request failed. See logs.")
 
 
@@ -89,23 +104,28 @@ class TrelloAddCard(TrelloRequest):
             'idList': self.listId,
             'name': item.title
         }
+
+        if item.duedate:
+            query.update({"due": item.duedate})
+
         return super().makeRequest(url, "POST", query)
 
 
 class TrelloUpdateCard(TrelloRequest):
     URL_PATH = "/cards/{}"
 
-    def update(self, todoItem, listId):
-        url = self.URL_PATH.format(todoItem.id)
+    def update(self, item, listId):
+        url = self.URL_PATH.format(item.id)
 
         headers = {
             "Accept": "application/json"
         }
 
         query = {
-            'name': todoItem.title,
+            'name': item.title,
             'idList': listId
         }
+
         return super().makeRequest(url, "PUT", query, headers=headers)
 
 
@@ -118,25 +138,20 @@ class TrelloDeleteCard(TrelloRequest):
 
 
 class TodoItem:
-    def __init__(self, title, status, id=None):
+    def __init__(self, title, status, id=None, **kwargs):
         self.id = id
         self.title = title
         self.status = status
-
-
-app = Flask(__name__, static_url_path='/static')
-app.config.from_object('flask_config.Config')
-
-trelloRequest = TrelloRequest()
+        self.duedate = kwargs.get("duedate")
 
 
 @app.route('/')
 def index():
     getTodoList = TrelloGetCards().fetchForList(TODO_LIST_ID)
-    toDoItems = [TodoItem(x['name'], NOT_STARTED, x['id']) for x in getTodoList]
+    toDoItems = [TodoItem(x['name'], NOT_STARTED, x['id'], duedate=x['due']) for x in getTodoList]
 
     getDoneList = TrelloGetCards().fetchForList(DONE_LIST_ID)
-    doneItems = [TodoItem(x['name'], COMPLETED, x['id']) for x in getDoneList]
+    doneItems = [TodoItem(x['name'], COMPLETED, x['id'], duedate=x['due']) for x in getDoneList]
 
     items = toDoItems + doneItems
     sorteditems = sorted(items, key=lambda item: item.status, reverse=True)
@@ -146,8 +161,9 @@ def index():
 @app.route('/additem', methods=['POST'])
 def additem():
     title = request.form.get('newitem')
+    duedate = request.form.get('duedate')
 
-    TrelloAddCard(TODO_LIST_ID).add(TodoItem(title, NOT_STARTED))
+    TrelloAddCard(TODO_LIST_ID).add(TodoItem(title, NOT_STARTED, duedate=duedate))
 
     return redirect(request.referrer)
 

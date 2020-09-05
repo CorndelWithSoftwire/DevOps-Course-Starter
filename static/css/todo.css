@@ -29,7 +29,7 @@ input[type="checkbox"]{
     opacity: 0;
     z-index: -1;
 }
-label {
+label.checkboxLabel {
     position: relative;
     display: inline-block;
     padding: 0 0 0 2em;
@@ -38,8 +38,8 @@ label {
     cursor: pointer;
     font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
 }
-label::before,
-label::after {
+label.checkboxLabel::before,
+label.checkboxLabel::after {
     position: absolute;
     top: 0;
     left: 0;
@@ -47,7 +47,7 @@ label::after {
     width: 1.5em;
     height: 1.5em;
 }
-label::before {
+label.checkboxLabel::before {
     content: " ";
     border: 2px solid #bdc3c7;
     border-radius: 20%;
@@ -83,8 +83,8 @@ input[type=checkbox]:checked + label {
 }
 
 /* Transition */
-label::before,
-label::after {
+label.checkboxLabel::before,
+label.checkboxLabel::after {
     -webkit-transition: .25s all ease;
     -o-transition: .25s all ease;
     transition: .25s all ease;
