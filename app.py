@@ -7,8 +7,16 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    return 'Testing Flask'
+    items = session.get_items()
+    return render_template('index.html', items=items)
+
+
+@app.route('/items', methods=['POST'])
+def add_item():
+    title = request.form['text-input']
+    session.add_item(title)
+    return redirect('/')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
