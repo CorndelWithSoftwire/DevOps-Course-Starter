@@ -6,7 +6,7 @@ import dotenv
 import pytest
 from flask import Flask, render_template, request, redirect, url_for, session
 #from flask import current_app as create_app
-import app
+import app as app
 
 @pytest.fixture
 def client():
