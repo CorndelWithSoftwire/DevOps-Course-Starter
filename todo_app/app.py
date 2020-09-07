@@ -17,12 +17,14 @@ def task(id):
     item = session_items.get_item(id)
     return render_template('single_item.html', item=item)
 
-@app.route('/add', methods=['GET', 'POST'])
-@app.route('/add/<item>')
-def add(item=None):
-    item = request.form.get['title']
-    session_items.add_item(item)
-    return render_template('add_items.html')
+@app.route('/add', methods=['POST', 'GET'])
+def add():
+    if request.method == 'POST':
+        title = (request.form['title'])
+        session_items.add_item(title)
+        return index()
+    else:
+        return render_template('add_items.html')
     
 
 @app.route('/index')
