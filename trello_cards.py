@@ -5,8 +5,7 @@ load_dotenv(".env")
 
 api_key =os.getenv('TRELLO_API_KEY')
 api_token =os.getenv('TRELLO_API_TOKEN')
-# print(api_key)
-# print(api_token)
+
 host = "https://api.trello.com/1"
 url = "fields=name,url,desc,idBoardSource,dateLastViewid"
 
@@ -26,12 +25,12 @@ def get_board_id():
     return board[0]
 
 
+# def get_idList():
+#     make_trello_auth("/cards")
 
+    list = f"{url}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}&idList={os.getenv('TODO_idList')}"
+#     list = "https://api.trello.com/1/cards?key=58750588def43275eb1a4457a8efe87d&token=fea90c8a2c8ebf27103def869abcf71abfa536b4d119f8bf3cfd680463f7226f&idList=5f38fc74a51a6723b3fe75ea"
 
-# def goto_trello(url):
-    
-#     url = "https://api.trello.com/1/lists/5f38fc74a51a6723b3fe75ea/cards?key=58750588def43275eb1a4457a8efe87d&token=fea90c8a2c8ebf27103def869abcf71abfa536b4d119f8bf3cfd680463f7226f"
-#     board_url = "https://api.trello.com/1/members/me/boards?fields=name,url&key=api_key&token=api_token"
 
 
 # def get_board_id():

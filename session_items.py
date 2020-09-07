@@ -7,10 +7,8 @@ def get_items():
     """ Simple attempt to get all cards from Trello. """
     response = requests.get(make_trello_auth(f"https://api.trello.com/1/boards/{os.environ['BOARD_ID']}/cards"))
     todos = response.json()
-    # doings =
-    # done =
     for card in todos:
-        print(card)
+        print(card ['name'])        
     return todos
 
    
@@ -28,7 +26,7 @@ def get_item(id):
     return next((item for item in items if item['id'] == int(id)), None)
 
 
-def add_item(title):
+def add_item(title, desc):
     """
     Adds a new item with the specified title to the session.
 
