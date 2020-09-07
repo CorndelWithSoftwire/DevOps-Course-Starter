@@ -5,6 +5,13 @@ import ItemsViewModel as ItemsViewModel
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
+# def create_app():
+#     app = Flask(__name__)
+#     app.config.from_object('flask_config.Config')
+
+#     # All the routes and setup code etc
+#     return app
+
 @app.route('/')
 def index():
     return redirect('tasks')
@@ -89,7 +96,16 @@ def get_item(id):
     print(singleitem)
     return render_template("index.html", singleitem=singleitem)
 
-
+@pytest.fixture
+def client():
+    # Use our test integration config instead of the 'real' version
+    file_path = find_dotenv('.env.test')
+    load_dotenv(file_path, override=True)
+    # Create the new app.
+    test_app = app.create_app()
+    # Use the app to create a test_client that can be used in our tests.
+    with test_app.test_client() as client:
+        yield client
 
 if __name__ == '__main__':
     app.run()
