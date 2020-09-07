@@ -11,8 +11,18 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+        {% for tditem in listall %}
+          <li>{{tditem.title }}</li>
+        {% endfor %}
       </ul>
     </div>
   </div>
+  
+  <h2>Add a new To-Do</h2>
+  <form action="/" method="post">
+       <label for="title">To-Do Title:</label>
+       <input type="text" id="ntitle" name="new_title">
+        <button type="submit">Submit</button>
+  </form>
 {% endblock %}
+
