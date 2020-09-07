@@ -1,10 +1,25 @@
+from trello import TrelloClient
 from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
+import requests
+import json
+
+url = "https://api.trello.com/b/DxTGbmpc/to-do"
+
+headers = {"Accept": "application/json"}
+query = {'key': '6f90eb6475d80df64613af31f4a74a28',
+   'token': '1015b49a51dc7965ab53b695d0a6e9ce10c93356fbbbc4a2a5d36b362aeeb4d3'
+}
+
+response = requests.request.get("https://api.trello.com/b/DxTGbmpc/to-do")
+print(json.dumps(json.loads(response.text)
+
+
+#import session_items as session
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
+if __name__ == "__main__":
+    app.run(debug=True)
 
-#changed to the template for local host v2.0
-#unable to complete the sort by status function 
 
 #update from work 2.0
 @app.route('/')
