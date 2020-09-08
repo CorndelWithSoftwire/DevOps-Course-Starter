@@ -15,17 +15,11 @@ def get_items():
 
 @app.route('/', methods=['POST'])
 def add_item():
-    session.add_item(request.form['todo.title'], request.form['desc'])
+    name = request.form['todo.name']
+
+    session.add_item(name)
     return render_template('index.html')
 
-
-@app.route('/', methods=['POST'])
-def add_new_card():
-    if request.method == 'POST':
-        session.add_item(request.form['todo.title'], request.form['desc'])
-    else:
-        todo = session.get_items()
-    return render_template('index.html', todos=todo)
 
 
 @app.route('/item/<id>', methods=['POST', 'GET'])
