@@ -8,31 +8,21 @@ api_token =os.getenv('TRELLO_API_TOKEN')
 idList=os.getenv('ID_LIST')
 
 host = "https://api.trello.com/1"
-url = "fields=name,url,desc,idBoardSource,dateLastViewid"
 
 def make_trello_auth(url):
     """ Attempting to make a trello connection with key and token. """
     trello_url =f"{url}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
     return(trello_url)
 
-def make_card_auth(url): 
+def get_cards_url_with_auth():
     trello_host = "https://api.trello.com/1/cards"
-    card_url =f"{trello_host}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}&idList={os.getenv('ID_LIST')}"
+    card_url =f"{trello_host}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
     return(card_url)
-
-def get_trello_url(url):
-    other_trello_url = make_trello_auth(url)
-    response = "requests.get(url=other_trello_url).json()"
-    print(other_trello_url)
-    return response
 
 def get_board_id():
     board = make_trello_auth("members/me/boards?")
     return board[0]
 
-# def make_card_auth(url):
-#     'name=Module8:Core Reading and Project'
-#     'desc=To complete the core reading materials, project and additional reading.'
 
 # def get_idList():
 #     make_trello_auth("/cards")

@@ -1,6 +1,6 @@
 from flask import session
 import requests
-from trello_cards import make_trello_auth
+from trello_cards import make_trello_auth, get_cards_url_with_auth
 import os
 
 def get_items():
@@ -8,22 +8,15 @@ def get_items():
     response = requests.get(make_trello_auth(f"https://api.trello.com/1/boards/{os.environ['BOARD_ID']}/cards"))
     todos = response.json()
     for card in todos:
-        print(card ['name'])        
+        print(card ['name'], card['desc'])        
     return todos
 
-def add_new_item(name):
-    """ Method 1"""
-    todo.name = request.json['name']
-    todo.desc = request.json['desc']
-    todos = response.json().append(todo['name'], todo['desc'])
+def add_new_item(name, desc):
+    create_new_card = {'idList': os.getenv('ID_LIST'), 'name': name, 'desc': desc}
 
-    create_new_card = {'todo.name': str(name), 'todo.desc': str(desc)}
-
-    response = requests.post(make_card_auth(f"{trello_host}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}&idList={os.getenv('ID_LIST'}, data=json.dumps(create_new_card))"
-
-        # todos = get_items()
-        # session['items']=items
-    # return item
+    response = requests.post(get_cards_url_with_auth(), params=create_new_card)
+    # print(response)
+    return response
 
 def add_item(name):
 
@@ -38,8 +31,6 @@ def add_item(name):
 
     return item
 
-
-
 def get_item(id):
     """
     Fetches the saved item with the specified ID.
@@ -52,8 +43,6 @@ def get_item(id):
     """
     items = get_items()
     return next((item for item in items if item['id'] == int(id)), None)
-
-
 
 def save_item(item):
     """
