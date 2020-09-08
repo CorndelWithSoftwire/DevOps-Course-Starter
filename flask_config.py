@@ -1,6 +1,7 @@
 """Flask configuration class."""
 import os
 
+
 class Config:
     """Base configuration variables."""
     APP_API_KEY = os.environ.get('APP_API_KEY')
