@@ -16,7 +16,7 @@ def format_datetime(value):
     return fromisoformat.strftime("%b %d")
 
 
-app.jinja_env.filters['due_date'] = format_datetime
+app.jinja_env.filters['due_date_filter'] = format_datetime
 
 # Constants
 TODO_LIST_ID = os.getenv("TODO_LIST_ID")
@@ -138,11 +138,11 @@ class TrelloDeleteCard(TrelloRequest):
 
 
 class TodoItem:
-    def __init__(self, title, status, id=None, **kwargs):
+    def __init__(self, title, status, id=None, duedate=None):
         self.id = id
         self.title = title
         self.status = status
-        self.duedate = kwargs.get("duedate")
+        self.duedate = duedate
 
 
 @app.route('/')
@@ -178,8 +178,11 @@ def deleteitem(id):
 @app.route('/check/<id>', methods=['POST'])
 def checkitem(id):
     item = TrelloGetCards().fetchCard(id)
-    TrelloUpdateCard().update(item, DONE_LIST_ID)
+    list = TODO_LIST_ID
+    if request.form.get(id):
+        list = DONE_LIST_ID
 
+    TrelloUpdateCard().update(item, list)
     return redirect(request.referrer)
 
 
