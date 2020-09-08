@@ -1,26 +1,34 @@
 from trello import TrelloClient
 from flask import Flask, render_template, request, redirect, url_for
 import requests
+import os
 import json
 
-url = "https://api.trello.com/b/DxTGbmpc/to-do"
-
-headers = {"Accept": "application/json"}
-query = {'key': '6f90eb6475d80df64613af31f4a74a28',
-   'token': '1015b49a51dc7965ab53b695d0a6e9ce10c93356fbbbc4a2a5d36b362aeeb4d3'
-}
-
-response = requests.request.get("https://api.trello.com/b/DxTGbmpc/to-do")
-print(json.dumps(json.loads(response.text)
-
-
-#import session_items as session
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
+
+@app.route('/')
+def index():
+    #items = session.get_items()
+   
+    client = TrelloClient(
+            api_key=os.getenv('TRELLO_API_KEY'),
+            api_secret=os.getenv('TRELLO_API_SECRET_KEY'),
+        )
+    all_boards = client.list_boards()
+    print(all_boards)
+  
+    #print(response.text)
+    #print(json.dumps(json.loads(response.text)))
+    items=[]
+    return render_template('index.html', todos = items)
+
+#import session_items as session
+
 if __name__ == "__main__":
     app.run(debug=True)
 
-
+"""
 #update from work 2.0
 @app.route('/')
 def index():
@@ -49,3 +57,4 @@ def update_todo():
     new_status_value = request.form.get("status")
     session.update_item(item, new_todo_value, new_status_value)
     return redirect('/')
+    """
