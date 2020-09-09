@@ -25,6 +25,14 @@ def get_item(id):
         item = session.get_item(id)
     return render_template('oneItemDisplay.html', item=item)
 
+
+@app.route('/done', methods=['GET'])
+def get_done_items():
+    done = session.get_done_items()
+    # return redirect("/done")
+    return render_template('done.html', dones=done)
+
+
 @app.route('/save', methods=['POST'])
 def save_item(item):
     item = session.save_item(item)        
@@ -37,8 +45,10 @@ def delete_item(id):
 
     session.delete_item(item)
 
-    # return render_template('index.html')
-    return redirect("/")
+    # return render_template('OneItemDisplay.html')
+    # return redirect("/")
+    return render_template('oneItemDisplay.html', item=item)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

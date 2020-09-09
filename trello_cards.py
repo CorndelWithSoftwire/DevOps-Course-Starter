@@ -19,26 +19,15 @@ def get_cards_url_with_auth():
     card_url =f"{trello_host}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
     return(card_url)
 
+
 def get_board_id():
     board = make_trello_auth("members/me/boards?")
     return board[0]
 
-
-# def get_idList():
-#     make_trello_auth("/cards")
-
-    # list = f"{url}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}&idList={os.getenv('TODO_idList')}"
-#     list = "https://api.trello.com/1/cards?key=58750588def43275eb1a4457a8efe87d&token=fea90c8a2c8ebf27103def869abcf71abfa536b4d119f8bf3cfd680463f7226f&idList=5f38fc74a51a6723b3fe75ea"
-
-
-
-# def get_board_id():
-#     board="https://api.trello.com/1/members/me/boards?fields=name,url&key=api_key&token=api_token"
-# return board[0]["id"]
-
-# def get_list_id():
-
-    # return
+# def get_updated_card_url():
+#     list_url = "https://api.trello.com/1/cards"
+#     formated_url = f"https://api.trello.com/1/lists/{os.getenv('DONE_idList')}cards/?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
+#     return(list_url)
 
 # class Card:
 

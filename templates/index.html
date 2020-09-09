@@ -14,6 +14,7 @@
                 <h6>
                     {% for todo in todos %}
                     {{todo["name"]}} - {{todo["desc"]}}
+                    <button type="submit" class="btn btn-success">Complete Item</button>
                     <a href="/" class="btn btn-danger">Delete Item</a>
                     <br>
                     {% endfor %}
@@ -34,27 +35,6 @@
                 </div>
             </form>
         </div>
-
-        <div class="col-md-12">
-        <div class="well text-container">
-            <div class="row">
-            <form action="/save/{{Item}}" method="POST">
-                    <h4>
-                        <label style="color: blue">Item Title</label>
-                        <input type="text" name="Title">
-                        <a href=" " class="btn btn-success">Save Item</a>
-                        <br>
-                    </h4>
-                </div>
-            </form>
-            </div>
-        </div>
-     </div>
-
-    <div>
-
-    
-            
         </div>
     </div>
 </div>
