@@ -1,4 +1,4 @@
-# SETUP INFO
+# SETUP INFO - this it the one
 
 from flask import Flask, render_template, request, redirect, url_for
 import requests                     # Import the whole of requests
@@ -61,10 +61,12 @@ def entry():
 @app.route('/complete_item', methods = ["PUT","GET","POST"])
 
 def complete_item():
+    donelistid = "5f3528981725711087e10339"
     id = request.form['item_id']
     query = {
         'key': trellokey,
-        'token': trellotoken     
+        'token': trellotoken,
+        'idList' : donelistid   
     }
     response = requests.request(
         "PUT",
