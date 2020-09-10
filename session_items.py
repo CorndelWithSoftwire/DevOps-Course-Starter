@@ -15,38 +15,27 @@ def get_items():
 def get_done_items():
     """ Simple attempt to get all done cards from Trello. """
     response = requests.get(f"https://api.trello.com/1/lists/{os.getenv('DONE_idList')}/cards?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}")
+
     todos = response.json()
     for card in todos:
         print(card['name'], card['desc'])
     return todos
+    
 
 def add_new_item(name, desc):
-    create_new_card = {'idList': os.getenv('ID_LIST'), 'name': name, 'desc': desc}
+    create_new_card = {'idList': os.getenv('TODO_idList'), 'name': name, 'desc': desc}
     response = requests.post(get_cards_url_with_auth(), params=create_new_card)
     return response
 
 
-# def update_item():
-#     existing_items = get_items()
-#     updated_items = existing_items
-#     id = get_item(id)
-#     response = requests.put(f"https://api.trello.com/1/cards/{os.getenv('CARD_ID')}"+
-#     "?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
+def update_item(id):
 
-#     return response
+    params={"key": os.getenv('TRELLO_API_KEY'), "token": os.getenv('TRELLO_API_TOKEN'), "idList": os.getenv('DONE_idList')}
 
-def add_item(name):
+    response=requests.put(f"https://api.trello.com/1/cards/{os.getenv('DOING_CARD_ID')}", params=params)                 
 
-    items = get_items()
+    return response
 
-    id = items[-1]['id'] + 1 if items else 0
-
-    item = { 'id': id, 'name': name, 'status': 'Not Started' }
-
-    items.append(item)
-    session['items'] = items
-
-    return item
 
 def get_item(id):
     """

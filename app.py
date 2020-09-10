@@ -19,6 +19,14 @@ def add_item():
     session.add_new_item(name, desc)
     return redirect('/')
 
+
+@app.route('/done', methods=['POST'])
+def update_item():
+    id = request.form['item_id']
+    session.update_item(id)
+
+    return redirect('/done')
+
 @app.route('/item/<id>', methods=['POST', 'GET'])
 def get_item(id):
     if request.method == 'POST':
@@ -29,7 +37,7 @@ def get_item(id):
 @app.route('/done', methods=['GET'])
 def get_done_items():
     done = session.get_done_items()
-    # return redirect("/done")
+  
     return render_template('done.html', dones=done)
 
 

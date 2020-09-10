@@ -5,7 +5,7 @@ load_dotenv(".env")
 
 api_key =os.getenv('TRELLO_API_KEY')
 api_token =os.getenv('TRELLO_API_TOKEN')
-idList=os.getenv('ID_LIST')
+idList=os.getenv('TODO_idList')
 
 host = "https://api.trello.com/1"
 
@@ -20,14 +20,6 @@ def get_cards_url_with_auth():
     return(card_url)
 
 
-def get_board_id():
-    board = make_trello_auth("members/me/boards?")
-    return board[0]
-
-# def get_updated_card_url():
-#     list_url = "https://api.trello.com/1/cards"
-#     formated_url = f"https://api.trello.com/1/lists/{os.getenv('DONE_idList')}cards/?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
-#     return(list_url)
 
 # class Card:
 
