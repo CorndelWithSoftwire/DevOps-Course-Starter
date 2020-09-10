@@ -53,9 +53,7 @@ def delete_item(id):
 
     session.delete_item(item)
 
-    # return render_template('OneItemDisplay.html')
-    # return redirect("/")
-    return render_template('oneItemDisplay.html', item=item)
+    return render_template('OneItemDisplay.html', item=item)
 
 
 if __name__ == '__main__':
