@@ -1,4 +1,3 @@
-from flask import session
 import requests
 from trello_cards import make_trello_auth, get_cards_url_with_auth
 import os
@@ -30,7 +29,7 @@ def add_new_item(name, desc):
 
 def update_item(id):
     params={"key": os.getenv('TRELLO_API_KEY'), "token": os.getenv('TRELLO_API_TOKEN'), "idList": os.getenv('DONE_idList')}
-    response=requests.put(f"https://api.trello.com/1/cards/{os.getenv('DOING_CARD_ID')}", params=params)                 
+    response=requests.put(f"https://api.trello.com/1/cards/{id}", params=params)
     return response
 
 def get_id_of_card():
@@ -40,10 +39,9 @@ def get_id_of_card():
 
     return response[id]
 
-def delete_item():
-
+def delete_item(id):
     params = {"key": os.getenv('TRELLO_API_KEY'), "token": os.getenv('TRELLO_API_TOKEN')}
-    response = requests.delete(f"https://api.trello.com/1/cards/{os.getenv('DOING_CARD_ID')}", params=params)
+    response = requests.delete(f"https://api.trello.com/1/cards/{id}", params=params)
     return response
 
 

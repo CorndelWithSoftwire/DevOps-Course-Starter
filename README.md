@@ -13,7 +13,22 @@ $ source setup.sh
 $ source setup.sh --windows
 ```
 
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
+## Setting up Trello
+
+You'll need a Trello account to run this project. You will need:
+* API key & token
+* Create a board to link this app to
+* On the board, create the following lists:
+    * Todo
+    * Doing
+    * Done
+
+After doing this, you'll need to fill in the empty values in the `.env` file that is created by running the setup script.
+* You may want to use postman to obtain these ids
+
+## Running the Application
+
+Once the setup script has completed and you've setup trello as bove, start the Flask app by running:
 ```bash
 $ flask run
 ```

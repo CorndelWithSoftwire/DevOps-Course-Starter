@@ -13,17 +13,14 @@
             <ul class="list-group mb-4">
                 <h6>
                     {% for todo in todos %}
-                    {{todo["name"]}} - {{todo["desc"]}}
-                    <form action="/done" method="POST">
-                    <input type="hidden" name="item_id" value="{{DOING_CARD_ID}}">
-                    <button type="submit" class="btn btn-success">Complete Item</button>
-                    </form>
-                    <!-- <form action="/" method="POST"></form> -->
-                    <form action="/delete_item" method="POST"></form>
-                    <input type="hidden" name="item_id" value="{{DOING_CARD_ID}}">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                    <br>
+                        {{todo["name"]}} - {{todo["desc"]}} - {{todo["status"]}}
+                        <form action="/done/{{todo['id']}}" method="POST">
+                            <button type="submit" class="btn btn-success">Complete Item</button>
+                        </form>
+                        <form action="/delete_item/{{todo['id']}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <br>
                     {% endfor %}
                 </h6>
             </ul>
