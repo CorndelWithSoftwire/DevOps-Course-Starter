@@ -19,19 +19,3 @@ def get_cards_url_with_auth():
     card_url =f"{trello_host}?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}"
     return(card_url)
 
-
-
-# class Card:
-
-
-#     def __init__(self, id, name, desc):
-#         self.id = id
-#         self.name = name
-#         self.desc = desc
-#     return card
-
-#     def get_cards():
-#         todo = get_trello_url("members/me/boards?")
-#         doing = get_trello()
-#         done = get_trello()
-#     return todo

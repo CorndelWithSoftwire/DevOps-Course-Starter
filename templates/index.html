@@ -17,7 +17,11 @@
                     <form action="/done" method="POST">
                     <input type="hidden" name="item_id" value="{{DOING_CARD_ID}}">
                     <button type="submit" class="btn btn-success">Complete Item</button>
-                    <a href="/" class="btn btn-danger">Delete Item</a>
+                    </form>
+                    <!-- <form action="/" method="POST"></form> -->
+                    <form action="/delete_item" method="POST"></form>
+                    <input type="hidden" name="item_id" value="{{DOING_CARD_ID}}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     <br>
                     {% endfor %}
@@ -31,7 +35,6 @@
                     <h4>
                         <label style="color: blue" for="name">Add Item</label>
                         <p><input type="text" id="name" name="name"><input type="text" id="desc" name="desc"></p>
-                            <!-- <a href=" " class="btn btn-success">Create Item</a> -->
                         <button type="submit" class="btn btn-success">Create Item</button>
                         <br>
                     </h4>
