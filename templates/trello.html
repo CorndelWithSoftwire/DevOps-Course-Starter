@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Trello Board{% endblock %}
 
 {% block content %}
   <div class="jumbotron">
@@ -7,7 +7,7 @@
     <p class="lead">Trelllo to-do app.</p>
   </div>
 
-  <div class="row">
+  <div class="row pt-4 mb-4">
     <form action="/card/new" method="post">
       <div class="col-md-12 form-group row">
         <div class="input-group input-group-sm mb-3">
@@ -18,29 +18,61 @@
         </div>  
         <button class="btn btn-primary" type="submit" title="Add Card">Add It</button>
       </div>
-      
     </form>
     <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
+      <h2>Cards </h2>
+      <div class="mb-4">
         <!-- List the todo items here -->
         {% for card in cards %} 
-          <li class="list-group-item {% if card['status'] == 'Done' %}list-group-item-success{% endif %}">
-            ID : {{card['id']}}, Title : {{card['name']}}, Status : {{card['status']}}
-            <form action="/card/move" method="POST">
-              <input type="hidden" name="card_id" value="{{card['id']}}"/>
-              <select id="to_list" name="to_list">
-                <option value="To Do">TO DO</option>
-                <option value="Doing">Doing</option>
-                <option value="Done">Done</option>
-              </select>
-              <button  class="btn btn-link btn-sm "  type="submit" title="Move Card">
-                Move Card
-              </button>
-            </form>
-          </li> 
+          <div class="card clearfix mb-4">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-10">
+                  <h5>{{card['name']}}</h5>
+                </div>
+              
+                <div class="col-md-2 ">
+                  <span class="clearfix badge {% if card['status'] == 'Done' %} badge-success {% elif card['status'] == 'To Do' %}  badge-info {% else %} badge-primary {% endif %}"> 
+                        {{card['status']}}
+                  </span>
+                </div>
+              </div>
+            </div>   
+            <div class="card-body col-md-6 form-group">
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="card-subtitle mb-2 text-muted">ID : {{card['id']}}</h6>
+                </div>              
+              </div>
+              <form action="/card/move" method="POST">
+                  <div class="row">
+                    <input type="hidden" name="card_id" value="{{card['id']}}"/>
+                    <div class="col-md-4">
+                      <select {% if card['status'] == 'Done' %} hidden{% endif %} class="form-control"  id="to_list" name="to_list">
+                        {% if card['status'] != 'Done' %}
+                        <option value="Doing">Start</option>
+                        <option value="Done">Complete</option>
+                        {% endif %}
+                        {% if card['status'] == 'Done' %}
+                        <option  value="To Do" selected>To Do</option>
+                        {% endif %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <button class="btn btn-primary btn-sm "  type="submit" title="Move Card">
+                        {% if card['status'] == 'Done' %} 
+                          Move To Do 
+                        {% else %}
+                          Move Card
+                        {% endif %}
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div> 
         {% endfor %}
-      </ul>
+        </div>
     </div>
   </div>
 {% endblock %}
