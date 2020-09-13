@@ -6,8 +6,8 @@ class Item:
         self.status = status
 
     @classmethod
-    def trelloCard(cls, card, list):
-        return cls(card['id'], card['name'], list['name'])
+    def trelloCard(cls, item, list):
+        return cls(item['id'], item['name'], list['name'])
 
     def create(self):
         self.status = 'To Do'

@@ -14,6 +14,9 @@ def index():
 
 @app.route('/trello')
 def trello_page():
+    """
+    App using Trello API 
+    """
     return render_template('trello.html', cards=trello.get_all_cards())
 
 @app.route('/addit', methods=['POST'])
@@ -21,41 +24,27 @@ def add_todo():
         session.add_item(request.form.get('new_item'))
         return redirect('/')
 
-@app.route('/board/<name>')
-def get_board(name):
-    return trello.get_board_by_name(name)
-
-@app.route('/list/<name>')
-def get_list(name):
-    return trello.get_list_by_name(name)
-
-@app.route('/cards/<name>')
-def get_cards_list(name):
-    return trello.get_cards_by_list_name(name)
-
-@app.route('/boards/all')
-def get_all_board():
-    return trello.get_all_boards()
-
-@app.route('/lists/all')
-def get_all_lists():
-    return trello.get_all_lists()
-
 @app.route('/card/new', methods=['POST'])
 def add_card():
+    """
+    Adding new Trello card
+    """
     name = request.form['new_card']
     trello.add_card_by_name(name)
-    return redirect('/trello')
+    return redirect(url_for('trello_page'))
 
 @app.route('/card/move', methods=['POST'])
 def move_card():
+    """
+    Moving new Trello card
+    """
     card_id = request.form['card_id']
     to_list = request.form['to_list']
     trello.move_card_to_new_list(card_id, to_list)
-    return redirect('/trello')
+    return redirect(url_for('trello_page'))
 
 @app.route('/complete')
-def completeit():
+def complete_item():
     if request.method == 'GET':
         item = session.get_item(request.args.get('item_id'))
         item['status']='Complete'
