@@ -22,9 +22,8 @@ def index():
         url,
         params=query
         )
-    #print(response.text)
-    #items = session.get_items()
-    #return render_template('index.html', items=items)
+    
+    
     cards = json.loads(response.text)
     items_list = list()
     for card in cards:
@@ -81,11 +80,11 @@ def add_card():
 
 
 def add_card_to_todo():
-    add_card('todo_list_id')
+    add_card()
 
 
 def add_card_to_done():
-    add_card('done_list_id')
+    add_card()
 
 
 #delete card/item
@@ -111,8 +110,6 @@ def add_list_to_board(name):
     
     #query['name'] = 'MyCorndelDevOpsToDoBoard'
     query['name'] = name
-    #No obvious way of retrieving the created Board Id, 
-    #therefore reusing/mocking the example one instead 
     query['idBoard'] = '5abbe4b7ddc1b351ef961414'
 
     response = requests.request( "POST", url, params=query )

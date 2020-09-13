@@ -20,6 +20,8 @@ TOKEN=xxx61x75051xx88x69x6xxx781x54xx885x16x8394xxx5xxx223x48xxxx19507
 
 # Board and List ID 
 These two IDs are for the sake of simplicity been hardcoded
+BOARD_ID=5f5a4b008a129438843fcf0f
+LIST_ID=5f5a4b008a129438843fcf10
 
 Once the setup script has completed and all packages have been installed, start the Flask app by running:
 ```bash
