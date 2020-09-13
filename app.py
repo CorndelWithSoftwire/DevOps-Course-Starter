@@ -13,7 +13,8 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    url = "https://api.trello.com/1/boards/{id}/cards"
+    board_id = cf.get_trello_board_id()
+    url = f"https://api.trello.com/1/boards/{board_id}/cards"
     query = cf.get_trello_query()
     
     response = requests.request(
@@ -27,7 +28,13 @@ def index():
     cards = json.loads(response.text)
     items_list = list()
     for card in cards:
-        item = Item(card.id, card.status, card.title)
+        status = 'To Do' 
+        if card['idList'] == '5f5a4b008a129438843fcf10':
+            status = 'To Do'
+        else:
+            status = 'Done'
+
+        item = Item(card['id'], status, card['name'])
         items_list.append(item)
 
     return render_template('index.html', items=items_list)
@@ -116,11 +123,6 @@ def add_list_to_board(name):
     response = requests.request( "POST", url, params=query )
     print(response.text)
 
-def create_to_do_list():
-    add_list_to_board('TO_DO')
-
-def create_done_list():
-    add_list_to_board('DONE')
 
 
 #Create New Board

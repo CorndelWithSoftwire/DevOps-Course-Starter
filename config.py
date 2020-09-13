@@ -11,11 +11,15 @@ def get_trello_url():
     return TRELLO_URL
 
 def get_trello_api_key():
-    load_dotenv()
     return os.getenv("API_KEY")
 
+def get_trello_board_id():
+    return os.getenv("BOARD_ID")
+
+def get_trello_list_id():
+    return os.getenv("LIST_ID")
+
 def get_trello_token():
-    load_dotenv()
     return os.getenv("TOKEN")
 
 def get_trello_query():
