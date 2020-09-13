@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">To-Do App</h1>
+    <p class="lead">Trelllo to-do app.</p>
+  </div>
+
+  <div class="row">
+    <form action="/card/new" method="post">
+      <div class="col-md-12 form-group row">
+        <div class="input-group input-group-sm mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-sm">New Item</span>
+          </div>
+        <input class="form-control" type="text" name="new_card" id="item" required/>
+        </div>  
+        <button class="btn btn-primary" type="submit" title="Add Card">Add It</button>
+      </div>
+      
+    </form>
+    <div class="col-md-12">
+      <h2>Items</h2>
+      <ul class="list-group mb-4">
+        <!-- List the todo items here -->
+        {% for card in cards %} 
+          <li class="list-group-item {% if card['status'] == 'Done' %}list-group-item-success{% endif %}">
+            ID : {{card['id']}}, Title : {{card['name']}}, Status : {{card['status']}}
+            <form action="/card/move" method="POST">
+              <input type="hidden" name="card_id" value="{{card['id']}}"/>
+              <select id="to_list" name="to_list">
+                <option value="To Do">TO DO</option>
+                <option value="Doing">Doing</option>
+                <option value="Done">Done</option>
+              </select>
+              <button  class="btn btn-link btn-sm "  type="submit" title="Move Card">
+                Move Card
+              </button>
+            </form>
+          </li> 
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
