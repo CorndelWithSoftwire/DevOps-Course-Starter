@@ -39,12 +39,6 @@ def index():
 
     return render_template('index.html', items=items_list)
 
-# To Be Removed
-# @app.route('/add', methods=['POST'])
-def addToDo():
-    title = request.form['title']
-    session.add_item(title)
-    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run()
@@ -73,9 +67,10 @@ def update_card(idCard):
 
 #create card/item
 @app.route('/add', methods=['POST'])
-def add_card(list_id):
+def add_card():
     url = "https://api.trello.com/1/cards"
     
+    list_id = cf.get_trello_list_id()
     query = cf.get_trello_query()
     #No obvious way of retrieving the created List Id, 
     #therefore reusing/mocking the example one instead 
