@@ -3,10 +3,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests                     # Import the whole of requests
 import json
-import session_items as session
 import os        # Secrets for example Trello tokens etc in here (local only)
+from models.view_model import ViewModel
+from todo import Todo
 app = Flask(__name__)
-app.config.from_object('flask_config.Config')
 
 #Set up variables we'll be using
 
@@ -17,24 +17,11 @@ trellotoken=os.environ["token"]         # get the secret token
 
 
 @app.route('/', methods = ["GET","PUT"])
-
 def index():
-    Items=session.get_items()
     thislist=[]                  
     superlist=[] 
     cardsurl = "https://api.trello.com/1/cards"      
-    boardurl = "https://api.trello.com/1/boards/5f3528983d4fb244aae9f934/cards"             # The board ID is not a secret!
-    listid = "5f352898dc8a8c31a0a1e439"       
-
-    class ViewModel:
-        def __init__(self,Items):
-            self._items = Items
-
-        @property
-        def items(self):
-            return self._Items
-
-    # donelistid = "5f3528981725711087e10339"
+    boardurl = f"https://api.trello.com/1/boards/{os.environ['board_id']}/cards"             # The board ID is not a secret!
 
 # Trello GET for recieving all the cards here
 
@@ -48,16 +35,21 @@ def index():
          params=query
      )
 
-    the_list = json.loads(board_response.text)     # A list of cards
-    for todo in the_list:
-       
-        superlist.append({'name': todo['name'], 'id': todo['id']})
+    card_list = json.loads(board_response.text)     # A list of cards
 
-    item_view_model = ViewModel(Items)
-    # render_template('index.html', view_model=item_view_model)
+    for trello_card in card_list:
+        todo = Todo.from_trello_card(trello_card)
+        superlist.append(todo)
 
 
-    return render_template('index.html',passedItems=Items,todisplay=superlist)
+    item_view_model = ViewModel(superlist)
+   
+    return render_template('index.html', view_model=item_view_model)
+
+
+    # return render_template('index.html',passedItems=Items,todisplay=superlist)
+    # return redirect("/")
+
 
 @app.route('/addentry', methods = ["POST"])
 def entry():
@@ -78,12 +70,12 @@ def entry():
 @app.route('/complete_item', methods = ["PUT","GET","POST"])
 
 def complete_item():
-    donelistid = "5f3528981725711087e10339"
+    done_listid = "5f3528981725711087e10339"
     id = request.form['item_id']
     query = {
         'key': trellokey,
         'token': trellotoken,
-        'idList' : donelistid   
+        'idList' : done_listid   
     }
     response = requests.request(
         "PUT",
