@@ -10,43 +10,33 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Items from COOKIE, not from Trello</h2>
-      <ul class="list-group mb-4">
-	      
+      <ul class="list-group mb-4">  
 	      {% for D in passedItems %}     
             <li>{{D.title}} </li>
 	      {% endfor %}
       </ul>
 
-
-      <h2>Items from TRELLO To-DO list</h2>
-      
+      <h2>Items from TRELLO To-Do list</h2>
       <ul class="list-group mb-4">
-       
-        {% for todo in todisplay %}     
-          <li>{{todo.name}}</li>
-          <form action="/complete_item" method="POST">
-            <input type="hidden" id="todo.id" name="item_id" value="{{ todo.id }}">
-          
-            <button class="button button1" id='btn1' type="submit" >Change to complete</button> 
-          </form>
+     
+      {% for item in view_model.todo_items %}
+        <li>{{item.title}}</li>
+        <form action="/complete_item" method="POST">
+          <input type="hidden" id="todo.id" name="item_id" value="{{ item.id }}">
+          <button class="button button1" id='btn1' type="submit" >Change to complete</button> 
+        </form>
+      {% endfor %}
+        <h2> DONE </h2>
+      <h2>Items from TRELLO Done list</h2>
+      <ul class="list-group mb-4">
+     
+      {% for item in view_model.done_items %}
+        <li>{{item.title}}</li>
+      {% endfor %}
 
-            {% endfor %}
-        
-      
       </ul>  
-      
-      <script> 
-        function function1() { 
-        document.body.style.backgroundColor = 'blue'; 
-        } 
-        function function2() { 
-        document.body.style.backgroundColor = 'red';  
-        } 
-        function function3() { 
-        document.body.style.backgroundColor = 'green';  
-        }  
-        </script>
 
+    
     </div>
   </div>
   <form action="/addentry" method="post">
