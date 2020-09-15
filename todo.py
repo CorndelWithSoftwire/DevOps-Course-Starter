@@ -16,6 +16,8 @@ class Todo:
             status = "Todo"
         elif card["idList"] == os.environ["done_listid"]:
             status = "Done"
+        elif card["idList"] == os.environ["doing_listid"]:
+            status = "Doing"
 
         new_class_instance = cls(id, title, status)
         return new_class_instance
