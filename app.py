@@ -12,6 +12,10 @@ app.config.from_object('flask_config.Config')
 
 trellokey=os.environ["key"]            # get the secret key
 trellotoken=os.environ["token"]         # get the secret token
+
+
+
+
 @app.route('/', methods = ["GET","PUT"])
 
 def index():
@@ -20,7 +24,16 @@ def index():
     superlist=[] 
     cardsurl = "https://api.trello.com/1/cards"      
     boardurl = "https://api.trello.com/1/boards/5f3528983d4fb244aae9f934/cards"             # The board ID is not a secret!
-    listid = "5f352898dc8a8c31a0a1e439"                         
+    listid = "5f352898dc8a8c31a0a1e439"       
+
+    class ViewModel:
+        def __init__(self,Items):
+            self._items = Items
+
+        @property
+        def items(self):
+            return self._Items
+
     # donelistid = "5f3528981725711087e10339"
 
 # Trello GET for recieving all the cards here
@@ -39,6 +52,10 @@ def index():
     for todo in the_list:
        
         superlist.append({'name': todo['name'], 'id': todo['id']})
+
+    item_view_model = ViewModel(Items)
+    # render_template('index.html', view_model=item_view_model)
+
 
     return render_template('index.html',passedItems=Items,todisplay=superlist)
 
