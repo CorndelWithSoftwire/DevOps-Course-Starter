@@ -26,7 +26,16 @@
           <button class="button button1" id='btn1' type="submit" >Change to complete</button> 
         </form>
       {% endfor %}
-        <h2> DONE </h2>
+
+      <h2>Items from TRELLO Doing list</h2>
+      <ul class="list-group mb-4">
+     
+        {% for item in view_model.doing_items %}
+          <li>{{item.title}}</li>
+        {% endfor %}  
+      </ul> 
+
+      
       <h2>Items from TRELLO Done list</h2>
       <ul class="list-group mb-4">
      
@@ -35,6 +44,9 @@
       {% endfor %}
 
       </ul>  
+
+
+
 
     
     </div>
