@@ -17,7 +17,7 @@ Once the setup script has completed and all packages have been installed, start 
 ```bash
 $ flask run
 ```
-
+#
 You should see output similar to the following:
 ```bash
  * Serving Flask app "app" (lazy loading)
