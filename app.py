@@ -31,14 +31,16 @@ def index():
     items=sorted(items, key=lambda k: k['status'], reverse=True)
     return render_template('index.html', items=items)
 
+def save_item_trello(id):
+    url = "https://api.trello.com/1/cards/" + id
+    query = {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e96994a166c05385a6"}
+    requests.put(url, params=query)
+    return id
+
 #route to allow updating of status for each item based on id number
 @app.route('/<id>/completed', methods=['POST'])
 def completeditem(id):
-    #populate variable with the relevant item
-    item = session.get_item(id)
-    item['status']='Completed'
-    session.save_item(item)
-    #return user to index page
+    save_item_trello(id)
     return redirect('/') 
 
 
