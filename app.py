@@ -14,17 +14,12 @@ def index():
     return render_template('index.html', items=items)
 
 #route to allow updating of status for each item based on id number
-@app.route('/<id>', methods=['POST'])
-def item(id):
+@app.route('/<id>/completed', methods=['POST'])
+def completeditem(id):
     #populate variable with the relevant item
     item = session.get_item(id)
-    #Check current status, update and then save accordingly
-    if item['status']=='Not Started':
-        item['status']='Complete'
-        session.save_item(item)
-    elif item['status']=='Complete':
-        item['status']='Not Started'
-        session.save_item(item)
+    item['status']='Completed'
+    session.save_item(item)
     #return user to index page
     return redirect('/') 
 
