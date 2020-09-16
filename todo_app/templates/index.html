@@ -1,17 +1,22 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Francis To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+  <div class="jumbotron" style="background-color:rgb(30, 255, 68);color:White;"></div>>
+    <h1 class="display-4">Francis To-Do App</h1>
+    <p class="lead">Project Exercise 2</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+  <div class="row" style="border:2px solid rgb(30, 255, 68);"></div>>
+    <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+      <h2>Add New Item</h2>
+      <hr class="my-4">
+      <form action="/create" method="POST">
+        <div class="form-group">
+          <label for="add_todo">Title:</label>
+          <input class="form-control" type="text" id="add_todo" name="add_todo" maxlength="64" placeholder="New To-Do Title">
+      </div>
+      </form>
       </ul>
     </div>
   </div>
