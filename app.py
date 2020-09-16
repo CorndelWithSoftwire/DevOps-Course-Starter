@@ -6,8 +6,7 @@ from secrets import KEY, TOKEN
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-@app.route('/')
-def index():
+def get_items_trello():
     apiurl = "https://api.trello.com/1/"
     boardsurl = "boards/5f6076c34c5f48265943e31e/"
     cardsurl = "cards/"
@@ -17,13 +16,18 @@ def index():
 
     items = []
     for card in cards_json:
-        trellocard = requests.get(apiurl+cardsurl+card['id']+"/list", params=query)
-        trellocard_json = trellocard.json()
-        if trellocard_json['name'] == 'Done':
+        cardlist = requests.get(apiurl+cardsurl+card['id']+"/list", params=query)
+        cardlist_json = cardlist.json()
+        if cardlist_json['name'] == 'Done':
             cardstatus = 'Completed'
         else :
-            cardstatus = trellocard_json['name'] 
+            cardstatus = cardlist_json['name'] 
         items.append({"id" : card['id'], "status": cardstatus, "title": card['name']})
+    return items
+
+@app.route('/')
+def index():
+    items = get_items_trello()
     items=sorted(items, key=lambda k: k['status'], reverse=True)
     return render_template('index.html', items=items)
 
