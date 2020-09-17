@@ -11,10 +11,10 @@ getcardsonboardsurl = boardsurl + todo_boardid + '/cards'
 cardsurl = apiurl + 'cards/'
 
 def getcardsonlist_URL(cardid):
-    URL = apiurl + 'cards/' + cardid + "/list"
+    URL = cardsurl + cardid + "/list"
     return URL
-def putcardsonlist_URL(id):
-    URL = cardsurl + id
+def putcardsonlist_URL(cardid):
+    URL = cardsurl + cardid
     return URL
 
 def buildquery(querytype, title=''):
