@@ -8,7 +8,7 @@ app.config.from_object('flask_config.Config')
 def index():
     return render_template('index.html', listall=session.get_items())
 
-@app.route('/', methods=['post'])
+@app.route('/additem', methods=['post'])
 def add():
     newItem = request.form.get('new_title')
     session.add_item(newItem)
