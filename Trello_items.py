@@ -25,6 +25,13 @@ def buildquery(querytype, title=''):
     elif querytype == "additem":
         return {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
 
+class Item:
+    def __init__(self, id, title, status='To Do'):
+        self.id = id
+        self.status = status
+        self.title = title
+
+
 def get_items_trello():
     """
     Fetches all cards from the Trello.
@@ -43,7 +50,7 @@ def get_items_trello():
             cardstatus = 'Completed'
         else :
             cardstatus = cardlist_json['name'] 
-        items.append({"id" : card['id'], "status": cardstatus, "title": card['name']})
+        items.append(Item(card['id'], card['name'], cardstatus))
     return items
 
 

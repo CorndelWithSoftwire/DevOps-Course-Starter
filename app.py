@@ -8,7 +8,7 @@ app.config.from_object('flask_config.Config')
 @app.route('/')
 def index():
     items = trello.get_items_trello()
-    items=sorted(items, key=lambda k: k['status'], reverse=True)
+    items=sorted(items, key=lambda k: k.status, reverse=True)
     return render_template('index.html', items=items)
 
 @app.route('/<id>/completed', methods=['POST'])
