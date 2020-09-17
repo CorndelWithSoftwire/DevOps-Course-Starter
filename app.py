@@ -12,7 +12,7 @@ def index():
 def add():
     newItem = request.form.get('new_title')
     session.add_item(newItem)
-    return render_template('index.html', listall=session.get_items())
+    return redirect('/', code=302)
 
 if __name__ == '__main__':
     app.run()
