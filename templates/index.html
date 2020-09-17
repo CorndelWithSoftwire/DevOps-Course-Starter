@@ -25,11 +25,11 @@
         <!-- For loop to List the todo items here -->
         {% for item in items %}
          <!-- Form to add a toggle status button -->
-          <li>
+         <li>
             <form action="/{{item.id}}/completed" method="post"> 
-              <label for="title">{{item.title}}</label> -
+              <label for="title">{{item.title}}</label>
               {% if item.status != 'Completed' %}
-                <button type="submit" name=sub class="btn btn-link">Mark Completed</button>
+              <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
               {% endif %}
             </form>
         </li>
