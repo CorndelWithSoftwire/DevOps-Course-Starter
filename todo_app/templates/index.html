@@ -15,9 +15,13 @@
           <li>{{item.title}} - {{item.status}}</li>
         {% endfor %}
       </ul>
-
-
-
+    </div>
+    <div class="col-md-12">
+      <form action = "/addItem" method="post">
+        <label>New To Do:</label><br>
+        <input type="text" name="new_todo_item"><br>
+        <input type="submit" value="Submit">
+      </form>
     </div>
   </div>
 {% endblock %}
