@@ -43,12 +43,16 @@ def completeditem(id):
     save_item_trello(id)
     return redirect('/') 
 
+def add_item_trello(title):
+    url = "https://api.trello.com/1/cards/"
+    query = {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
+    requests.post(url, params=query)
+    return 
 
 @app.route('/newitems', methods=['POST'])
 def newitems():
-    #capture the title of newitem using a form and pass it to the add_item function
-    session.add_item(request.form.get('Title')) 
-    #redirect to index page
+    itemname = request.form.get('Title')
+    add_item_trello(itemname)
     return redirect('/') 
 
 if __name__ == '__main__':
