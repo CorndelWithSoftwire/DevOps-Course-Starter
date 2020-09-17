@@ -25,8 +25,6 @@ def buildquery(querytype, title=''):
     elif querytype == "additem":
         return {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
 
-
-
 def get_items_trello():
     """
     Fetches all cards from the Trello.
@@ -56,8 +54,6 @@ def save_item_trello(id):
     Args:
         item: The ID of the item to save.
     """
-    #url = "https://api.trello.com/1/cards/" + id
-    #query = {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e96994a166c05385a6"}
     requests.put(putcardsonlist_URL(id), params=buildquery('saveitem'))
     return id
 
@@ -71,7 +67,5 @@ def add_item_trello(title):
     Returns:
         item: The saved item.
     """
-    #url = "https://api.trello.com/1/cards/"
-    #query = {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
     requests.post(cardsurl, params=buildquery('additem', title))
     return 
