@@ -1,5 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 import session_items as session
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+# login(trello_key=os.getenv('TRELLO_KEY'), trello_token=os.getenv('TRELLO_TOKEN'))
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
