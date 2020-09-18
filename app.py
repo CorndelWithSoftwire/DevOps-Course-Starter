@@ -1,19 +1,21 @@
-from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
 import os
 from dotenv import load_dotenv
-
+import requests
+from flask import Flask, render_template, request, redirect, url_for
+import session_items as session
 load_dotenv()
 
-print(os.getenv('TRELLO_KEY'))
-print(os.getenv('TRELLO_TOKEN'))
+
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
 @app.route('/', methods=['get'])
 def index():
-    return render_template('index.html', listall=session.get_items())
+    todo_url = 'https://api.trello.com/1/lists/5f637aafcce13f603c570ebd/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))
+    todo_list = requests.get(todo_url)
+    json_data = todo_list.json()
+    return render_template('index.html', listall=json_data)
 
 @app.route('/additem', methods=['post'])
 def add():
