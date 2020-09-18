@@ -13,7 +13,9 @@ def get_items():
 
 def get_done_items():
     """ Simple attempt to get all done cards from Trello. """
-    response = requests.get(f"https://api.trello.com/1/lists/{os.getenv('DONE_idList')}/cards?key={os.getenv('TRELLO_API_KEY')}&token={os.getenv('TRELLO_API_TOKEN')}")
+    params = {"key":  os.getenv('TRELLO_API_KEY'),
+              "token": os.getenv('TRELLO_API_TOKEN')}
+    response = requests.get(f"https://api.trello.com/1/lists/{os.getenv('DONE_idList')}/cards", params=params)
 
     dones = response.json()
     for card in dones:
