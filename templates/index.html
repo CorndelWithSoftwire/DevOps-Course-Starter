@@ -8,18 +8,6 @@
     <p class="lead">Just let the fish remember</p>
     </div>
     <div class="col-md-4">
-    <img src="https://vignette.wikia.nocookie.net/kingsway-role-playing-group/images/9/9a/XanatharFish.jpg" alt="Sylgar"  width="50%" height="50%">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <h2>To Do</h2>
-      <ul class="list-group mb-12">
-        {% for tditem in listall %}
-          <p class="list-group-item list-group-item-action">{{tditem.name}}<span href="test" class="badge badge-primary badge-pill">{{tditem.status}}</span>     <a class="btn btn-outline-success btn-sm" href="/getitem/{{tditem.id}}" type="submit">Mark Done</a></p>
-        {% endfor %}
-      </ul>
     </div>
     <div class="col-md-4">
       `<h2>Add a new To-Do</h2>
@@ -29,8 +17,37 @@
               <button type="submit">Submit</button>
         </form>
       </div>
-
   </div>
 
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Things To Do</h2>
+      <ul class="list-group mb-12">
+        {% for tditem in list_todo %}
+          <p class="list-group-item list-group-item-action">{{tditem.name}}     <a class="btn btn-outline-success btn-sm" href="/getitem/{{tditem.id}}" type="submit">Mark Done</a></p>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h2>Doing</h2>
+      <ul class="list-group mb-12">
+        {% for tditem in list_doing %}
+          <p class="list-group-item list-group-item-action">{{tditem.name}}<span href="test" class="badge badge-primary badge-pill">{{tditem.status}}</span>     <a class="btn btn-outline-success btn-sm" href="/getitem/{{tditem.id}}" type="submit">Mark Done</a></p>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h2>Done</h2>
+      <ul class="list-group mb-12">
+        {% for tditem in list_done %}
+          <p class="list-group-item list-group-item-action">{{tditem.name}}<span href="test" class="badge badge-primary badge-pill">{{tditem.status}}</span>     <a class="btn btn-outline-success btn-sm" href="/getitem/{{tditem.id}}" type="submit">Mark Done</a></p>
+        {% endfor %}
+      </ul>
+    </div>
+
+
+  </div>
 {% endblock %}
 
