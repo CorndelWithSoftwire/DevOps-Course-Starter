@@ -10,8 +10,17 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
+      <form action="Add" method="POST">
+        <input type="text" name='title'>
+        <button type='submit'> Add New</button>
+      </form>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        {% for item in items %}
+        <li>{{ item.title }},{{ item.status }} 
+          <a href='/UpdateToDone?id={{item.id}}'> UpdateStatus </a> test
+        </li>
+        {% endfor %}
       </ul>
     </div>
   </div>

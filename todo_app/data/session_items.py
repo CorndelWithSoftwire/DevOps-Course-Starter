@@ -67,3 +67,18 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+def UpdateToDone(id):
+    """
+    Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
+
+    Args:
+        item: The item to save.
+    """
+    existing_items = get_items()
+    ##updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
+    for item in existing_items:
+        if item['id'] == id : item['status']='Done'
+
+    session['items'] = existing_items
+    
