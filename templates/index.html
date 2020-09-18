@@ -9,57 +9,38 @@
 <div class="well text-container">
     <div class="row">
         <div class="col-md-12">
-            <h2 style="color: blue">Items</h2>
+            <h2 style="color: blue">Items:</h2>
             <ul class="list-group mb-4">
                 <h6>
                     {% for todo in todos %}
-                    {{ todo.title }} {{todo.status}}
-                    <a href="/" class="btn btn-danger">Item to Delete</a>
-                    <br>
+                        {{todo["name"]}} - {{todo["desc"]}} - {{todo["status"]}}
+                        <form action="/done/{{todo['id']}}" method="POST">
+                            <button type="submit" class="btn btn-success">Complete Item</button>
+                        </form>
+                        <form action="/delete_item/{{todo['id']}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <br>
                     {% endfor %}
                 </h6>
             </ul>
         </div>
-
-
-
-
         <div>
             
             <div class="col-md-12"></div>
             <form action="/" method="POST">
-                    <h2>
-                        <label style="color: blue">Add New Item</label>
-                        <input class="form-control" id="name"  type="text" name="title">
-                        <button type="submit" class="btn btn-success">Create New Item</button>
+                    <h4>
+                        <label style="color: blue" for="name">Add Item</label>
+                        <p>
+                            <input type="text" id="name" name="name" placeholder="Title">
+                            <input type="text" id="desc" name="desc" placeholder="Description">
+                        </p>
+                        <button type="submit" class="btn btn-success">Create Item</button>
                         <br>
-                    </h2>
+                    </h4>
                 </div>
             </form>
         </div>
-
-        <div class="col-md-12">
-        <div class="well text-container">
-            <div class="row">
-                <form action="/save/{{Item}}" method="POST">
-                    <div class="form-group">
-                        <h2>
-                            <label style="color: blue">Title</label>
-                            <input class="form-control" type="text" name="Title">
-                            <button type="submit" class="btn btn-success">Save Item</button>
-                            <a href=" " class="btn btn-success">Save Item</a>
-                            <br>
-                        </h2>
-                    </div>
-                </form>
-            </div>
-        </div>
-     </div>
-
-    <div>
->
-    
-            
         </div>
     </div>
 </div>

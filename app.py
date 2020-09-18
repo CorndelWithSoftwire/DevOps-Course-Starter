@@ -1,41 +1,54 @@
 from flask import Flask, redirect, render_template, request, url_for
-import session_items as session
+import trello_cards
+import os
+from card import Card
 
 app = Flask(__name__)
-app.config.from_object('flask_config.Config')
 
-
-@app.route('/')
+@app.route('/', methods=['GET'])
 def get_items():
-    return render_template('index.html', todos=session.get_items())
+    trello_todos = trello_cards.get_items()
 
+    cards = []
+    for trello_todo in trello_todos:
+        card = Card(
+            trello_todo["id"], 
+            trello_todo["name"], 
+            trello_todo["desc"], 
+            trello_todo["idList"]
+        )
+        cards.append(card)
 
-@app.route('/item/<id>')
-def get_item(id):
-    item = session.get_item(id)
-    return render_template('oneItemDisplay.html', item=item)
+    return render_template('index.html', todos=cards)
+
 
 @app.route('/', methods=['POST'])
 def add_item():
-    session.add_item(request.form.get("title"))
-    return redirect("/")
+    name = request.form['name']
+    desc = request.form['desc']
+
+    trello_cards.add_new_item(name, desc)
+    return redirect('/')
+
+@app.route('/done', methods=['GET'])
+def get_done_items():
+    done = trello_cards.get_done_items()
+
+    return render_template('done.html', dones=done)
+
+@app.route('/done/<id>', methods=['POST'])
+def update_item(id):
+    trello_cards.update_item(id)
+
+    return redirect('/done')
 
 
-@app.route('/save', methods=['POST'])
-def save_item(item):
-    item = session.save_item(item)        
-
-    return redirect("/")
-
-@app.route('/delete/<id>', methods=['POST'])
+@app.route('/delete_item/<id>', methods=['POST'])
 def delete_item(id):
-    item = session.get_item(id)
-
-    session.delete_item(item)
+    trello_cards.delete_item(id)
 
     # return render_template('index.html')
     return redirect("/")
-
 
 if __name__ == '__main__':
     app.run(debug=True)
