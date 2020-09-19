@@ -34,7 +34,7 @@
       <h2>Doing</h2>
       <ul class="list-group mb-12">
         {% for tditem in list_doing %}
-          <p class="list-group-item list-group-item-action">{{tditem.name}}<a href="/getitem/{{tditem.id}}">Mark Done</a></p>
+          <p class="list-group-item list-group-item-action">{{tditem.name}}<a href="/movetodone/{{tditem.id}}">Mark Done</a></p>
         {% endfor %}
       </ul>
     </div>
