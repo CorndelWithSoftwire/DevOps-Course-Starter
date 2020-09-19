@@ -5,8 +5,6 @@ from flask import Flask, render_template, request, redirect, url_for
 import session_items as session
 load_dotenv()
 
-
-
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
@@ -31,6 +29,13 @@ def add():
     newItem = request.form.get('new_title')
     add_todo_url = 'https://api.trello.com/1/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aafcce13f603c570ebd" + "&name=" + newItem + "&desc=from Jamies App"
     todo_list = requests.post(add_todo_url)
+    return redirect('/', code=302)
+
+@app.route('/movetodone/<id>', methods=['get'])
+def move_to_done(id):
+    move_to_done_url = 'https://api.trello.com/1/cards/' + id +'?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aaf45a6967f43725861"
+    move_list = requests.put(move_to_done_url)
+    print(move_list)
     return redirect('/', code=302)
 
 if __name__ == '__main__':
