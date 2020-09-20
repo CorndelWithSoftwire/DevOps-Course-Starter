@@ -118,3 +118,4 @@ env/
 
 ### Configuration files ###
 .env
+todo_app/trello_secrets.txt
