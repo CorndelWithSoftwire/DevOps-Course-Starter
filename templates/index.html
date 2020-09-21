@@ -20,15 +20,21 @@
                         </form>
                         <form action="/check/{{ item.id }}" method="post">
                             <input id="{{ item.id }}" onChange="this.form.submit()" type="checkbox"
-                                   {% if item.status != 'Not Started' %}checked{% endif %}/>
-                            <label for="{{ item.id }}">{{ item.title }}</label>
+                                   {% if item.status != 'Not Started' %} checked value="off" {% else %} value="on" {% endif %} name="{{ item.id }}" />
+                            <label class="checkboxLabel" for="{{ item.id }}">{{ item.title }}</label>
+                            {% if item.duedate %}
+                                <img src="/static/images/clock.png" width="16" height="16">
+                                <label class="duelabel">{{ item.duedate | due_date_filter }}</label>
+                            {% endif %}
                         </form>
                         </p>
                     </li>
                 {% endfor %}
                 <li>
                     <form action="/additem" method="post">
-                        <input required type="text" id="newitem" name="newitem" pattern="[A-Za-z0-9 ]+" > <input name="Add" type="submit">
+                        <label for="newitem">Title: </label><input required type="text" id="newitem" name="newitem" pattern="[A-Za-z0-9 ]+" >
+                        <label for="duedate">Due: </label><input type="date" id="duedate" name="duedate">
+                        <input name="Add" type="submit">
                     </form>
                 </li>
             </ul>
