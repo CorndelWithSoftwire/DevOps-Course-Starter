@@ -5,6 +5,11 @@ class Trello_service(object):
     TRELLO_BOARD_ID = '5f6456f8fc414517ed9b0e41'
     TRELLO_CREDENTIALS = ''
 
+    TRELLO_IDLIST = "idList"
+    TRELLO_ID_BOARD = 'idBoard'
+    TRELLO_ID = "id"
+    TRELLO_NAME = "name"
+
     trello_key = ''
     trello_token = ''
     trello_lists = {}
@@ -32,8 +37,8 @@ class Trello_service(object):
         response = requests.request("GET", url)
         raw_lists = (json.loads(response.text.encode('utf8')))
         for trello_list in raw_lists:
-            trelloListDict = dict(name=trello_list['name'], boardId=trello_list['idBoard'])
-            self.trello_lists[trello_list['id']] = trelloListDict
+            trelloListDict = dict(name=trello_list[self.TRELLO_NAME], boardId=trello_list[self.TRELLO_ID_BOARD])
+            self.trello_lists[trello_list[self.TRELLO_ID]] = trelloListDict
 
     def get_items(self):
         """
@@ -47,8 +52,8 @@ class Trello_service(object):
         cards = json.loads(response.text.encode('utf8'))
         i = 0
         for card in cards:
-            trelloListDict = self.trello_lists[card['idList']]
-            itemDict = dict(id=card['id'], status=trelloListDict['name'], title=card['name'], listId=card['idList'] )
+            trelloListDict = self.trello_lists[card[self.TRELLO_IDLIST]]
+            itemDict = dict(id=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
             self.items.insert(i, itemDict)
             i += 1
         print(self.items)
