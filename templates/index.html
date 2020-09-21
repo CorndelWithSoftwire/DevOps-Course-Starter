@@ -1,3 +1,5 @@
+{% from 'macros.html' import renderItems %}
+
 {% extends "layout.html" %}
 {% block title %}Quick and Dirty To-Do {% endblock %}
 
@@ -11,25 +13,7 @@
         <div class="col-md-12">
             <h2>To-Do</h2>
             <ul class="list-group mb-4">
-                {% for item in view_model.todo %}
-                    <li>
-                        <p>
-                        <form action="/deleteitem/{{ item.id }}" method="post">
-                            <input class="same-line" name="{{ item.id }}" type="image" alt="Delete"
-                                   src="/static/images/delete.png" onclick="this.form.submit()" height='30' width='30'/>
-                        </form>
-                        <form action="/check/{{ item.id }}" method="post">
-                            <input id="{{ item.id }}" onChange="this.form.submit()" type="checkbox"
-                                   {% if item.status != 'Not Started' %} checked value="off" {% else %} value="on" {% endif %} name="{{ item.id }}" />
-                            <label class="checkboxLabel" for="{{ item.id }}">{{ item.title }}</label>
-                            {% if item.duedate %}
-                                <img src="/static/images/clock.png" width="16" height="16">
-                                <label class="duelabel">{{ item.duedate | due_date_filter }}</label>
-                            {% endif %}
-                        </form>
-                        </p>
-                    </li>
-                {% endfor %}
+                {{ renderItems(view_model.todo) }}
                 <li>
                     <form action="/additem" method="post">
                         <label for="newitem">Title: </label><input required type="text" id="newitem" name="newitem" pattern="[A-Za-z0-9 ]+" >
@@ -42,25 +26,15 @@
         <div class="col-md-12">
             <h2>Done</h2>
             <ul class="list-group mb-4">
-                {% for item in view_model.done %}
-                    <li>
-                        <p>
-                        <form action="/deleteitem/{{ item.id }}" method="post">
-                            <input class="same-line" name="{{ item.id }}" type="image" alt="Delete"
-                                   src="/static/images/delete.png" onclick="this.form.submit()" height='30' width='30'/>
-                        </form>
-                        <form action="/check/{{ item.id }}" method="post">
-                            <input id="{{ item.id }}" onChange="this.form.submit()" type="checkbox"
-                                    {% if item.status != 'Not Started' %} checked value="off" {% else %} value="on" {% endif %} name="{{ item.id }}" />
-                            <label class="checkboxLabel" for="{{ item.id }}">{{ item.title }}</label>
-                            {% if item.duedate %}
-                                <img src="/static/images/clock.png" width="16" height="16">
-                                <label class="duelabel">{{ item.duedate | due_date_filter }}</label>
-                            {% endif %}
-                        </form>
-                        </p>
-                    </li>
-                {% endfor %}
+                {% if view_model.show_all_done_items %}
+                    {{ renderItems(view_model.done) }}
+                {% else %}
+                    {{ renderItems(view_model.recent_done_items) }}
+                    <details>
+                        <summary>Older Items</summary>
+                        {{ renderItems(view_model.older_done_items) }}
+                    </details>
+                {% endif %}
             </ul>
         </div>
     </div>

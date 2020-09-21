@@ -22,10 +22,10 @@ app.jinja_env.filters['due_date_filter'] = format_datetime
 @app.route('/')
 def index():
     getTodoList = TrelloGetCards().fetchForList(TODO_LIST_ID)
-    toDoItems = [TodoItem(x['name'], NOT_STARTED, x['id'], duedate=x['due']) for x in getTodoList]
+    toDoItems = [TodoItem(x['name'], NOT_STARTED, x['id'], duedate=x['due'], last_modified=x['dateLastActivity']) for x in getTodoList]
 
     getDoneList = TrelloGetCards().fetchForList(DONE_LIST_ID)
-    doneItems = [TodoItem(x['name'], COMPLETED, x['id'], duedate=x['due']) for x in getDoneList]
+    doneItems = [TodoItem(x['name'], COMPLETED, x['id'], duedate=x['due'], last_modified=x['dateLastActivity']) for x in getDoneList]
 
     items = toDoItems + doneItems
     sorteditems = sorted(items, key=lambda item: item.status, reverse=True)
