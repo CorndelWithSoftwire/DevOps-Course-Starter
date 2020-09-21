@@ -1,5 +1,7 @@
 import requests
 import json
+from flask import session
+
 class Trello_service(object):
     TRELLO_API_URL = 'https://api.trello.com/1/'
     TRELLO_BOARD_ID = '5f6456f8fc414517ed9b0e41'
@@ -14,6 +16,9 @@ class Trello_service(object):
     trello_token = ''
     trello_lists = {}
     items = []
+
+    def __init__(self):
+        self.get_trello_secrets()
 
     def get_trello_secrets(self):
         trello_secrets = []
@@ -53,12 +58,25 @@ class Trello_service(object):
         i = 0
         for card in cards:
             trelloListDict = self.trello_lists[card[self.TRELLO_IDLIST]]
-            itemDict = dict(id=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
+            itemDict = dict(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
             self.items.insert(i, itemDict)
             i += 1
         print(self.items)
-        #return session.get('items', _DEFAULT_ITEMS)
+        return self.items
+       # return session.get('items', self.items)
+
+    def get_item(self, id):
+        """
+        Fetches the saved item with the specified ID.
+
+        Args:
+            id: The ID of the item.
+
+        Returns:
+            item: The saved item, or None if no items match the specified ID.
+        """
+        items = self.get_items()
+        return next((item for item in items if item['id'] == int(id)), None)
 
 service = Trello_service()
-service.get_trello_secrets()
-service.get_items() 
+print(service.get_item(1)) 
