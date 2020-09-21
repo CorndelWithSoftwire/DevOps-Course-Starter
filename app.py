@@ -2,24 +2,27 @@ from flask import Flask, redirect, render_template, request, url_for
 import trello_cards
 import os
 from card import Card
+from view_model import ViewModel
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def get_items():
-    trello_todos = trello_cards.get_items()
+    # trello_todos = trello_cards.get_items()
+    items = trello_cards.get_items()
 
     cards = []
-    for trello_todo in trello_todos:
+    for item in items:
         card = Card(
-            trello_todo["id"], 
-            trello_todo["name"], 
-            trello_todo["desc"], 
-            trello_todo["idList"]
+            item["id"], 
+            item["name"], 
+            item["desc"], 
+            item["idList"]
         )
         cards.append(card)
 
-    return render_template('index.html', todos=cards)
+    # return render_template('index.html', todos=cards)
+    return render_template('index.html', model=ViewModel(items))
 
 
 @app.route('/', methods=['POST'])
