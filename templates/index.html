@@ -19,14 +19,12 @@
       </div>
   </div>
 
-
-
   <div class="row">
     <div class="col-md-4">
       <h2>Things To Do</h2>
       <ul class="list-group mb-12">
         {% for tditem in list_todo %}
-       <p class="list-group-item list-group-item-action"> <a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.id}}" type="submit">Done</a>               {{tditem.name}}</p>
+       <p class="list-group-item list-group-item-action"> <a class="btn btn-outline-warning btn-sm" href="/movetodoing/{{tditem.id}}" type="submit">Doing</a><a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.id}}" type="submit">Done</a>{{tditem.name}}</p></ul>
         {% endfor %}
       </ul>
     </div>
@@ -34,7 +32,7 @@
       <h2>Doing</h2>
       <ul class="list-group mb-12">
         {% for tditem in list_doing %}
-          <p class="list-group-item list-group-item-action">{{tditem.name}}<a href="/movetodone/{{tditem.id}}">Mark Done</a><a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.id}}" type="submit">To-Do</a></p>
+          <p class="list-group-item list-group-item-action"><a class="btn btn-outline-primary btn-sm" href="/movetonew/{{tditem.id}}" type="submit">To Do</a>{{tditem.name}}<a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.id}}" type="submit">Done</a></p>
         {% endfor %}
       </ul>
     </div>
@@ -42,7 +40,7 @@
       <h2>Done</h2>
       <ul class="list-group mb-12">
         {% for tditem in list_done %}
-          <p class="list-group-item list-group-item-action">{{tditem.name}}<span href="test" class="badge badge-primary badge-pill">{{tditem.status}}</span>     <a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.id}}" type="submit">Mark Done</a></p>
+          <p class="list-group-item list-group-item-action"><a class="btn btn-outline-primary btn-sm" href="/movetonew/{{tditem.id}}" type="submit">To Do</a><a class="btn btn-outline-warning btn-sm" href="/movetodoing/{{tditem.id}}" type="submit">Doing</a>{{tditem.name}}</p>
         {% endfor %}
       </ul>
     </div>

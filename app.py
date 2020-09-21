@@ -32,5 +32,15 @@ def move_to_done(id):
     move_list = requests.put('https://api.trello.com/1/cards/' + id +'?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aaf45a6967f43725861")
     return redirect('/', code=302)
 
+@app.route('/movetonew/<id>', methods=['get'])
+def move_to_new(id):
+    move_list = requests.put('https://api.trello.com/1/cards/' + id +'?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aafcce13f603c570ebd")
+    return redirect('/', code=302)
+
+@app.route('/movetodoing/<id>', methods=['get'])
+def move_to_doing(id):
+    move_list = requests.put('https://api.trello.com/1/cards/' + id +'?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aaff47bd67c32c891e5")
+    return redirect('/', code=302)
+
 if __name__ == '__main__':
     app.run()
