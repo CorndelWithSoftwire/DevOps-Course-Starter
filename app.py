@@ -8,7 +8,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def get_items():
-    # trello_todos = trello_cards.get_items()
     items = trello_cards.get_items()
 
     cards = []
@@ -21,7 +20,6 @@ def get_items():
         )
         cards.append(card)
 
-    # return render_template('index.html', todos=cards)
     return render_template('index.html', model=ViewModel(items))
 
 
@@ -50,7 +48,6 @@ def update_item(id):
 def delete_item(id):
     trello_cards.delete_item(id)
 
-    # return render_template('index.html')
     return redirect("/")
 
 if __name__ == '__main__':
