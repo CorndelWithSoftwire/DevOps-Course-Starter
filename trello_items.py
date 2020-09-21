@@ -29,13 +29,6 @@ def getListsOnBoards(boardid):
     return lists
     
         
-def getListId(listofcards, cardname):
-    # Get list ID and set in session to save duplicate Trello calls
-
-    for i in listofcards:
-            if i['name'] == cardname:
-                break
-    return i['id']
 
 def getCardsOnList(listid, status):
 
@@ -57,23 +50,22 @@ def get_item(id):
 
 def add_item(title):
     # Post item to Trello and retrieve items list from Trello
-    callTrelloAPI("post", "lists", "cards", session.get('Things To Do'), title)
-    items = get_items()
-    return items
-
+    callTrelloAPI("post", "lists", "cards", todo_list_id , title)
+    return
 
 def remove_item(cardId):
     #Delete card on Trello
     callTrelloAPI("delete","cards","",cardId, "")
-
     return 
 
+def inprogress_item(cardId):
+    #Delmove card to Doing 
+    callTrelloAPI("put","cards","",cardId, doing_list_id)
+    return 
 
 def markAsDone(cardId):
     # Move items marks as Done to "Done" list on Trello
-    lists = getListsOnBoards(boardid)  
-    getListId(lists,"Done")
-    callTrelloAPI("put","cards","",cardId, session.get('Done'))
+    callTrelloAPI("put","cards","",cardId, done_list_id)
 
 def callTrelloAPI(method,section,call,id,args):
 ######################################################################################

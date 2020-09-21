@@ -3,15 +3,29 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <div class="row">
+      <div  class="col-md-7">
+        <h1 class="display-4">To-Do App</h1>
+        <p class="lead">Just another to-do app.</p>
+      </div>
+      <div class="col-md-5 bg-warning rounded text-center">
+        <h2 class="display-4">Add New Task</h2>
+        <ul class="list-group mb-4 lead">
+          <!-- List the todo items here -->
+          <form action="/add" method="POST">
+            Task: <input type="text" name="task_description" >
+            <input type="submit">
+          </form>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
       <ul class="list-group mb-4">
         <!-- List multiple todo items here -->
-        <form action="/tasks" method="POST">
+        
           <table  class="table" >
             <thead class="thead-dark">
               <tr>
@@ -24,8 +38,8 @@
                 <th id="done" scope="col">
                     Done
                 </th>
-                <th id="remove" scope="col">
-                    Remove
+                <th id="update" scope="col">
+                    Update
                 </th>
                 <th id="timestamp" scope="col">
                     Last Updated
@@ -47,10 +61,14 @@
                   {{item.title}}
                 </td>
                 <td headers="ThingsToDo {{item.id}} done">
-                  <input name="Done_{{item.id}}" type="submit" class="btn btn-success  " value="done" {% if item.status == 'Done' %}disabled{% endif %}>
+                  <form action="/tasks/{{item.id}}/complete" method="POST">
+                    <input name="Done" type="submit" class="btn btn-success  " value="Complete" >
+                  </form>
                 </td>
-                <td headers="ThingsToDo {{item.id}} remove">
-                  <input name="Remove_{{item.id}}" type="submit" class="btn btn-danger" value="remove">
+                <td headers="ThingsToDo {{item.id}} update">
+                  <form action="/tasks/{{item.id}}/inprogress" method="POST">
+                    <input name="InProgress" type="submit" class="btn btn-danger" value="InProgress">
+                  </form>
                 </td>
                 <td headers="ThingsToDo {{item.id}} timestamp">
                   {{item.dateLastActivity}}
@@ -71,10 +89,14 @@
                   {{item.title}}
                 </td>
                 <td headers="Doing {{item.id}} done">
-                  <input name="Done_{{item.id}}" type="submit" class="btn btn-success  " value="done" {% if item.status == 'Done' %}disabled{% endif %}>
+                  <form action="/tasks/{{item.id}}/complete" method="POST">
+                    <input name="Done" type="submit" class="btn btn-success  " value="Complete" >
+                  </form>
                 </td>
-                <td headers="Doing {{item.id}} remove">
-                  <input name="Remove_{{item.id}}" type="submit" class="btn btn-danger" value="remove">
+                <td headers="Doing {{item.id}} update">
+                  <form action="/tasks/{{item.id}}/remove" method="POST">
+                    <input name="Remove" type="submit" class="btn btn-danger" value="Remove">
+                  </form>
                 </td>
                 <td headers="Doing {{item.id}} timestamp">
                   {{item.dateLastActivity}}
@@ -83,7 +105,7 @@
               {% endfor %}
             </tbody>
           </table>
-        </form>
+        
 
 
           <div id="accordion" class="accordion">
@@ -197,15 +219,6 @@
           </div>
       </div>
 
-    <div class="col-md-12">
-      <h2>Add New To-Do Task</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        <form action="/tasks" method="POST">
-          Task: <input type="text" name="addtask" >
-          <input type="submit">
-        </form>
-      </ul>
-    </div>
+    
   </div>
 {% endblock %}
