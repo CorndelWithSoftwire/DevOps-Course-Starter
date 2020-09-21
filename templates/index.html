@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <h2>To-Do</h2>
             <ul class="list-group mb-4">
-                {% for item in items %}
+                {% for item in view_model.todo %}
                     <li>
                         <p>
                         <form action="/deleteitem/{{ item.id }}" method="post">
@@ -37,6 +37,30 @@
                         <input name="Add" type="submit">
                     </form>
                 </li>
+            </ul>
+        </div>
+        <div class="col-md-12">
+            <h2>Done</h2>
+            <ul class="list-group mb-4">
+                {% for item in view_model.done %}
+                    <li>
+                        <p>
+                        <form action="/deleteitem/{{ item.id }}" method="post">
+                            <input class="same-line" name="{{ item.id }}" type="image" alt="Delete"
+                                   src="/static/images/delete.png" onclick="this.form.submit()" height='30' width='30'/>
+                        </form>
+                        <form action="/check/{{ item.id }}" method="post">
+                            <input id="{{ item.id }}" onChange="this.form.submit()" type="checkbox"
+                                    {% if item.status != 'Not Started' %} checked value="off" {% else %} value="on" {% endif %} name="{{ item.id }}" />
+                            <label class="checkboxLabel" for="{{ item.id }}">{{ item.title }}</label>
+                            {% if item.duedate %}
+                                <img src="/static/images/clock.png" width="16" height="16">
+                                <label class="duelabel">{{ item.duedate | due_date_filter }}</label>
+                            {% endif %}
+                        </form>
+                        </p>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>

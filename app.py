@@ -3,6 +3,8 @@ from trello_request import *
 from flask import Flask, render_template, request, redirect
 import dateutil.parser
 
+from viewmodel import ViewModel
+
 app = Flask(__name__, static_url_path='/static')
 app.config.from_object('flask_config.Config')
 
@@ -27,7 +29,9 @@ def index():
 
     items = toDoItems + doneItems
     sorteditems = sorted(items, key=lambda item: item.status, reverse=True)
-    return render_template('/index.html', items=sorteditems)
+
+    item_view_model = ViewModel(sorteditems)
+    return render_template('index.html', view_model=item_view_model)
 
 
 @app.route('/additem', methods=['POST'])
