@@ -1,4 +1,4 @@
-class Items:
+class Item:
 
     def __init__(self, id, title, dateLastActivity, status ):
         self.id = id

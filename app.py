@@ -1,24 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-import session_items as session
+from flask import Flask, render_template, request, redirect, url_for
+import trello_items as trello_items
 import ItemsViewModel as ItemsViewModel
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object('flask_config.Config')
 
-
     @app.route('/')
     def index():
+        trello_items.get_items()
         return redirect('tasks')
-
-    @app.route('/clearsession')
-    def clearsession():
-        session.clearsessions()
-        return render_template("index.html")
 
     @app.route('/tasks')
     def list_tasks():
-        items = session.get_items()
+        items = trello_items.get_items()
         # Get ToDo items
         thingstodo = ItemsViewModel.ItemsViewModel(items)
         thingstodo.get_item_thingstodo()

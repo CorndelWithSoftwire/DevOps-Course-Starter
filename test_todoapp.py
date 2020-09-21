@@ -5,8 +5,9 @@ import requests
 import dotenv
 import pytest
 from flask import Flask, render_template, request, redirect, url_for, session
-#from flask import current_app as create_app
+import session_items as session
 import app as app
+from threading import Thread 
 
 @pytest.fixture
 def client():
@@ -21,13 +22,18 @@ def client():
     with test_app.test_client() as client:
         yield client
 
-# content of test_sample.py
-def inc(x):
-    return x + 1
-
-def test_answer():
-    assert inc(4) == 5
-
 @mock.patch('requests.get')
 def test_index_page(mock_get_requests, client):
     response = client.get('/')
+
+    assert response.status_code == 302
+
+# def test_get_list_on_board():
+#     thingstodo = [{
+#         "id": "5efa545c830dc848ae0c7cd8",
+#         "name": "Things To Do",
+#         "idBoard": "5efa545c03a3ef1751b35411"    
+#     }]
+#     resp = session.getListId(thingstodo,"Things To Do")
+
+#     assert resp == "5efa545c830dc848ae0c7cd8"

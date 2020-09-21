@@ -1,0 +1,12 @@
+1600696028765	geckodriver	INFO	Listening on 127.0.0.1:51769
+1600696031699	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\rajra\\AppData\\Local\\Temp\\rust_mozprofilesDZHaX"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1600696057029	Marionette	INFO	Listening on port 51777
+1600696058560	Marionette	WARN	TLS certificate errors will be ignored for this session
+1600696067858	Marionette	INFO	Stopped listening on port 51777
+1600696077058	Marionette	ERROR	[41] No reply from Marionette:Register
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+JavaScript error: resource:///modules/sessionstore/SessionStore.jsm, line 5324: NS_ERROR_UNEXPECTED: Component returned failure code: 0x8000ffff (NS_ERROR_UNEXPECTED) [nsIWindowMediator.getEnumerator]
