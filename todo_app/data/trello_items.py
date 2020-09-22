@@ -1,6 +1,5 @@
 import requests
 import json
-from flask import session
 
 class Trello_service(object):
     TRELLO_API_URL = 'https://api.trello.com/1/'
@@ -36,6 +35,7 @@ class Trello_service(object):
         
         self.TRELLO_CREDENTIALS = f"key={self.trello_key}&token={self.trello_token}"
         self.get_lists()
+        self.get_items_from_trello()
 
     def get_lists(self):
         """
@@ -55,9 +55,9 @@ class Trello_service(object):
             if trello_list[self.TRELLO_NAME] == name:
                 return listId
 
-    def get_items(self):
+    def get_items_from_trello(self):
         """
-        Fetches all saved items from the session.
+        Fetches all saved items from Trello.
 
         Returns:
             list: The list of saved items.
@@ -72,7 +72,9 @@ class Trello_service(object):
             itemDict = dict(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
             self.items.insert(i, itemDict)
             i += 1
-        print(self.items)
+        return self.items
+
+    def get_items(self):
         return self.items
 
     def get_item(self, id):
@@ -90,7 +92,7 @@ class Trello_service(object):
 
     def add_item(self, title):
         """
-        Adds a new item with the specified title to the session.
+        Adds a new item with the specified title to Trello.
 
         Args:
             title: The title of the item.
@@ -103,20 +105,32 @@ class Trello_service(object):
         url = f"{self.TRELLO_API_URL}/cards?{self.TRELLO_CREDENTIALS}&idList={listId}&name={item['title']}"
         
         response = requests.request("POST", url)
-        self.items = self.get_items()
+        self.get_items_from_trello()
         
         return item   
 
     def save_item(self, item):
         """
-        Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
+        Updates an existing item at Trello. If no existing item matches the ID of the specified item, nothing is saved.
 
         Args:
             item: The item to save.
         """
         url = f"{self.TRELLO_API_URL}cards/{item['cardID']}?{self.TRELLO_CREDENTIALS}&idList={item['listId']}"
         response = requests.request("PUT", url)
-        return item
+        self.get_items_from_trello()
 
+    def remove_item(self, id):
+        """
+        Delete an existing card in the lists.
+
+        Args:
+            id: The item's id to delete.
+        """
+        item = self.get_item(id)
+        url = f"{self.TRELLO_API_URL}cards/{item['cardID']}?{self.TRELLO_CREDENTIALS}&idList={item['listId']}"
+        response = requests.request("DELETE", url)
+        self.get_items_from_trello()
+    
 #service = Trello_service()
 #service.get_items()

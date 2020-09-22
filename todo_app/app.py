@@ -41,11 +41,10 @@ def update_item(id):
     service.save_item(item)
     return redirect(url_for('index'))
 
-"""
 @app.route('/remove_todo/<id>', methods=['GET'])
 def remove_todo(id):
-    remove_item(id)
-    return redirect(url_for('index')) """
+    service.remove_item(id)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run()
