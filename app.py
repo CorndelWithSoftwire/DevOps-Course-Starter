@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 import requests
 from flask import Flask, render_template, request, redirect, url_for
-# import session_items as session
 load_dotenv()
 
 class Todo:
@@ -21,7 +20,6 @@ app.config.from_object('flask_config.Config')
 def index():
     todo_list = requests.get('https://api.trello.com/1/lists/5f637aafcce13f603c570ebd/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
     todo_json = todo_list.json()
-
 
     doing_list = requests.get('https://api.trello.com/1/lists/5f637aaff47bd67c32c891e5/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
     doing_json = doing_list.json()    
