@@ -1,5 +1,6 @@
 import requests
 import json
+from todo_app.data.item import Item
 
 class Trello_service(object):
     TRELLO_API_URL = 'https://api.trello.com/1/'
@@ -69,7 +70,7 @@ class Trello_service(object):
         i = 0
         for card in cards:
             trelloListDict = self.trello_lists[card[self.TRELLO_IDLIST]]
-            itemDict = dict(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
+            itemDict = Item(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
             self.items.insert(i, itemDict)
             i += 1
         return self.items
@@ -88,7 +89,7 @@ class Trello_service(object):
             item: The saved item, or None if no items match the specified ID.
         """
         items = self.get_items()
-        return next((item for item in items if item['id'] == int(id)), None)
+        return next((item for item in items if item.id == int(id)), None)
 
     def add_item(self, title):
         """
@@ -101,13 +102,10 @@ class Trello_service(object):
             item: The saved item.
         """
         listId = self.get_list_id('Not Started')
-        item = {'title': title, 'status': 'Not Started', 'listId' : listId }
-        url = f"{self.TRELLO_API_URL}/cards?{self.TRELLO_CREDENTIALS}&idList={listId}&name={item['title']}"
+        url = f"{self.TRELLO_API_URL}/cards?{self.TRELLO_CREDENTIALS}&idList={listId}&name={title}"
         
         response = requests.request("POST", url)
         self.get_items_from_trello()
-        
-        return item   
 
     def save_item(self, item):
         """
@@ -116,7 +114,7 @@ class Trello_service(object):
         Args:
             item: The item to save.
         """
-        url = f"{self.TRELLO_API_URL}cards/{item['cardID']}?{self.TRELLO_CREDENTIALS}&idList={item['listId']}"
+        url = f"{self.TRELLO_API_URL}cards/{item.cardID}?{self.TRELLO_CREDENTIALS}&idList={item.listId}"
         response = requests.request("PUT", url)
         self.get_items_from_trello()
 
@@ -128,7 +126,7 @@ class Trello_service(object):
             id: The item's id to delete.
         """
         item = self.get_item(id)
-        url = f"{self.TRELLO_API_URL}cards/{item['cardID']}?{self.TRELLO_CREDENTIALS}&idList={item['listId']}"
+        url = f"{self.TRELLO_API_URL}cards/{item.cardID}?{self.TRELLO_CREDENTIALS}&idList={item.listId}"
         response = requests.request("DELETE", url)
         self.get_items_from_trello()
     
