@@ -118,3 +118,6 @@ env/
 
 ### Configuration files ###
 .env
+
+### test files ###
+test.py
