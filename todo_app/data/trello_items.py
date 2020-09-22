@@ -38,12 +38,22 @@ class Trello_service(object):
         self.get_lists()
 
     def get_lists(self):
+        """
+        Fetches all lists from Trello Api.
+
+        """
         url = f"{self.TRELLO_API_URL}boards/{self.TRELLO_BOARD_ID}/lists?{self.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
         raw_lists = (json.loads(response.text.encode('utf8')))
         for trello_list in raw_lists:
             trelloListDict = dict(name=trello_list[self.TRELLO_NAME], boardId=trello_list[self.TRELLO_ID_BOARD])
             self.trello_lists[trello_list[self.TRELLO_ID]] = trelloListDict
+
+    def get_list_id(self, name):
+        for listId in self.trello_lists:
+            trello_list = self.trello_lists[listId]
+            if trello_list[self.TRELLO_NAME] == name:
+                return listId
 
     def get_items(self):
         """
@@ -63,7 +73,6 @@ class Trello_service(object):
             i += 1
         print(self.items)
         return self.items
-       # return session.get('items', self.items)
 
     def get_item(self, id):
         """
@@ -78,5 +87,25 @@ class Trello_service(object):
         items = self.get_items()
         return next((item for item in items if item['id'] == int(id)), None)
 
-service = Trello_service()
-print(service.get_item(1)) 
+    def add_item(self, title):
+        """
+        Adds a new item with the specified title to the session.
+
+        Args:
+            title: The title of the item.
+
+        Returns:
+            item: The saved item.
+        """
+        listId = self.get_list_id('Not Started')
+        item = {'title': title, 'status': 'Not Started' }
+        url = f"{self.TRELLO_API_URL}/cards?{self.TRELLO_CREDENTIALS}&idList={listId}&name={item['title']}"
+        
+        response = requests.request("POST", url)
+        self.items = self.get_items()
+        
+        return item   
+
+
+#service = Trello_service()
+#service.get_items()
