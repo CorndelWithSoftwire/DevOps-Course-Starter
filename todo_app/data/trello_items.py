@@ -62,6 +62,7 @@ class Trello_service(object):
         Returns:
             list: The list of saved items.
         """
+        self.items.clear()
         url = f"{self.TRELLO_API_URL}boards/{self.TRELLO_BOARD_ID}/cards?{self.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
         cards = json.loads(response.text.encode('utf8'))
@@ -98,7 +99,7 @@ class Trello_service(object):
             item: The saved item.
         """
         listId = self.get_list_id('Not Started')
-        item = {'title': title, 'status': 'Not Started' }
+        item = {'title': title, 'status': 'Not Started', 'listId' : listId }
         url = f"{self.TRELLO_API_URL}/cards?{self.TRELLO_CREDENTIALS}&idList={listId}&name={item['title']}"
         
         response = requests.request("POST", url)
@@ -106,6 +107,16 @@ class Trello_service(object):
         
         return item   
 
+    def save_item(self, item):
+        """
+        Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
+
+        Args:
+            item: The item to save.
+        """
+        url = f"{self.TRELLO_API_URL}cards/{item['cardID']}?{self.TRELLO_CREDENTIALS}&idList={item['listId']}"
+        response = requests.request("PUT", url)
+        return item
 
 #service = Trello_service()
 #service.get_items()

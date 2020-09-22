@@ -120,3 +120,4 @@ env/
 .env
 todo_app/trello_secrets.txt
 todo_app/data/trello_secrets.txt
+.vscode/launch.json

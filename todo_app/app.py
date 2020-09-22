@@ -25,17 +25,23 @@ def add_item_from_form():
     title = request.form['title']
     service.add_item(title)
     return redirect(url_for('index'))
-"""
+
 @app.route('/update_todo/<id>', methods=['POST'])
 def update_item(id):
-    item = get_item(id)
+    item = service.get_item(id)
+    listId = service.get_list_id('Completed')
+    
     if request.form.get('completed'):
         item['status'] = 'Completed'
     else:
+        listId = service.get_list_id('Not Started')
         item['status'] = 'Not Started'
-    save_item(item)
+        
+    item['listId'] = listId
+    service.save_item(item)
     return redirect(url_for('index'))
 
+"""
 @app.route('/remove_todo/<id>', methods=['GET'])
 def remove_todo(id):
     remove_item(id)
