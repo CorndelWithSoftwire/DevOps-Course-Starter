@@ -25,11 +25,6 @@ def add():
         return index()
     else:
         return render_template('add_items.html')
-    
-
-@app.route('/index')
-def yo():
-    return 'Hello World!'
 
 if __name__ == '__main__':
     app.run()
