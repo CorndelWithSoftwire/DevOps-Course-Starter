@@ -10,33 +10,33 @@ class Todo:
         self.name = name
         self.status = status
 
-
-
-
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
 @app.route('/', methods=['get'])
 def index():
-    todo_list = requests.get('https://api.trello.com/1/lists/5f637aafcce13f603c570ebd/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
-    todo_json = todo_list.json()
-    class_todo_list = []
-    for iteminjson in todo_json:
-        class_todo_list.append(Todo(iteminjson['id'],iteminjson['name'], 'To Do'))
+    todo_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/5f637aafcce13f603c570ebd/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))).json()
+    class_todo_list_api_response = []
+    for iteminjson in todo_list_api_response_in_json:
+        class_todo_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'To Do'))
 
+    doing_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/5f637aaff47bd67c32c891e5/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))).json()    
+    class_doing_list_api_response = []
+    for iteminjson in doing_list_api_response_in_json:
+        class_doing_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'Doing'))
+    
+    done_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/5f637aaf45a6967f43725861/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))).json()
+    class_done_list_api_response = []
+    for iteminjson in done_list_api_response_in_json:
+        class_done_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'Done'))
+    
 
-    doing_list = requests.get('https://api.trello.com/1/lists/5f637aaff47bd67c32c891e5/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
-    doing_json = doing_list.json()    
-     
-    done_list = requests.get('https://api.trello.com/1/lists/5f637aaf45a6967f43725861/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
-    done_json = done_list.json()
-
-    return render_template('index.html', list_todo=class_todo_list, list_doing=doing_json, list_done=done_json)
+    return render_template('index.html', list_todo=class_todo_list_api_response, list_doing=doing_list_api_response_in_json, list_done=done_list_api_response_in_json)
 
 @app.route('/additem', methods=['post'])
 def add():
     new_item = request.form.get('new_title')
-    todo_list = requests.post('https://api.trello.com/1/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aafcce13f603c570ebd" + "&name=" + new_item + "&desc=from Jamies App")
+    todo_list_api_response = requests.post('https://api.trello.com/1/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aafcce13f603c570ebd" + "&name=" + new_item + "&desc=from Jamies App")
     return redirect('/', code=302)
 
 @app.route('/movetodone/<id>', methods=['get'])
