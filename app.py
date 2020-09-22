@@ -5,10 +5,10 @@ from flask import Flask, render_template, request, redirect, url_for
 load_dotenv()
 
 class Todo:
-    def __init__(self, item_id, name):
+    def __init__(self, item_id, name, status):
         self.item_id = item_id
         self.name = name
-        # self.status = status
+        self.status = status
 
 
 
@@ -20,6 +20,10 @@ app.config.from_object('flask_config.Config')
 def index():
     todo_list = requests.get('https://api.trello.com/1/lists/5f637aafcce13f603c570ebd/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
     todo_json = todo_list.json()
+    class_todo_list = []
+    for iteminjson in todo_json:
+        class_todo_list.append(Todo(iteminjson['id'],iteminjson['name'], 'To Do'))
+
 
     doing_list = requests.get('https://api.trello.com/1/lists/5f637aaff47bd67c32c891e5/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
     doing_json = doing_list.json()    
@@ -27,7 +31,7 @@ def index():
     done_list = requests.get('https://api.trello.com/1/lists/5f637aaf45a6967f43725861/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')))
     done_json = done_list.json()
 
-    return render_template('index.html', list_todo=todo_json, list_doing=doing_json, list_done=done_json)
+    return render_template('index.html', list_todo=class_todo_list, list_doing=doing_json, list_done=done_json)
 
 @app.route('/additem', methods=['post'])
 def add():
