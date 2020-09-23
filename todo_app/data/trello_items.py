@@ -1,6 +1,7 @@
 import requests
 import json
 from todo_app.data.item import Item
+from todo_app.data.trelloList import TrelloList
 
 class Trello_service(object):
     TRELLO_API_URL = 'https://api.trello.com/1/'
@@ -47,13 +48,13 @@ class Trello_service(object):
         response = requests.request("GET", url)
         raw_lists = (json.loads(response.text.encode('utf8')))
         for trello_list in raw_lists:
-            trelloListDict = dict(name=trello_list[self.TRELLO_NAME], boardId=trello_list[self.TRELLO_ID_BOARD])
+            trelloListDict = TrelloList(name=trello_list[self.TRELLO_NAME], boardId=trello_list[self.TRELLO_ID_BOARD])
             self.trello_lists[trello_list[self.TRELLO_ID]] = trelloListDict
 
     def get_list_id(self, name):
         for listId in self.trello_lists:
             trello_list = self.trello_lists[listId]
-            if trello_list[self.TRELLO_NAME] == name:
+            if trello_list.name == name:
                 return listId
 
     def get_items_from_trello(self):
@@ -70,8 +71,8 @@ class Trello_service(object):
         i = 0
         for card in cards:
             trelloListDict = self.trello_lists[card[self.TRELLO_IDLIST]]
-            itemDict = Item(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict[self.TRELLO_NAME], title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
-            self.items.insert(i, itemDict)
+            item = Item(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict.name, title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
+            self.items.insert(i, item)
             i += 1
         return self.items
 
