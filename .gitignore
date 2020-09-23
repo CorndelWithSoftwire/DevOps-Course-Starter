@@ -119,5 +119,6 @@ env/
 ### Configuration files ###
 .env
 
-### test files ###
+### excluded files ###
 test.py
+Trello_API_Keys.txt
