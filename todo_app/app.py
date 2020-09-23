@@ -15,9 +15,9 @@ def index():
     todos = service.get_items()
     sort = request.values.get("sort", "")
     if sort == "asc":
-        todos = sorted(todos, key=lambda k: k['status'])
+        todos = sorted(todos, key=lambda k: k.status)
     elif sort == "desc":
-        todos = sorted(todos, key=lambda k: k['status'], reverse=True)
+        todos = sorted(todos, key=lambda k: k.status, reverse=True)
 
     return render_template('index.html', todoList = todos)
 

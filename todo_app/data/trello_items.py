@@ -2,17 +2,9 @@ import requests
 import json
 from todo_app.data.item import Item
 from todo_app.data.trelloList import TrelloList
+import todo_app.data.trello_constants as constants
 
 class Trello_service(object):
-    TRELLO_API_URL = 'https://api.trello.com/1/'
-    TRELLO_BOARD_ID = '5f6456f8fc414517ed9b0e41'
-    TRELLO_CREDENTIALS = ''
-
-    TRELLO_IDLIST = "idList"
-    TRELLO_ID_BOARD = 'idBoard'
-    TRELLO_ID = "id"
-    TRELLO_NAME = "name"
-
     trello_key = ''
     trello_token = ''
     trello_lists = {}
@@ -35,7 +27,7 @@ class Trello_service(object):
             else:
                 self.trello_token = v
         
-        self.TRELLO_CREDENTIALS = f"key={self.trello_key}&token={self.trello_token}"
+        constants.TRELLO_CREDENTIALS = f"key={self.trello_key}&token={self.trello_token}"
         self.get_lists()
         self.get_items_from_trello()
 
@@ -44,12 +36,12 @@ class Trello_service(object):
         Fetches all lists from Trello Api.
 
         """
-        url = f"{self.TRELLO_API_URL}boards/{self.TRELLO_BOARD_ID}/lists?{self.TRELLO_CREDENTIALS}"
+        url = f"{constants.TRELLO_API_URL}boards/{constants.TRELLO_BOARD_ID}/lists?{constants.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
         raw_lists = (json.loads(response.text.encode('utf8')))
         for trello_list in raw_lists:
-            trelloListDict = TrelloList(name=trello_list[self.TRELLO_NAME], boardId=trello_list[self.TRELLO_ID_BOARD])
-            self.trello_lists[trello_list[self.TRELLO_ID]] = trelloListDict
+            trelloListDict = TrelloList(name=trello_list[constants.TRELLO_NAME], boardId=trello_list[constants.TRELLO_ID_BOARD])
+            self.trello_lists[trello_list[constants.TRELLO_ID]] = trelloListDict
 
     def get_list_id(self, name):
         for listId in self.trello_lists:
@@ -65,13 +57,13 @@ class Trello_service(object):
             list: The list of saved items.
         """
         self.items.clear()
-        url = f"{self.TRELLO_API_URL}boards/{self.TRELLO_BOARD_ID}/cards?{self.TRELLO_CREDENTIALS}"
+        url = f"{constants.TRELLO_API_URL}boards/{constants.TRELLO_BOARD_ID}/cards?{constants.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
         cards = json.loads(response.text.encode('utf8'))
         i = 0
         for card in cards:
-            trelloListDict = self.trello_lists[card[self.TRELLO_IDLIST]]
-            item = Item(id=i, cardID=card[self.TRELLO_ID], status=trelloListDict.name, title=card[self.TRELLO_NAME], listId=card[self.TRELLO_IDLIST] )
+            trelloListDict = self.trello_lists[card[constants.TRELLO_IDLIST]]
+            item = Item(id=i, cardID=card[constants.TRELLO_ID], status=trelloListDict.name, title=card[constants.TRELLO_NAME], listId=card[constants.TRELLO_IDLIST] )
             self.items.insert(i, item)
             i += 1
         return self.items
@@ -103,7 +95,7 @@ class Trello_service(object):
             item: The saved item.
         """
         listId = self.get_list_id('Not Started')
-        url = f"{self.TRELLO_API_URL}/cards?{self.TRELLO_CREDENTIALS}&idList={listId}&name={title}"
+        url = f"{constants.TRELLO_API_URL}/cards?{constants.TRELLO_CREDENTIALS}&idList={listId}&name={title}"
         
         response = requests.request("POST", url)
         self.get_items_from_trello()
@@ -115,7 +107,7 @@ class Trello_service(object):
         Args:
             item: The item to save.
         """
-        url = f"{self.TRELLO_API_URL}cards/{item.cardID}?{self.TRELLO_CREDENTIALS}&idList={item.listId}"
+        url = f"{constants.TRELLO_API_URL}cards/{item.cardID}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
         response = requests.request("PUT", url)
         self.get_items_from_trello()
 
@@ -127,7 +119,7 @@ class Trello_service(object):
             id: The item's id to delete.
         """
         item = self.get_item(id)
-        url = f"{self.TRELLO_API_URL}cards/{item.cardID}?{self.TRELLO_CREDENTIALS}&idList={item.listId}"
+        url = f"{constants.TRELLO_API_URL}cards/{item.cardID}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
         response = requests.request("DELETE", url)
         self.get_items_from_trello()
     
