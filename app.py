@@ -13,9 +13,17 @@ def index():
    
     client = TrelloClient(
             api_key=os.getenv('TRELLO_API_KEY'),
-            api_secret=os.getenv('TRELLO_API_SECRET_KEY'),
+            api_secret=os.getenv('TRELLO_API_SECRET'),
         )
     all_boards = client.list_boards()
+    for boards in all_boards: 
+        print(boards.open_cards())
+        items=boards.open_cards()
+        print(dir(items))
+        #print(dir(boards))
+        """for cards in boards.get_cards():
+            print(cards)
+            print(dir(cards))"""
     print(all_boards)
   
     #print(response.text)
