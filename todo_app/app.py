@@ -3,6 +3,7 @@ from todo_app.flask_config import Config
 
 from todo_app.data.trello_items import Trello_service
 from todo_app.data.item import Item
+import todo_app.data.trello_constants as constants
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -29,13 +30,13 @@ def add_item_from_form():
 @app.route('/update_todo/<id>', methods=['POST'])
 def update_item(id):
     item = service.get_item(id)
-    listId = service.get_list_id('Completed')
+    listId = service.get_list_id(constants.TODO_APP_COMPLETED)
     
     if request.form.get('completed'):
-        item.status= 'Completed'
+        item.status= constants.TODO_APP_COMPLETED
     else:
-        listId = service.get_list_id('Not Started')
-        item.status = 'Not Started'
+        listId = service.get_list_id(constants.TODO_APP_NOT_STARTED)
+        item.status = constants.TODO_APP_NOT_STARTED
         
     item.listId = listId
     service.save_item(item)

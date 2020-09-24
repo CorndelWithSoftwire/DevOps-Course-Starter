@@ -17,7 +17,7 @@ class Trello_service(object):
         trello_key = ''
         trello_token = ''
         trello_secrets = []
-        with open("todo_app/trello_secrets.txt", 'r') as file:
+        with open(constants.TRELLO_KEYS_PATH, 'r') as file:
             split_lines = [line.split('=') for line in file.read().splitlines()]
             trello_secrets = [{'k': k, 'v': v} for [k, v] in split_lines]
         
@@ -105,7 +105,7 @@ class Trello_service(object):
         Returns:
             item: The saved item.
         """
-        listId = self.get_list_id('Not Started')
+        listId = self.get_list_id(constants.TODO_APP_NOT_STARTED)
         url = f"{constants.TRELLO_API_URL}/cards?{constants.TRELLO_CREDENTIALS}&idList={listId}&name={title}"
         
         requests.request("POST", url)
