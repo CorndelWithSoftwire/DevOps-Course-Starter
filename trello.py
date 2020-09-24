@@ -45,8 +45,8 @@ board = os.getenv('BOARD_ID')
 def get_cards():
     board_id = os.getenv("BOARD_ID")
     api_key = os.getenv("API_KEY")
-    api_secret = os.getenv("API_TOKEN")
-    response = requests.get(f'https://api.trello.com/1/boards/{board_id}/cards', params={'key': api_key, 'token': api_secret})
+    api_token = os.getenv("API_TOKEN")
+    response = requests.get(f'https://api.trello.com/1/boards/{board_id}/cards', params={'key': api_key, 'token': api_token})
     
     trello_card_lists = response.json()
 

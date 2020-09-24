@@ -13,13 +13,9 @@
       <hr class="my-4">
       <form action="/create" method="POST">
         <div class="form-group">
-          <label for="add_todo">Title:</label>
-          <input class="form-control" type="text" id="add_todo" name="add_todo" maxlength="64" placeholder="New To-Do Title">
+          <label for="title">Title:</label>
+          <input class="form-control" type="text" id="title" name="title" maxlength="64" placeholder="New To-Do Title">
       </div>
-      <div class="form-group">   
-        <label for="add_desc">Due Date:</label>
-        <input class="form-control" id="due_date" name="due_date" placeholder="DD/MM/YYY" type="text">
-    </div>
     <button class="btn btn-dark" type="submit">Add</button>
       </form>
       </ul>
@@ -29,51 +25,22 @@
 
   <div class="row">
     <div class="col-md-12" style="margin-top: 40px;">
-        <h2 id="todo_table">Your To-Do List</h2>
-        <p>This is a list of your to-do items, move them through the board or delete if required</p>
-        <form action="/update" method="POST">
-            <div class="form-group">
-                <table class="table table-striped" style="width: 100%">
-                    <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    {% for item in items %}
-                        <tr>
-                            <td>{{item.title}}</td>
-                            <td>{{item.description}}</td>
-                            <td>{{item.due_date}}</td>
-                            <td>
-                                <select class="custom-select" name="{{ item.trello_id }}">
-                                    {% if item.status == 'Completed' %}
-                                    <option value="Not Started" name="{{ item.trello_id }}">Not Started</option>
-                                    <option value="In Progress" name="{{ item.trello_id }}">In Progress</option>
-                                    <option selected="selected" value="Completed" name="{{ item.trello_id }}">Completed</option>
-                                    {% elif item.status == 'In Progress' %}
-                                    <option value="Not Started" name="{{ item.trello_id }}">Not Started</option>
-                                    <option selected="selected" value="In Progress" name="{{ item.trello_id }}">In Progress</option>
-                                    <option value="Completed" name="{{ item.trello_id }}">Completed</option>
-                                    {% else %}
-                                    <option selected="selected" value="Not Started" name="{{ item.trello_id }}">Not Started</option>
-                                    <option value="In Progress" name="{{ item.trello_id }}">In Progress</option>
-                                    <option value="Completed" name="{{ item.trello_id }}">Completed</option>
-                                    {% endif %}
-                                    <option value="Delete" name="{{ item.trello_id }}">Delete</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="btn btn-dark" type="update">Update</button>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </form>
+        <h2>Items</h2>
+        <ul class="list-group mb-4">
+          {% for item in items %}
+            <li class="list-group-item flex-column">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mt-1 mb-1">{{ item.title }} - {{item.status}}</h5>
+                 <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mt-1 mb-1>{{ item.title }}" </h5>
+                      {% if item.status != 'Completed' %}
+                        <a href="{{ url_for('complete_item', id=item.id) }}" class="btn btn=sm btn-primary">Mark as Complete</a>
+                      {% endif %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
     </div>
 </div>
-
 {% endblock %}
 
