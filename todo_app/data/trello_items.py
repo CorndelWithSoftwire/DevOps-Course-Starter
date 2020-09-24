@@ -5,15 +5,17 @@ from todo_app.data.trelloList import TrelloList
 import todo_app.data.trello_constants as constants
 
 class Trello_service(object):
-    trello_key = ''
-    trello_token = ''
     trello_lists = {}
     items = []
 
     def __init__(self):
         self.get_trello_secrets()
+        self.get_lists()
+        self.get_items_from_trello()
 
     def get_trello_secrets(self):
+        trello_key = ''
+        trello_token = ''
         trello_secrets = []
         with open("todo_app/trello_secrets.txt", 'r') as file:
             split_lines = [line.split('=') for line in file.read().splitlines()]
@@ -23,13 +25,11 @@ class Trello_service(object):
             k = item['k']
             v = item['v']
             if k == "key":
-                self.trello_key = v
+                trello_key = v
             else:
-                self.trello_token = v
+                trello_token = v
         
-        constants.TRELLO_CREDENTIALS = f"key={self.trello_key}&token={self.trello_token}"
-        self.get_lists()
-        self.get_items_from_trello()
+        constants.TRELLO_CREDENTIALS = f"key={trello_key}&token={trello_token}"
 
     def get_lists(self):
         """
