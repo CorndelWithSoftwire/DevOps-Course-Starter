@@ -40,10 +40,17 @@ class Trello_service(object):
         response = requests.request("GET", url)
         raw_lists = (json.loads(response.text.encode('utf8')))
         for trello_list in raw_lists:
-            trelloListDict = TrelloList(name=trello_list[constants.TRELLO_NAME], boardId=trello_list[constants.TRELLO_ID_BOARD])
+            trelloListDict = TrelloList(name=trello_list[constants.TRELLO_NAME], 
+                                        boardId=trello_list[constants.TRELLO_ID_BOARD])
             self.trello_lists[trello_list[constants.TRELLO_ID]] = trelloListDict
 
     def get_list_id(self, name):
+        """
+        Get a trello list id for a give name from the list of all lists.
+
+        Returns:
+            listId:  The identifier for a given name
+        """
         for listId in self.trello_lists:
             trello_list = self.trello_lists[listId]
             if trello_list.name == name:
@@ -63,7 +70,11 @@ class Trello_service(object):
         i = 0
         for card in cards:
             trelloListDict = self.trello_lists[card[constants.TRELLO_IDLIST]]
-            item = Item(id=i, cardID=card[constants.TRELLO_ID], status=trelloListDict.name, title=card[constants.TRELLO_NAME], listId=card[constants.TRELLO_IDLIST] )
+            item = Item(id=i, 
+                        cardID=card[constants.TRELLO_ID], 
+                        status=trelloListDict.name, 
+                        title=card[constants.TRELLO_NAME], 
+                        listId=card[constants.TRELLO_IDLIST] )
             self.items.insert(i, item)
             i += 1
         return self.items
@@ -97,7 +108,7 @@ class Trello_service(object):
         listId = self.get_list_id('Not Started')
         url = f"{constants.TRELLO_API_URL}/cards?{constants.TRELLO_CREDENTIALS}&idList={listId}&name={title}"
         
-        response = requests.request("POST", url)
+        requests.request("POST", url)
         self.get_items_from_trello()
 
     def save_item(self, item):
@@ -108,7 +119,7 @@ class Trello_service(object):
             item: The item to save.
         """
         url = f"{constants.TRELLO_API_URL}cards/{item.cardID}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
-        response = requests.request("PUT", url)
+        requests.request("PUT", url)
         self.get_items_from_trello()
 
     def remove_item(self, id):
@@ -120,8 +131,6 @@ class Trello_service(object):
         """
         item = self.get_item(id)
         url = f"{constants.TRELLO_API_URL}cards/{item.cardID}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
-        response = requests.request("DELETE", url)
+        requests.request("DELETE", url)
         self.get_items_from_trello()
     
-#service = Trello_service()
-#service.get_items()
