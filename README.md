@@ -17,7 +17,14 @@ $ .\setup.ps1
 $ source setup.sh --windows
 ```
 
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
+Once the setup script has completed and all packages have been installed, update the environment variables with relevant Trello API information
+TRELLO_KEY = ##replace with Trello API Key##
+TRELLO_TOKEN = ##replace with Trello API Token##
+TRELLO_TODO_BOARDID = ##replace with ID of board from Trello to use with this app##
+TRELLO_TODO_LISTID = ##replace with ID of todo list from Trello##
+TRELLO_DONE_LISTID = ##replace with ID of done list from Trello##
+
+start the Flask app by running:
 ```bash
 $ flask run
 ```
