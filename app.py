@@ -5,7 +5,6 @@ import dateutil.parser
 
 from viewmodel import ViewModel
 
-
 def createListWithStatus(status, itemList):
     return [TodoItem(x['name'], status, x['id'], duedate=x['due'], last_modified=x['dateLastActivity']) for x in
             itemList]
@@ -14,6 +13,11 @@ def createListWithStatus(status, itemList):
 def create_app():
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object('flask_config.Config')
+
+    todo_list_id = os.getenv("TODO_LIST_ID")
+    done_list_id = os.getenv("DONE_LIST_ID")
+
+    board_lists = Lists(todo_list_id, done_list_id)
 
     # Jinja filters
     @app.template_filter()
@@ -25,10 +29,12 @@ def create_app():
 
     @app.route('/')
     def index():
-        getTodoList = TrelloGetCards().fetchForList(TODO_LIST_ID)
+        trello_get_cards = TrelloGetCards(board_lists.list_to_status_map)
+
+        getTodoList = trello_get_cards.fetchForList(board_lists.todo_list_id)
         toDoItems = createListWithStatus(NOT_STARTED, getTodoList)
 
-        getDoneList = TrelloGetCards().fetchForList(DONE_LIST_ID)
+        getDoneList = trello_get_cards.fetchForList(board_lists.done_list_id)
         doneItems = createListWithStatus(COMPLETED, getDoneList)
 
         items = toDoItems + doneItems
@@ -42,7 +48,7 @@ def create_app():
         title = request.form.get('newitem')
         duedate = request.form.get('duedate')
 
-        TrelloAddCard(TODO_LIST_ID).add(TodoItem(title, NOT_STARTED, duedate=duedate))
+        TrelloAddCard(board_lists.todo_list_id).add(TodoItem(title, NOT_STARTED, duedate=duedate))
 
         return redirect(request.referrer)
 
@@ -54,10 +60,10 @@ def create_app():
 
     @app.route('/check/<id>', methods=['POST'])
     def checkitem(id):
-        item = TrelloGetCards().fetchCard(id)
-        list = TODO_LIST_ID
+        item = TrelloGetCards(board_lists.list_to_status_map).fetchCard(id)
+        list = board_lists.todo_list_id
         if request.form.get(id):
-            list = DONE_LIST_ID
+            list = board_lists.done_list_id
 
         TrelloUpdateCard().update(item, list)
         return redirect(request.referrer)

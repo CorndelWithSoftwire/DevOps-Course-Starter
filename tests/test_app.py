@@ -1,4 +1,3 @@
-from unittest import mock
 from unittest.mock import patch
 
 import pytest
@@ -7,32 +6,11 @@ from dotenv import load_dotenv, find_dotenv
 import app
 
 
-# def _mock_response(
-#         status=200,
-#         content="CONTENT",
-#         json_data=None,
-#         raise_for_status=None):
-#     mock_resp = mock.Mock()
-#     # mock raise_for_status call w/optional error
-#     mock_resp.raise_for_status = mock.Mock()
-#     if raise_for_status:
-#         mock_resp.raise_for_status.side_effect = raise_for_status
-#     # set status code and content
-#     mock_resp.status_code = status
-#     mock_resp.content = content
-#     # add json data if provided
-#     if json_data:
-#         mock_resp.json = mock.Mock(
-#             return_value=json_data
-#         )
-#     return mock_resp
-
 def _mock_response(
         status=200,
         content="CONTENT",
         json_data=None,
         raise_for_status=None):
-
     class MockResponse:
         def __init__(self, json_data, status_code):
             self.json_data = json_data
@@ -90,5 +68,14 @@ def test_index_page_with_todos(mock_get_requests, client):
     assert b"An Item with a due" in response.data
     assert b"Sep 22" in response.data
 
-
-
+# @patch('trello_request.requests.request')
+# def test_add_item_with_a_todo(mock_post_request, client):
+#     todos_json = {
+#             "id": "5f57f133fe6fec1ff7e25d63",
+#             "dateLastActivity": "2020-09-21T17:39:25.603Z",
+#             "name": "Valid Item",
+#             "due": None
+#         }
+#
+#     response = client.post('/additem')
+#     mock_post_request.assert_called_with('/cards')
