@@ -1,5 +1,8 @@
-from secrets import KEY, TOKEN
 import requests
+import os
+
+TRELLO_KEY = os.environ.get('TRELLO_KEY')
+TRELLO_TOKEN = os.environ.get('TRELLO_TOKEN')
 
 todo_boardid = "5f6076c34c5f48265943e31e"
 todolistid = "5f6076e68cc021208da06d2b"
@@ -19,11 +22,11 @@ def putcardsonlist_URL(cardid):
 
 def buildquery(querytype, title=''):
     if querytype == 'getitems':
-        return {'key' : KEY, 'token' : TOKEN}
+        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN}
     elif querytype == "saveitem":
-        return {'key' : KEY, 'token' : TOKEN, "idList": donelistid}
+        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": donelistid}
     elif querytype == "additem":
-        return {'key' : KEY, 'token' : TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
+        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
 
 class Item:
     def __init__(self, id, title, status='To Do'):
