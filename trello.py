@@ -13,34 +13,6 @@ DOING = os.getenv('DOING')
 DONE = os.getenv('DONE')
 board = os.getenv('BOARD_ID')
 
-# def trello_get(trello_path):
-#     return requests.get(API_PREFIX + trello_path, params=API_PARAMS.copy()).json()
-
-# def get_trello_lists():
-#     trello_lists = []
-#     for item in trello_get(f'boards/{board}/lists'):
-#         list_data = todo_status(
-#             item['id'],
-#             item['name']
-#         )
-#         trello_lists.append(list_data)
-#     return trello_lists
-
-
-# def get_trello_cards():
-#     trello_cards = []
-#     trello_lists = get_trello_lists()
-#     for todo_list in trello_lists:
-#         for item in trello_get(f'lists/{todo_list.trello_id}/cards'):
-#             todo = todo_item(
-#                 item['id'],
-#                 item['name'],
-#                 item['desc'],
-#                 item['due'],
-#                 todo_list.status
-#             )
-#             trello_cards.append(todo)
-#     return trello_cards
 
 def get_cards():
     board_id = os.getenv("BOARD_ID")
@@ -61,6 +33,19 @@ def get_cards():
     our_card_list.append(to_do_item(card["id"], status, card["name"]))
 
     return our_card_list
+
+
+def post_item(title):
+    url = API_PREFIX + 'cards'
+    post_params = API_PARAMS.copy()
+    post_params['idList'] = THINGS_TO_DO('Not Started')
+    post_params['name'] = title
+
+    return requests.request(
+        "POST", 
+        url,
+        params=post_params
+    )
 
 
 

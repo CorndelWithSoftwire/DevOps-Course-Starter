@@ -2,16 +2,15 @@
 {% block title %}Francis To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron" style="background-color:rgb(30, 255, 68);color:White;"></div>>
     <h1 class="display-4">Francis To-Do App</h1>
     <p class="lead">Project Exercise 2</p>
   </div>
 
-  <div class="row" style="border:2px solid rgb(30, 255, 68);"></div>>
+  <div class="row" style="border:2px solid rgb(30, 50, 68);"></div>>
     <div class="col-md-12" style="margin-top: 30px; margin-bottom: 30px;">
       <h2>Add New Item</h2>
       <hr class="my-4">
-      <form action="/create" method="POST">
+      <form action="/items/new" method="POST">
         <div class="form-group">
           <label for="title">Title:</label>
           <input class="form-control" type="text" id="title" name="title" maxlength="64" placeholder="New To-Do Title">
