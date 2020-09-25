@@ -13,7 +13,7 @@ def index():
 
 @app.route('/<id>/completed', methods=['POST'])
 def completeditem(id):
-    trello.save_item_trello(id)
+    trello.mark_item_done_trello(id)
     return redirect('/') 
 
 @app.route('/newitems', methods=['POST'])
@@ -24,4 +24,3 @@ def newitems():
 
 if __name__ == '__main__':
     app.run()
-    

@@ -51,9 +51,9 @@ def get_items_trello():
     return items
 
 
-def save_item_trello(id):
+def mark_item_done_trello(id):
     """
-    Updates an existing card in Trello. 
+    sets an existing card in Trello to the done list
 
     Args:
         item: The ID of the item to save.
