@@ -3,14 +3,13 @@ import os
 
 TRELLO_KEY = os.environ.get('TRELLO_KEY')
 TRELLO_TOKEN = os.environ.get('TRELLO_TOKEN')
-
-todo_boardid = "5f6076c34c5f48265943e31e"
-todolistid = "5f6076e68cc021208da06d2b"
-donelistid = "5f6076e96994a166c05385a6"
+TRELLO_TODO_BOARDID = os.environ.get('TRELLO_TODO_BOARDID')
+TRELLO_TODO_LISTID = os.environ.get('TRELLO_TODO_LISTID')
+TRELLO_DONE_LISTID = os.environ.get('TRELLO_DONE_LISTID')
 
 apiurl = "https://api.trello.com/1/"
 boardsurl = apiurl + 'boards/'
-getcardsonboardsurl = boardsurl + todo_boardid + '/cards'
+getcardsonboardsurl = boardsurl + TRELLO_TODO_BOARDID + '/cards'
 cardsurl = apiurl + 'cards/'
 
 def getcardsonlist_URL(cardid):
@@ -24,7 +23,7 @@ def buildquery(querytype, title=''):
     if querytype == 'getitems':
         return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN}
     elif querytype == "saveitem":
-        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": donelistid}
+        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": TRELLO_DONE_LISTID}
     elif querytype == "additem":
         return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
 
