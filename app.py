@@ -1,4 +1,4 @@
-from trello import TrelloClient
+from trello_items import get_cards, get_cards_list
 from flask import Flask, render_template, request, redirect, url_for
 import requests
 import os
@@ -9,27 +9,13 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    #items = session.get_items()
-   
-    client = TrelloClient(
-            api_key=os.getenv('TRELLO_API_KEY'),
-            api_secret=os.getenv('TRELLO_API_SECRET'),
-        )
-    all_boards = client.list_boards()
-    for boards in all_boards: 
-        print(boards.open_cards())
-        items=boards.open_cards()
-        print(dir(items))
-        #print(dir(boards))
-        """for cards in boards.get_cards():
-            print(cards)
-            print(dir(cards))"""
-    print(all_boards)
-  
-    #print(response.text)
-    #print(json.dumps(json.loads(response.text)))
-    items=[]
-    return render_template('index.html', todos = items)
+    tasks=[]
+    for card in get_cards():
+        card_list = get_cards_list(card['id'])
+        card['task_status']=card_list['name']
+        tasks.append(card)
+    
+    return render_template('index.html', todos = tasks)
 
 #import session_items as session
 

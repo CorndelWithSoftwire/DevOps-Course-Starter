@@ -20,16 +20,16 @@
           {% for todo in todos %}
             <tr>
               <td>
-                {{ todo.id }}
+                {{ todo.idShort }}
               </td>
               <form action="/update-todo" method="post">
                 <input type="hidden" name="todo_id" value="{{ todo.id }}">
                 <td>  
-                    <input type="text" name="title" value="{{ todo.title }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" name="title" value="{{ todo.name }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </td>
                 <td>
                     <select name="status" id="status" class="custom-select" id="inputGroupSelect01">
-                      <option selected> {{ todo.status }}</option>
+                      <option selected> {{ todo.task_status }}</option>
                       <option value="Not Started">Not Started</option>
                       <option value="In Progress">In Progress</option>
                       <option value="Completed">Completed</option>
