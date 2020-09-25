@@ -19,13 +19,8 @@ def putcardsonlist_URL(cardid):
     URL = cardsurl + cardid
     return URL
 
-def buildquery(querytype, title=''):
-    if querytype == 'getitems':
-        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN}
-    elif querytype == "saveitem":
-        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": TRELLO_DONE_LISTID}
-    elif querytype == "additem":
-        return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN, "idList": "5f6076e68cc021208da06d2b", "name" : title}
+def build_auth_query():
+    return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN}
 
 class Item:
     def __init__(self, id, title, status='To Do'):
@@ -41,12 +36,12 @@ def get_items_trello():
     Returns:
         list: The list of saved items.
     """
-    cards = requests.get(getcardsonboardsurl, params=buildquery('getitems'))
+    cards = requests.get(getcardsonboardsurl, params=build_auth_query())
     cards_json = cards.json()
 
     items = []
     for card in cards_json:
-        cardlist = requests.get(getcardsonlist_URL(card['id']), params=buildquery('getitems'))
+        cardlist = requests.get(getcardsonlist_URL(card['id']), params=build_auth_query())
         cardlist_json = cardlist.json()
         if cardlist_json['name'] == 'Done':
             cardstatus = 'Completed'
@@ -63,7 +58,9 @@ def save_item_trello(id):
     Args:
         item: The ID of the item to save.
     """
-    requests.put(putcardsonlist_URL(id), params=buildquery('saveitem'))
+    query = build_auth_query()
+    query['idList'] = TRELLO_DONE_LISTID
+    requests.put(putcardsonlist_URL(id), params=query)
     return id
 
 def add_item_trello(title):
@@ -76,5 +73,8 @@ def add_item_trello(title):
     Returns:
         item: The saved item.
     """
-    requests.post(cardsurl, params=buildquery('additem', title))
+    query = build_auth_query()
+    query['idList'] = TRELLO_TODO_LISTID
+    query['name'] = title
+    requests.post(cardsurl, params=query)
     return 
