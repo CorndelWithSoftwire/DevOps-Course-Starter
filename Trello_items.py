@@ -12,7 +12,7 @@ boardsurl = apiurl + 'boards/'
 getcardsonboardsurl = boardsurl + TRELLO_TODO_BOARDID + '/cards'
 cardsurl = apiurl + 'cards/'
 
-def getcardsonlist_URL(cardid):
+def getlistofcard_URL(cardid):
     URL = cardsurl + cardid + "/list"
     return URL
 def putcardsonlist_URL(cardid):
@@ -41,7 +41,7 @@ def get_items_trello():
 
     items = []
     for card in cards_json:
-        cardlist = requests.get(getcardsonlist_URL(card['id']), params=build_auth_query())
+        cardlist = requests.get(getlistofcard_URL(card['id']), params=build_auth_query())
         cardlist_json = cardlist.json()
         if cardlist_json['name'] == 'Done':
             cardstatus = 'Completed'
