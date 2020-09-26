@@ -1,13 +1,13 @@
-from item import Item, Status
+from item import Item
 from viewmodel import ViewModel
 
 not_started = [
-    Item(item_id=1, tittle="todo 1", desc='todo 1', status=Status.NOT_STARTED),
-    Item(item_id=1, tittle="todo 2", desc='todo 2', status=Status.NOT_STARTED)
+    Item(item_id=1, tittle="todo 1", desc='todo 1', status=Item.STATUS_NOT_STARTED),
+    Item(item_id=1, tittle="todo 2", desc='todo 2', status=Item.STATUS_NOT_STARTED)
 ]
 completed = [
-    Item(item_id=1, tittle="completed 1", desc='completed 1', status=Status.COMPLETED),
-    Item(item_id=1, tittle="completed 2", desc='completed 2', status=Status.COMPLETED)
+    Item(item_id=1, tittle="completed 1", desc='completed 1', status=Item.STATUS_COMPLETED),
+    Item(item_id=1, tittle="completed 2", desc='completed 2', status=Item.STATUS_COMPLETED)
 ]
 items = not_started + completed
 
