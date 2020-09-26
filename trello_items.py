@@ -15,9 +15,9 @@ def get_items():
     done_request = requests.get(f'https://api.trello.com/1/lists/{Config.DONE_LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
     trello_items = []
     for item in not_started_response.json():
-        trello_items.append(Item.from_response(item))
+        trello_items.append(Item(item))
     for item in done_request.json():
-        trello_items.append(Item.from_response(item))
+        trello_items.append(Item(item))
     return trello_items
 
 
