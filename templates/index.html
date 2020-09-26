@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <h2>Items</h2>
             <ul class="list-group">
-                {% for item in items %}
+                {% for item in view_model.items %}
                     {% if item.status == 'Not Started' %}
                         <li class="list-group-item">{{ item.title }} <br> {{ item.desc }}
                             <span class="badge badge-danger" style="float: right">
