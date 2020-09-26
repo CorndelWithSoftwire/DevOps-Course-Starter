@@ -17,9 +17,9 @@
                             <span class="badge badge-danger" style="float: right">
                                 <form method="post" action="{{ url_for('complete_item', id =item.id) }}">
                                     <button class="btn btn-link" type="submit" data-toggle="tooltip"
-                                            title="Mark as completed">
+                                            title="Mark as completed">{{ item.status }}
                                     </button>
-                                </form>{{ item.status }}
+                                </form>
                             </span>
                         </li>
                     {% else %}
