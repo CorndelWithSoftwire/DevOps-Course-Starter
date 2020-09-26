@@ -1,4 +1,4 @@
-from item import Item
+from item import Item, Status
 
 
 class ViewModel:
@@ -11,10 +11,10 @@ class ViewModel:
 
     @property
     def todo_items(self):
-        todo_items = list(filter(lambda item: item.status == Item.STATUS_NOT_STARTED, self._items))
+        todo_items = list(filter(lambda item: item.status == Status.NOT_STARTED, self._items))
         return todo_items
 
     @property
     def done_items(self):
-        done_items = list(filter(lambda item: item.status == Item.STATUS_COMPLETED, self._items))
+        done_items = list(filter(lambda item: item.status == Status.COMPLETED, self._items))
         return done_items
