@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import config as cf
-from model import Item
+from model import Item, ViewModel
 
 import session_items as session
 import requests
@@ -36,7 +36,11 @@ def index():
         item = Item(card['id'], status, card['name'])
         items_list.append(item)
 
-    return render_template('index.html', items=items_list)
+    item_view_model = ViewModel(items_list)
+    render_template('index.html', view_model=item_view_model)
+
+    #return render_template('index.html', items=items_list)
+    return render_template('index.html', view_model=item_view_model)
 
 
 if __name__ == '__main__':

@@ -34,7 +34,7 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-        {% for item in items %}
+        {% for item in view_model.items %}
           <li>{{ item.id}} - {{item.status}} - {{item.title}} - 
             <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
           </li>
