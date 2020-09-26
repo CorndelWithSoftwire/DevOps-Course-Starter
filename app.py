@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
 import trello_items as trello
+from viewmodel import ViewModel
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
@@ -9,7 +9,8 @@ app.config.from_object('flask_config.Config')
 @app.route('/')
 def index():
     items = trello.get_items()
-    return render_template("index.html", items=items)
+    item_view_model = ViewModel(items)
+    return render_template("index.html", view_model=item_view_model)
 
 
 @app.route('/', methods=['POST'])
