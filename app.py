@@ -2,31 +2,31 @@ from flask import Flask, render_template, request, redirect, url_for
 import trello_items as trello
 from viewmodel import ViewModel
 
-app = Flask(__name__)
-app.config.from_object('flask_config.Config')
 
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('flask_config.Config')
 
-@app.route('/')
-def index():
-    items = trello.get_items()
-    item_view_model = ViewModel(items)
-    return render_template("index.html", view_model=item_view_model)
+    @app.route('/')
+    def index():
+        items = trello.get_items()
+        item_view_model = ViewModel(items)
+        return render_template("index.html", view_model=item_view_model)
 
+    @app.route('/', methods=['POST'])
+    def add_item():
+        item_title = request.form.get('title')
+        item_desc = request.form.get('desc')
+        trello.add_item(item_title, item_desc)
+        items = trello.get_items()
+        return render_template("index.html", items=items)
 
-@app.route('/', methods=['POST'])
-def add_item():
-    item_title = request.form.get('title')
-    item_desc = request.form.get('desc')
-    trello.add_item(item_title, item_desc)
-    items = trello.get_items()
-    return render_template("index.html", items=items)
+    @app.route('/complete/<id>', methods=['POST'])
+    def complete_item(id):
+        trello.move_to_done(id)
+        return redirect(url_for('index'))
 
+    if __name__ == '__main__':
+        app.run()
 
-@app.route('/complete/<id>', methods=['POST'])
-def complete_item(id):
-    trello.move_to_done(id)
-    return redirect(url_for('index'))
-
-
-if __name__ == '__main__':
-    app.run()
+    return app
