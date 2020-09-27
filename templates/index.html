@@ -11,13 +11,15 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        {% for item in items%} 
-          <li>{{item}}</li> 
+        {% for item in items%}  
+          <form action="/markAsComplete/" method="POST">
+            <li id="itemName" name="itemName">{{item}}</li>
+            <button type="submit" onclick="" style="width: fit-content;">Set as Complete</button>
+          </form>
         {%endfor%} 
       </ul>
       <form action="/newItem" method="POST">
-        <input type="text" id="itemName" name="itemName" required
-        minlength="4" maxlength="8" size="10">
+        <input type="text" id="itemName" name="itemName" size="10">
           <button class="favorite styled" onclick=""
             type="submit">
               Add to favorites

@@ -37,5 +37,17 @@ def submitNewItem():
         item_list.append(items['name'])
     return render_template("index.html", items=item_list)
 
+@app.route('/markAsComplete/<itemName>', methods=['POST'])
+def markItemAsComplete(itemName):
+    print(itemName)
+    item_list = []
+    list_id = '5f56323626c33d81cd98b386'
+    r = Requests.get('https://api.trello.com/1/lists/{}/cards?key={}&token={}'.format(list_id, secrets.KEY, secrets.TOKEN))
+    for items in (r.json()):
+        if (items['name'] == itemName):
+            print(items)
+        item_list.append(items['name'])
+    return render_template("index.html", items=item_list)    
+
 if __name__ == '__main__':
     app.run()
