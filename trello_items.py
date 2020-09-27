@@ -17,23 +17,17 @@ def get_items():
     items.extend(getCardsOnList(todo_list_id,"Things To Do"))
     items.extend(getCardsOnList(done_list_id, "Done"))
     items.extend(getCardsOnList(doing_list_id, "Doing"))
-    #items = getCardsOnList(done_list_id)
-    #items = getCardsOnList(doing_list_id)
     
     return items 
 
 def getListsOnBoards(boardid):  
-    # Fetch lists from Trello board and store in session, if in session then retrive from session
-
+    # Fetch lists from Trello board
     lists = callTrelloAPI("get","boards","lists",boardid,"")
     return lists
-    
-        
 
 def getCardsOnList(listid, status):
 
     cards = callTrelloAPI("get","lists","cards",listid,"")
-
     items = []
     
     for i in cards:
@@ -43,29 +37,32 @@ def getCardsOnList(listid, status):
     return items
 
 
-def get_item(id):
+def get_single_item(id):
     # Get specific card based on its ID
+    items = []
     items = get_items()
     return next((item for item in items if item['id'] == id), None)
 
-def add_item(title):
+def add_item(title, _todo_list_id):
     # Post item to Trello and retrieve items list from Trello
-    callTrelloAPI("post", "lists", "cards", todo_list_id , title)
-    return
+    response = callTrelloAPI("post", "lists", "cards", _todo_list_id , title)
+    cardid = response["id"]
+    return cardid
 
 def remove_item(cardId):
     #Delete card on Trello
     callTrelloAPI("delete","cards","",cardId, "")
     return 
 
-def inprogress_item(cardId):
+def inprogress_item(cardId, _doing_list_id):
     #Delmove card to Doing 
-    callTrelloAPI("put","cards","",cardId, doing_list_id)
-    return 
+    response = callTrelloAPI("put","cards","",cardId, _doing_list_id)
+    return _doing_list_id == response["idList"]
 
-def markAsDone(cardId):
+def markAsDone(cardId, _done_list_id):
     # Move items marks as Done to "Done" list on Trello
-    callTrelloAPI("put","cards","",cardId, done_list_id)
+    response = callTrelloAPI("put","cards","",cardId, _done_list_id)
+    return _done_list_id == response["idList"]
 
 def callTrelloAPI(method,section,call,id,args):
 ######################################################################################
@@ -111,12 +108,26 @@ def callTrelloAPI(method,section,call,id,args):
 
     return jsonResponse
 
-def create_trello_board():
-    response = callTrelloAPI("post","boards","","", "TestBoard")
+def create_trello_board(board_name):
+    response = callTrelloAPI("post","boards","","", board_name)
+    board_id = response['id']
 
-    return response
+    return board_id
 
 def delete_trello_board(boardid):
     response = callTrelloAPI("delete","boards","",boardid, "")
+    value = response["_value"]
 
-    return response
+    return value is None
+
+def setListIdInEnv(listofboards):
+    # Get list IDs for a Board
+    for i in listofboards:
+        if i['name'] == "To Do":
+            os.environ["todo_list_id"] = i['id']
+        if i['name'] == "Doing":
+            os.environ["doing_list_id"] = i['id']
+        if i['name'] == "Done":
+            os.environ["done_list_id"] = i['id']
+
+    return 

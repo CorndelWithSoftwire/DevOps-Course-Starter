@@ -5,7 +5,7 @@ import requests
 import dotenv
 import pytest
 from flask import Flask, render_template, request, redirect, url_for, session
-import session_items as session
+import trello_items as trello
 import app as app
 from threading import Thread 
 
