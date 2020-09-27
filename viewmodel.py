@@ -1,4 +1,6 @@
-from item import Item, Status
+from datetime import date
+
+from item import Status
 
 
 class ViewModel:
@@ -18,3 +20,11 @@ class ViewModel:
     def done_items(self):
         done_items = list(filter(lambda item: item.status == Status.COMPLETED, self._items))
         return done_items
+
+    @property
+    def recent_done_items(self):
+        return list(filter(lambda item: item.last_changed == date.today(), self.done_items))
+
+    @property
+    def older_done_items(self):
+        return list(filter(lambda item: item.last_changed != date.today(), self.done_items))
