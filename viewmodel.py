@@ -23,7 +23,9 @@ class ViewModel:
 
     @property
     def recent_done_items(self):
-        return list(filter(lambda item: item.last_changed == date.today(), self.done_items))
+        recent = list(filter(lambda item: item.last_changed == date.today(), self.done_items))
+        print('done == ' + str(len(self.done_items)) + '. recent : ' + str(len(recent)))
+        return recent
 
     @property
     def older_done_items(self):
