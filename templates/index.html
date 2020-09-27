@@ -63,8 +63,9 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for item in view_model.doneItems %}
-          <li>{{ item.id}} - {{item.status}} - {{item.title}} 
-          </li>
+          {% if loop.index <= 5 %}
+            <li>{{ item.id}} - {{item.status}} - {{item.title}} </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>

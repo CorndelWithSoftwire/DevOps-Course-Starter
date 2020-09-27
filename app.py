@@ -30,6 +30,8 @@ def index():
         status = 'To Do' 
         if card['idList'] == '5f5a4b008a129438843fcf10':
             status = 'To Do'
+        elif card['idList'] == '5f5a4b008a129438843fcf11':
+            status = 'Doing'
         else:
             status = 'Done'
 
