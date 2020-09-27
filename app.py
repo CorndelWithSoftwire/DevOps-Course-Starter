@@ -18,8 +18,7 @@ def create_app():
         item_title = request.form.get('title')
         item_desc = request.form.get('desc')
         trello.add_item(item_title, item_desc)
-        items = trello.get_items()
-        return render_template("index.html", items=items)
+        return redirect(url_for('index'))
 
     @app.route('/complete/<id>', methods=['POST'])
     def complete_item(id):

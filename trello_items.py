@@ -47,8 +47,6 @@ def add_item(title, descr):
         params=query
     )
 
-    print(response.text)
-
 
 def move_to_done(itemId):
     url = f'https://api.trello.com/1/cards/{itemId}'
@@ -69,4 +67,3 @@ def move_to_done(itemId):
         headers=headers,
         params=query
     )
-    print(response.text)
