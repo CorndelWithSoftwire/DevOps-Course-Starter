@@ -31,12 +31,39 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>To Do Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
-        {% for item in view_model.items %}
+        {% for item in view_model.todoItems %}
           <li>{{ item.id}} - {{item.status}} - {{item.title}} - 
             <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Doing Items</h2>
+      <ul class="list-group mb-4">
+        <!-- List the todo items here -->
+        {% for item in view_model.doingItems %}
+          <li>{{ item.id}} - {{item.status}} - {{item.title}} - 
+            <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Done Items</h2>
+      <ul class="list-group mb-4">
+        <!-- List the todo items here -->
+        {% for item in view_model.doneItems %}
+          <li>{{ item.id}} - {{item.status}} - {{item.title}} 
           </li>
         {% endfor %}
       </ul>

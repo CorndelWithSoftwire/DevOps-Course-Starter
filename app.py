@@ -37,7 +37,7 @@ def index():
         items_list.append(item)
 
     item_view_model = ViewModel(items_list)
-    render_template('index.html', view_model=item_view_model)
+    #render_template('index.html', view_model=item_view_model)
 
     #return render_template('index.html', items=items_list)
     return render_template('index.html', view_model=item_view_model)
@@ -60,12 +60,13 @@ def update_card(idCard):
 
     url = "https://api.trello.com/1/cards/{idCard}"
     headers = {"Accept": "application/json"}
+    list_id = cf.get_trello_list_id()
     query = cf.get_trello_query()
-    #No obvious way of retrieving the done List Id, 
-    #therefore reusing/mocking the example one instead 
-    query['idList'] = '5abbe4b7ddc1b351ef961415'
+    #query['idList'] = '5abbe4b7ddc1b351ef961415'
+    query['idList'] = list_id
     response = requests.request( "PUT", url, headers=headers, params=query )
-    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+    #print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+    return redirect(url_for('index'))
 
 
 #create card/item
@@ -75,8 +76,7 @@ def add_card():
     
     list_id = cf.get_trello_list_id()
     query = cf.get_trello_query()
-    #No obvious way of retrieving the created List Id, 
-    #therefore reusing/mocking the example one instead 
+    
     query['idList'] = list_id
     response = requests.request("POST", url, params=query )
     #print(response.text)
