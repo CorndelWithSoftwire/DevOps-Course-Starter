@@ -1,7 +1,7 @@
 from flask import session
 
 _DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
+    { 'id': 1, 'status': 'Completed', 'title': 'List saved todo items' },
     { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
 ]
 
@@ -67,3 +67,17 @@ def save_item(item):
     session['items'] = updated_items
 
     return item
+
+
+def del_item(id):
+    """
+    Deletes an existing item in the session.
+
+    Args:
+        item: the item to delete
+    """
+    existing_items = get_items()
+    remaining_items = [item for item in existing_items if int(id)!=item['id']]
+    session['items'] = remaining_items
+
+

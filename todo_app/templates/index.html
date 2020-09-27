@@ -1,18 +1,38 @@
-{% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
-
-{% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block
+content %}
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
+<div class="container">
+  <div class="row my-5">
+    <div class="col-md-12">
+      <form action="/newitem" method="POST">
+        <div class="form-group">
+          <label for="msg">Add a new task:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            placeholder="Enter task description here"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Add Task</button>
+      </form>
+    </div>
   </div>
-
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+      <ul class="list-group mb-12">
+        {% set sort_on = request.args.sort_on|default('status') %} {% for i in
+        items|sort(attribute=sort_on,reverse=True)%}
+        <li class="list-group-item">
+          {{i.title}} - {{i.status}} | <a href="/{{i.id}}">Edit</a>
+        </li>
+        {%endfor%}
       </ul>
     </div>
   </div>
+</div>
 {% endblock %}
