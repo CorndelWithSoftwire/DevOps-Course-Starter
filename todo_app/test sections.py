@@ -21,63 +21,35 @@ class Trello_Data:
         boards_ref_data = json.loads(boards_ref_data_response.content)
         for i, board in enumerate(boards_ref_data):
             list_level = i
-            self.boards_names_and_ref[boards_ref_data[list_level]['name']] = boards_ref_data[list_level]['shortLink']
+            self.boards_names_and_ref[boards_ref_data[list_level]['name']] = boards_ref_data[list_level]['id']
+            list_level += 1
+    
+    def get_trello_cards_on_board(self, board_name):
+        ref = self.boards_names_and_ref[board_name]
+        lists_data_response = requests.get('https://api.trello.com/1/boards/' + ref + '/cards?', params=payload)
+        lists_data = json.loads(lists_data_response.content)
+        for i, list_name in enumerate(lists_data):
+            list_level = i
+            self.cards_names_and_ref[lists_data[list_level]['name']] = [lists_data[list_level]['id']]
             list_level += 1
 
 class myTrello(Trello_Data):
     def get_my_board_info(self):
         return self.boards_names_and_ref
+    
+    def get_my_card_info(self):
+        return self.cards_names_and_ref
    
 
 myboards = myTrello()
 myboards.get_trello_boards_name_and_ref()
+myboards.get_trello_cards_on_board('DevOps Module 2')
 
 print(myboards.get_my_board_info().keys())
-boards = list(myboards.get_my_board_info().keys())
+#print(myboards.get_my_card_info(5f69d247c5b0c82d14e19438))
+boards = myboards.get_my_board_info()
+cards = myboards.get_my_card_info()
 print(boards)
-def get_trello_boards_names():
-    boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
-    boards_ref_data = json.loads(boards_ref_data_response.content)
-    board_name_list = [item ['name'] for item in boards_ref_data]
-    return board_name_list
-
-def get_trello_lists_reference():
-    boards = get_trello_boards_reference()
-    lists_ref = []
-    for board in boards:
-        board = board
-        lists_data_response = requests.get('https://api.trello.com/1/boards/' + board + '/lists?', params=payload)
-        lists_data = json.loads(lists_data_response.content)
-        lists_ref.append([list_name['id'] for list_name in lists_data])
-    return lists_ref
-
-def get_trello_lists_names():
-    boards = get_trello_boards_reference()
-    lists_name = []
-    for listn in boards:
-        listn = listn
-        lists_data_response = requests.get('https://api.trello.com/1/boards/' + listn + '/lists?', params=payload)
-        lists_data = json.loads(lists_data_response.content)
-        lists_name.append([list_name['name'] for list_name in lists_data])
-    return lists_name
-
-def get_trello_cards():
-    cards = get_trello_lists_reference()
-    card_name = []
-    for card in cards:
-        card = card
-        card_data_response = requests.get('https://api.trello.com/1/lists/' + card + '/cards?', params=payload)
-        card_data = json.loads(card_data_response.content)
-        card_name.append([card ['name'] for card in card_data])
-    return card_name
-
-
-myboard_names = get_trello_boards_names()
-myboard_ids = get_trello_boards_reference()
-mylist_names = get_trello_lists_names()
-mylist_ids = get_trello_lists_reference()
-mycard_names = get_trello_cards()
-
-print(mycard_names)
+print(cards)
 
 

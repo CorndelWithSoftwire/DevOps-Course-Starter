@@ -9,18 +9,18 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Your Tasks</h2>
+      <h2>Your Lists</h2>
       <ul class="list-group mb-4">
-    {% for card in cards %}
+    {% for list in lists %}
           <form action="/" method="get">
-            <li><b> {{ card }} </b>   <button type="submit"> Click here for - <b> {{ card }} </b>- information </button></li>
+            <li><b> {{ list }} </b>   <button type="submit"> Go to List </button></li>
         </form>
     {% endfor %}
       </ul>
     </div>
   </div>
-  <button type="button">Create New Card</button></li>
   <form action="/" method="get">
     <button type="submit"> Click here for to return to index </button>
 </form>
+<button type="button">Create New List</button></li>
 {% endblock %}
