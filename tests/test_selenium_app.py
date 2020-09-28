@@ -117,12 +117,24 @@ def test_task_journey(driver, test_app):
     todo_item_label_element = driver.find_element_by_xpath("//div[@id='todoBlock']//label[@class='checkboxLabel']").text
     assert todo_item == todo_item_label_element
 
-    # Mark item as complete
-    driver.find_element_by_xpath(
-        "//div[@id='todoBlock']//form[label[@class='checkboxLabel']]/input[@type='checkbox']").check()
+    # mark item as complete
+    driver.find_element_by_xpath("//div[@id='todoBlock']//form/label[@class='checkboxLabel']").click()
 
     driver.implicitly_wait(2)  # seconds
 
     # assert to see its in done section
     todo_item_label_element = driver.find_element_by_xpath("//div[@id='doneBlock']//label[@class='checkboxLabel']").text
     assert todo_item == todo_item_label_element
+
+    # move back to to do
+    driver.find_element_by_xpath("//div[@id='doneBlock']//label[@class='checkboxLabel']").click()
+
+    # assert to see if its in to do section
+    todo_item_label_element = driver.find_element_by_xpath("//div[@id='todoBlock']//label[@class='checkboxLabel']").text
+    assert todo_item == todo_item_label_element
+
+    # delete item
+    driver.find_element_by_xpath("//div[@id='todoBlock']//form/input[@alt='Delete']").click()
+
+    # assert that its not there
+    assert driver.page_source.find(todo_item) == -1
