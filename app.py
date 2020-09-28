@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os
 import trello_items as trello_items
 import ItemsViewModel as ItemsViewModel
 
@@ -39,13 +40,13 @@ def create_app():
     @app.route('/add', methods=['POST'])
     def add_item():
         task = request.form['task_description']
-        trello_items.add_item(task)
+        trello_items.add_item(task, os.environ["todo_list_id"])
 
         return redirect(url_for('index'))
 
     @app.route('/tasks/<id>/complete', methods=['POST'])
     def complete_item(id):
-        trello_items.markAsDone(id)
+        trello_items.markAsDone(id, os.environ["done_list_id"])
 
         return redirect(url_for('index'))
 
@@ -57,7 +58,7 @@ def create_app():
 
     @app.route('/tasks/<id>/inprogress', methods=['POST'])
     def inprogress_item(id):
-        trello_items.inprogress_item(id)
+        trello_items.inprogress_item(id, os.environ["doing_list_id"])
 
         return redirect(url_for('index'))
 
