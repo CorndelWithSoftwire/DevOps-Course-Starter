@@ -3,18 +3,38 @@ import os
 import json
 
 def get_trello_API_credentials():
-    f = open("todo_app\Trello_API_Keys.txt", "r").read().split("\n")
+    f = open("todo_app/Trello_API_Keys.txt", "r").read().split("\n")
     return {'key': f[0], 'token': f[1]}
 
 api_keys = get_trello_API_credentials()
 payload = api_keys
 
-def get_trello_boards_reference():
-    boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
-    boards_ref_data = json.loads(boards_ref_data_response.content)
-    board_ref_list = [item ['shortLink'] for item in boards_ref_data]
-    return board_ref_list
+class Trello_Data:
+    def __init__(self):
+        self.boards_names_and_ref = {}
+        self.lists_names_and_ref = {}
+        self.cards_names_and_ref = {}
 
+    def get_trello_boards_name_and_ref(self):
+        list_level = 0
+        boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
+        boards_ref_data = json.loads(boards_ref_data_response.content)
+        for i, board in enumerate(boards_ref_data):
+            list_level = i
+            self.boards_names_and_ref[boards_ref_data[list_level]['name']] = boards_ref_data[list_level]['shortLink']
+            list_level += 1
+
+class myTrello(Trello_Data):
+    def get_my_board_info(self):
+        return self.boards_names_and_ref
+   
+
+myboards = myTrello()
+myboards.get_trello_boards_name_and_ref()
+
+print(myboards.get_my_board_info().keys())
+boards = list(myboards.get_my_board_info().keys())
+print(boards)
 def get_trello_boards_names():
     boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
     boards_ref_data = json.loads(boards_ref_data_response.content)

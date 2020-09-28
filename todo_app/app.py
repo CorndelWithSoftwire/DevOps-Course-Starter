@@ -11,12 +11,72 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 def get_trello_API_credentials():
-    f = open("todo_app\Trello_API_Keys.txt", "r").read().split("\n")
+    f = open("todo_app/Trello_API_Keys.txt", "r").read().split("\n")
     return {'key': f[0], 'token': f[1]}
 
 api_keys = get_trello_API_credentials()
 payload = api_keys
 
+class Trello_Data:
+    def __init__(self):
+        self.boards_names_and_ref = {}
+        self.lists_names_and_ref = {}
+        self.cards_names_and_ref = {}
+
+    def get_trello_boards_name_and_ref(self):
+        list_level = 0
+        boards_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
+        boards_data = json.loads(boards_data_response.content)
+        for i, board in enumerate(boards_data):
+            list_level = i
+            self.boards_names_and_ref[boards_data[list_level]['name']] = boards_data[list_level]['shortLink']
+            list_level += 1
+    
+    def get_lists_on_board(self, board):
+        ref = self.boards_names_and_ref[board]
+        lists_data_response = requests.get('https://api.trello.com/1/boards/' + ref + '/lists?', params=payload)
+        lists_data = json.loads(lists_data_response.content)
+        for i, list_name in enumerate(lists_data):
+            list_level = i
+            self.lists_names_and_ref[lists_data[list_level]['name']] = lists_data[list_level]['id']
+            list_level += 1
+
+class myTrello(Trello_Data):
+    def get_my_board_info(self):
+        return self.boards_names_and_ref
+   
+
+myboards = myTrello()
+myboards.get_trello_boards_name_and_ref()
+
+@app.route('/')
+def index():
+    boards = list(myboards.get_my_board_info().keys())
+    return render_template('Index.html', boards=boards)
+
+@app.route('/bt')
+def bt():
+    cards = get_trello_cards()
+    return render_template('boardtasks.html', cards=cards)
+
+@app.route('/<id>')
+def task(id):
+    item = session_items.get_item(id)
+    return render_template('single_item.html', item=item)
+
+@app.route('/add', methods=['POST'])
+def add():
+    if request.method == 'POST':
+        title = (request.form['title'])
+        session_items.add_item(title)
+        return redirect(url_for('index'))
+    else:
+        return render_template('add_items.html')
+
+if __name__ == '__main__':
+    app.run()
+
+"""
 def get_trello_boards_reference():
     boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
     boards_ref_data = json.loads(boards_ref_data_response.content)
@@ -58,31 +118,6 @@ def get_trello_cards():
         card_data = json.loads(card_data_response.content)
         card_name.append([card ['name'] for card in card_data])
     return card_name
+"""
 
 
-@app.route('/')
-def index():
-    boards = get_trello_boards_names()
-    return render_template('Index.html', boards=boards)
-
-@app.route('/bt')
-def bt():
-    cards = get_trello_cards()
-    return render_template('boardtasks.html', cards=cards)
-
-@app.route('/<id>')
-def task(id):
-    item = session_items.get_item(id)
-    return render_template('single_item.html', item=item)
-
-@app.route('/add', methods=['POST'])
-def add():
-    if request.method == 'POST':
-        title = (request.form['title'])
-        session_items.add_item(title)
-        return redirect(url_for('index'))
-    else:
-        return render_template('add_items.html')
-
-if __name__ == '__main__':
-    app.run()
