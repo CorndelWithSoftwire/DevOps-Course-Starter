@@ -30,7 +30,7 @@ def get_cards():
             status = "In Progress"
         else:
             status = "Complete"
-    our_card_list.append(to_do_item(card["id"], status, card["name"]))
+        our_card_list.append(to_do_item(card["id"], status, card["name"]))
 
     return our_card_list
 

@@ -10,12 +10,18 @@
     <div class="col-md-12" style="margin-top: 30px; margin-bottom: 30px;">
       <h2>Add New Item</h2>
       <hr class="my-4">
-      <form action="/items/new" method="POST">
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input class="form-control" type="text" id="title" name="title" maxlength="64" placeholder="New To-Do Title">
-      </div>
-    <button class="btn btn-dark" type="submit">Add</button>
+      <form action="{{ url_for('add_item') }}" method="POST">
+        <div class="form-group form-row align-items-center">
+          <div class="col-auto">
+            <label for="title-input">Title</label>
+          </div>
+          <div class='col-auto'>
+            <input class="form-control" type="text" id="title-input" name="title" maxlength="64" placeholder="New To-Do Title">
+          </div>
+          <div class="form-group form-row align-items-center"> 
+            <button class="btn btn-dark" type="submit">Add Item</button>
+          </div>
+        </div>
       </form>
       </ul>
     </div>

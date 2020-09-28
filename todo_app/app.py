@@ -15,7 +15,7 @@ def index():
     return render_template('index.html', items = items)
 
 @app.route('/items/new', methods=['POST'])
-def add_items():
+def add_item():
     api_key = os.getenv('API_KEY')
     api_token = os.getenv('API_TOKEN')
     things_to_do = os.getenv('THINGS_TO_DO')
@@ -25,12 +25,6 @@ def add_items():
 
     return redirect(url_for('index'))
 
-# @app.route('/create', methods=['POST'])
-# def new_todo():
-#     post_item(request.form['add_todo'])
-#     app.logger.info('Processing create new card request')
-#     return redirect('/')
-
 
 @app.route('/items/<id>/complete')
 def complete_item(id):
@@ -39,7 +33,7 @@ def complete_item(id):
     done = os.getenv('DONE')
     params = {'key': api_key, 'token': api_token, 'idList': done}
 
-    response = requests.put(f'https://api.trello.com/1/cards{id}', params=params) 
+    response = requests.put(f'https://api.trello.com/1/cards/{id}', params=params) 
 
     return redirect(url_for('index'))
 
