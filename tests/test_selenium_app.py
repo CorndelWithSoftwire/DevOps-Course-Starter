@@ -2,14 +2,13 @@ import os
 import random
 from threading import Thread
 
+import pytest
 from dotenv import find_dotenv, load_dotenv
 from selenium import webdriver
-
-import common
-
-import pytest
+from selenium.webdriver.support.wait import WebDriverWait
 
 import app
+import common
 from trello_request import TrelloRequest
 
 
@@ -71,8 +70,8 @@ def test_app():
     load_dotenv(file_path, override=True)
 
     # some load or setup issues with environment
-    TrelloRequest.APP_TOKEN=os.getenv("APP_TOKEN")
-    TrelloRequest.APP_API_KEY=os.getenv("APP_API_KEY")
+    TrelloRequest.APP_TOKEN = os.getenv("APP_TOKEN")
+    TrelloRequest.APP_API_KEY = os.getenv("APP_API_KEY")
 
     # Create the new board & update the board id environment
     board_id = create_trello_board()
@@ -106,3 +105,24 @@ def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
     assert driver.title == 'Quick and Dirty To-Do'
 
+    # Create an item
+    todo_item = 'Testing a todo item'
+    inputElement = driver.find_element_by_id("newitem")
+    inputElement.send_keys(todo_item)
+    inputElement.submit()
+
+    driver.implicitly_wait(2)  # seconds
+
+    # assert to see if its in to do section
+    todo_item_label_element = driver.find_element_by_xpath("//div[@id='todoBlock']//label[@class='checkboxLabel']").text
+    assert todo_item == todo_item_label_element
+
+    # Mark item as complete
+    driver.find_element_by_xpath(
+        "//div[@id='todoBlock']//form[label[@class='checkboxLabel']]/input[@type='checkbox']").check()
+
+    driver.implicitly_wait(2)  # seconds
+
+    # assert to see its in done section
+    todo_item_label_element = driver.find_element_by_xpath("//div[@id='doneBlock']//label[@class='checkboxLabel']").text
+    assert todo_item == todo_item_label_element

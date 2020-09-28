@@ -10,7 +10,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div id="todoBlock" class="col-md-12">
             <h2>To-Do</h2>
             <ul class="list-group mb-4">
                 {{ renderItems(view_model.todo) }}
@@ -23,7 +23,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-12">
+        <div id="doneBlock" class="col-md-12">
             <h2>Done</h2>
             <ul class="list-group mb-4">
                 {% if view_model.show_all_done_items %}
