@@ -114,3 +114,7 @@ env/
 
 ### Configuration files ###
 .env
+
+
+### Keys file
+keys.py

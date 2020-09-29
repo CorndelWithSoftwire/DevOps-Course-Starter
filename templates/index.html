@@ -3,8 +3,8 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <h1 class="display-4">Tim's ToDo List App</h1>
+    <p class="lead">The World's Greatest ToDo App.... Probably</p>
   </div>
 
   <div class="Form">
@@ -22,7 +22,8 @@
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
         {% for item in items %}
-        <li><b>Task:</b> {{ item['title']}} <b>Status:</b> {{ item['status'] }}</li>
+        <!--<li><b>Task:</b> {{ item['title']}} <b>Status:</b> {{ item['status'] }}</li> -->
+        <li><b>TaskID:</b> {{ item['id']}} <b>Name:</b> {{ item['name'] }} <b>Status:</b> {{ item['status'] }}</li>
         <!-- li>{{ item }} </li> -->
         {% endfor %}
       </ul>

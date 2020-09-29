@@ -1,10 +1,14 @@
 from flask import session
+import ApiAccess
 
+
+"""
 _DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'Washing Up' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Ironing' },
-    { 'id': 3, 'status': 'Not Started', 'title': 'Clean Bathroom' }
+    {'id': 1, 'status': 'Not Started', 'title': 'Washing Up'},
+    {'id': 2, 'status': 'Not Started', 'title': 'Ironing'},
+    {'id': 3, 'status': 'Not Started', 'title': 'Clean Bathroom'}
 ]
+"""
 
 
 def get_items():
@@ -14,7 +18,19 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    return session.get('items', _DEFAULT_ITEMS)
+
+    obj1 = ApiAccess.AccessTrelloApi()
+    # obj1.getKeys()
+    #List_Items = obj1.getCardsFromTodoList()
+    # return session.get('items', _DEFAULT_ITEMS)
+
+    Items1 = obj1.getCardsFromTrelloList(
+        ApiAccess.TODOLISTURL, 'To Do')
+
+    Items2 = obj1.getCardsFromTrelloList(
+        ApiAccess.DONELISTURL, 'Done')
+
+    return Items1 + Items2
 
 
 def get_item(id):
@@ -41,18 +57,22 @@ def add_item(title):
     Returns:
         item: The saved item.
     """
-    items = get_items()
+    obj1 = ApiAccess.AccessTrelloApi()
+    # obj1.getKeys()
+    obj1.AddItemTodoList(title)
+
+    # items = get_items()
 
     # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
+    # id = items[-1]['id'] + 1 if items else 0
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    # item = {'id': id, 'title': title, 'status': 'Not Started'}
 
     # Add the item to the list
-    items.append(item)
-    session['items'] = items
+    # items.append(item)
+    # session['items'] = items
 
-    return item
+    # return item
 
 
 def save_item(item):
@@ -63,7 +83,8 @@ def save_item(item):
         item: The item to save.
     """
     existing_items = get_items()
-    updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
+    updated_items = [item if item['id'] == existing_item['id']
+                     else existing_item for existing_item in existing_items]
 
     session['items'] = updated_items
 
