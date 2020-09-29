@@ -10,6 +10,11 @@
       <div class="form-example">
         <label for="title">Enter title of task  : </label>
         <input type="text" name="title" id="title" required>
+        <select name="idList">
+          {% for name in lists.keys() %}
+          <option value="{{ lists[name] }}">{{ name }}</option>
+          {% endfor %}
+        </select>
       </div>
       <div class="form-example">
         <input type="submit" value="Add Task">

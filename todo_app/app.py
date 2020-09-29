@@ -65,32 +65,53 @@ myboards.get_trello_lists_on_board('DevOps Module 2')
 
 @app.route('/')
 def index():
+    myboards = myTrello()
+    myboards.get_trello_boards_name_and_ref()
+    myboards.get_trello_cards_on_board('DevOps Module 2')
+    myboards.get_trello_lists_on_board('DevOps Module 2')
     boards = list(myboards.get_my_board_info().keys())
     return render_template('Index.html', boards=boards)
 
 @app.route('/board/<board_name>')
 def go_to_board_tasks(board_name):
+    myboards = myTrello()
+    myboards.get_trello_boards_name_and_ref()
+    myboards.get_trello_cards_on_board('DevOps Module 2')
+    myboards.get_trello_lists_on_board('DevOps Module 2')
     cards = myboards.get_my_card_info(board_name)
     return render_template('boardtasks.html', cards=cards)
 
 @app.route('/lists/<board_name>')
 def go_to_board_lists(board_name):
+    myboards = myTrello()
+    myboards.get_trello_boards_name_and_ref()
+    myboards.get_trello_cards_on_board('DevOps Module 2')
+    myboards.get_trello_lists_on_board('DevOps Module 2')
     lists = myboards.get_my_list_info(board_name)
     return render_template('my_lists.html', lists=lists)
+
+@app.route('/add', methods=['POST', 'GET'])
+def add():
+    myboards = myTrello()
+    myboards.get_trello_boards_name_and_ref()
+    myboards.get_trello_cards_on_board('DevOps Module 2')
+    myboards.get_trello_lists_on_board('DevOps Module 2')
+    if request.method == 'POST':
+       payload_data = payload.copy()
+       payload_data['idList'] = request.form['idList']
+       payload_data['name'] = request.form['title']
+       requests.post('https://api.trello.com/1/cards', params=payload_data)
+       return redirect(url_for('index'))
+    else:
+       lists = myboards.get_my_list_info('name')
+       return render_template('add_items.html', lists=lists)
 
 #@app.route('/<id>')
 #def task(id):
 #    item = session_items.get_item(id)
 #    return render_template('single_item.html', item=item)
 
-#@app.route('/add', methods=['POST'])
-#def add():
-#    if request.method == 'POST':
-#        title = (request.form['title'])
-#        session_items.add_item(title)
-#        return redirect(url_for('index'))
-#    else:
-#        return render_template('add_items.html')
+
 
 #if __name__ == '__main__':
 #    app.run()

@@ -12,7 +12,7 @@
       <h2>Your Boards</h2>
       <ul class="list-group mb-4">
     {% for board in boards %}
-          <form action="/board/" method="get">
+          <form action="/board/{{ board }} " method="get">
           <li><b> {{ board }} </b>   <button type="submit"> Click here for - <b> {{ board }} </b>- Task List </button></li>
         </form>
     {% endfor %}
