@@ -3,6 +3,8 @@ from Keys import TrelloApiKey, TrelloServerToken
 
 TODOLISTURL = 'https://api.trello.com/1/lists/5f6f787bf9461c809f224d0d/cards/'
 DONELISTURL = 'https://api.trello.com/1/lists/5f6f7883333c1880d598e148/cards/'
+ADDTODOLISTURL = 'https://api.trello.com/1/cards/'
+TODOLISTID = '5f6f787bf9461c809f224d0d'
 
 
 class AccessTrelloApi:
@@ -54,9 +56,10 @@ class AccessTrelloApi:
         return ReturnList
 
     def AddItemTodoList(self, name_of_item):
-        apiCode = 'https://api.trello.com/1/cards?key=64376ab560e7afb4497d897d8cb432b9&token=505e35f027646cbac5cd40afd3617c6cd7e6631b8207636f9eaae8e2c0350069&idList=5f6f787bf9461c809f224d0d&name=Dust'
-        requests.put(apiCode)
-        pass
+        ApiValue = ADDTODOLISTURL
+        payload = {'key': TrelloApiKey,
+                   'token': TrelloServerToken, 'idList': TODOLISTID, 'name': name_of_item}
+        requests.post(ApiValue, params=payload)
 
 
 """
