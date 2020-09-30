@@ -5,6 +5,8 @@ TODOLISTURL = 'https://api.trello.com/1/lists/5f6f787bf9461c809f224d0d/cards/'
 DONELISTURL = 'https://api.trello.com/1/lists/5f6f7883333c1880d598e148/cards/'
 ADDTODOLISTURL = 'https://api.trello.com/1/cards/'
 TODOLISTID = '5f6f787bf9461c809f224d0d'
+CARDSURL = 'https://api.trello.com/1/cards/'
+DONELISTID = '5f6f7883333c1880d598e148'
 
 
 class AccessTrelloApi:
@@ -62,7 +64,10 @@ class AccessTrelloApi:
         requests.post(ApiValue, params=payload)
 
     def MarkItemAsDone(self, ItemID):
-        pass
+        ApiValue = CARDSURL + ItemID
+        payload = {'key': TrelloApiKey,
+                   'token': TrelloServerToken, 'idList': DONELISTID}
+        requests.put(ApiValue, params=payload)
 
 
 """

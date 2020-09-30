@@ -26,9 +26,10 @@ def index():
         return render_template('index.html', items=session.get_items())
 
 
-@app.route('/complete_item/<test>')
-def complete_item(test):
-    index()
+@app.route('/complete_item/<item>', methods=['GET'])
+def complete_item(item):
+    obj1 = api.AccessTrelloApi()
+    obj1.MarkItemAsDone(item)
     return render_template('index.html', items=session.get_items())
 
 

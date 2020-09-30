@@ -33,7 +33,7 @@
           <td> {{ item['id']}} </td>
           <td> {{ item['name'] }} </td>
           <td> {{ item['status'] }}</td>
-          <td><div class="Form"><form action="" method="PUT"><input type="submit" value="Complete"></input></form></tr>
+          <td><div class="Form"><form action="/complete_item/{{item['id']}}" method="GET"><input type="submit" value="Complete"></input></form></tr>
         </tr>  
           {% endfor %}
         </tr>
