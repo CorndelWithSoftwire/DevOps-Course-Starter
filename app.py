@@ -6,22 +6,36 @@ import ApiAccess as api
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
-obj1 = api.AccessTrelloApi()
+# obj1 = api.AccessTrelloApi()
 
-
+"""
 @app.route('/')
 def index():
     return render_template('index.html', items=session.get_items())
+"""
 
 
-@app.route('/', methods=['POST', 'PUT'])
-def updateLists():
+@app.route('/', methods=['GET', 'POST'])
+def index():
     if request.method == 'POST':
         NewItem = request.form["NewItem"]
-        # session.add_item(NewItem)
         obj1 = api.AccessTrelloApi()
         obj1.AddItemTodoList(NewItem)
         return render_template('index.html', items=session.get_items())
+    else:
+        return render_template('index.html', items=session.get_items())
+
+
+"""
+@app.route('/', methods=['POST'])
+def AddListItem():
+    # if request.method == 'POST':
+    NewItem = request.form["NewItem"]
+    # session.add_item(NewItem)
+    obj1 = api.AccessTrelloApi()
+    obj1.AddItemTodoList(NewItem)
+    return render_template('index.html', items=session.get_items())
+"""
 
 
 if __name__ == '__main__':

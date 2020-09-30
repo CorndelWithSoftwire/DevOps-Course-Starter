@@ -16,17 +16,28 @@
 
   </form>
 
+  
+
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        {% for item in items %}
-        <!--<li><b>Task:</b> {{ item['title']}} <b>Status:</b> {{ item['status'] }}</li> -->
-        <li><b>TaskID:</b> {{ item['id']}} <b>Name:</b> {{ item['name'] }} <b>Status:</b> {{ item['status'] }}</li>
-        <!-- li>{{ item }} </li> -->
-        {% endfor %}
-      </ul>
+      <table class="table table-striped">
+        <tr>
+          <th>Task ID</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+          {% for item in items %}
+        <tr>
+          <td> {{ item['id']}} </td>
+          <td> {{ item['name'] }} </td>
+          <td> {{ item['status'] }}</td>
+          <td><div class="Form"><form action="" method="PUT"><input type="submit" value="Complete"></input></form></tr>
+        </tr>  
+          {% endfor %}
+        </tr>
+      </table>
     </div>
   </div>
 
@@ -35,3 +46,5 @@
 
   </div>
 {% endblock %}
+
+
