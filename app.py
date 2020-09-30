@@ -21,7 +21,7 @@ def updateLists():
         # session.add_item(NewItem)
         obj1 = api.AccessTrelloApi()
         obj1.AddItemTodoList(NewItem)
-        return render_template('index.html')  # , items=session.get_items())
+        return render_template('index.html', items=session.get_items())
 
 
 if __name__ == '__main__':

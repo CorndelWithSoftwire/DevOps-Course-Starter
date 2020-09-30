@@ -61,6 +61,9 @@ class AccessTrelloApi:
                    'token': TrelloServerToken, 'idList': TODOLISTID, 'name': name_of_item}
         requests.post(ApiValue, params=payload)
 
+    def MarkItemAsDone(self, ItemID):
+        pass
+
 
 """
 Test Code
