@@ -26,6 +26,12 @@ def index():
         return render_template('index.html', items=session.get_items())
 
 
+@app.route('/complete_item/<test>')
+def complete_item(test):
+    index()
+    return render_template('index.html', items=session.get_items())
+
+
 """
 @app.route('/', methods=['POST'])
 def AddListItem():
