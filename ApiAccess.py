@@ -11,9 +11,11 @@ DONELISTID = '5f6f7883333c1880d598e148'
 
 class AccessTrelloApi:
 
+    """
     def __init__(self):
         self.TrelloApiKey = TrelloApiKey
         self.TrelloServerToken = TrelloServerToken
+    """
 
     """
     def getKeys(self):
