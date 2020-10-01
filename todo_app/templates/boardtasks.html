@@ -13,7 +13,9 @@
       <ul class="list-group mb-4">
     {% for card in cards %}
           <form action="/" method="get">
+            
             <li><b> {{ card }} </b>   <button type="submit"> Click here for - <b> {{ card }} </b>- information </button></li>
+            
         </form>
     {% endfor %}
       </ul>
@@ -38,7 +40,30 @@
     </form>
   </div>
 </div>
-</div>     
+</div> 
+<div class="row">
+  <div class="col-md-12">
+  <h2>Move Task to List</h2>
+    <form action="" method="put" class="form-example">
+      <div class="form-example">
+        <label for="move">Assign Task to List  : </label>
+        <select name="card_name">
+          {% for card in cards %}
+              <option value="{{ cards[name] }}">{{ card }}</option>
+          {% endfor %}
+            </select>
+        <select name="idList">
+      {% for name in lists.keys() %}
+          <option value="{{ lists[name] }}">{{ name }}</option>
+      {% endfor %}
+        </select>
+      <div class="form-example">
+        <input type="submit" value="Move">
+      </div>
+    </form>
+  </div>
+</div>
+</div>    
     <form action="/" method="get">
       <button type="submit"> Click here for to return to index </button>
     </form>

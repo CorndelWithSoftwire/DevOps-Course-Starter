@@ -20,6 +20,7 @@ class Trello_Data:
         self.boards_names_and_ref = {}
         self.lists_names_and_ref = {}
         self.cards_names_and_ref = {}
+        self.lists_with_cards = {}
 
     def get_trello_boards_name_and_ref(self):
         list_level = 0
@@ -36,7 +37,7 @@ class Trello_Data:
         cards_data = json.loads(cards_data_response.content)
         for i, list_name in enumerate(cards_data):
             list_level = i
-            self.cards_names_and_ref[cards_data[list_level]['name']] = [cards_data[list_level]['id']]
+            self.cards_names_and_ref[cards_data[list_level]['name']] = {'id':[cards_data[list_level]['id']], 'idLIst': [cards_data[list_level]['idList']]}
             list_level += 1
     
     def get_trello_lists_on_board(self, board_name):
@@ -46,6 +47,15 @@ class Trello_Data:
         for i, list_name in enumerate(list_data):
             list_level = i
             self.lists_names_and_ref[list_data[list_level]['name']] = list_data[list_level]['id']
+            list_level += 1
+    
+    def get_trello_cards_on_list(self, list_name):
+        ref = self.lists_names_and_ref[list_name]
+        lists_data_response = requests.get('https://api.trello.com/1/lists/' + ref + '/cards?', params=payload)
+        list_data = json.loads(lists_data_response.content)
+        for i, list_name in enumerate(list_data):
+            list_level = i
+            self.lists_with_cards[list_data[list_level]['name']] = list_data[list_level]['id']
             list_level += 1
 
 class myTrello(Trello_Data):
@@ -63,7 +73,7 @@ def index():
     boards = list(myboards.get_my_board_info().keys())
     return render_template('Index.html', boards=boards)
 
-@app.route('/board/<board_name>', methods=['POST', 'GET'])
+@app.route('/board/<board_name>', methods=['POST', 'GET', 'PUT'])
 def go_to_board_tasks(board_name):
     myboards = myTrello()
     myboards.get_trello_boards_name_and_ref()
@@ -77,7 +87,14 @@ def go_to_board_tasks(board_name):
        payload_data['name'] = request.form['title']
        requests.post('https://api.trello.com/1/cards', params=payload_data)
        return redirect(url_for('index'))
-    return render_template('boardtasks.html', cards=cards, lists=lists)
+    elif request.method == 'PUT':
+       payload_data = payload.copy()
+       payload_data['idList'] = request.form['idList']
+       payload_data['id'] = request.form['card_name']
+       requests.post('https://api.trello.com/1/cards', params=payload_data)
+       return redirect(url_for('index'))
+    else:   
+        return render_template('boardtasks.html', cards=cards, lists=lists)
 
 @app.route('/lists/<board_name>')
 def go_to_board_lists(board_name):
@@ -86,88 +103,3 @@ def go_to_board_lists(board_name):
     myboards.get_trello_lists_on_board(board_name)
     lists = myboards.get_my_list_info(board_name)
     return render_template('my_lists.html', lists=lists)
-
-# @app.route('/<board_name>/add/', methods=['POST', 'GET'])
-# def add(board_name):
-#     myboards = myTrello()
-#     myboards.get_trello_boards_name_and_ref()
-#     boards = myboards.get_my_board_info()
-#     myboards.get_trello_cards_on_board(board_name)
-#     myboards.get_trello_lists_on_board(board_name)
-#     lists = myboards.get_my_list_info(board_name)
-#     if request.method == 'POST':
-#        payload_data = payload.copy()
-#        payload_data['idList'] = request.form['idList']
-#        payload_data['name'] = request.form['title']
-#        requests.post('https://api.trello.com/1/cards', params=payload_data)
-#        return redirect(url_for('index'))
-#     else:
-#        return render_template('add_items.html', lists=lists, boards=boards)
-
-
-# def get():
-#     # myboards = myTrello()
-#     # myboards.get_trello_boards_name_and_ref()
-#     # myboards.get_trello_cards_on_board('DevOps Module 2')
-#     # myboards.get_trello_lists_on_board('DevOps Module 2')
-#     if request.method == 'GET':
-#         return render_template('add_items.html')
-
-# if __name__ == '__main__':
-#     app.run()
-    
-    
-# else:
-#    lists = myboards.get_my_list_info('name')
-#    return render_template('add_items.html', lists=lists)
-
-#@app.route('/<id>')
-#def task(id):
-#    item = session_items.get_item(id)
-#    return render_template('single_item.html', item=item)
-
-
-
-
-
-# def get_trello_boards_reference():
-#     boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
-#     boards_ref_data = json.loads(boards_ref_data_response.content)
-#     board_ref_list = [item ['shortLink'] for item in boards_ref_data]
-#     return board_ref_list
-
-# def get_trello_boards_names():
-#     boards_ref_data_response = requests.get('https://api.trello.com/1/members/me/boards?', params=payload)
-#     boards_ref_data = json.loads(boards_ref_data_response.content)
-#     board_name_list = [item ['name'] for item in boards_ref_data]
-#     return board_name_list
-
-# def get_trello_lists_names():
-#     boards = get_trello_boards_reference()
-#     lists_name = []
-#     for ref in boards:
-#         ref = ref
-#         lists_data_response = requests.get('https://api.trello.com/1/boards/' + ref + '/lists?', params=payload)
-#         lists_data = json.loads(lists_data_response.content)
-#         lists_name.append([list_name ['name'] for list_name in lists_data])
-#     return lists_name
-
-# def get_trello_lists_reference():
-#     boards = get_trello_boards_reference()
-#     lists_ref = []
-#     for ref in boards:
-#         ref = ref
-#         lists_data_response = requests.get('https://api.trello.com/1/boards/' + ref + '/lists?', params=payload)
-#         lists_data = json.loads(lists_data_response.content)
-#         lists_ref.append([list_name['id'] for list_name in lists_data])
-#     return lists_ref
-
-# def get_trello_cards():
-#     cards = get_trello_boards_reference()
-#     card_name = []
-#     for card in cards:
-#         ref = card
-#         card_data_response = requests.get('https://api.trello.com/1/boards/' + ref + '/cards?', params=payload)
-#         card_data = json.loads(card_data_response.content)
-#         card_name.append([card ['name'] for card in card_data])
-#     return card_name 
