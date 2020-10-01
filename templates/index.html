@@ -20,19 +20,26 @@
       <br>
     </div>
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>To Do Items</h2>
       <ul class="list-group mb-4">
         <!-- For loop to List the todo items here -->
         {% for item in items %}
-         <!-- Form to add a toggle status button -->
-          <li>
-            <form action="/{{item.id}}" method="post"> 
-            <label for="title">{{item.title}}</label> -
-            <!-- Button styled to look like a link--> 
-            <button type="submit" name=sub class="btn btn-link">{{item.status}}</button>
-          </form>
-        </li>
-		    {% endfor %}
+          {% if item.status == 'To Do' %}
+            <form action="/{{item.id}}/completed" method="post"> 
+              <li>
+                <label for="title">{{item.title}}</label>
+                <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
+              </li>
+            </form>
+          {% endif %}
+        {% endfor %}
+      <br><h2>Completed Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in items %}
+          {% if item.status == 'Completed' %}
+            <li>{{item.title}}</li>
+          {% endif %}
+        {% endfor %}
       </ul>
     </div>
   </div>
