@@ -27,8 +27,23 @@ def test_doing_property():
     view_model = ViewModel(cards)
 
     doing_items = view_model.doing_items
-    
+
     assert len(doing_items) == 1
 
-    todo_item = doing_items[0]
-    assert todo_item.status == "Doing"
+    doing_item = doing_items[0]
+    assert doing_item.status == "Doing"
+
+
+def test_done_property():
+    cards = [
+        Card(2, "Done Item", "", "Done"),
+        Card(1, "Doing Item", "", "Doing")
+    ]
+    view_model = ViewModel(cards)
+
+    done_items = view_model.done_items
+
+    assert len(done_items) == 1
+
+    done_item = done_items[0]
+    assert done_item.status == "Done"
