@@ -12,12 +12,7 @@ def get_items():
 
     cards = []
     for item in items:
-        card = Card(
-            item["id"], 
-            item["name"], 
-            item["desc"], 
-            item["idList"]
-        )
+        card = Card.from_raw_trello_card(item)
         cards.append(card)
 
     return render_template('index.html', model=ViewModel(items))
