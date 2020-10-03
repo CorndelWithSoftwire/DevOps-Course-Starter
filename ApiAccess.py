@@ -4,8 +4,8 @@ from Keys import TrelloApiKey, TrelloServerToken
 TODOLISTURL = 'https://api.trello.com/1/lists/5f6f787bf9461c809f224d0d/cards/'
 DONELISTURL = 'https://api.trello.com/1/lists/5f6f7883333c1880d598e148/cards/'
 ADDTODOLISTURL = 'https://api.trello.com/1/cards/'
-TODOLISTID = '5f6f787bf9461c809f224d0d'
 CARDSURL = 'https://api.trello.com/1/cards/'
+TODOLISTID = '5f6f787bf9461c809f224d0d'
 DONELISTID = '5f6f7883333c1880d598e148'
 
 
