@@ -11,6 +11,10 @@ DONELISTID = '5f6f7883333c1880d598e148'
 
 class AccessTrelloApi:
 
+    """
+        Returns cards from Trello based on the list name.
+    """
+
     def getCardsFromTrelloList(self, ListURL, ListName):
         ApiValue = ListURL
         payload = {'key': TrelloApiKey,
@@ -26,11 +30,19 @@ class AccessTrelloApi:
             ReturnList.append(CopyOfListDataDict)
         return ReturnList
 
+    """
+        Adds and Item to the todo list
+    """
+
     def AddItemTodoList(self, name_of_item):
         ApiValue = CARDSURL
         payload = {'key': TrelloApiKey,
                    'token': TrelloServerToken, 'idList': TODOLISTID, 'name': name_of_item}
         requests.post(ApiValue, params=payload)
+
+    """
+        Takes item id and adds to the done list
+    """
 
     def MarkItemAsDone(self, ItemID):
         ApiValue = CARDSURL + ItemID

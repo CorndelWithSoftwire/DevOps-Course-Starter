@@ -19,10 +19,18 @@ class Item:
     def get_id(self):
         return self.id
 
+    """
+        Returns dictionary of attributes
+    """
+
     def GetItemAttributes(self):
         itemAttributes = {'name': self.name,
                           'id': self.id, 'status': self.status}
         return itemAttributes
+
+    """
+        Creates new Trello item and adds it to the attributes
+    """
 
     def CreateItemInTrello(self, ListID, CardName):
         apiValue = api.CARDSURL
@@ -33,6 +41,11 @@ class Item:
         self.id = jsondata['id']
         self.status = jsondata['idList']
 
+    """
+        Extracts a card from Trello based on its ID and adds the attributes 
+        to the Item object
+    """
+
     def LoadItemFromTrello(self, CardID):
         apiValue = api.CARDSURL + CardID + '/'
         payload = {'key': TrelloApiKey,
@@ -42,6 +55,10 @@ class Item:
         self.id = jsondata['id']
         self.status = jsondata['idList']
 
+    """
+        Returns the status of the item based on the list it is stored in
+    """
+
     def GetItemStatusName(self, StatusID):
         apiValue = api.LISTURL + StatusID
         payload = {'key': TrelloApiKey,
@@ -49,12 +66,20 @@ class Item:
         jsondata = requests.get(apiValue, params=payload).json()
         return jsondata['name']
 
+    """
+        Moves item to new list
+    """
+
     def ChangeItemList(self, NewListID):
         apiValue = api.CARDSURL + self.id
         payload = {'key': TrelloApiKey,
                    'token': TrelloServerToken, 'idList': NewListID}
         jsondata = requests.put(apiValue, params=payload).json()
         self.status = jsondata['idList']
+
+    """
+        Updates the item name
+    """
 
     def UpdateName(self, ItemID, NewName):
         apiValue = api.CARDSURL + ItemID
