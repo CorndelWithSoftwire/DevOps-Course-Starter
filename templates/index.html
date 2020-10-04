@@ -2,74 +2,96 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-  <div>
-    <form action="/add" method="POST">
-      <p>
-        <h3>Enter New To Do</h3>
-        <label for="title">New To Do:</label>
-        <input type="text" name="title">
-        <input type="submit"> Add To Do </input>
-      </p>
-    </form>
-  </div>
+<div>
+  <form action="/add" method="POST">
+    <p>
+    <h3>Enter New To Do</h3>
+    <label for="title">New To Do:</label>
+    <input type="text" name="title">
+    <input type="submit"> Add To Do </input>
+    </p>
+  </form>
+</div>
 
-  <div>
-    <form action="/complete_item/<idCard>" method="PUT">
-      <p>
-        <h3>Mark Item Complete</h3>
-        <label for="title">New To Do:</label>
-        <input type="text" name="title">
-        <input type="submit"> Complete </input>
-      </p>
-    </form>
-  </div>
+<div>
+  <form action="/complete_item/<idCard>" method="PUT">
+    <p>
+    <h3>Mark Item Complete</h3>
+    <label for="title">New To Do:</label>
+    <input type="text" name="title">
+    <input type="submit"> Complete </input>
+    </p>
+  </form>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>To Do Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        {% for item in view_model.todoItems %}
-          <li>{{ item.id}} - {{item.status}} - {{item.title}} - 
-            <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>To Do Items</h2>
+    <ul class="list-group mb-4">
+      <!-- List the todo items here -->
+      {% for item in view_model.todoItems %}
+      <li>{{ item.id}} - {{item.status}} - {{item.title}} -
+        <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Doing Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        {% for item in view_model.doingItems %}
-          <li>{{ item.id}} - {{item.status}} - {{item.title}} - 
-            <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Doing Items</h2>
+    <ul class="list-group mb-4">
+      <!-- List the todo items here -->
+      {% for item in view_model.doingItems %}
+      <li>{{ item.id}} - {{item.status}} - {{item.title}} -
+        <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Done Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        {% for item in view_model.doneItems %}
+<div class="row">
+  <div class="col-md-12">
+    <h2>Done Items</h2>
+    <details>
+      <summary>
+        <ul class="list-group mb-4">
+          <!-- List the todo items here -->
+          {% for item in view_model.recent_done_items %}
           {% if loop.index <= 5 %}
-            <li>{{ item.id}} - {{item.status}} - {{item.title}} </li>
+          <li>{{ item.id}} - {{item.status}} - {{item.title}} </li>
           {% endif %}
+          {% endfor %}
+        </ul>
+      </summary>
+      <ul class="list-group mb-4">
+        <!-- List the todo items here -->
+        {% for item in view_model.recent_done_items %}
+          {% if loop.index >= 6 %}
+          <li>{{ item.id}} - {{item.status}} - {{item.title}} </li>
+          {% endif %}
+          {% endfor %}
+        {% for item in view_model.older_done_items %}
+        <li>{{ item.id}} - {{item.status}} - {{item.title}} </li>
         {% endfor %}
       </ul>
-    </div>
+    </details>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Done Items</h2>
+
+  </div>
+</div>
 
 
 {% endblock %}

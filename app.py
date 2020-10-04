@@ -35,7 +35,7 @@ def index():
         else:
             status = 'Done'
 
-        item = Item(card['id'], status, card['name'])
+        item = Item(card['id'], status, card['name'], card['dateLastActivity'])
         items_list.append(item)
 
     item_view_model = ViewModel(items_list)
@@ -55,7 +55,7 @@ parameter and then calls a method to change its status from 'To
 Do' to 'Done'
 curl -i "localhost:5000/api/foo?a=hello&b=world" 
 """
-@app.route('/complete_item/<idCard>', methods=['PUT'])
+@app.route('/complete_item/<idCard>', methods=['GET', 'PUT'])
 def update_card(idCard):
 
     add_card_to_done()
@@ -66,6 +66,7 @@ def update_card(idCard):
     query = cf.get_trello_query()
     #query['idList'] = '5abbe4b7ddc1b351ef961415'
     query['idList'] = list_id
+    #query['name'] = request.form['title']
     response = requests.request( "PUT", url, headers=headers, params=query )
     #print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
     return redirect(url_for('index'))
@@ -80,6 +81,10 @@ def add_card():
     query = cf.get_trello_query()
     
     query['idList'] = list_id
+    #query['name'] = request.form['title']
+    if request.form['title']:
+        query['name'] = request.form['title']
+
     response = requests.request("POST", url, params=query )
     #print(response.text)
     return redirect(url_for('index'))
