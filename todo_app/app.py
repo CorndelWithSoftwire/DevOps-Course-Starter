@@ -14,7 +14,6 @@ def index():
 @app.route('/add', methods=['POST'])
 def add():
     fl.add_item(request.form.get('title'))
-    print (request.form)
     return render_template('index.html', items = fl.get_items())
 
 @app.route('/setstatus/<id>/<status>', methods=['POST'])
