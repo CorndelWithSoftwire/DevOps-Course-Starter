@@ -11,7 +11,7 @@ content %}
     <ul class="list-group mb-4">
       <!-- List the todo items here -->
       {% for item in items %}
-      <li>{{ item["id"] }} | {{ item["title"] }}</li>
+        <li>{{ item.name }} | {{ item.status }}</li>
       {% endfor %}
     </ul>
   </div>
