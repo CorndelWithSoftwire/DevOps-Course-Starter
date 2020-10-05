@@ -9,27 +9,8 @@ class Trello_service(object):
     items = []
 
     def __init__(self):
-        self.get_trello_secrets()
         self.get_lists()
         self.get_items_from_trello()
-
-    def get_trello_secrets(self):
-        trello_key = ''
-        trello_token = ''
-        trello_secrets = []
-        with open(constants.TRELLO_KEYS_PATH, 'r') as file:
-            split_lines = [line.split('=') for line in file.read().splitlines()]
-            trello_secrets = [{'k': k, 'v': v} for [k, v] in split_lines]
-        
-        for item in trello_secrets:
-            k = item['k']
-            v = item['v']
-            if k == "key":
-                trello_key = v
-            else:
-                trello_token = v
-        
-        constants.TRELLO_CREDENTIALS = f"key={trello_key}&token={trello_token}"
 
     def get_lists(self):
         """
