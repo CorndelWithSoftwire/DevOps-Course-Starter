@@ -11,9 +11,9 @@ def get_items():
     Fetches all saved items from the session.
 
     Returns:
-        list: The list of saved items.
+        list: The list of saved items sorted by status and then by ID.
     """
-    return session.get('items', _DEFAULT_ITEMS)
+    return sorted(session.get('items', _DEFAULT_ITEMS), key=lambda item : (item['status'], item['id']), reverse=True)
 
 
 def get_item(id):
@@ -42,14 +42,23 @@ def add_item(title):
     """
     items = get_items()
 
-    # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
+    # Determine the next ID for the item based on max ID in the session or if not available on the last item or if empty set to 1
+    # this guarantees a new true ID is created all the time (avoiding the scenario when deleting the last ID)
+    if session.get('maxId'):
+        id = session['maxId'] +1 
+    elif items:
+        id = items[-1]['id'] + 1
+    else:
+        id = 1
+        
+    session['maxId'] = id
 
     item = { 'id': id, 'title': title, 'status': 'Not Started' }
 
     # Add the item to the list
     items.append(item)
     session['items'] = items
+    
 
     return item
 
@@ -63,6 +72,21 @@ def save_item(item):
     """
     existing_items = get_items()
     updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
+
+    session['items'] = updated_items
+
+    return item
+
+def delete_item(item):
+    """
+    Deletes a specific item from the session.
+
+    Args:
+        item: The item to delete.
+
+    """
+    existing_items = get_items()
+    updated_items = [existing_item for existing_item in existing_items if item['id'] != existing_item['id']]
 
     session['items'] = updated_items
 

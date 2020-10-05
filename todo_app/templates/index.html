@@ -2,17 +2,63 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
+  
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <p class="lead">George's super-duper TO-DO app.</p>
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 table-responsive-md">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+      {% if items|length >0 %}
+        <table class="table table-sm table-hover">
+          <thead class="thead-dark"> 
+            <tr>
+              <th style="width: 50px;">Id</th>
+              <th>Title</th>
+              <th style="width: 100px;">Status</th>
+              <th style="width: 3px;text-align: center;">Done/Revert</th>
+              <th style="width: 3px;text-align: center;">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+              <tr>
+                
+                <td style="width: 10px;">{{ item.id }}</td>
+                <td>{{item.title}}</td>
+                <td {% if item['status'] == 'Completed' %} class="text-success" {% endif %} style="width: 100px;">{{item.status}}</td>
+                <td style="width: 3px;text-align: center;">
+                  {% if item['status'] == 'Completed' %}<img src="/static/tickicon.png" style="height: 22px;" onclick="submitReq('setstatus/{{ item.id }}/Not Started',null)">
+                  {% else %}<input type="checkbox" onclick="submitReq('setstatus/{{ item.id }}/Completed',null)"/>
+                  {% endif %}
+                </td>
+                <td style="width: 3px;text-align: center;"><img src="/static/xicon.png" onclick="submitReq('delete/{{ item.id }}',null)" style="height: 12px;"/></td>
+                
+                
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}No tasks to dislay
+      {% endif %}
+      
+    
+      
+
+      <form onsubmit="submitReq('add','todoform'); return false;" id="todoform">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="title" placeholder="New Task title" aria-label="New Task title" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Add Task</button>
+          </div>
+        </div>
+        
+      </form>
+          
+      </div>
     </div>
   </div>
+  <P></P>
 {% endblock %}
