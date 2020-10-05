@@ -1,18 +1,58 @@
-{% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
-
-{% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row mb-5">
+    <div class="col-md-12">
+      <form action="/card/newcard" method="POST">
+        <div class="form-group">
+          <label for="msg">Add a new task:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            placeholder="Enter task name here"
+          />
+        </div>
+        <div class="form-group">
+          <label for="msg">Add a description:</label>
+          <textarea
+            name="desc"
+            class="form-control"
+            rows="4"
+            placeholder="Enter task description here"
+          ></textarea>
+        </div>
+        <div class="form-group" style="width: 12rem">
+          <label for="msg">Task due date:</label>
+          <input type="date" class="form-control" name="due" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-sm">Add Task</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
     </div>
   </div>
-{% endblock %}
+  <div class="row">
+    <div class="col-md-12">
+      {% set sort_on = request.args.sort_on|default('orderBy') %} {% for i in
+      cards|sort(attribute=sort_on)%}
+      <div class="card my-3">
+        <div class="card-body">
+          <h5 class="card-title">{{i.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{i.listName}}</h6>
+          <p class="card-text">{{i.desc}}</p>
+          <p class="card-text">Due Date: {{i.due}}</p>
+          <a href="/card/{{i.id}}" class="card-link">Edit</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}
+</div>
