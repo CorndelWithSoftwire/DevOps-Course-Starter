@@ -6,7 +6,6 @@ import todo_app.data.trello_constants as constants
 
 class Trello_service(object):
     trello_lists = {}
-    items = []
 
     def __init__(self):
         self.get_lists()
@@ -44,7 +43,7 @@ class Trello_service(object):
         Returns:
             list: The list of saved items.
         """
-        self.items.clear()
+        items = []
         url = f"{constants.TRELLO_API_URL}boards/{constants.TRELLO_BOARD_ID}/cards?{constants.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
         cards = json.loads(response.text.encode('utf8'))
@@ -54,11 +53,11 @@ class Trello_service(object):
                         status=trelloListDict.name, 
                         title=card[constants.TRELLO_NAME], 
                         listId=card[constants.TRELLO_IDLIST] )
-            self.items.insert(1, item)
-        return self.items
+            items.insert(1, item)
+        return items
 
     def get_items(self):
-        return self.items
+        return self.get_items_from_trello()
 
     def get_item(self, id):
         """
