@@ -48,16 +48,13 @@ class Trello_service(object):
         url = f"{constants.TRELLO_API_URL}boards/{constants.TRELLO_BOARD_ID}/cards?{constants.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
         cards = json.loads(response.text.encode('utf8'))
-        i = 0
         for card in cards:
             trelloListDict = self.trello_lists[card[constants.TRELLO_IDLIST]]
-            item = Item(id=i, 
-                        cardID=card[constants.TRELLO_ID], 
+            item = Item(id=card[constants.TRELLO_ID], 
                         status=trelloListDict.name, 
                         title=card[constants.TRELLO_NAME], 
                         listId=card[constants.TRELLO_IDLIST] )
-            self.items.insert(i, item)
-            i += 1
+            self.items.insert(1, item)
         return self.items
 
     def get_items(self):
@@ -74,7 +71,7 @@ class Trello_service(object):
             item: The saved item, or None if no items match the specified ID.
         """
         items = self.get_items()
-        return next((item for item in items if item.id == int(id)), None)
+        return next((item for item in items if item.id == id), None)
 
     def add_item(self, title):
         """
@@ -99,7 +96,7 @@ class Trello_service(object):
         Args:
             item: The item to save.
         """
-        url = f"{constants.TRELLO_API_URL}cards/{item.cardID}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
+        url = f"{constants.TRELLO_API_URL}cards/{item.id}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
         requests.request("PUT", url)
         self.get_items_from_trello()
 
@@ -111,7 +108,7 @@ class Trello_service(object):
             id: The item's id to delete.
         """
         item = self.get_item(id)
-        url = f"{constants.TRELLO_API_URL}cards/{item.cardID}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
+        url = f"{constants.TRELLO_API_URL}cards/{item.id}?{constants.TRELLO_CREDENTIALS}&idList={item.listId}"
         requests.request("DELETE", url)
         self.get_items_from_trello()
     

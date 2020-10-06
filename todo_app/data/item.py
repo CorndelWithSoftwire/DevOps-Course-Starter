@@ -1,7 +1,6 @@
 class Item(object):
-    def __init__(self, id, cardID, status, title, listId):
+    def __init__(self, id, status, title, listId):
         self._id = id
-        self._cardID = cardID
         self._status = status
         self._title = title
         self._listId = listId
@@ -9,18 +8,10 @@ class Item(object):
     @property
     def id(self):
         return self._id
-    
+
     @id.setter
     def id(self, value):
         self._id = value
-
-    @property
-    def cardID(self):
-        return self._cardID
-
-    @cardID.setter
-    def cardID(self, value):
-        self._cardID = value
 
     @property
     def status(self):

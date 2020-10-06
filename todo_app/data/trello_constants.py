@@ -1,10 +1,11 @@
 import os
 
 TRELLO_API_URL = 'https://api.trello.com/1/'
-TRELLO_BOARD_ID = '5f6456f8fc414517ed9b0e41'
 trello_key = os.getenv('TRELLO_KEY')
 trello_token = os.getenv('TRELLO_TOKEN')
+trello_default_board = os.getenv('TRELLO_BOARD_ID')
 TRELLO_CREDENTIALS = f"key={trello_key}&token={trello_token}"
+TRELLO_BOARD_ID = trello_default_board
 
 TRELLO_IDLIST = "idList"
 TRELLO_ID_BOARD = 'idBoard'
