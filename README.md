@@ -4,6 +4,19 @@
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
+## Configuration Requirements 
+
+The following must be done before running the Flask App. 
+
+Create a text file, trello_secrets.txt, that must have the following:
+```
+key=<Trello API key>
+token=<Trello API token>
+``` 
+The file must reside in the ```todo_app``` folder.
+
+At your Trello, create two boards, 'Not Started'  and 'Completed'.  You will need to use Postman to obtain the board's id.  This id needs to be placed in an constant, ```TRELLO_BOARD_ID``` from the constants file ```todo_app\data\trello_constants.py```
+
 ### Poetry installation (Bash)
 
 ```bash
