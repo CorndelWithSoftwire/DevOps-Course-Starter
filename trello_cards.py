@@ -43,6 +43,32 @@ def get_done_items():
     return dones
 
 
+def get_doing_items():
+    """ Simple attempt to get all done cards from Trello. """
+    params = {"key":  os.getenv('TRELLO_API_KEY'),
+              "token": os.getenv('TRELLO_API_TOKEN')}
+    response = requests.get(
+        f"https://api.trello.com/1/lists/{os.getenv('DOING_idList')}/cards", params=params)
+
+    doings = response.json()
+    for card in doings:
+        print(card['name'], card['desc'])
+    return doings
+
+
+def get_todo_items():
+    """ Simple attempt to get all done cards from Trello. """
+    params = {"key":  os.getenv('TRELLO_API_KEY'),
+              "token": os.getenv('TRELLO_API_TOKEN')}
+    response = requests.get(
+        f"https://api.trello.com/1/lists/{os.getenv('TODO_idList')}/cards", params=params)
+
+    todos = response.json()
+    for card in todos:
+        print(card['name'], card['desc'])
+    return todos
+
+
 def add_new_item(name, desc):
     create_new_card = {'idList': os.getenv(
         'TODO_idList'), 'name': name, 'desc': desc}

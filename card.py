@@ -23,3 +23,9 @@ class Card:
     
     def is_done(self):
         return self.status == "Done"
+
+    def is_doing(self):
+        return self.status == "Doing"
+
+    def is_todo(self):
+        return self.status == "Todo"
