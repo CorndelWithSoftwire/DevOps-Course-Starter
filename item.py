@@ -14,8 +14,9 @@ class Item:
 
     @staticmethod
     def from_response(response):
+        config = Config()
         r_title = response['name']
-        r_status = Status.COMPLETED if Config.DONE_LIST_ID == response['idList'] else Status.NOT_STARTED
+        r_status = Status.COMPLETED if config.DONE_LIST_ID == response['idList'] else Status.NOT_STARTED
         r_id = response['id']
         r_desc = response['desc']
         datestr = response['dateLastActivity'].split('T')[0]

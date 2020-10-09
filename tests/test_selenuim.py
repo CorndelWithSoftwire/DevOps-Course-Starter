@@ -24,8 +24,8 @@ def test_app():
     trello_board = TrelloBoard(board_lists.json())
     todo_id = trello_board.list_id('To Do')
     done_id = trello_board.list_id('Done')
-    Config.LIST_ID = todo_id
-    Config.DONE_LIST_ID = done_id
+    os.environ['LIST_ID'] = todo_id
+    os.environ['DONE_LIST_ID'] = done_id
     # construct the new application
     application = app.create_app()
     # start the app in its own thread.
@@ -40,7 +40,7 @@ def test_app():
 
 @pytest.fixture(scope="module")
 def driver():
-    with webdriver.Chrome('/usr/local/bin/chromedriver') as driver:
+    with webdriver.Chrome() as driver:
         yield driver
 
 

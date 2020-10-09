@@ -12,10 +12,11 @@ def create_board(name) -> Response:
         list: The list of saved items.
     """
     url = "https://api.trello.com/1/boards/"
+    confg = Config()
 
     query = {
-        'key': Config.KEY,
-        'token': Config.TOKEN,
+        'key': confg.KEY,
+        'token': confg.TOKEN,
         'name': name
     }
 
@@ -30,10 +31,11 @@ def create_board(name) -> Response:
 
 
 def delete_board(board_id):
+    confg = Config()
     url = f'https://api.trello.com/1/boards/{board_id}'
     query = {
-        'key': Config.KEY,
-        'token': Config.TOKEN,
+        'key': confg.KEY,
+        'token': confg.TOKEN,
     }
     response = requests.request(
         "DELETE",
@@ -47,10 +49,10 @@ def delete_board(board_id):
 
 def get_lists_in_board(boardid) -> Response:
     url = f"https://api.trello.com/1/boards/{boardid}/lists"
-
+    confg = Config()
     query = {
-        'key': Config.KEY,
-        'token': Config.TOKEN,
+        'key': confg.KEY,
+        'token': confg.TOKEN,
     }
 
     response = requests.request(
