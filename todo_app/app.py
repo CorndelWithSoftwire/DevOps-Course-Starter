@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template,redirect,request
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import *
+from todo_app.data.classes import *
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -14,13 +14,15 @@ trello = Trello(Config)
 def index():
     lists = [List(k,i) for i,k in enumerate(trello.get_lists())]
     cards = [Card(lists,i) for i in trello.get_cards()]
-    return render_template('index.html',cards=cards)
+    card_view_model = ViewModel(cards,lists)
+    return render_template('index.html',card_view_model=card_view_model)
 
 @app.route('/card/<id>')
 def getitem(id):
     lists = [List(k,i) for i,k in enumerate(trello.get_lists())]
     card = Card(lists,trello.get_card(id))
-    return render_template('editCard.html',card=card,lists=lists)
+    card_view_model = ViewModel(card,lists)
+    return render_template('editCard.html',card_view_model=card_view_model)
 
 # post methods
 @app.route('/card/newcard',methods=["POST"])

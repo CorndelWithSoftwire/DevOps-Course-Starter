@@ -4,14 +4,14 @@ content %}
 <div class="container">
   <div class="row my-3">
     <div class="col-md-12">
-      <form action="/card/{{card.id}}/editcard" method="POST">
+      <form action="/card/{{card_view_model.cards.id}}/editcard" method="POST">
         <div class="form-group">
           <label for="msg">Name</label>
           <input
             type="text"
             class="form-control"
             name="name"
-            value="{{card.name}}"
+            value="{{card_view_model.cards.name}}"
           />
         </div>
         <div class="form-group">
@@ -20,7 +20,7 @@ content %}
             name="desc"
             class="form-control"
             rows="4"
-          >{{card.desc}}</textarea>
+          >{{card_view_model.cards.desc}}</textarea>
         </div>
         <div class="form-group" style="width: 12rem">
           <label for="msg">Due date:</label>
@@ -28,15 +28,15 @@ content %}
             type="date"
             class="form-control"
             name="due"
-            value="{{card.due}}"
+            value="{{card_view_model.cards.due}}"
           />
         </div>
         <div class="form-group">
           <label for="msg">Status</label>
-            {%for l in lists%}
+            {%for l in card_view_model.lists%}
             <div class="form-check">
               <input class="form-check-input" type="radio" name="statusRadio"
-              id="radio{{loop.index}}" value="{{l.id}}" {% if card.listId==l.id
+              id="radio{{loop.index}}" value="{{l.id}}" {% if card_view_model.cards.listId==l.id
               %}checked{%endif%} />
               <label class="form-check-label" for="Radio{{loop.index}}""> {{l.name}} </label>
             </div>
@@ -47,7 +47,7 @@ content %}
           <button
             type="delete"
             class="btn btn-danger btn-sm"
-            formaction="/card/{{card.id}}/deletecard"
+            formaction="/card/{{card_view_model.cards.id}}/deletecard"
           >
             Delete
           </button>

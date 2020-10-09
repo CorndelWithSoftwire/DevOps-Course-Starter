@@ -39,9 +39,12 @@ content %}
     </div>
   </div>
   <div class="row">
+    {% for l in card_view_model.lists %}
     <div class="col-md-12">
+      <h5>{{l.name}}</h5>
       {% set sort_on = request.args.sort_on|default('orderBy') %} {% for i in
-      cards|sort(attribute=sort_on)%}
+      card_view_model.cards|sort(attribute=sort_on)%} {% if i.listName==l.name
+      %}
       <div class="card my-3">
         <div class="card-body">
           <h5 class="card-title">{{i.name}}</h5>
@@ -51,8 +54,9 @@ content %}
           <a href="/card/{{i.id}}" class="card-link">Edit</a>
         </div>
       </div>
-      {% endfor %}
+      {% endif%} {% endfor %}
     </div>
+    {% endfor %}
   </div>
   {% endblock %}
 </div>

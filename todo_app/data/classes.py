@@ -157,3 +157,17 @@ class List:
 
     def __str__(self):
         return "List(id="+self.id+", name="+self.name+", orderBy:"+self.orderBy+")"
+
+
+class ViewModel:
+    def __init__(self,cards,lists):
+        self._cards = cards
+        self._lists = lists
+
+    @property
+    def cards(self):
+        return self._cards
+
+    @property
+    def lists(self):
+        return self._lists
