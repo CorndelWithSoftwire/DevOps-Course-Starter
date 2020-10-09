@@ -41,7 +41,6 @@ The `.env` file is used by flask to set environment variables when running `flas
 
 When running `setup.sh`, the `.env.template` file will be copied to `.env` if the latter does not exist.
 
-//TODO
 how to run tests
-   - run `pytest`
-specify chromedriver path
+- ensure chromedriver is downloaded and added to system path (https://chromedriver.chromium.org/downloads) 
+- run `pytest` from the command line
