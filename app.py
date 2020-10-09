@@ -15,17 +15,17 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/', methods=['get'])
 def index():
-    todo_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/5f637aafcce13f603c570ebd/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))).json()
+    todo_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/' + os.getenv('TRELLO_TODO') + '/cards?key=' + os.getenv('TRELLO_KEY') + "&token=" + os.getenv('TRELLO_TOKEN')).json()
     class_todo_list_api_response = []
     for iteminjson in todo_list_api_response_in_json:
         class_todo_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'To Do'))
 
-    doing_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/5f637aaff47bd67c32c891e5/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))).json()    
+    doing_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/' + os.getenv('TRELLO_DOING') + '/cards?key=' + os.getenv('TRELLO_KEY') + "&token=" + os.getenv('TRELLO_TOKEN')).json()
     class_doing_list_api_response = []
     for iteminjson in doing_list_api_response_in_json:
         class_doing_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'Doing'))
     
-    done_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/5f637aaf45a6967f43725861/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN'))).json()
+    done_list_api_response_in_json = requests.get('https://api.trello.com/1/lists/' + os.getenv('TRELLO_DONE') + '/cards?key=' + os.getenv('TRELLO_KEY') + "&token=" + os.getenv('TRELLO_TOKEN')).json()
     class_done_list_api_response = []
     for iteminjson in done_list_api_response_in_json:
         class_done_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'Done'))

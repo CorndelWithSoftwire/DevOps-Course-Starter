@@ -44,4 +44,6 @@ When running `setup.sh`, the `.env.template` file will be copied to `.env` if th
 .env file should contain the following keys that are excluded from the git synch by .gitignore
  - TRELLO_KEY
  - TRELLO_TOKEN
- - 
+ - TRELLO_TODO
+ - TRELLO_DOING
+ - TRELLO_DONE
