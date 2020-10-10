@@ -40,13 +40,16 @@ def index():
     for iteminjson in done_list_api_response_in_json:
         class_done_list_api_response.append(Todo(iteminjson['id'],iteminjson['name'], 'Done'))
     
-
     return render_template('index.html', list_todo=class_todo_list_api_response, list_doing=doing_list_api_response_in_json, list_done=done_list_api_response_in_json)
 
 @app.route('/additem', methods=['post'])
 def add():
     new_item = request.form.get('new_title')
-    todo_list_api_response = requests.post('https://api.trello.com/1/cards?key=' + str(os.getenv('TRELLO_KEY')) + "&token=" + str(os.getenv('TRELLO_TOKEN')) + "&idList=5f637aafcce13f603c570ebd" + "&name=" + new_item + "&desc=from Jamies App")
+    params = get_trello_auth() 
+    params['idList'] = os.getenv('TRELLO_TODO')
+    params['name'] = new_item
+    params['desc'] = 'From Jamies App'
+    requests.post('https://api.trello.com/1/cards', params=params)
     return redirect('/', code=302)
 
 @app.route('/movetonew/<id>', methods=['get'])
@@ -63,7 +66,6 @@ def move_to_doing(id):
 def move_to_done(id):
     move_card_to_list(id, os.getenv('TRELLO_DONE'))
     return redirect('/', code=302)
-
 
 if __name__ == '__main__':
     app.run()
