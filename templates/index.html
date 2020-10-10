@@ -1,28 +1,51 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Xanathars Emporium{% endblock %}
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <div class="col-md-8">
+    <h1 class="display-4">Sylgars Lists</h1>
+    <p class="lead">Just let the fish remember</p>
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      `<h2>Add a new To-Do</h2>
+        <form action="/additem" method="post">
+            <label for="title">To-Do Title:</label>
+            <input type="text" id="new_title" name="new_title">
+              <button type="submit">Submit</button>
+        </form>
+      </div>
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        {% for tditem in listall %}
-          <li>{{tditem.title }}</li>
+    <div class="col-md-4">
+      <h2>Things To Do</h2>
+      <ul class="list-group mb-12">
+        {% for tditem in list_todo %}
+       <p class="list-group-item list-group-item-action"> {{tditem.name}}<a class="btn btn-outline-warning btn-sm" href="/movetodoing/{{tditem.item_id}}" type="submit">Doing</a><a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.item_id}}" type="submit">Done</a></p></ul>
         {% endfor %}
       </ul>
     </div>
+    <div class="col-md-4">
+      <h2>Doing</h2>
+      <ul class="list-group mb-12">
+        {% for tditem in list_doing %}
+          <p class="list-group-item list-group-item-action"><a class="btn btn-outline-primary btn-sm" href="/movetonew/{{tditem.id}}" type="submit">To Do</a>{{tditem.name}}<a class="btn btn-outline-success btn-sm" href="/movetodone/{{tditem.id}}" type="submit">Done</a></p>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h2>Done</h2>
+      <ul class="list-group mb-12">
+        {% for tditem in list_done %}
+          <p class="list-group-item list-group-item-action"><a class="btn btn-outline-primary btn-sm" href="/movetonew/{{tditem.id}}" type="submit">To Do</a><a class="btn btn-outline-warning btn-sm" href="/movetodoing/{{tditem.id}}" type="submit">Doing</a>{{tditem.name}}</p>
+        {% endfor %}
+      </ul>
+    </div>
+
+
   </div>
-  
-  <h2>Add a new To-Do</h2>
-  <form action="/" method="post">
-       <label for="title">To-Do Title:</label>
-       <input type="text" id="ntitle" name="new_title">
-        <button type="submit">Submit</button>
-  </form>
 {% endblock %}
 
