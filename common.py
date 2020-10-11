@@ -1,25 +1,47 @@
-# Constants
 import os
-
-TODO_LIST_ID = os.getenv("TODO_LIST_ID")
-DONE_LIST_ID = os.getenv("DONE_LIST_ID")
+from datetime import datetime
+import dateutil.parser
 
 NOT_STARTED = 'Not Started'
 COMPLETED = 'Completed'
 
-STATUS_TO_LIST_MAP = {
-    NOT_STARTED: TODO_LIST_ID,
-    COMPLETED: DONE_LIST_ID
-}
 
-LIST_TO_STATUS_MAP = {
-    TODO_LIST_ID: NOT_STARTED,
-    DONE_LIST_ID: COMPLETED
-}
+class Lists:
+    TODO_LIST_NAME = "Todo"
+    DONE_LIST_NAME = "Done"
+
+    def __init__(self, todo_list_id, done_list_id):
+        self.list_id_map = {
+            self.TODO_LIST_NAME : todo_list_id,
+            self.DONE_LIST_NAME : done_list_id
+        }
+
+    @property
+    def todo_list_id(self):
+        return self.list_id_map[self.TODO_LIST_NAME]
+
+    @property
+    def done_list_id(self):
+        return self.list_id_map[self.DONE_LIST_NAME]
+
+    @property
+    def status_to_list_map(self):
+        return {
+            NOT_STARTED: self.todo_list_id,
+            COMPLETED: self.done_list_id
+        }
+
+    @property
+    def list_to_status_map(self):
+        return {
+            self.todo_list_id: NOT_STARTED,
+            self.done_list_id: COMPLETED
+        }
 
 
 class TodoItem:
-    def __init__(self, title, status, id=None, duedate=None):
+    def __init__(self, title, status, id=None, duedate=None, last_modified=datetime.now().isoformat()):
+        self.last_modified = dateutil.parser.parse(last_modified)
         self.id = id
         self.title = title
         self.status = status

@@ -13,9 +13,4 @@ class Config:
     TODO_BOARD_ID = os.environ.get('TODO_BOARD_ID')
     if not TODO_BOARD_ID:
         raise ValueError("No TODO_BOARD_ID set for Flask application. Did you forget to run setup.sh?")
-    TODO_LIST_ID = os.environ.get('TODO_LIST_ID')
-    if not TODO_LIST_ID:
-        raise ValueError("No TODO_LIST_ID set for Flask application. Did you forget to run setup.sh?")
-    DONE_LIST_ID = os.environ.get('DONE_LIST_ID')
-    if not DONE_LIST_ID:
-        raise ValueError("No DONE_LIST_ID set for Flask application. Did you forget to run setup.sh?")
+

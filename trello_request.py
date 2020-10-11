@@ -51,6 +51,9 @@ class TrelloRequest:
 class TrelloGetCards(TrelloRequest):
     URL_PATH = "/lists/{}/cards"
 
+    def __init__(self, list_to_status_map):
+        self._list_to_status_map = list_to_status_map
+
     def fetchForList(self, idList):
         url = self.URL_PATH.format(idList)
         return super().makeRequest(url, "GET")
@@ -60,7 +63,7 @@ class TrelloGetCards(TrelloRequest):
 
         jsonData = super().makeRequest(url, "GET")
 
-        return TodoItem(jsonData['name'], LIST_TO_STATUS_MAP[jsonData["idList"]], id)
+        return TodoItem(jsonData['name'], self._list_to_status_map[jsonData["idList"]], id)
 
 
 class TrelloAddCard(TrelloRequest):
@@ -107,3 +110,14 @@ class TrelloDeleteCard(TrelloRequest):
     def delete(self, cardId):
         url = self.URL_PATH.format(cardId)
         return super().makeRequest(url, "DELETE")
+
+
+class TrelloBoard(TrelloRequest):
+    URL_BOARD_PATH = "/boards/{}/lists"
+
+    def fetchLists(self, id):
+        url = self.URL_BOARD_PATH.format(id)
+
+        json_data = super().makeRequest(url, "GET")
+
+        return {x['name']: x['id'] for x in json_data}, {x['id']: x['name'] for x in json_data}
