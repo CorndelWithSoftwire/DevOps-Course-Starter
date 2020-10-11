@@ -113,7 +113,7 @@ class TrelloDeleteCard(TrelloRequest):
 
 
 class TrelloBoard(TrelloRequest):
-    URL_BOARD_PATH = "/boards/{}"
+    URL_BOARD_PATH = "/boards/{}/lists"
 
     def fetchLists(self, id):
         url = self.URL_BOARD_PATH.format(id)

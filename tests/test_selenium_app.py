@@ -5,7 +5,6 @@ from threading import Thread
 import pytest
 from dotenv import find_dotenv, load_dotenv
 from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
 
 import app
 import common
@@ -77,11 +76,8 @@ def test_app():
     board_id = create_trello_board()
     os.environ['TODO_BOARD_ID'] = board_id
 
-    todo_list_id = createList(board_id, common.Lists.TODO_LIST_NAME)
-    done_list_id = createList(board_id, common.Lists.DONE_LIST_NAME)
-
-    os.environ['TODO_LIST_ID'] = todo_list_id
-    os.environ['DONE_LIST_ID'] = done_list_id
+    createList(board_id, common.Lists.TODO_LIST_NAME)
+    createList(board_id, common.Lists.DONE_LIST_NAME)
 
     # construct the new application
     application = app.create_app()
@@ -107,9 +103,9 @@ def test_task_journey(driver, test_app):
 
     # Create an item
     todo_item = 'Testing a todo item'
-    inputElement = driver.find_element_by_id("newitem")
-    inputElement.send_keys(todo_item)
-    inputElement.submit()
+    input_element = driver.find_element_by_id("newitem")
+    input_element.send_keys(todo_item)
+    input_element.submit()
 
     driver.implicitly_wait(2)  # seconds
 

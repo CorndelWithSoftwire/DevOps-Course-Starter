@@ -5,6 +5,7 @@ import dateutil.parser
 
 from viewmodel import ViewModel
 
+
 def createListWithStatus(status, itemList):
     return [TodoItem(x['name'], status, x['id'], duedate=x['due'], last_modified=x['dateLastActivity']) for x in
             itemList]
@@ -14,10 +15,7 @@ def create_app():
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object('flask_config.Config')
 
-    todo_list_id = os.getenv("TODO_LIST_ID")
-    done_list_id = os.getenv("DONE_LIST_ID")
-
-    board_lists = Lists(todo_list_id, done_list_id)
+    board_lists = setup_lists()
 
     # Jinja filters
     @app.template_filter()
@@ -31,20 +29,20 @@ def create_app():
     def index():
         trello_get_cards = TrelloGetCards(board_lists.list_to_status_map)
 
-        getTodoList = trello_get_cards.fetchForList(board_lists.todo_list_id)
-        toDoItems = createListWithStatus(NOT_STARTED, getTodoList)
+        get_todo_list = trello_get_cards.fetchForList(board_lists.todo_list_id)
+        to_do_items = createListWithStatus(NOT_STARTED, get_todo_list)
 
-        getDoneList = trello_get_cards.fetchForList(board_lists.done_list_id)
-        doneItems = createListWithStatus(COMPLETED, getDoneList)
+        get_done_list = trello_get_cards.fetchForList(board_lists.done_list_id)
+        done_items = createListWithStatus(COMPLETED, get_done_list)
 
-        items = toDoItems + doneItems
-        sorteditems = sorted(items, key=lambda item: item.status, reverse=True)
+        items = to_do_items + done_items
+        sorted_items = sorted(items, key=lambda item: item.status, reverse=True)
 
-        item_view_model = ViewModel(sorteditems)
+        item_view_model = ViewModel(sorted_items)
         return render_template('index.html', view_model=item_view_model)
 
     @app.route('/additem', methods=['POST'])
-    def additem():
+    def add_item():
         title = request.form.get('newitem')
         duedate = request.form.get('duedate')
 
@@ -53,13 +51,13 @@ def create_app():
         return redirect(request.referrer)
 
     @app.route('/deleteitem/<id>', methods=['POST'])
-    def deleteitem(id):
+    def delete_item(id):
         TrelloDeleteCard().delete(id)
 
         return redirect(request.referrer)
 
     @app.route('/check/<id>', methods=['POST'])
-    def checkitem(id):
+    def check_item(id):
         item = TrelloGetCards(board_lists.list_to_status_map).fetchCard(id)
         list = board_lists.todo_list_id
         if request.form.get(id):
@@ -69,6 +67,14 @@ def create_app():
         return redirect(request.referrer)
 
     return app
+
+
+def setup_lists():
+    board_id = os.environ['TODO_BOARD_ID']
+    todo_lists_by_name, todo_lists_by_id = TrelloBoard().fetchLists(board_id)
+    todo_list_id = todo_lists_by_name[Lists.TODO_LIST_NAME]
+    done_list_id = todo_lists_by_name[Lists.DONE_LIST_NAME]
+    return Lists(todo_list_id, done_list_id)
 
 
 if __name__ == '__main__':
