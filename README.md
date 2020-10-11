@@ -44,7 +44,5 @@ APP_TOKEN - This is the Trello APP token which you can be obtained by clicking t
 Create a trello TODO board with 2 lists and obtain their IDs and set in the environment variables below
 
 TODO_BOARD_ID 
-TODO_LIST_ID
-DONE_LIST_ID
 
 When running `setup.sh`, the `.env.template` file will be copied to `.env` if the latter does not exist.
