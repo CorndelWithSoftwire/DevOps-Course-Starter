@@ -40,8 +40,8 @@ content %}
   </div>
   <div class="row">
     {% for l in card_view_model.lists %}
-    <div class="col-md-12">
-      <h5>{{l.name}}</h5>
+    <div class="col-md-4">
+      <h6>{{l.name}}</h6>
       {% set sort_on = request.args.sort_on|default('orderBy') %} {% for i in
       card_view_model.cards|sort(attribute=sort_on)%} {% if i.listName==l.name
       %}
