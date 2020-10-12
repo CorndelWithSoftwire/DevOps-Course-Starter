@@ -42,15 +42,12 @@ def update_item(id):
 
     return redirect('/done')
 
-
 @app.route('/delete_item/<id>', methods=['POST'])
 def delete_item(id):
     trello_cards.delete_item(id)
 
-    # return render_template('index.html')
     return redirect("/")
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host='0.0.0.0', debug=True)
 
