@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
     # Install dependencies and launch
     cd /vagrant
     poetry install
-    poetry run flask run --host= 0.0.0.0 --port=5000
+    poetry run flask run --host=0.0.0.0 --port=5000
   
   SHELL
   }
