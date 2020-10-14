@@ -6,7 +6,7 @@ _DEFAULT_ITEMS = [
 ]
 
 
-def get_items():
+def get_items() -> object:
     """
     Fetches all saved items from the session.
 
@@ -30,7 +30,7 @@ def get_item(id):
     return next((item for item in items if item['id'] == int(id)), None)
 
 
-def add_item(title):
+def add_item(title: object) -> object:
     """
     Adds a new item with the specified title to the session.
 
