@@ -6,7 +6,19 @@ app.config.from_object('flask_config.Config')
 
 @app.route('/')
 def index():
-    return 'Hello World!'
+    items = session.get_items()
+    return render_template("index.html", todos = items)
+
+
+@app.route('/add-todo', methods=["POST"])
+def add_todo():
+    item = request.form.get('name')
+
+    session.add_item(item)
+
+    return redirect("/")
+
+
 
 if __name__ == '__main__':
     app.run()

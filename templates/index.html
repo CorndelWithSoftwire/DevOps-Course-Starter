@@ -2,16 +2,31 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+  <div class="alert alert-success" role="alert">
+    <h1 class="alert-heading">To-Do App</h1>
+    <p class="mb-0">Just another to-do app.</p>
   </div>
 
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+          {% for todo in todos %}
+            {{todo.id}} - {{todo.title}}
+            <br>
+          {% endfor %}
+
+        <form action="/add-todo" method="post">
+            <div class="form-inline">
+              <div class="form-group mb-2">
+              <label for="name">Enter the name of your to-do: </label>
+              <input type="text" name="name" id="name" required>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <button type="submit" class="btn btn-success">Confirm </button>
+            </div>
+        </form>
+
       </ul>
     </div>
   </div>
