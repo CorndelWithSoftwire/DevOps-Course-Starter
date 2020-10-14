@@ -47,7 +47,7 @@ def add_item(title):
     if session.get('maxId'):
         id = session['maxId'] +1 
     elif items:
-        id = items[-1]['id'] + 1
+        id = items[0]['id'] + 1
     else:
         id = 1
         
