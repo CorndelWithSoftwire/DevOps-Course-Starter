@@ -111,6 +111,8 @@ dmypy.json
 
 ### Virtual environment ###
 env/
+.vagrant
+
 
 ### Configuration files ###
 .env
