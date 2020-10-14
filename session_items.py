@@ -1,5 +1,8 @@
 from flask import session
 
+import requests
+import os
+
 _DEFAULT_ITEMS = []
 
 def get_items():
@@ -9,21 +12,16 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    return session.get('items', _DEFAULT_ITEMS)
-
-
-def get_item(id):
-    """
-    Fetches the saved item with the specified ID.
-
-    Args:
-        id: The ID of the item.
-
-    Returns:
-        item: The saved item, or None if no items match the specified ID.
-    """
-    items = get_items()
-    return next((item for item in items if item['id'] == int(id)), None)
+    # return session.get('items', _DEFAULT_ITEMS)
+    payload = {'key': os.getenv('trello_key'), 'token': os.getenv('trello_token')}
+    r = requests.get(f'https://api.trello.com/1/lists/{os.getenv("trello_todo_list")}/cards', params=payload)
+    list = []
+ 
+    for item in r.json():
+        list_item = {"title":item['name'],"id":item["id"],"status":"todo"}
+        list.append(list_item)
+ 
+    return list
 
 
 def add_item(title):
@@ -36,18 +34,23 @@ def add_item(title):
     Returns:
         item: The saved item.
     """
-    items = get_items()
+    # items = get_items()
 
-    # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
+    # # Determine the ID for the item based on that of the previously added item
+    # id = items[-1]['id'] + 1 if items else 0
 
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
+    # item = { 'id': id, 'title': title, 'status': 'Not Started' }
 
-    # Add the item to the list
-    items.append(item)
-    session['items'] = items
+    # # Add the item to the list
+    # items.append(item)
+    # session['items'] = items
 
-    return item
+    # return item
+
+    payload = {'key': os.getenv('trello_key'), 'token': os.getenv('trello_token','idList': '5f451c994e05398abae2ebe2', 'name': title})}
+    r = requests.post('https://api.trello.com/1/Cards', params=payload)
+
+
 
 
 def save_item(item):
@@ -68,6 +71,9 @@ def delete_todo(todo_id):
     existing_items = get_items()
     session['items'] = [ items for items in existing_items if int(items.get('id')) != int(todo_id) ]
     return todo_id
+
+     payload = {'key': os.getenv('trello_key'), 'token': os.getenv('trello_token','idList': '5f451c994e05398abae2ebe2', 'name': title})}
+    r = requests.post('https://api.trello.com/1/Cards', params=payload)
 
 
 def complete_todo(id):
