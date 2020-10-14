@@ -5,11 +5,21 @@ import requests
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
 
+class ViewModel:
+    def __init__(self, items):
+        self._items = items
+    @property
+    def items(self):
+        return self._items
+
+
 @app.route('/')
 def index():
     items = trello.get_items_trello()
     items=sorted(items, key=lambda k: k.status, reverse=True)
-    return render_template('index.html', items=items)
+    item_view_model = ViewModel(items)
+    return render_template('index.html', view_model=item_view_model)
+    #return render_template('index.html', items=items)
 
 @app.route('/<id>/completed', methods=['POST'])
 def completeditem(id):

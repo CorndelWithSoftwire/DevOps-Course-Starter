@@ -23,7 +23,7 @@
       <h2>To Do Items</h2>
       <ul class="list-group mb-4">
         <!-- For loop to List the todo items here -->
-        {% for item in items %}
+        {% for item in view_model.items %}
           {% if item.status == 'To Do' %}
             <form action="/{{item.id}}/completed" method="post"> 
               <li>
@@ -35,7 +35,7 @@
         {% endfor %}
       <br><h2>Completed Items</h2>
       <ul class="list-group mb-4">
-        {% for item in items %}
+        {% for item in view_model.items %}
           {% if item.status == 'Completed' %}
             <li>{{item.title}}</li>
           {% endif %}
