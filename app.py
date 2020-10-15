@@ -11,7 +11,10 @@ class ViewModel:
     @property
     def items(self):
         return self._items
-
+    @property
+    def todoitems(self):
+        todo_items = [item for item in self._items if item['status'] == 'to do']        
+        return todo_items
 
 @app.route('/')
 def index():
