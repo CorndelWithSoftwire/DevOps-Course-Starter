@@ -21,15 +21,11 @@
                   
           </tr>
           {% for k in items_list %}
-                  <tr>
-                          <td>{{ k.id }}</td>
-                          <td>{{ k.title }}</td>
-                          <td>{{ k.status }}</td>
-                          <td>
-                            <a href="/delete/{{k.id}}">Delete</a>
-                            <br>
-                            <a href="/update/{{k.id}}">Update</a>
-                          </td>
+              <tr>
+                  <td>{{ k.id }}</td>
+                  <td>{{ k.title }}</td>
+                  <td>{{ k.status }}</td>
+
                   </tr>
           {% endfor %}
         </table>
