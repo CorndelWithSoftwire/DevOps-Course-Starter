@@ -12,7 +12,21 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        {% for item in items %}
+          <li>
+            {{ item.id }} - {{ item.title }}
+            <a href="/item/{{ item.id }}">View</a>
+          </li>         
+        {% endfor %}
       </ul>
+        <form method="POST" action="/add&id=?&title=?&status=?">
+          <ul>
+            <li>id:     <input name="id"></li>
+            <li>title:  <input name="title"></li>
+            <li>status: <input name="status"></li>
+          </ul>
+          <input type="submit" value="Add To-Do Item">   
+        </form>      
     </div>
   </div>
 {% endblock %}
