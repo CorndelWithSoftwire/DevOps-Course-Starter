@@ -8,7 +8,7 @@ app.config.from_object(Config)
 def render_index_response():
     return render_template('index.html', items = get_items())
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
     return render_index_response()    
 
