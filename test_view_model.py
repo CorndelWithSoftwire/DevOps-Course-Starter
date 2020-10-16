@@ -1,5 +1,6 @@
 from view_model import ViewModel
 from card import Card
+from datetime import datetime, timedelta
 
 def test_todo_property():
     # Setup
@@ -48,4 +49,23 @@ def test_done_property():
     done_item = done_items[0]
     assert done_item.status == "Done"
 
-    
+
+def test_show_all_done_items_property():
+    cards = [
+        Card(1, "New Done Item", "", "Done", datetime.now()),
+        Card(2, "Old Done Item", "", "Done", datetime.now() - timedelta(days=7))
+    ]
+    view_model = ViewModel(cards)
+
+    assert len(view_model.show_all_done_items) == 2
+
+def test_show_recent_done_items_property():
+    cards = [
+        Card(1, "New Done Item", "", "Done", datetime.now()),
+        Card(2, "Old Done Item", "", "Done", datetime.now() - timedelta(days=7))
+    ]
+    view_model = ViewModel(cards)
+
+    assert len(view_model.recent_done_items) == 1
+    assert view_model.recent_done_items[0].name == "New Done Item"
+

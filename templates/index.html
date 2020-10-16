@@ -9,10 +9,10 @@
 <div class="well text-container">
     <div class="row">
         <div class="col-md-12">
-            <h2 style="color: blue">Items:</h2>
             <ul class="list-group mb-4">
-                <h6>
-                    {% for item in model.items %}
+                <h2> To Do Items </h2>
+                {% for item in model.todo_items %}
+                    <li>
                         {{item["name"]}} - {{item["desc"]}} - {{item["status"]}}
                         <form action="/done/{{item['id']}}" method="POST">
                             <button type="submit" class="btn btn-success">Complete Item</button>
@@ -21,8 +21,38 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         <br>
-                    {% endfor %}
-                </h6>
+                    </li>
+                {% endfor %}
+            </ul>
+            <ul class="list-group mb-4">
+                <h2> Doing Items </h2>
+                {% for item in model.doing_items %}
+                    <li>
+                        {{item["name"]}} - {{item["desc"]}} - {{item["status"]}}
+                        <form action="/done/{{item['id']}}" method="POST">
+                            <button type="submit" class="btn btn-success">Complete Item</button>
+                        </form>
+                        <form action="/delete_item/{{item['id']}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <br>
+                    </li>
+                {% endfor %}
+            </ul>
+            <ul class="list-group mb-4">
+                <h2> Done Items </h2>
+                {% for item in model.done_items %}
+                    <li>
+                        {{item["name"]}} - {{item["desc"]}} - {{item["status"]}}
+                        <form action="/done/{{item['id']}}" method="POST">
+                            <button type="submit" class="btn btn-success">Complete Item</button>
+                        </form>
+                        <form action="/delete_item/{{item['id']}}" method="POST">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <br>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <div>

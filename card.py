@@ -1,11 +1,13 @@
 import os
+from datetime import datetime
 
 class Card:
-    def __init__(self, id, name, desc, status):
+    def __init__(self, id, name, desc, status, modified_date = datetime.now()):
         self.id = id
         self.name = name
         self.desc = desc
         self.status = status
+        self.modified_date = modified_date
 
     @classmethod
     def from_raw_trello_card(cls, trello_card):
@@ -20,12 +22,3 @@ class Card:
             status = "Done"
 
         return cls(trello_card["id"], trello_card["name"], trello_card["desc"], status)
-    
-    def is_done(self):
-        return self.status == "Done"
-
-    def is_doing(self):
-        return self.status == "Doing"
-
-    def is_todo(self):
-        return self.status == "Todo"
