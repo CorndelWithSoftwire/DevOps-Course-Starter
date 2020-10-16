@@ -9,15 +9,19 @@ class ViewModel(object):
 
     @property
     def todo_items(self):
-        return list(filter(containsToDo, self.items))
+        return list(filter(lambda item: containsStatus(item, "To Do"), self.items))
 
     @property
     def all_items(self):
-        return list(filter(containsToDo, self.items))
+        return self.items
+
+    @property
+    def doing_items(self):
+        return list(filter(lambda item: containsStatus(item, "Doing"), self.items))
 
 
-def containsToDo(element):
+def containsStatus(element, status):
     if type(element).__name__ == 'Item':
-        return element.status == "To Do"
+        return element.status == status
     else:
         return False
