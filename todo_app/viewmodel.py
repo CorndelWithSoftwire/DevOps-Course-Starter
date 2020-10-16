@@ -19,6 +19,9 @@ class ViewModel(object):
     def doing_items(self):
         return list(filter(lambda item: containsStatus(item, "Doing"), self.items))
 
+    @property
+    def done_items(self):
+        return list(filter(lambda item: containsStatus(item, "Done"), self.items))
 
 def containsStatus(element, status):
     if type(element).__name__ == 'Item':
