@@ -19,31 +19,13 @@
             <a class="ml-3" href="/?sort=asc">Sort by status (ascending)</a>
             <a class="ml-3" href="/?sort=desc">Sort by status (descending)</a>
             <ul class="list-group mb-4">
-                {% for todo in view_model.todo_items %}
-                <div class="container">
-                    <li class="list-group">
-                        <ul class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    {{ todo.title }}
-                                </div>
-                                <div class="col-sm-2">
-                                    {{ todo.status }}
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-check form-check-inline">
-                                        <form class="form-inline" method="post" action="/update_todo/{{todo.id}}">
-                                            <input id="my-input" class="form-check-input" type="checkbox" name="completed" {% if todo.status !='Not Started' %} checked {% endif %}>
-                                            <input class="btn btn-primary btn-sm" type="submit" name="update" value="Update" placeholder="Update" aria-label="Update" aria-describedby="updateTask">
-                                            <a class="btn btn-danger btn-sm" href="/remove_todo/{{todo.id}}">Delete</a>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                    </li>
-                </div>
-                {% endfor %}
+                {% include "todo_list.html" %}
+            </ul>
+            <ul class="list-group mb-4">
+                {% include "doing_list.html" %}
+            </ul>
+            <ul class="list-group mb-4">
+                {% include "done_list.html" %}
             </ul>
         </div>
     </div>
