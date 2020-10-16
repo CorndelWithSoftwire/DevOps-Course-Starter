@@ -9,4 +9,15 @@ class ViewModel(object):
 
     @property
     def todo_items(self):
-        return self.items
+        return list(filter(containsToDo, self.items))
+
+    @property
+    def all_items(self):
+        return list(filter(containsToDo, self.items))
+
+
+def containsToDo(element):
+    if type(element).__name__ == 'Item':
+        return element.status == "To Do"
+    else:
+        return False

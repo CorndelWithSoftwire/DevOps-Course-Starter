@@ -14,10 +14,10 @@ def test_view_model_can_show_all_items(generateItems):
 
   # Act
   view_model = ViewModel(generateItems)
-  todo_items = view_model.todo_items 
+  items = view_model.all_items 
   
   # Assert
-  assert len(todo_items) == 2
+  assert len(items) == 2
 
 
 def test_view_model_can_show_todo_items(generateItems):
