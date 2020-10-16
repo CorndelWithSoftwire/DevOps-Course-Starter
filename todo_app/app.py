@@ -1,3 +1,4 @@
+from todo_app.viewmodel import ViewModel
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.flask_config import Config
 
@@ -19,7 +20,8 @@ def index():
     elif sort == "desc":
         todos = sorted(todos, key=lambda k: k.status, reverse=True)
 
-    return render_template('index.html', todoList = todos)
+    item_view_model = ViewModel(todos)
+    return render_template('index.html', view_model = item_view_model)
 
 @app.route('/new_todo', methods=['POST'])
 def add_item_from_form():

@@ -19,7 +19,7 @@
             <a class="ml-3" href="/?sort=asc">Sort by status (ascending)</a>
             <a class="ml-3" href="/?sort=desc">Sort by status (descending)</a>
             <ul class="list-group mb-4">
-                {% for todo in todoList %}
+                {% for todo in view_model.todo_items %}
                 <div class="container">
                     <li class="list-group">
                         <ul class="list-group-item">
