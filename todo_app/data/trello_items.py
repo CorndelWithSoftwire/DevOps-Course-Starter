@@ -3,7 +3,7 @@ import json
 from todo_app.data.item import Item
 from todo_app.data.trelloList import TrelloList
 import todo_app.data.trello_constants as constants
-
+import iso8601
 class Trello_service(object):
     trello_lists = {}
 
@@ -52,7 +52,8 @@ class Trello_service(object):
             item = Item(id=card[constants.TRELLO_ID], 
                         status=trelloListDict.name, 
                         title=card[constants.TRELLO_NAME], 
-                        listId=card[constants.TRELLO_IDLIST] )
+                        listId=card[constants.TRELLO_IDLIST],
+                        lastActivity=iso8601.parse_date(card["dateLastActivity"] ))
             items.insert(1, item)
         return items
 

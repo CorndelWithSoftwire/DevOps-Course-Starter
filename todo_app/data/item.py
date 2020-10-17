@@ -1,9 +1,10 @@
 class Item(object):
-    def __init__(self, id, status, title, listId):
+    def __init__(self, id, status, title, listId, lastActivity):
         self._id = id
         self._status = status
         self._title = title
         self._listId = listId
+        self._lastActivity = lastActivity
     
     @property
     def id(self):
@@ -36,3 +37,11 @@ class Item(object):
     @listId.setter
     def listId(self, value):
         self._listId = value
+
+    @property
+    def lastActivity(self):
+        return self._lastActivity
+    
+    @lastActivity.setter
+    def lastActivity(self, value):
+        self._lastActivity = value

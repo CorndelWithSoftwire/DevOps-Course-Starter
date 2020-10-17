@@ -1,3 +1,6 @@
+from datetime import datetime
+import iso8601
+
 class ViewModel(object):
     items = []
 
@@ -22,6 +25,14 @@ class ViewModel(object):
     @property
     def done_items(self):
         return list(filter(lambda item: containsStatus(item, "Done"), self.items))
+
+    @property
+    def all_done_items(self):
+        items = list(filter(lambda item: containsStatus(item, "Done"), self.items))
+        if len(items) >= 5:
+            return sorted(items, key = lambda item: item.lastActivity, reverse=True)[:5]
+        else:
+            return sorted(items, key = lambda item: item.lastActivity, reverse=True)
 
 def containsStatus(element, status):
     if type(element).__name__ == 'Item':
