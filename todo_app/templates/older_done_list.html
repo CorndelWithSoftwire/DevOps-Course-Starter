@@ -1,0 +1,25 @@
+                {% for todo in view_model.older_done_items %}
+                <div class="container">
+                    <li class="list-group">
+                        <ul class="list-group-item">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{ todo.title }}
+                                </div>
+                                <div class="col-sm-2">
+                                    {{ todo.status }}
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <form class="form-inline" method="post" action="/update_todo/{{todo.id}}">
+                                            <input id="my-input" class="form-check-input" type="checkbox" name="completed" {% if todo.status !='Not Started' %} checked {% endif %}>
+                                            <input class="btn btn-primary btn-sm" type="submit" name="update" value="Update" placeholder="Update" aria-label="Update" aria-describedby="updateTask">
+                                            <a class="btn btn-danger btn-sm" href="/remove_todo/{{todo.id}}">Delete</a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                </div>
+                {% endfor %}

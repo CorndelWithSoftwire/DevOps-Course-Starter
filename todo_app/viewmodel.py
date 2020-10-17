@@ -27,7 +27,7 @@ class ViewModel(object):
         return list(filter(lambda item: containsStatus(item, "Done"), self.items))
 
     @property
-    def all_done_items(self):
+    def show_all_done_items(self):
         items = list(filter(lambda item: containsStatus(item, "Done"), self.items))
         if len(items) >= 5:
             return sorted(items, key = lambda item: item.lastActivity, reverse=True)[:5]
@@ -44,7 +44,7 @@ class ViewModel(object):
             return sorted(items, key = lambda item: item.lastActivity, reverse=True)
 
     @property
-    def past_done_items(self):
+    def older_done_items(self):
         now = datetime.now()
         items = list(filter(lambda item: containsStatus(item, "Done") and item.lastActivity.date() < now.date(), self.items))
         if len(items) == 0:

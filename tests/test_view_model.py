@@ -33,7 +33,7 @@ def test_view_model_can_show_all_items(generateItems):
   items = view_model.all_items 
   
   # Assert
-  assert len(items) == 4
+  assert len(items) == 8
 
 
 def test_view_model_can_show_todo_items(generateItems):
@@ -69,14 +69,12 @@ def test_view_model_can_show_done_items(generateItems):
   assert len(done_items) == 6
   assert done_items[0].status == "Done"
 
-#dateLastActivity
-#print(datetime.fromisoformat('2020-10-16T13:42:52.101')) 
 def test_view_model_can_show_done_items_all(generateItems):
   # Setup via fixture
 
   # Act
   view_model = ViewModel(generateItems)
-  done_items = view_model.all_done_items 
+  done_items = view_model.show_all_done_items 
   
   # Assert
   assert len(done_items) == 5
@@ -97,7 +95,7 @@ def test_view_model_can_past_done_items(generateItems):
 
   # Act
   view_model = ViewModel(generateItems)
-  done_items = view_model.past_done_items 
+  done_items = view_model.older_done_items
   
   # Assert
   assert len(done_items) > 0
