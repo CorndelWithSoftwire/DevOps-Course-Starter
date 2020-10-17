@@ -91,3 +91,13 @@ def test_view_model_can_recent_done_items(generateItems):
   
   # Assert
   assert len(done_items) == 0
+
+def test_view_model_can_past_done_items(generateItems):
+  # Setup via fixture
+
+  # Act
+  view_model = ViewModel(generateItems)
+  done_items = view_model.past_done_items 
+  
+  # Assert
+  assert len(done_items) > 0

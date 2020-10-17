@@ -43,6 +43,15 @@ class ViewModel(object):
         else:
             return sorted(items, key = lambda item: item.lastActivity, reverse=True)
 
+    @property
+    def past_done_items(self):
+        now = datetime.now()
+        items = list(filter(lambda item: containsStatus(item, "Done") and item.lastActivity.date() < now.date(), self.items))
+        if len(items) == 0:
+            return []
+        else:
+            return sorted(items, key = lambda item: item.lastActivity, reverse=True)
+
 def containsStatus(element, status):
     if type(element).__name__ == 'Item':
         return element.status == status
