@@ -90,5 +90,4 @@ def test_view_model_can_recent_done_items(generateItems):
   done_items = view_model.recent_done_items 
   
   # Assert
-  assert len(done_items) == 5
-  assert done_items[0].status == "Done"
+  assert len(done_items) == 0
