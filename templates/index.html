@@ -36,7 +36,7 @@
       <!-- List the todo items here -->
       {% for item in view_model.todoItems %}
       <li>{{ item.id}} - {{item.status}} - {{item.title}} -
-        <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+        <a href="{{ url_for('trello_bp.update_card', idCard=item.id)}}">Mark item complete</a>
       </li>
       {% endfor %}
     </ul>
@@ -50,7 +50,7 @@
       <!-- List the todo items here -->
       {% for item in view_model.doingItems %}
       <li>{{ item.id}} - {{item.status}} - {{item.title}} -
-        <a href="{{ url_for('update_card', idCard=item.id)}}">Mark item complete</a>
+        <a href="{{ url_for('trello_bp.update_card', idCard=item.id)}}">Mark item complete</a>
       </li>
       {% endfor %}
     </ul>

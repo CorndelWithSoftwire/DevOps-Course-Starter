@@ -1,140 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for
 import config as cf
 from model import Item, ViewModel
-
+from trello_app import trello_bp
 import session_items as session
 import requests
 import json
 
 
-app = Flask(__name__)
-app.config.from_object('flask_config.Config')
-#load_dotenv()
-
-@app.route('/')
-def index():
-    board_id = cf.get_trello_board_id()
-    url = f"https://api.trello.com/1/boards/{board_id}/cards"
-    query = cf.get_trello_query()
+def create_app():
+    app = Flask(__name__)
+    app.config.from_pyfile('config.py')
+    #app.config.from_object('app_config.Config')
     
-    response = requests.request(
-        "GET",
-        url,
-        params=query
-        )
-    
-    
-    cards = json.loads(response.text)
-    items_list = list()
-    for card in cards:
-        status = 'To Do' 
-        if card['idList'] == '5f5a4b008a129438843fcf10':
-            status = 'To Do'
-        elif card['idList'] == '5f5a4b008a129438843fcf11':
-            status = 'Doing'
-        else:
-            status = 'Done'
-
-        item = Item(card['id'], status, card['name'], card['dateLastActivity'])
-        items_list.append(item)
-
-    item_view_model = ViewModel(items_list)
-    #render_template('index.html', view_model=item_view_model)
-
-    #return render_template('index.html', items=items_list)
-    return render_template('index.html', view_model=item_view_model)
-
-
-if __name__ == '__main__':
-    app.run()
-
-
-"""
-Add a complete_item route that accepts the ID of an item as a
-parameter and then calls a method to change its status from 'To
-Do' to 'Done'
-curl -i "localhost:5000/api/foo?a=hello&b=world" 
-"""
-@app.route('/complete_item/<idCard>', methods=['GET', 'PUT'])
-def update_card(idCard):
-
-    add_card_to_done()
-
-    url = "https://api.trello.com/1/cards/{idCard}"
-    headers = {"Accept": "application/json"}
-    list_id = cf.get_trello_list_id()
-    query = cf.get_trello_query()
-    #query['idList'] = '5abbe4b7ddc1b351ef961415'
-    query['idList'] = list_id
-    #query['name'] = request.form['title']
-    response = requests.request( "PUT", url, headers=headers, params=query )
-    #print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
-    return redirect(url_for('index'))
-
-
-#create card/item
-@app.route('/add', methods=['POST'])
-def add_card():
-    url = "https://api.trello.com/1/cards"
-    
-    list_id = cf.get_trello_list_id()
-    query = cf.get_trello_query()
-    
-    query['idList'] = list_id
-    #query['name'] = request.form['title']
-    if request.form['title']:
-        query['name'] = request.form['title']
-
-    response = requests.request("POST", url, params=query )
-    #print(response.text)
-    return redirect(url_for('index'))
-
-
-def add_card_to_todo():
-    add_card()
-
-
-def add_card_to_done():
-    add_card()
-
-
-#delete card/item
-def remove_card(id):
-    url = f"https://api.trello.com/1/cards/{id}"
-    response = requests.request("DELETE", url )
-    print(response.text)
-
-
-#Fetch Cards on a list
-def get_cards(id):
-    url = f"https://api.trello.com/1/lists/{id}/cards"
-    
-    query = cf.get_trello_query()    
-    response = requests.request("GET", url, params=query)
-    print(response.text)
-
-
-# create lists
-def add_list_to_board(name):
-    url = "https://api.trello.com/1/lists"
-    query = cf.get_trello_query()
-    
-    #query['name'] = 'MyCorndelDevOpsToDoBoard'
-    query['name'] = name
-    query['idBoard'] = '5abbe4b7ddc1b351ef961414'
-
-    response = requests.request( "POST", url, params=query )
-    print(response.text)
-
-
-
-#Create New Board
-def create_to_do_board():
-
-    url = "https://api.trello.com/1/boards/"
-    query = cf.get_trello_query()
-    query['name'] = 'MyCorndelDevOpsToDoBoard'
-    
-    response = requests.request(  "POST", url, params=query )
-    print(response.text)
-
+    app.register_blueprint(trello_bp)
+        
+    return app
