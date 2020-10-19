@@ -44,7 +44,7 @@ def get_items_trello():
         cardlist = requests.get(getlistofcard_URL(card['id']), params=build_auth_query())
         cardlist_json = cardlist.json()
         if cardlist_json['name'] == 'Done':
-            cardstatus = 'Completed'
+            cardstatus = 'Done'
         else :
             cardstatus = cardlist_json['name'] 
         items.append(Item(card['id'], card['name'], cardstatus))

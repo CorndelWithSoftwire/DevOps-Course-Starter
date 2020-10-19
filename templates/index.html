@@ -36,7 +36,7 @@
       <br><h2>Completed Items</h2>
       <ul class="list-group mb-4">
         {% for item in view_model.items %}
-          {% if item.status == 'Completed' %}
+          {% if item.status == 'Done' %}
             <li>{{item.title}}</li>
           {% endif %}
         {% endfor %}

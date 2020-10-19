@@ -2,10 +2,10 @@ import app, Trello_items, pytest
 
 TEST_LIST1 = [
     Trello_items.Item('1','ITEM1','Doing'), 
-    Trello_items.Item('2','ITEM2','Completed'),
+    Trello_items.Item('2','ITEM2','Done'),
     Trello_items.Item('3','ITEM3','To Do'),
     Trello_items.Item('4','ITEM4','To Do'),
-    Trello_items.Item('5','ITEM5','Completed'),
+    Trello_items.Item('5','ITEM5','Done'),
     Trello_items.Item('6','ITEM6','To Do'),
     Trello_items.Item('7','ITEM7','Doing')
     ]
@@ -28,24 +28,25 @@ TEST_LIST3 = [
     Trello_items.Item('7','ITEM7','Doing')
     ]
 TEST_LIST4 = [
-    Trello_items.Item('1','ITEM1','Completed'), 
-    Trello_items.Item('2','ITEM2','Completed'),
-    Trello_items.Item('3','ITEM3','Completed'),
-    Trello_items.Item('4','ITEM4','Completed'),
-    Trello_items.Item('5','ITEM5','Completed'),
-    Trello_items.Item('6','ITEM6','Completed'),
-    Trello_items.Item('7','ITEM7','Completed')
+    Trello_items.Item('1','ITEM1','Done'), 
+    Trello_items.Item('2','ITEM2','Done'),
+    Trello_items.Item('3','ITEM3','Done'),
+    Trello_items.Item('4','ITEM4','Done'),
+    Trello_items.Item('5','ITEM5','Done'),
+    Trello_items.Item('6','ITEM6','Done'),
+    Trello_items.Item('7','ITEM7','Done')
     ]
 TEST_LIST5 = [
     Trello_items.Item('1','ITEM1','Doing'), 
-    Trello_items.Item('7','ITEM7','Completed'),
-    Trello_items.Item('5','ITEM5','Completed'),
+    Trello_items.Item('7','ITEM7','Done'),
+    Trello_items.Item('5','ITEM5','Done'),
     ]
 TEST_LIST6 = [
     ]
 TEST_LISTS = [TEST_LIST1, TEST_LIST2, TEST_LIST3, TEST_LIST4, TEST_LIST5, TEST_LIST6]
 TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS = [(TEST_LIST1,3), (TEST_LIST2, 7), (TEST_LIST3,0), (TEST_LIST4,0), (TEST_LIST5,0), (TEST_LIST6,0)]
 TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS = [(TEST_LIST1,2), (TEST_LIST2, 0), (TEST_LIST3,7), (TEST_LIST4,0), (TEST_LIST5,1), (TEST_LIST6,0)]
+
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
 def test_view_todoitems_contains_only_todo_items(TEST_ITEMS):
