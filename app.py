@@ -19,7 +19,11 @@ class ViewModel:
     def doingitems(self):
         doing_items = [item for item in self._items if item.status == 'Doing']        
         return doing_items
-        
+    @property
+    def doneitems(self):
+        done_items = [item for item in self._items if item.status == 'Done']        
+        return done_items
+
 @app.route('/')
 def index():
     items = trello.get_items_trello()
