@@ -5,6 +5,7 @@ TRELLO_KEY = os.environ.get('TRELLO_KEY')
 TRELLO_TOKEN = os.environ.get('TRELLO_TOKEN')
 TRELLO_TODO_BOARDID = os.environ.get('TRELLO_TODO_BOARDID')
 TRELLO_TODO_LISTID = os.environ.get('TRELLO_TODO_LISTID')
+TRELLO_DOING_LISTID = os.environ.get('TRELLO_DOING_LISTID')
 TRELLO_DONE_LISTID = os.environ.get('TRELLO_DONE_LISTID')
 
 apiurl = "https://api.trello.com/1/"
@@ -45,6 +46,8 @@ def get_items_trello():
         cardlist_json = cardlist.json()
         if cardlist_json['name'] == 'Done':
             cardstatus = 'Done'
+        elif cardlist_json['name'] == 'Doing':
+            cardstatus = 'Doing'
         else :
             cardstatus = cardlist_json['name'] 
         items.append(Item(card['id'], card['name'], cardstatus))
@@ -60,6 +63,30 @@ def mark_item_done_trello(id):
     """
     query = build_auth_query()
     query['idList'] = TRELLO_DONE_LISTID
+    requests.put(putcardsonlist_URL(id), params=query)
+    return id
+
+def mark_item_todo_trello(id):
+    """
+    sets an existing card in Trello to the todo list
+
+    Args:
+        item: The ID of the item to save.
+    """
+    query = build_auth_query()
+    query['idList'] = TRELLO_TODO_LISTID
+    requests.put(putcardsonlist_URL(id), params=query)
+    return id
+
+def mark_item_doing_trello(id):
+    """
+    sets an existing card in Trello to the doing list
+
+    Args:
+        item: The ID of the item to save.
+    """
+    query = build_auth_query()
+    query['idList'] = TRELLO_DOING_LISTID
     requests.put(putcardsonlist_URL(id), params=query)
     return id
 

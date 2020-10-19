@@ -37,6 +37,16 @@ def completeditem(id):
     trello.mark_item_done_trello(id)
     return redirect('/') 
 
+@app.route('/<id>/todo', methods=['POST'])
+def todoitem(id):
+    trello.mark_item_todo_trello(id)
+    return redirect('/') 
+
+@app.route('/<id>/doing', methods=['POST'])
+def doingitem(id):
+    trello.mark_item_doing_trello(id)
+    return redirect('/') 
+
 @app.route('/newitems', methods=['POST'])
 def newitems():
     itemname = request.form.get('Title')
