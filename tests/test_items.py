@@ -45,6 +45,7 @@ TEST_LIST6 = [
     ]
 TEST_LISTS = [TEST_LIST1, TEST_LIST2, TEST_LIST3, TEST_LIST4, TEST_LIST5, TEST_LIST6]
 TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS = [(TEST_LIST1,3), (TEST_LIST2, 7), (TEST_LIST3,0), (TEST_LIST4,0), (TEST_LIST5,0), (TEST_LIST6,0)]
+TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS = [(TEST_LIST1,2), (TEST_LIST2, 0), (TEST_LIST3,7), (TEST_LIST4,0), (TEST_LIST5,1), (TEST_LIST6,0)]
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
 def test_view_todoitems_contains_only_todo_items(TEST_ITEMS):
@@ -52,7 +53,18 @@ def test_view_todoitems_contains_only_todo_items(TEST_ITEMS):
     for item in view.todoitems:
         assert item.status == "To Do"
 
-@pytest.mark.parametrize("TEST_ITEMS, todo_number", TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS)
-def test_view_todoitems_contains_correct_number_of_items(TEST_ITEMS, todo_number):
+@pytest.mark.parametrize("TEST_ITEMS, number_of_todo_items", TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS)
+def test_view_todoitems_contains_correct_number_of_items(TEST_ITEMS, number_of_todo_items):
     view = app.ViewModel(TEST_ITEMS)   
-    assert len(view.todoitems) == todo_number
+    assert len(view.todoitems) == number_of_todo_items
+
+@pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
+def test_view_doingitems_contains_only_doing_items(TEST_ITEMS):
+    view = app.ViewModel(TEST_ITEMS)
+    for item in view.doingitems:
+        assert item.status == "Doing"
+
+@pytest.mark.parametrize("TEST_ITEMS, number_of_doing_items", TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS)
+def test_view_doingitems_contains_correct_number_of_items(TEST_ITEMS, number_of_doing_items):
+    view = app.ViewModel(TEST_ITEMS)   
+    assert len(view.doingitems) == number_of_doing_items
