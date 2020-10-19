@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block title %}To-Do App{% endblock %}
-
 {% block content %}
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
@@ -25,14 +24,36 @@
         <!-- For loop to List the todo items here -->
         {% for item in view_model.items %}
           {% if item.status == 'To Do' %}
-            <form action="/{{item.id}}/completed" method="post"> 
-              <li>
-                <label for="title">{{item.title}}</label>
-                <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
-              </li>
+          <li> 
+            <label for="title">{{item.title}}</label>
+            <div class="btn-group" role="group">
+            <form action="/{{item.id}}/doing" method="post">              
+              <button type="submit" name=sub class="btn btn-outline-primary">Mark Doing</button>
             </form>
+            <form action="/{{item.id}}/completed" method="post">            
+                <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
+            </form>
+            </div>
+          </li>
           {% endif %}
         {% endfor %}
+      <br><h2>Doing Items</h2>
+      <ul class="list-group mb-4", text-align="centre">
+        {% for item in view_model.items %}
+          {% if item.status == 'Doing' %}
+          <li>
+            <label for="title">{{item.title}}</label>
+            <div class="btn-group" role="group">
+            <form action="/{{item.id}}/todo" method="post">              
+              <button type="submit" name=sub class="btn btn-outline-primary">Mark To Do</button>
+            </form>
+            <form action="/{{item.id}}/completed" method="post">              
+              <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
+            </form></div>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
       <br><h2>Completed Items</h2>
       <ul class="list-group mb-4">
         {% for item in view_model.items %}
