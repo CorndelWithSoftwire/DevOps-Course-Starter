@@ -71,12 +71,13 @@ def test_view_doingitems_contains_correct_number_of_items(TEST_ITEMS, number_of_
     assert len(view.doingitems) == number_of_doing_items
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
-def test_view_doneitems_contains_only_done_items(TEST_ITEMS):
+def test_view_show_all_done_items_contains_only_done_items(TEST_ITEMS):
     view = app.ViewModel(TEST_ITEMS)
-    for item in view.doneitems:
+    for item in view.show_all_done_items:
         assert item.status == "Done"
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_done_items", TEST_LISTS_WITH_NUMBER_OF_DONE_ITEMS)
-def test_view_doneitems_contains_correct_number_of_items(TEST_ITEMS, number_of_done_items):
+def test_view_show_all_done_items_contains_correct_number_of_items(TEST_ITEMS, number_of_done_items):
     view = app.ViewModel(TEST_ITEMS)   
-    assert len(view.doneitems) == number_of_done_items
+    assert len(view.show_all_done_items) == number_of_done_items
+

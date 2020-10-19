@@ -20,9 +20,9 @@ class ViewModel:
         doing_items = [item for item in self._items if item.status == 'Doing']        
         return doing_items
     @property
-    def doneitems(self):
-        done_items = [item for item in self._items if item.status == 'Done']        
-        return done_items
+    def show_all_done_items(self):
+        all_done_items = [item for item in self._items if item.status == 'Done']        
+        return all_done_items
 
 @app.route('/')
 def index():
