@@ -87,6 +87,7 @@ TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS = [(TEST_LIST1, 3), (TEST_LIST2, 7), (TEST_
 TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS = [(TEST_LIST1, 2), (TEST_LIST2, 0), (TEST_LIST3, 7), (TEST_LIST4, 0), (TEST_LIST5,1), (TEST_LIST6,0)]
 TEST_LISTS_WITH_NUMBER_OF_DONE_ITEMS = [(TEST_LIST1, 2), (TEST_LIST2, 0), (TEST_LIST3, 0), (TEST_LIST4, 7), (TEST_LIST5,2), (TEST_LIST6,0)]
 TEST_LISTS_WITH_NUMBER_OF_RECENT_DONE_ITEMS = [(TEST_LIST1, 2), (TEST_LIST2, 0), (TEST_LIST3, 0), (TEST_LIST4, 7), (TEST_LIST5,2), (TEST_LIST6,0), (TEST_LIST7,10), (TEST_LIST8,12)]
+TEST_LISTS_WITH_NUMBER_OF_OLDER_DONE_ITEMS = [(TEST_LIST1, 0), (TEST_LIST2, 0), (TEST_LIST3, 0), (TEST_LIST4, 0), (TEST_LIST5,0), (TEST_LIST6,0), (TEST_LIST7,4), (TEST_LIST8,2)]
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
 def test_view_todoitems_contains_only_todo_items(TEST_ITEMS):
@@ -129,3 +130,10 @@ def test_view_recent_done_items_contains_only_items_completed_today(TEST_ITEMS, 
         assert item.lastmodifieddate >= today
     assert len(view.recent_done_items) == number_of_recent_done_items
 
+@pytest.mark.parametrize("TEST_ITEMS, number_of_older_done_items", TEST_LISTS_WITH_NUMBER_OF_OLDER_DONE_ITEMS)
+def test_view_older_done_items_contains_only_items_completed_before_today(TEST_ITEMS, number_of_older_done_items):
+    view = app.ViewModel(TEST_ITEMS)
+    today = datetime.date.today()
+    for item in view.older_done_items:
+        assert item.lastmodifieddate < today
+    assert len(view.older_done_items) == number_of_older_done_items
