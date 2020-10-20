@@ -50,13 +50,25 @@
           </li>
         {% endfor %}
       </ul>
-      <br><h2>Completed Items</h2>
-      <ul class="list-group mb-4">
+      {% if view_model.show_all_done_items|length <= 5  %}
+        <br><h2>Completed Items</h2>
+        <ul class="list-group mb-4">
         {% for item in view_model.show_all_done_items %}
-
-            <li>{{item.title}}</li>
-
+          <li>{{item.title}}</li>
         {% endfor %}
+      {% else %}  
+        <br><h2>Recently Completed Items</h2>
+        <ul class="list-group mb-4">
+        {% for item in view_model.recent_done_items %}
+          <li>{{item.title}}</li>
+        {% endfor %}
+        <details>
+          <summary><br><h5>Old Completed Items</h5></summary>
+          {% for item in view_model.older_done_items %}
+            <li>{{item.title}}</li>
+          {% endfor %}  
+        </details>
+      {% endif %}
       </ul>
     </div>
   </div>
