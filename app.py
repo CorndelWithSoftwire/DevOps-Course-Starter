@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import Trello_items as trello
-import requests
+import requests, datetime
 
 app = Flask(__name__)
 app.config.from_object('flask_config.Config')
@@ -23,6 +23,12 @@ class ViewModel:
     def show_all_done_items(self):
         all_done_items = [item for item in self._items if item.status == 'Done']        
         return all_done_items
+    @property
+    def recent_done_items(self):
+        all_done_items = [item for item in self._items if item.status == 'Done']
+        today = datetime.date.today()
+        recent_done_items = [item for item in all_done_items if item.lastmodifieddate >= today]    
+        return recent_done_items
 
 @app.route('/')
 def index():
