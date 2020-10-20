@@ -52,8 +52,8 @@ def get_items_trello():
         else :
             cardstatus = cardlist_json['name'] 
         Lastactivity_Trello = card['dateLastActivity']
-        LastActivity = datetime.datetime.strptime(Lastactivity_Trello, '%Y-%m-%dT%H:%M:%S.%fZ')
-        items.append(Item(card['id'], card['name'], LastActivity.date, cardstatus))
+        LastActivity = datetime.datetime.strptime(Lastactivity_Trello, '%Y-%m-%dT%H:%M:%S.%fZ').date()
+        items.append(Item(card['id'], card['name'], LastActivity, cardstatus))
     return items
 
 
