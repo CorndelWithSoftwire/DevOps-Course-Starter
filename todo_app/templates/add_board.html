@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Add new card{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+   <p class="lead">Form to add new Board</p>
+    <form action="/add_board" method="post">      
+      <Table>
+       <tr style="align:middle">
+        <td> <label for="board_name">Board Name</label> </td>
+        <td> <input name="board_name" id = "board_name" required> </td>
+       </tr>      
+       
+       <tr>
+        <td></td>
+        <td> <input type="submit" value="Add New Board"></td>
+       </tr>
+      </Table>
+    </form>
+</div>
+{% endblock %}

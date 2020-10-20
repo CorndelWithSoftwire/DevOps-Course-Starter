@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Add new card{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+   <p class="lead">Form to add new Task</p>
+    <form action="/add_task" method="post">
+      <input type="hidden" id="board_id" name="board_id" value="{{board_id}}">
+      <Table>
+       <tr style="align:middle">
+        <td> <label for="task_name">Task Name</label> </td>
+        <td> <input name="task_name" id = "task_name" required> </td>
+       </tr>       
+       <tr>
+        <td> <label for="status_id">Status</label> </td>
+        <td>
+         <select name="status_id" id="status_id">
+          <option value="{{statuses[0]['id']}}" selected>{{statuses[0]['name']}}</option>
+           {% for status in statuses[1:] %}
+            <option value="{{status['id']}}">{{status['name']}}</option>
+           {% endfor %}
+         </select>
+        </td>
+       </tr>
+       <tr>
+        <td></td>
+        <td> <input type="submit" value="Add New Task"></td>
+       </tr>
+      </Table>
+    </form>
+</div>
+{% endblock %}

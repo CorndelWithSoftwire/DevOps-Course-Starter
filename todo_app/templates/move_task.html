@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Move Tasks{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+   <p class="lead">Form to move task from one status to another another</p>
+    <form action="/move_task" method="post">
+      <input type="hidden" id="id" name="id" value="{{task['id']}}">
+      <input type="hidden" id="board_id" name="board_id" value="{{task['board_id']}}">
+      <Table>
+       <tr style="align:middle">
+        <td> <label for="task_name">Task Name</label> </td>
+        <td><input name="task_name" id = "task_name" value="{{task['name']}}" readonly> </td>
+       </tr>       
+       <tr>
+        <td> <label for="status_id">Status</label> </td>
+        <td>
+          <select name="status_id" id="status_id">
+              {% for status in statuses %}
+                {% if task['status_id'] ==  status['id']%}
+                    <option value="{{status['id']}}" selected>{{status['name']}} (Current)</option>
+                {% else %}
+                    <option value="{{status['id']}}">{{status['name']}}</option>
+                 {% endif %}
+              {% endfor %}
+          </select>
+       </td>
+       </tr>
+       <tr>
+        <td></td>
+        <td> <input type="submit" value="Move Task"></td>
+       </tr>
+      </Table>
+    </form>
+</div>
+{% endblock %}
