@@ -1,5 +1,5 @@
 import requests
-import os
+import os, datetime
 
 TRELLO_KEY = os.environ.get('TRELLO_KEY')
 TRELLO_TOKEN = os.environ.get('TRELLO_TOKEN')
@@ -24,10 +24,11 @@ def build_auth_query():
     return {'key' : TRELLO_KEY, 'token' : TRELLO_TOKEN}
 
 class Item:
-    def __init__(self, id, title, status='To Do'):
+    def __init__(self, id, title, lastmodifieddate, status='To Do'):
         self.id = id
         self.status = status
         self.title = title
+        self.lastmodifieddate = lastmodifieddate
 
 
 def get_items_trello():
@@ -50,7 +51,9 @@ def get_items_trello():
             cardstatus = 'Doing'
         else :
             cardstatus = cardlist_json['name'] 
-        items.append(Item(card['id'], card['name'], cardstatus))
+        Lastactivity_Trello = card['dateLastActivity']
+        LastActivity = datetime.datetime.strptime(Lastactivity_Trello, '%Y-%m-%dT%H:%M:%S.%fZ')
+        items.append(Item(card['id'], card['name'], LastActivity.date, cardstatus))
     return items
 
 
