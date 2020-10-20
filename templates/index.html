@@ -22,8 +22,7 @@
       <h2>To Do Items</h2>
       <ul class="list-group mb-4">
         <!-- For loop to List the todo items here -->
-        {% for item in view_model.items %}
-          {% if item.status == 'To Do' %}
+        {% for item in view_model.todoitems %}
           <li> 
             <label for="title">{{item.title}}</label>
             <div class="btn-group" role="group">
@@ -35,12 +34,10 @@
             </form>
             </div>
           </li>
-          {% endif %}
         {% endfor %}
       <br><h2>Doing Items</h2>
       <ul class="list-group mb-4", text-align="centre">
-        {% for item in view_model.items %}
-          {% if item.status == 'Doing' %}
+        {% for item in view_model.doingitems %}
           <li>
             <label for="title">{{item.title}}</label>
             <div class="btn-group" role="group">
@@ -51,15 +48,14 @@
               <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
             </form></div>
           </li>
-          {% endif %}
         {% endfor %}
       </ul>
       <br><h2>Completed Items</h2>
       <ul class="list-group mb-4">
-        {% for item in view_model.items %}
-          {% if item.status == 'Done' %}
+        {% for item in view_model.show_all_done_items %}
+
             <li>{{item.title}}</li>
-          {% endif %}
+
         {% endfor %}
       </ul>
     </div>
