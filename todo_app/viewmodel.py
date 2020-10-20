@@ -1,5 +1,4 @@
 from datetime import datetime
-import iso8601
 
 class ViewModel(object):
     items = []
