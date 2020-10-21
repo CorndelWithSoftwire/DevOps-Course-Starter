@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Add new card{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+  <p class="lead">Form to add new Status</p>
+  <form action="/add_status" method="post">
+    <input type="hidden" id="board_id" name="board_id" value="{{board['id']}}">
+    <Table>
+      <tr style="align:middle">
+        <td> <label for="board_name">Board Name</label> </td>
+        <td> <input name="board_name" id="board_name" value="{{board['name']}}" readonly> </td>
+      </tr>
+      <tr style="align:middle">
+        <td> <label for="status_name">Status Name</label> </td>
+        <td> <input name="status_name" id="status_name" required> </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td> <input type="submit" value="Add new Status"></td>
+      </tr>
+    </Table>
+  </form>
+</div>
+{% endblock %}

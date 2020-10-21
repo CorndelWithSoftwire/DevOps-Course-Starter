@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Add To-Do Item{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+  <p class="lead">Trello Board Name : {{board['name']}}</p>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>List Of Statuses</h2>
+    <ul class="list-group mb-4">
+      <Table class="table-bordered">
+        <tr>
+          <th>Name</th>          
+        </tr>
+        <tr>          
+          <td align="right"><a href="/add_status?board_id={{board['id']}}">Add New Status</a></td>
+        </tr>
+        {% for status in statuses %}
+        <tr>
+          <td> {{status['name']}}</td>    
+          <td align="right"><a href="/delete_status?board_id={{board['id']}}&status_id={{status['id']}}">Delete Status</a></td>                
+        </tr>
+        {% endfor %}
+      </Table>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Tasks</h2>
+    <ul class="list-group mb-4">
+      <Table class="table-bordered">
+        <tr>
+          <th>Task Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td><a href="/add_task?board_id={{board['id']}}">Add New Task</a></td>
+
+        </tr>
+        {% for task in tasks %}
+        <tr>
+          <td> <a href="/view_task?id={{task['id']}}">{{task['name']}}</a></td>
+          <td> {{task['s_name']}}</td>
+          <td>
+            <a href="/move_task?board_id={{board['id']}}&task_id={{task['id']}}">Move Task</a> |
+            <a href="/delete_task?board_id={{board['id']}}&task_id={{task['id']}}">Delete Task</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </Table>
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
