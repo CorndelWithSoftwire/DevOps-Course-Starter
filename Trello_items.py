@@ -43,14 +43,14 @@ def get_items_trello():
 
     items = []
     for card in cards_json:
-        cardlist = requests.get(getlistofcard_URL(card['id']), params=build_auth_query())
-        cardlist_json = cardlist.json()
-        if cardlist_json['name'] == 'Done':
+        if card['idList'] == TRELLO_DONE_LISTID:
             cardstatus = 'Done'
-        elif cardlist_json['name'] == 'Doing':
+        elif card['idList'] == TRELLO_DOING_LISTID:
             cardstatus = 'Doing'
-        else :
-            cardstatus = cardlist_json['name'] 
+        elif card['idList'] == TRELLO_TODO_LISTID:
+            cardstatus = "To Do"
+        else:
+            raise AttributeError
         Lastactivity_Trello = card['dateLastActivity']
         LastActivity = datetime.datetime.strptime(Lastactivity_Trello, '%Y-%m-%dT%H:%M:%S.%fZ').date()
         items.append(Item(card['id'], card['name'], LastActivity, cardstatus))
