@@ -33,7 +33,6 @@ def add_todo():
     create_task(item)
     return redirect('/')
 
-
 """
 #update from work 2.0
 @app.route('/')
