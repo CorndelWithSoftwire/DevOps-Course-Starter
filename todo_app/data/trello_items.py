@@ -20,8 +20,6 @@ class Trello_service(object):
 
         self.TRELLO_CREDENTIALS = f"key={trello_key}&token={trello_token}"
         self.TRELLO_BOARD_ID = trello_default_board
-        self.get_lists()
-        self.get_items_from_trello()
 
     def get_lists(self):
         """
@@ -30,7 +28,8 @@ class Trello_service(object):
         """
         url = f"{constants.TRELLO_API_URL}boards/{self.TRELLO_BOARD_ID}/lists?{self.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
-        raw_lists = (json.loads(response.text.encode('utf8')))
+        responseText =  response.text
+        raw_lists = (json.loads(responseText.encode('utf8'))) #.encode('utf8')
         for trello_list in raw_lists:
             trelloListDict = TrelloList(name=trello_list[constants.TRELLO_NAME], 
                                         boardId=trello_list[constants.TRELLO_ID_BOARD])
@@ -58,7 +57,8 @@ class Trello_service(object):
         items = []
         url = f"{constants.TRELLO_API_URL}boards/{self.TRELLO_BOARD_ID}/cards?{self.TRELLO_CREDENTIALS}"
         response = requests.request("GET", url)
-        cards = json.loads(response.text.encode('utf8'))
+        responseText =  response.text
+        cards = json.loads(responseText.encode('utf8'))
         for card in cards:
             trelloListDict = self.trello_lists[card[constants.TRELLO_IDLIST]]
             item = Item(id=card[constants.TRELLO_ID], 

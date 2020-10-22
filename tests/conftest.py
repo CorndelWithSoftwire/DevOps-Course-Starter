@@ -13,3 +13,4 @@ def client():
     # Use the app to create a test_client that can be used in our tests.
     with test_app.test_client() as client:
         yield client
+

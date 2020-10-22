@@ -16,6 +16,7 @@ def create_app():
     
     @app.route('/')
     def index():
+        service.get_lists()
         todos = service.get_items()
         sort = request.values.get("sort", "")
         if sort == "asc":
