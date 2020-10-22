@@ -59,7 +59,7 @@ def test_show_all_done_items_property():
 
     assert len(view_model.show_all_done_items) == 2
 
-def test_show_recent_done_items_property():
+def test_recent_done_items_property():
     cards = [
         Card(1, "New Done Item", "", "Done", datetime.now()),
         Card(2, "Old Done Item", "", "Done", datetime.now() - timedelta(days=7))
@@ -69,3 +69,16 @@ def test_show_recent_done_items_property():
     assert len(view_model.recent_done_items) == 1
     assert view_model.recent_done_items[0].name == "New Done Item"
 
+
+def test_older_done_items_property():
+    cards = [
+        
+        Card(1, "New Done Item", "", "Done", datetime.now()),
+        Card(2, "Old Done Item", "", "Done", datetime.now() - timedelta(days=7))
+
+    ]
+    view_model = ViewModel(cards)
+
+    assert view_model.older_done_items[1].name == "Old Done Item"
+
+   

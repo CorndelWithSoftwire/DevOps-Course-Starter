@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class ViewModel:
     def __init__(self, items):
@@ -51,9 +51,12 @@ class ViewModel:
                     items.append(item)
         return items
     
+
     @property
     def older_done_items(self):
-
+        items = []
+        for item in self._items:
+            if item.status == 'Done':
+                if item.modified_date.date() <= datetime.now().date():
+                    items.append(item)
         return items
-
-
