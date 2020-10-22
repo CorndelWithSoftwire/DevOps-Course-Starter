@@ -24,7 +24,8 @@ def mock_trello_handler(monkeypatch):
                f"{TRELLO_API_URL}boards/{trello_default_board}/cards?{trello_credentials}" : MockCardsResponse() }
 
     def mock_get(verb, url):
-        response = urlDict.get(url)
-        return response
+        if( verb == 'GET'):
+            response = urlDict.get(url)
+            return response
     
     monkeypatch.setattr(requests, 'request', mock_get)
