@@ -7,8 +7,7 @@ def get_trello_API_credentials():
     f = open("todo_app/Trello_API_Keys.txt", "r").read().split("\n")
     return {'key': f[0], 'token': f[1]}
 
-api_keys = get_trello_API_credentials()
-payload = api_keys
+payload = get_trello_API_credentials()
 
 class Trello_Data:
     def __init__(self):

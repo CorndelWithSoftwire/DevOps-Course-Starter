@@ -2,69 +2,50 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
+
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
-
   <div class="row">
     <div class="col-md-12">
-      <h2>Your Tasks</h2>
-      <ul class="list-group mb-4">
-    {% for card in cards %}
-          <form action="/" method="get">
-            
-            <li><b> {{ card }} </b>   <button type="submit"> Click here for - <b> {{ card }} </b>- information </button></li>
-            
-        </form>
-    {% endfor %}
+      <h2 style="color:#FF0000">Things To Do</h2>
+      <ul class="list-group mb-4">   
+        {% for card in todo_cards.keys() %}
+        <li style="color:#FF0000"> {{ card }} <button type="submit"> Doing </button></li>        
+        {% endfor %} 
+        <h2 style="color:#FD6A02">Doing</h2>
+      <ul class="list-group mb-4">   
+        {% for card in doing_cards.keys() %}
+         <li style="color:#FD6A02"> {{ card }} <button type="submit">Done</button><button type="submit">To Do</button></li>          
+        {% endfor %}  
+        <h2 style="color:#228B22">Done</h2>
+      <ul class="list-group mb-4">   
+        {% for card in done_cards.keys() %}
+         <li style="color:#228B22"> {{ card }} </li>          
+        {% endfor %}         
       </ul>
-    </div>
-  </div>
+  <div class="row">
+    <div class="col-md-12">
+      
+      <form action="/" method="get">
+        <button type="submit"> Click here for to return to index </button>
+      </form>
+<br>
+<h2>Create a New Task</h2>
+  <form action="" method="post" class="form-example">
+    <div class="form-example">
+       <label for="title">Enter title of task  : </label>
+       <input type="text" name="title" id="title" required>
+       <select name="idList">
+    {% for name in lists.keys() %}
+        <option value="{{ lists[name] }}">{{ name }}</option>
+    {% endfor %}
+      </select>
+    <div class="form-example">
+       <input type="submit" value="Add Task">
+     </div>
+  </form>
 </div>
-<div class="row">
-  <div class="col-md-12">
-  <h2>Create a New Task</h2>
-    <form action="" method="post" class="form-example">
-      <div class="form-example">
-        <label for="title">Enter title of task  : </label>
-        <input type="text" name="title" id="title" required>
-        <select name="idList">
-      {% for name in lists.keys() %}
-          <option value="{{ lists[name] }}">{{ name }}</option>
-      {% endfor %}
-        </select>
-      <div class="form-example">
-        <input type="submit" value="Add Task">
-      </div>
-    </form>
-  </div>
-</div>
-</div> 
-<div class="row">
-  <div class="col-md-12">
-  <h2>Move Task to List</h2>
-    <form action="" method="put" class="form-example">
-      <div class="form-example">
-        <label for="move">Assign Task to List  : </label>
-        <select name="card_name">
-          {% for card in cards %}
-              <option value="{{ cards[name] }}">{{ card }}</option>
-          {% endfor %}
-            </select>
-        <select name="idList">
-      {% for name in lists.keys() %}
-          <option value="{{ lists[name] }}">{{ name }}</option>
-      {% endfor %}
-        </select>
-      <div class="form-example">
-        <input type="submit" value="Move">
-      </div>
-    </form>
-  </div>
-</div>
-</div>    
-    <form action="/" method="get">
-      <button type="submit"> Click here for to return to index </button>
-    </form>
+
 {% endblock %}

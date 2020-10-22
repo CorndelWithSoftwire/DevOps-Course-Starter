@@ -1,0 +1,21 @@
+<h2>Move Task to List</h2>
+    <form action="" method="get" class="form-example">
+      <div class="form-example">
+        <label for="move">Assign Task to List  : </label>
+        <select name="id">
+      {% for card in cards.keys() %}
+          <option value="{{ cards[name] }}">{{ card }}</option>
+      {% endfor %}
+        </select>
+        <select name="idList">
+      {% for name in lists.keys() %}
+          <option value="{{ lists[name] }}">{{ name }}</option>
+      {% endfor %}
+        </select>
+      <div class="form-example">
+        <input type="submit" value="Move">
+      </div>
+    </form>
+  </div>
+</div>
+</div>    
