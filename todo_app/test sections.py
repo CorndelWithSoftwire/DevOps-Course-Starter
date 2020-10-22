@@ -2,13 +2,26 @@ import requests
 import os
 import json
 
-board_info = {'Name':'', 'ID':'', 'Lists':[{'Name':'', 'ID':'', 'Tasks':}
 def get_trello_API_credentials():
     f = open("todo_app/Trello_API_Keys.txt", "r").read().split("\n")
     return {'key': f[0], 'token': f[1]}
 
+base_url = 'https://api.trello.com/1/'
 payload = get_trello_API_credentials()
 
+def start_item(id):
+    put_payload = payload.copy()
+    body = {'idList': '5f69d24735e43368d5ec3ac0'}
+    requests.put(base_url + 'cards/' + id +'?', params=put_payload, data=body)
+    status = requests.Response()
+    return print(status)
+
+start_item('5f91a70f1f06b0389c894edd')
+
+print('GO CHECK')
+
+
+'''
 class Trello_Data:
     def __init__(self):
         self.boards_names_and_ref = {}
@@ -69,5 +82,4 @@ boards = myboards.get_my_board_info()
 cards = myboards.get_my_card_info()
 print(boards)
 print(cards)
-
-
+'''

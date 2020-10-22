@@ -1,35 +1,41 @@
 {% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% block title %}Andy's To-Do App{% endblock %}
 
 {% block content %}
 
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
+    <h1 class="display-4">Andy's To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
   <div class="row">
     <div class="col-md-12">
       <h2 style="color:#FF0000">Things To Do</h2>
       <ul class="list-group mb-4">   
-        {% for card in todo_cards.keys() %}
-        <li style="color:#FF0000"> {{ card }} <button type="submit"> Doing </button></li>        
-        {% endfor %} 
+        {% for card in todo_cards %}
+        <li style="color:#FF0000"> {{ card }} </li>
+          <li><a href="/start/{{ card }}" class="btn btn-sm btn-success">Doing</a></li>       
+        {% endfor %}
+        <br> 
         <h2 style="color:#FD6A02">Doing</h2>
       <ul class="list-group mb-4">   
-        {% for card in doing_cards.keys() %}
-         <li style="color:#FD6A02"> {{ card }} <button type="submit">Done</button><button type="submit">To Do</button></li>          
-        {% endfor %}  
+        {% for card in doing_cards %}
+         <li style="color:#FD6A02"> {{ card }} </li>
+         <li><a href="/redo_doing/{{ card }}" class="btn btn-sm btn-success">Re-Do</a>           <a  href="/complete/{{ card }}" class="btn btn-sm btn-success">Done</a></li>          
+        {% endfor %}
+        <br>  
         <h2 style="color:#228B22">Done</h2>
       <ul class="list-group mb-4">   
         {% for card in done_cards.keys() %}
-         <li style="color:#228B22"> {{ card }} </li>          
-        {% endfor %}         
+         <li style="color:#228B22"> {{ card }} </li>
+         <li><a href="/restart/{{ card }}" class="btn btn-sm btn-success">Re-Do</a>           <a  href="/redo/{{ card }}" class="btn btn-sm btn-success">Still Doing</a></li>          
+        {% endfor %}
+        <br>         
       </ul>
   <div class="row">
     <div class="col-md-12">
       
       <form action="/" method="get">
-        <button type="submit"> Click here for to return to index </button>
+        <button type="submit"> Click here for to return to board index </button>
       </form>
 <br>
 <h2>Create a New Task</h2>
