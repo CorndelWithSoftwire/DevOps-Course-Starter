@@ -121,7 +121,7 @@ Vagrant.configure("2") do |config|
               # Install dependencies and launch
               cd /vagrant
               poetry install
-              poetry run flask run
+              poetry run flask run --host 0.0.0.0
         "}
     end
 
