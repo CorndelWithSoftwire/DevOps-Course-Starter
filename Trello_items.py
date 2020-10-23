@@ -48,8 +48,11 @@ def get_items_trello():
     Returns:
         list: The list of saved items.
     """
+    TRELLO_TODO_LISTID = os.environ.get('TRELLO_TODO_LISTID')
+    TRELLO_DOING_LISTID = os.environ.get('TRELLO_DOING_LISTID')
+    TRELLO_DONE_LISTID = os.environ.get('TRELLO_DONE_LISTID')
+    
     cards_json = get_items_from_trello_api()
-
     items = []
     for card in cards_json:
         if card['idList'] == TRELLO_DONE_LISTID:
