@@ -26,7 +26,6 @@ markupsafe = "==1.1.1"
 mccabe = "==0.6.1"
 oauthlib = "==3.1.0"
 pip = "==20.2.*,>=20.2.2"
-protobuf = "==3.11.4"
 py = "==1.9.*,>=1.9.0"
 pycparser = "==2.20"
 pylint = "==2.5.3"
@@ -43,6 +42,7 @@ urllib3 = "==1.25.10"
 werkzeug = "==1.0.1"
 wheel = "==0.34.*,>=0.34.2"
 wrapt = "==1.12.1"
+protobuf = "^3.13.0"
 
 
 [build-system]
