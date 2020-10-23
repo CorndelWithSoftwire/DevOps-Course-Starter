@@ -12,8 +12,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-check form-check-inline">
                                         <form class="form-inline" method="post" action="/update_todo/{{todo.id}}">
-                                            <input id="my-input" class="form-check-input" type="checkbox" name="completed" {% if todo.status !='Not Started' %} checked {% endif %}>
-                                            <input class="btn btn-primary btn-sm" type="submit" name="update" value="Update" placeholder="Update" aria-label="Update" aria-describedby="updateTask">
+                                            <input class="btn btn-primary btn-sm" type="submit" name="doing" value="Doing" placeholder="Doing" aria-label="Doing" aria-describedby="updateTask" {% if 'Done' == todo.status %} disabled {% endif %}>
                                             <a class="btn btn-danger btn-sm" href="/remove_todo/{{todo.id}}">Delete</a>
                                         </form>
                                     </div>

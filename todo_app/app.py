@@ -38,11 +38,11 @@ def create_app():
         item = service.get_item(id)
         listId = service.get_list_id(constants.TODO_APP_COMPLETED)
         
-        if request.form.get('completed'):
+        if request.form.get('done'):
             item.status= constants.TODO_APP_COMPLETED
         else:
-            listId = service.get_list_id(constants.TODO_APP_NOT_STARTED)
-            item.status = constants.TODO_APP_NOT_STARTED
+            listId = service.get_list_id(constants.TODO_APP_DOING)
+            item.status = constants.TODO_APP_DOING
             
         item.listId = listId
         service.save_item(item)
