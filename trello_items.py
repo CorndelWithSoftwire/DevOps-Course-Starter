@@ -11,13 +11,14 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    not_started_response = requests.get(f'https://api.trello.com/1/lists/{Config.LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
-    done_request = requests.get(f'https://api.trello.com/1/lists/{Config.DONE_LIST_ID}/cards?key={Config.KEY}&token={Config.TOKEN}')
+    confg = Config()
+    not_started_response = requests.get(f'https://api.trello.com/1/lists/{confg.LIST_ID}/cards?key={confg.KEY}&token={confg.TOKEN}')
+    done_request = requests.get(f'https://api.trello.com/1/lists/{confg.DONE_LIST_ID}/cards?key={confg.KEY}&token={confg.TOKEN}')
     trello_items = []
     for item in not_started_response.json():
-        trello_items.append(Item(item))
+        trello_items.append(Item.from_response(item))
     for item in done_request.json():
-        trello_items.append(Item(item))
+        trello_items.append(Item.from_response(item))
     return trello_items
 
 
@@ -33,10 +34,11 @@ def add_item(title, descr):
     """
     url = "https://api.trello.com/1/cards"
 
+    confg = Config()
     query = {
-        'key': Config.KEY,
-        'token': Config.TOKEN,
-        'idList': Config.LIST_ID,
+        'key': confg.KEY,
+        'token': confg.TOKEN,
+        'idList': confg.LIST_ID,
         'name': title,
         'desc': descr,
     }
@@ -47,8 +49,6 @@ def add_item(title, descr):
         params=query
     )
 
-    print(response.text)
-
 
 def move_to_done(itemId):
     url = f'https://api.trello.com/1/cards/{itemId}'
@@ -57,10 +57,11 @@ def move_to_done(itemId):
         "Accept": "application/json"
     }
 
+    confg = Config()
     query = {
-        'key': Config.KEY,
-        'token': Config.TOKEN,
-        'idList': Config.DONE_LIST_ID
+        'key': confg.KEY,
+        'token': confg.TOKEN,
+        'idList': confg.DONE_LIST_ID
     }
 
     response = requests.request(
@@ -69,4 +70,3 @@ def move_to_done(itemId):
         headers=headers,
         params=query
     )
-    print(response.text)
