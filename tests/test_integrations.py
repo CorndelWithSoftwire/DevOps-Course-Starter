@@ -1,9 +1,6 @@
-import app, Trello_items, pytest, datetime
+import app, Trello_items, pytest, datetime, os, json
+from Trello_items import get_items_from_trello_api
 from dotenv import find_dotenv, load_dotenv
-
-TRELLO_TODO_LISTID = os.environ.get('TRELLO_TODO_LISTID')
-TRELLO_DOING_LISTID = os.environ.get('TRELLO_DOING_LISTID')
-TRELLO_DONE_LISTID = os.environ.get('TRELLO_DONE_LISTID')
 
 @pytest.fixture
 def client():
@@ -15,3 +12,7 @@ def client():
     # Use the app to create a test_client that can be used in our tests.
     with test_app.test_client() as client:
         yield client
+
+
+def test_index_page(mock_get_requests, client):
+    response = client.get('/')
