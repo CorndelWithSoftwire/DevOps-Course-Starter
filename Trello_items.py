@@ -30,6 +30,16 @@ class Item:
         self.title = title
         self.lastmodifieddate = lastmodifieddate
 
+def get_items_from_trello_api():
+    """
+    Fetches all cards from the Trello.
+
+    Returns:
+        list: Json formatted list from Trello
+    """
+    cards = requests.get(getcardsonboardsurl, params=build_auth_query())
+    cards_json = cards.json()
+    return cards_json
 
 def get_items_trello():
     """
@@ -38,8 +48,7 @@ def get_items_trello():
     Returns:
         list: The list of saved items.
     """
-    cards = requests.get(getcardsonboardsurl, params=build_auth_query())
-    cards_json = cards.json()
+    cards_json = get_items_from_trello_api()
 
     items = []
     for card in cards_json:
