@@ -124,3 +124,19 @@ class Trello_service(object):
         requests.request("DELETE", url)
         self.get_items_from_trello()
     
+    def create_board(self, name):
+        """
+        Create a board for testing purpose
+        """
+        url = f"{constants.TRELLO_API_URL}boards/?{self.TRELLO_CREDENTIALS}&name={name}"
+        response = requests.request("PUT", url)
+        responseText =  response.text
+        newBoard = json.loads(responseText.encode('utf8'))
+        return newBoard['id']
+
+    def delete_board(self, id):
+        """
+        Delete a board for testing purpose
+        """
+        url = f"{constants.TRELLO_API_URL}boards/{id}?{self.TRELLO_CREDENTIALS}"
+        response = requests.request("DELETE", url)
