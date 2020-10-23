@@ -6,6 +6,13 @@ from view_model import ViewModel
 
 app = Flask(__name__)
 
+
+def create_app():
+ app = Flask(__name__)
+ app.config.from_object('app_config.Config')
+
+ 
+
 @app.route('/', methods=['GET'])
 def get_items():
     items = trello_cards.get_items()
