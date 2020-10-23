@@ -21,5 +21,5 @@ def add_todo_item(driver):
     newToDoItemXPath = '/html/body/div/div[2]/div[2]/div/ul[1]/div/li/ul/div/div[1]'
     newToDoItem = driver.find_elements(By.XPATH, newToDoItemXPath)
  
-    assert newToDoItem[0].text = text
+    assert newToDoItem[0].text == text
     
