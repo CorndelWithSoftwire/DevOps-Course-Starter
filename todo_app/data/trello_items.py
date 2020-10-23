@@ -129,7 +129,7 @@ class Trello_service(object):
         Create a board for testing purpose
         """
         url = f"{constants.TRELLO_API_URL}boards/?{self.TRELLO_CREDENTIALS}&name={name}"
-        response = requests.request("PUT", url)
+        response = requests.request("POST", url)
         responseText =  response.text
         newBoard = json.loads(responseText.encode('utf8'))
         return newBoard['id']
