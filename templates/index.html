@@ -12,10 +12,8 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in items%}  
-          <form action="/markAsComplete/" method="POST">
-            <li id="itemName" name="itemName">{{item}}</li>
-            <button type="submit" onclick="" style="width: fit-content;">Set as Complete</button>
-          </form>
+            <li id="itemName" name="something">{{item}}</li>
+            <button type="submit" value="DoIt" style="width: fit-content;"><a href="{{ url_for('markAsComplete', item_id=item) }}">Set as Complete</a></button>
         {%endfor%} 
       </ul>
       <form action="/newItem" method="POST">
