@@ -1,18 +1,25 @@
-{% extends "layout.html" %}
-{% block title %}To-Do App{% endblock %}
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block
+content %}
+<div class="jumbotron">
+  <h1 class="display-4">To-Do App</h1>
+  <p class="lead">Just another to-do app.</p>
+</div>
 
-{% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Items</h2>
+    <ul class="list-group mb-4">
+      <!-- List the todo items here -->
+      {% for item in items %}
+      <li>{{ item["id"] }} | {{ item["title"] }}</li>
+      {% endfor %}
+    </ul>
   </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
-    </div>
-  </div>
+</div>
+<div>
+  <form action="/items" method="POST">
+    <input type="text" name="text-input" />
+    <button type="submit" type="button" class="btn btn-primary">Add</button>
+  </form>
+</div>
 {% endblock %}
