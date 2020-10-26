@@ -59,14 +59,6 @@ board_lists_json = [
 ]
 
 
-def tearDown(self):
-    try:
-        board_id = os.getenv("TODO_BOARD_ID")
-        Tre
-    except OSError as oserr:
-        print(oserr)
-
-
 @pytest.fixture
 def client():
     mock_get_request = patch('trello_request.requests.request')
