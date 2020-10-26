@@ -12,6 +12,10 @@ content %}
       <!-- List the todo items here -->
       {% for item in items %}
         <li>{{ item.name }} | {{ item.status }}</li>
+        <form method="POST" action="/complete-item">
+          <input type="text" name="id" value="{{ item.id }}" hidden/>
+          <button type="submit" type="button" class="btn btn-primary">Complete</button>
+        </form>
       {% endfor %}
     </ul>
   </div>

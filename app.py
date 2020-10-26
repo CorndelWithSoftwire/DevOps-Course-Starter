@@ -21,12 +21,38 @@ def index():
     return render_template('index.html', items=cards)
 
 
-# @app.route('/items', methods=['POST'])
-# def add_item():
-#     title = request.form['text-input']
-#     session.add_item(title)
-#     return redirect('/')
+@app.route('/items', methods=['POST'])
+def add_item():
+    board_id = os.getenv('TRELLO_BOARD_ID')
+    board_key = os.getenv('TRELLO_KEY')
+    board_token = os.getenv('TRELLO_TOKEN')
+    todo_title = request.form['text-input']
+    items_response = requests.post(
+        f'https://api.trello.com/1/cards',
+        params={
+            'key': board_key, 
+            'token': board_token, 
+            'name': todo_title, 
+            'idList': os.getenv('TRELLO_TODO_ID')
+        }
+    )
+    return redirect('/')
 
+@app.route('/complete-item', methods=['POST'])
+def complete_item():
+    card_id = request.form['id']
+    board_id = os.getenv('TRELLO_BOARD_ID')
+    board_key = os.getenv('TRELLO_KEY')
+    board_token = os.getenv('TRELLO_TOKEN')
+    items_response = requests.put(
+        f'https://api.trello.com/1/cards/{card_id}',
+        params={
+            'key': board_key, 
+            'token': board_token,
+            'idList': os.getenv('TRELLO_DONE_ID')
+        }
+    )
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
