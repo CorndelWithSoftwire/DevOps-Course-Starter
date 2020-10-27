@@ -1,8 +1,5 @@
 import requests
 import os, datetime
-from dotenv import load_dotenv, find_dotenv
-
-
 
 def get_trello_key():
     TRELLO_KEY = os.environ.get('TRELLO_KEY')
