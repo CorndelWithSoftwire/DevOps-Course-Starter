@@ -7,24 +7,36 @@ from dotenv import load_dotenv, find_dotenv
 def get_trello_key():
     TRELLO_KEY = os.environ.get('TRELLO_KEY')
     return TRELLO_KEY
+    
 def get_trello_token():
     TRELLO_TOKEN = os.environ.get('TRELLO_TOKEN')
     return TRELLO_TOKEN
+
 def get_trello_todo_boardid():
     TRELLO_TODO_BOARDID = os.environ.get('TRELLO_TODO_BOARDID')
     return TRELLO_TODO_BOARDID
+
 def get_trello_todo_listid():
-    TRELLO_TODO_LISTID = os.environ.get('TRELLO_TODO_LISTID')
-    return TRELLO_TODO_LISTID
+    lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
+    lists_json = lists.json()
+    for list in lists_json:
+        if list['name'] == "To Do":
+            return list['id']
+
 def get_trello_doing_listid():
-    TRELLO_DOING_LISTID = os.environ.get('TRELLO_DOING_LISTID')
-    return TRELLO_DOING_LISTID
+    lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
+    lists_json = lists.json()
+    for list in lists_json:
+        if list['name'] == "Doing":
+            return list['id']
+
 def get_trello_done_listid():
-    TRELLO_DONE_LISTID = os.environ.get('TRELLO_DONE_LISTID')
-    return TRELLO_DONE_LISTID
-def get_cards_on_boards_url():
-    getcardsonboardsurl = boardsurl + get_trello_todo_boardid() + '/cards'
-    return getcardsonboardsurl
+    lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
+    lists_json = lists.json()
+    for list in lists_json:
+        if list['name'] == "Done":
+            return list['id']
+
 
 apiurl = "https://api.trello.com/1/"
 boardsurl = apiurl + 'boards/'
@@ -37,7 +49,13 @@ def getlistofcard_URL(cardid):
 def putcardsonlist_URL(cardid):
     URL = cardsurl + cardid
     return URL
-
+def get_cards_on_boards_url():
+    getcardsonboardsurl = boardsurl + get_trello_todo_boardid() + '/cards'
+    return getcardsonboardsurl
+def get_lists_on_boards_url():
+    getlistsonboardsurl = boardsurl + get_trello_todo_boardid() + '/lists'
+    return getlistsonboardsurl
+    
 def build_auth_query():
     return {'key' : get_trello_key(), 'token' : get_trello_token()}
 
