@@ -12,6 +12,40 @@ def client():
     with test_app.test_client() as client:
         yield client
 
+class mock_get_lists_response:
+    @staticmethod
+    def json():
+        null=None; false=False
+        listsjson = ([
+        {
+            "id":"fake_trello_todo_listid",
+            "name":"To Do",
+            "closed":false,
+            "pos":65535,
+            "softLimit":null,
+            "idBoard":"fake_trello_boardid",
+            "subscribed":false
+        },
+        {
+            "id":"fake_trello_doing_listid",
+            "name":"Doing","closed":false,
+            "pos":131071,
+            "softLimit":null,
+            "idBoard":"fake_trello_boardid",
+            "subscribed":false
+        },
+        {
+            "id":"fake_trello_done_listid",
+            "name":"Done",
+            "closed":false,
+            "pos":196607,
+            "softLimit":null,
+            "idBoard":"fake_trello_boardid",
+            "subscribed":false
+        }
+        ]
+        )
+        return listsjson
 
 class mock_get_response:
     @staticmethod
@@ -258,7 +292,10 @@ class mock_get_response:
 
 def test_index_page(client, monkeypatch):
     def mock_get_requests(*args, **kwargs):
-        return mock_get_response
+        if args[0] == 'https://api.trello.com/1/boards/fake_trello_boardid/lists':
+            return mock_get_lists_response
+        else:
+            return mock_get_response
     monkeypatch.setattr(Trello_items.requests, "get", mock_get_requests)
     response = client.get('/')
     assert "TestItem1" in str(response.data)

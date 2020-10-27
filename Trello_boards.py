@@ -1,7 +1,7 @@
 import requests
-from dotenv import load_dotenv
 from Trello_items import boardsurl, get_trello_key, get_trello_token, build_auth_query
-load_dotenv()
+from dotenv import load_dotenv, find_dotenv
+
 
 def create_trello_board():
     """
