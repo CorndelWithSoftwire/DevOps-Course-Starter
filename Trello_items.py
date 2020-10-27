@@ -1,7 +1,8 @@
 import requests
 import os, datetime
-from dotenv import load_dotenv
-load_dotenv()
+from dotenv import load_dotenv, find_dotenv
+
+
 
 def get_trello_key():
     TRELLO_KEY = os.environ.get('TRELLO_KEY')
@@ -21,10 +22,13 @@ def get_trello_doing_listid():
 def get_trello_done_listid():
     TRELLO_DONE_LISTID = os.environ.get('TRELLO_DONE_LISTID')
     return TRELLO_DONE_LISTID
+def get_cards_on_boards_url():
+    getcardsonboardsurl = boardsurl + get_trello_todo_boardid() + '/cards'
+    return getcardsonboardsurl
 
 apiurl = "https://api.trello.com/1/"
 boardsurl = apiurl + 'boards/'
-getcardsonboardsurl = boardsurl + get_trello_todo_boardid() + '/cards'
+
 cardsurl = apiurl + 'cards/'
 
 def getlistofcard_URL(cardid):
@@ -51,7 +55,7 @@ def get_items_from_trello_api():
     Returns:
         list: Json formatted list from Trello
     """
-    cards = requests.get(getcardsonboardsurl, params=build_auth_query())
+    cards = requests.get(get_cards_on_boards_url(), params=build_auth_query())
     cards_json = cards.json()
     return cards_json
 
