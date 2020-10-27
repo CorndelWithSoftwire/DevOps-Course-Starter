@@ -27,10 +27,10 @@
             <label for="title">{{item.title}}</label>
             <div class="btn-group" role="group">
             <form action="/{{item.id}}/doing" method="post">              
-              <button type="submit" name=sub class="btn btn-outline-primary">Mark Doing</button>
+              <button type="submit" name="todo_doing" class="btn btn-outline-primary">Mark Doing</button>
             </form>
             <form action="/{{item.id}}/completed" method="post">            
-                <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
+                <button type="submit" name="todo_complete" class="btn btn-outline-primary">Mark Completed</button>
             </form>
             </div>
           </li>
@@ -42,10 +42,10 @@
             <label for="title">{{item.title}}</label>
             <div class="btn-group" role="group">
             <form action="/{{item.id}}/todo" method="post">              
-              <button type="submit" name=sub class="btn btn-outline-primary">Mark To Do</button>
+              <button type="submit" name=doing_todo class="btn btn-outline-primary">Mark To Do</button>
             </form>
             <form action="/{{item.id}}/completed" method="post">              
-              <button type="submit" name=sub class="btn btn-outline-primary">Mark Completed</button>
+              <button type="submit" name=doing_complete class="btn btn-outline-primary">Mark Completed</button>
             </form></div>
           </li>
         {% endfor %}
