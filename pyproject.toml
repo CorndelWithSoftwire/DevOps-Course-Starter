@@ -7,7 +7,7 @@ authors = []
 [tool.poetry.dependencies]
 python = "^3.7"
 flask = "^1.1.2"
-python-dotenv = "^0.14.0"
+#python-dotenv = "^0.14.0"
 argparse = "==1.4.*,>=1.4.0"
 astroid = "==2.4.2"
 certifi = "==2020.6.20"
@@ -28,12 +28,9 @@ oauthlib = "==3.1.0"
 pip = "==20.2.*,>=20.2.2"
 py = "==1.9.*,>=1.9.0"
 pycparser = "==2.20"
-pylint = "==2.5.3"
 pyopenssl = "==19.1.0"
-pytest = "==6.0.*,>=6.0.1"
 python-dateutil = "==2.8.1"
 requests = "==2.23.0"
-selenium = "==3.141.*,>=3.141.0"
 setuptools = "==46.0.*,>=46.0.0"
 six = "==1.14.0"
 toml = "==0.10.1"
@@ -43,7 +40,12 @@ werkzeug = "==1.0.1"
 wheel = "==0.34.*,>=0.34.2"
 wrapt = "==1.12.1"
 protobuf = "^3.13.0"
+python-dotenv = "^0.14.0"
 
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.1"
+selenium = "^3.141.0"
+pylint = "^2.6.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

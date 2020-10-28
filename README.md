@@ -21,7 +21,7 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
 
 ```bash
-$ poetry install
+$ poetry install --no-dev
 ```
 
 You'll also need to clone a new `.env` file from the `.env.tempalate` to store local configuration options. This is a one-time operation on first setup:
@@ -61,6 +61,12 @@ APP_TOKEN - This is the Trello APP token which you can be obtained by clicking t
 Create a trello TODO board with 2 lists and obtain their IDs and set in the environment variables below
 
 TODO_BOARD_ID 
+
+### gunicorn support
+Support for gunicorn local run 
+```
+poetry run gunicorn --daemon --bind 0.0.0.0:5000 -w 1 "wsgi:create_app()"
+```
 
 ### Vagrant
 You can also use vagrant
