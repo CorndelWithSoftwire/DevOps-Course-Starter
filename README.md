@@ -62,10 +62,8 @@ Create a trello TODO board with 2 lists and obtain their IDs and set in the envi
 
 TODO_BOARD_ID 
 
-When running `setup.sh`, the `.env.template` file will be copied to `.env` if the latter does not exist.
-
 ### Vagrant
-You can only run using the VM 
+You can also use vagrant
 ```
 $ vagrant up
 ```

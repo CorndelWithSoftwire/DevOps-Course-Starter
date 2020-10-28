@@ -15,6 +15,9 @@ def create_app():
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object('flask_config.Config')
 
+    TrelloRequest.APP_API_KEY = os.getenv("APP_API_KEY")
+    TrelloRequest.APP_TOKEN = os.getenv("APP_TOKEN")
+
     board_lists = setup_lists()
 
     # Jinja filters
