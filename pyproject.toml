@@ -10,6 +10,7 @@ flask = "^1.1.2"
 python-dotenv = "^0.14.0"
 python-dateutil = "==2.8.1"
 requests = "==2.23.0"
+gunicorn = "^20.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.1.1"

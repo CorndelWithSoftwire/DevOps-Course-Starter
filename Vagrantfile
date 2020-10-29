@@ -31,13 +31,9 @@ Vagrant.configure("2") do |config|
           pyenv install 3.7.7
           pyenv global 3.7.7
           
-          pip install --upgrade pip
-          
           echo "Install poetry "
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-          
-          echo "Install gunicorn"
-          pip install gunicorn
+       
     SHELL
 
     config.trigger.after :up do |trigger|
@@ -46,9 +42,16 @@ Vagrant.configure("2") do |config|
         trigger.run_remote = { privileged: false, inline: "
               echo 'Install poetry dependencies and launch gunicorn'
               cd /vagrant
+              
+              echo 'Install gunicorn'
+              poetry add gunicorn
+              
+              echo 'Install todo app'
               poetry install --no-dev
-#               poetry run gunicorn --bind 0.0.0.0:5000 -w 1 'wsgi:create_app()'
-              poetry run flask run -h 0.0.0.0
+              
+              sudo mkdir -p /var/log/gunicorn
+              sudo chown vagrant:vagrant /var/log/gunicorn
+              poetry run gunicorn --daemon --bind 0.0.0.0:5000 -w 1 'wsgi:create_app()' --error-logfile /var/log/gunicorn/gunicorn_error.log, --log-file /var/log/gunicorn/gunicorn.log
               echo 'Launched on host http://localhost:5001'
         "}
     end
