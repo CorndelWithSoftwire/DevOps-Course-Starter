@@ -1,8 +1,11 @@
 from flask import Flask,request,render_template, redirect
 import todo_app.data.session_items as session
+from todo_app.flask_config import Config
+
 
 app = Flask(__name__)
-app.secret_key = "super secret key"
+app.config.from_object(Config)
+
 
 @app.route('/add_item')
 def add_item():
@@ -17,5 +20,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.debug = True
     app.run()
