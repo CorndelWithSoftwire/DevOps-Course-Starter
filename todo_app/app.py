@@ -1,5 +1,4 @@
-import os.path
-from flask import Flask,escape,request,Response,render_template, redirect
+from flask import Flask,request,render_template, redirect
 import todo_app.data.session_items as session
 
 app = Flask(__name__)
