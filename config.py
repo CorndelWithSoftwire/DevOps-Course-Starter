@@ -19,6 +19,9 @@ def get_trello_board_id():
 def get_trello_list_id():
     return os.getenv("LIST_ID")
 
+def get_trello_list_id_doing():
+    return os.getenv("LIST_ID_DOING")
+
 def get_trello_token():
     return os.getenv("TOKEN")
 

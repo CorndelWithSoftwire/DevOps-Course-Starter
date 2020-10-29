@@ -27,9 +27,9 @@ def index():
     items_list = list()
     for card in cards:
         status = 'To Do' 
-        if card['idList'] == '5f5a4b008a129438843fcf10':
+        if card['idList'] == cf.get_trello_list_id():
             status = 'To Do'
-        elif card['idList'] == '5f5a4b008a129438843fcf11':
+        elif card['idList'] == cf.get_trello_list_id_doing():
             status = 'Doing'
         else:
             status = 'Done'
@@ -48,15 +48,13 @@ def index():
 #@app.route('/complete_item/<idCard>', methods=['GET', 'PUT'])
 def update_card(idCard):
 
-    add_card_to_done()
-
     url = "https://api.trello.com/1/cards/{idCard}"
     headers = {"Accept": "application/json"}
     list_id = cf.get_trello_list_id()
     query = cf.get_trello_query()
     query['idList'] = list_id
     response = requests.request( "PUT", url, headers=headers, params=query )
-    return redirect(url_for('index'))
+    return redirect(url_for('trello_bp.index'))
 
 
 @trello_bp.route('/add', methods=['POST'])
@@ -72,7 +70,7 @@ def add_card():
         query['name'] = request.form['title']
 
     response = requests.request("POST", url, params=query )
-    return redirect(url_for('index'))
+    return redirect(url_for('trello_bp.index'))
 
 
 def add_card_to_todo():
