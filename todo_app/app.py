@@ -12,7 +12,7 @@ headers = {
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('app_config.Config')
+    app.config.from_object('dotenv')
 
     @app.route('/', methods=['Get'])
     def index():
