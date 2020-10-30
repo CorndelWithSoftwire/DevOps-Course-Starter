@@ -11,7 +11,8 @@ import requests
 @pytest.fixture(scope='module')
 def test_app():
 
-    #file_path = dotenv.find_dotenv('.env')     
+    file_path = dotenv.find_dotenv('.env') 
+    dotenv.load_dotenv(file_path, override=True)      
 
     # Create the new board & set it to env variable
     board_id = create_board() 
@@ -24,7 +25,7 @@ def test_app():
         ('fields', 'all')
     )
     boardid = os.environ['TRELLO_BOARD_ID']
-    r = requests.get('https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
+    r = requests.get(f'https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
 
     to_do_id = r.json()[0]['id']
     doing_id = r.json()[1]['id']

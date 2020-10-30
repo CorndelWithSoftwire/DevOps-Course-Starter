@@ -1,3 +1,9 @@
 {
-    "python.pythonPath": "c:\\DevOps\\Project_Exercises\\DevOps-Course-Starter\\.venv\\Scripts\\python.exe"
+    "python.pythonPath": "c:\\DevOps\\Project_Exercises\\DevOps-Course-Starter\\.venv\\Scripts\\python.exe",
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": true
 }
