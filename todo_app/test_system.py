@@ -16,7 +16,7 @@ def test_app():
 
     # Create the new board & set it to env variable
     board_id = create_board() 
-    os.environ['TRELLO_BOARD_ID'] = board_id
+    os.environ['TRELLO_BOARD'] = board_id
 
     # Get the new board list ids and update the environment variables
     params = (
@@ -24,7 +24,7 @@ def test_app():
         ('token', os.environ['TRELLO_TOKEN']),
         ('fields', 'all')
     )
-    boardid = os.environ['TRELLO_BOARD_ID']
+    boardid = os.environ['TRELLO_BOARD']
     r = requests.get(f'https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
 
     to_do_id = r.json()[0]['id']
