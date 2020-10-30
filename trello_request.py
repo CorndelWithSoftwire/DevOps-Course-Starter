@@ -8,8 +8,8 @@ from requests.exceptions import HTTPError
 
 class TrelloRequest:
     BASE_PATH = "https://api.trello.com/1"
-    APP_API_KEY = os.getenv("APP_API_KEY")
-    APP_TOKEN = os.getenv("APP_TOKEN")
+    APP_API_KEY = None
+    APP_TOKEN = None
 
     logger = logging.getLogger('trello_request')
 
@@ -25,6 +25,8 @@ class TrelloRequest:
 
             if query_params:
                 query.update(query_params)
+
+            self.logger.debug(f"query parameters: {query}")
 
             response = requests.request(
                 method,

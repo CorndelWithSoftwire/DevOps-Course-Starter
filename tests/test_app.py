@@ -59,14 +59,6 @@ board_lists_json = [
 ]
 
 
-def tearDown(self):
-    try:
-        board_id = os.getenv("TODO_BOARD_ID")
-        Tre
-    except OSError as oserr:
-        print(oserr)
-
-
 @pytest.fixture
 def client():
     mock_get_request = patch('trello_request.requests.request')
@@ -115,5 +107,5 @@ def test_add_item_with_a_todo(mock_post_request, client):
 
     # Then
     mock_post_request.assert_called_with('POST', 'https://api.trello.com/1/cards',
-                                         params={'key': None, 'token': None, 'idList': '5f4dfb5dc9f1a151051ce7a6',
+                                         params={'key': 'eiruty89457934iy', 'token': 'ijehgeriu835hghe8r9348hfi539h585terh5893', 'idList': '5f4dfb5dc9f1a151051ce7a6',
                                                  'name': 'Valid Item', 'due': '2020-10-21'})
