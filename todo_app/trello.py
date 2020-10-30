@@ -34,6 +34,9 @@ def create_todo_task(title):
         ('name', title),
         ('idList', os.environ['TRELLO_TODO_LIST_ID'])
     )
+    print(os.environ['TRELLO_KEY'])
+    print(os.environ['TRELLO_TOKEN'])
+    print(os.environ['TRELLO_TODO_LIST_ID'])
     requests.post('https://api.trello.com/1/cards', params=params)
 
 def move_to_doing(id):
