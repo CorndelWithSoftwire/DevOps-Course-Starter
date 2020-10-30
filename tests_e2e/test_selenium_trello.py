@@ -21,7 +21,11 @@ def test_app():
     load_dotenv(override=True)
     # Create the new board & update the board id environment variable
     board_id = create_trello_board('Testing')
+    list_id_to_do = add_trello_list_to_board('Testing_list_to_do', board_id)
+    list_id_done = add_trello_list_to_board('Testing_list_done', board_id)
     os.environ['BOARD_ID'] = board_id
+    os.environ['LIST_ID'] = list_id_to_do
+    os.environ['LIST_ID_DONE'] = list_id_done
     # construct the new application
     application = app.create_app()
     # start the app in its own thread.
@@ -42,31 +46,12 @@ def driver():
 
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
-    #driver.get('http://127.0.0.1:5000/')
-    #assert driver.title == 'To-Do App' 
     driver.find_element_by_id('new_to_do_title').send_keys('New_To_Do_Selenium3')
     driver.find_element_by_id('new_to_do_submit').click()
-    
-    #time.sleep(10)
-    #WebDriverWait(driver, 30).until(ec.url_matches('/'), 'add page still not refresh for response')
-    #WebDriverWait(driver, 30).until(ec.url_matches('/add'), 'add page still not refresh for response')
-    WebDriverWait(driver, 30).until(ec.text_to_be_present_in_element((By.ID, "list_of_to_dos"), "New_To_Do_Selenium3"))
-
-    #assert 'New_To_Do_Selenium' in driver.find_element_by_id('To_Do_ul').text
-
-    selenium_to_do_items = driver.find_elements_by_xpath("//div[@id='list_of_to_dos']/ul/li")
-    #selenium_all_list_items = driver.find_elements_by_class_name("list-group mb-4")
-    
-    for item in selenium_to_do_items:
-        print(item.text)
-
+    time.sleep(2)
     content = driver.page_source
 
-    print(content)
-
-    print('About to execute Final Assert ')
     assert driver.title == 'To-Do App' 
-    #assert url_for(test_app.trello_bp.index) in driver.current_url
     assert 'New_To_Do_Selenium3' in content
 
 
@@ -77,6 +62,17 @@ def create_trello_board(board_name):
 
     response = requests.request(  "POST", url, params=query )
     return json.loads(response.text)['id']
+
+
+def add_trello_list_to_board(name, board_id):
+    url = "https://api.trello.com/1/lists"
+    query = cf.get_trello_query()
+    query['name'] = name
+    query['idBoard'] = board_id
+
+    response = requests.request( "POST", url, params=query )
+    return json.loads(response.text)['id']
+
 
 def delete_trello_board(board_id):
     url = "https://api.trello.com/1/boards/{id}"
