@@ -1,20 +1,27 @@
 # DevOps Apprenticeship: Project Exercise
 
-## System Requirements
+## Getting started
 
-The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
+The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
 
-### Poetry installation (Bash)
+### On Windows   
+pip install -r requirements.txt
 
-```bash
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-```
 
-### Poetry installation (PowerShell)
+Setup the below Environment variables for Trello API
 
-```powershell
-(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
-```
+TRELLO_KEY
+
+TRELLO_TOKEN
+
+TRELLO_BOARD_ID
+
+TRELLO_TODO_LIST_ID
+
+TRELLO_DOING_LIST_ID
+
+TRELLO_DONE_LIST_ID
+
 
 ## Dependencies
 

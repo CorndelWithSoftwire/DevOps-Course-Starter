@@ -7,34 +7,129 @@
   <p class="lead">Just another to-do app.</p>
 </div>
 
-
-
 <div class="row">
   <div class="col-md-12">
-    <h2>Trello Boards</h2>
+    <form action="/add_todo" method="POST"> 
+      <Table>
+        <tr style="align:middle">
+         <td> <label for="title">Title</label> </td>
+         <td> <input name="title" id = "title" required> </td>
+         <td> <input type="submit" id="new_task" value="Add New Task"></td>
+        </tr> 
+      </Table> 
+    </form>
+  </div>
+  <div class="col-md-12">
+    <h2>To Do</h2>    
     <ul class="list-group mb-4">
-      {% if message %}
-        <p class="lead mark">{{message}}</p>
-      {%endif%}
       <Table class="table-bordered">
         <tr>
-          <th>Name</th>
+          <th>Title</th>              
           <th>Actions</th>
-        </tr>
+        </tr>            
+        {% for task in view_model.tasks_todo %}
         <tr>
-          <td></td>
-          <th><a href="/add_board">Add New Board</a></th>
-        </tr>
-        {% for board in data %}
-        <tr>
-          <td> {{board["name"]}}</td>
-          <td> <a href="/view_board?id={{board['id']}}">View</a> | <a href="/delete_board?id={{board['id']}}">Delete</a>
+          <td style="width:50%"> {{ task.title }} - {{ task.last_modified }}</td>              
+          <td>
+            <Table>
+              <TR>
+                <TD>
+                  <form action="/move_to_doing/{{ task.id }}" method="POST">              
+                    <button type="submit" id="move_to_doing">Doing</button>              
+                  </form>
+                </TD>
+                <td>
+                  <form action="/move_to_done/{{ task.id }}" method="POST">              
+                    <button type="submit" id="move_to_done">Done</button>              
+                  </form>  
+                </td>
+                <td>
+                  <form action="/delete_task/{{ task.id }}" method="POST">              
+                    <button  type="submit" id="delete_task">Delete</button>              
+                  </form>
+                </td>
+              </TR>
+            </Table>                       
           </td>
         </tr>
         {% endfor %}
-
       </Table>
     </ul>
-  </div>
+     
+    
+    <h2>Doing</h2>
+    <ul class="list-group mb-4">
+      <Table class="table-bordered">
+        <tr>
+          <th>Title</th>              
+          <th>Actions</th>
+        </tr>            
+        {% for task in view_model.tasks_doing %}
+        <tr>
+          <td style="width:50%"> {{ task.title }} - {{ task.last_modified }}</td>              
+          <td>
+            <Table>
+              <TR>                
+                <td>
+                  <form action="/move_to_done/{{ task.id }}" method="POST">              
+                    <button type="submit" id="move_to_done">Done</button>              
+                  </form>  
+                </td>
+                <td>
+                  <form action="/delete_task/{{ task.id }}" method="POST">              
+                    <button  type="submit" id="delete_task">Delete</button>              
+                  </form>
+                </td>
+                <td></td>
+              </TR>
+            </Table>                       
+          </td>
+        </tr>
+        {% endfor %}
+      </Table>
+    </ul>
+    
+    <h2>Done</h2>
+    <ul class="list-group mb-4">
+      <Table class="table-bordered">
+        <tr>
+          <th>Title</th>              
+          <th>Actions</th>
+        </tr>            
+        {% for task in view_model.show_all_done_tasks %}
+        <tr>
+          <td style="width:50%"> {{ task.title }} - {{ task.last_modified }}</td>              
+          <td>
+            <form action="/delete_task/{{ task.id }}" method="POST">              
+              <button  type="submit" id="delete_task">Delete</button>              
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </Table>
+    </ul>
+    
+    <details>
+      <summary>Older Done Tasks</summary>
+      <ul class="list-group mb-4">
+        <Table class="table-bordered">
+          <tr>
+            <th>Title</th>              
+            <th>Actions</th>
+          </tr>            
+          {% for task in view_model.older_done_tasks %}
+          <tr>
+            <td style="width:50%"> {{ task.title }} - {{ task.last_modified }}</td>              
+            <td>            
+              <form action="/delete_task/{{ task.id }}" method="POST">              
+                <button  type="submit" id="delete_task">Delete</button>              
+              </form>                                       
+            </td>
+          </tr>
+          {% endfor %}
+        </Table>
+      </ul>     
+    </details>
+  </div>  
 </div>
 {% endblock %}
