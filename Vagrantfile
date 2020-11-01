@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
     pyenv install 3.8.5
     pyenv global 3.8.5
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-    exec "$SHELL"
+    source .bash_profile
   SHELL
 
   # Start flask app using trigger
@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
       # Install dependencies and launch
       cd /vagrant
       poetry install
-      poetry run flask run --host=0.0.0.0
+      nohup poetry run flask run --host=0.0.0.0 > logs.txt 2>&1 &
     "}
     end
 

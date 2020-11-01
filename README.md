@@ -40,6 +40,10 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+#### Running with Vagrant
+- Download and install vagrant if not present https://safe.menlosecurity.com/https://www.vagrantup.com/docs/installation
+- run `vagrant up` to start development env and start app   
+
 how to run tests
 - ensure chromedriver is downloaded and added to system path (https://chromedriver.chromium.org/downloads) 
-- run `pytest` from the command line
+- run `poetry run pytest` from the command line
