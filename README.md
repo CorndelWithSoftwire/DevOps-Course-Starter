@@ -4,22 +4,28 @@
 
 The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
 
-### On macOS and Linux
+### System Requirements
+The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the poetry documentation):
+
+
+### Installing dependencies
+To install project dependency. Use the previously installed poetry cli to install required dependencies
+
 ```bash
-$ source setup.sh
-```
-### On Windows (Using PowerShell)
-```powershell
-$ .\setup.ps1
-```
-### On Windows (Using Git Bash)
+poetry install
+``` 
+Ensure that local configurations are provided to flask. This should be a one time operation
 ```bash
-$ source setup.sh --windows
+cp .env.template .env
 ```
 
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
+The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change).
+There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+
+### Running app
+Once all setup and dependencies has completed and all packages have been installed, start the Flask app by running:
 ```bash
-$ flask run
+$ poetry run flask run
 ```
 
 You should see output similar to the following:
@@ -34,13 +40,10 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
-### Notes
-
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like developement mode (which also enables features like hot reloading when you make a file change).
-* There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
-
-When running `setup.sh`, the `.env.template` file will be copied to `.env` if the latter does not exist.
+#### Running with Vagrant
+- Download and install vagrant if not present https://safe.menlosecurity.com/https://www.vagrantup.com/docs/installation
+- run `vagrant up` to start development env and start app   
 
 how to run tests
 - ensure chromedriver is downloaded and added to system path (https://chromedriver.chromium.org/downloads) 
-- run `pytest` from the command line
+- run `poetry run pytest` from the command line
