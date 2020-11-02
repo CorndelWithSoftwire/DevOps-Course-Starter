@@ -50,7 +50,7 @@ def update_card(idCard):
 
     url = "https://api.trello.com/1/cards/{idCard}"
     headers = {"Accept": "application/json"}
-    list_id = cf.get_trello_list_id()
+    list_id = cf.get_trello_list_id_done()
     query = cf.get_trello_query()
     query['idList'] = list_id
     response = requests.request( "PUT", url, headers=headers, params=query )

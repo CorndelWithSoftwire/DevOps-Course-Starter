@@ -24,37 +24,43 @@ def test_doing_items_values():
         id, status, title = item.id, item.status, item.title
         assert id == '5f6f50a13a48c95efb5679f1' and status == 'Doing' and title == 'To Do 222'
         
-def test_done_items():
-    assert len(get_test_view_model().doneItems) == 2
 
 def test_done_items_values():
+    #Check done list is not empty and contains 2 elements
+    assert len(get_test_view_model().doneItems) == 2
+
     for item in get_test_view_model().doneItems:
-        id, status, title = item.id, item.status, item.title
-        assert id == '5f6f50cc2316514d6241e6ba' and status == 'Done'
-        #assert id == '5f6f50cc2316514d6241e6ba' and status == 'Done' and title == 'To Do 333'
+        if item.id == '5f6f50cc2316514d6241e6ba':
+            assert item.status == 'Done' and item.title == 'To Do 333'
+        if item.id == '5f6f50cc2316514d6241e6bb':
+            assert item.status == 'Done' and item.title == 'To Do 444'
+
 
 def test_recent_done_items():
     assert len(get_test_view_model().recent_done_items) == 1
+
 
 def test_recent_done_items_values():
     for item in get_test_view_model().recent_done_items:
         id, status, title = item.id, item.status, item.title
         assert id == '5f6f50cc2316514d6241e6ba' and status == 'Done' and title == 'To Do 333'
 
+
 def test_older_done_items():
     assert len(get_test_view_model().older_done_items) == 1
+
 
 def test_older_done_items_values():
     for item in get_test_view_model().older_done_items:
         id, status, title = item.id, item.status, item.title
-        assert id == '5f6f50cc2316514d6241e6ba' and status == 'Done' and title == 'To Do 444'
+        assert id == '5f6f50cc2316514d6241e6bb' and status == 'Done' and title == 'To Do 444'
 
 
 def get_test_items():
     item1 = Item('5f5a4c01846bb381f6f3fa8b', 'To Do', 'To Do 111')
     item2= Item('5f6f50a13a48c95efb5679f1', 'Doing', 'To Do 222')
     item3 = Item('5f6f50cc2316514d6241e6ba', 'Done', 'To Do 333')
-    item4 = Item('5f6f50cc2316514d6241e6ba', 'Done', 'To Do 444', (datetime.now() - timedelta(1)).strftime('%Y-%m-%d'))
+    item4 = Item('5f6f50cc2316514d6241e6bb', 'Done', 'To Do 444', (datetime.now() - timedelta(1)).strftime('%Y-%m-%d'))
     
     testListItems = list()
     testListItems.append(item1)
