@@ -1,8 +1,8 @@
 import Trello_items, pytest, datetime
 import viewmodel as vm
 
-#list containing a mixture of items
-TEST_LIST1 = [
+
+test_list_mixture_of_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
     Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
     Trello_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
@@ -11,8 +11,8 @@ TEST_LIST1 = [
     Trello_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
     Trello_items.Item('7','ITEM7',datetime.date.today(),'Doing')
     ]
-#list containing only To Do items
-TEST_LIST2 = [
+
+test_list_only_todo_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'To Do'), 
     Trello_items.Item('2','ITEM2',datetime.date.today(),'To Do'),
     Trello_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
@@ -21,8 +21,8 @@ TEST_LIST2 = [
     Trello_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
     Trello_items.Item('7','ITEM7',datetime.date.today(),'To Do')
     ]
-#list containing only Doing items
-TEST_LIST3 = [
+
+test_list_only_doing_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
     Trello_items.Item('2','ITEM2',datetime.date.today(),'Doing'),
     Trello_items.Item('3','ITEM3',datetime.date.today(),'Doing'),
@@ -31,8 +31,8 @@ TEST_LIST3 = [
     Trello_items.Item('6','ITEM6',datetime.date.today(),'Doing'),
     Trello_items.Item('7','ITEM7',datetime.date.today(),'Doing')
     ]
-#list containing only Done items
-TEST_LIST4 = [
+
+test_list_only_done_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
     Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
     Trello_items.Item('3','ITEM3',datetime.date.today(),'Done'),
@@ -41,17 +41,17 @@ TEST_LIST4 = [
     Trello_items.Item('6','ITEM6',datetime.date.today(),'Done'),
     Trello_items.Item('7','ITEM7',datetime.date.today(),'Done')
     ]
-#List containing missing items
-TEST_LIST5 = [
+
+test_list_missing_ids_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
     Trello_items.Item('7','ITEM7',datetime.date.today(),'Done'),
     Trello_items.Item('5','ITEM5',datetime.date.today(),'Done')
     ]
-#Empty list
-TEST_LIST6 = [
+
+test_list_empty = [
     ]
-#Done list including older items
-TEST_LIST7 = [
+
+test_list_done_items_with_older_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
     Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
     Trello_items.Item('3','ITEM3',datetime.date.today()- datetime.timedelta(days=1),'Done'),
@@ -67,8 +67,8 @@ TEST_LIST7 = [
     Trello_items.Item('13','ITEM13',datetime.date.today(),'Done'),
     Trello_items.Item('14','ITEM14',datetime.date.today(),'Done')
     ]
-#Done list including past and future items
-TEST_LIST8 = [
+
+test_list_done_items_with_past_and_future_items = [
     Trello_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
     Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
     Trello_items.Item('3','ITEM3',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
@@ -84,47 +84,47 @@ TEST_LIST8 = [
     Trello_items.Item('13','ITEM13',datetime.date.today(),'Done'),
     Trello_items.Item('14','ITEM14',datetime.date.today(),'Done')
     ]
-TEST_LISTS = [TEST_LIST1, TEST_LIST2, TEST_LIST3, TEST_LIST4, TEST_LIST5, TEST_LIST6]
-TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS = [(TEST_LIST1, 3), (TEST_LIST2, 7), (TEST_LIST3, 0), (TEST_LIST4, 0), (TEST_LIST5,0), (TEST_LIST6,0)]
-TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS = [(TEST_LIST1, 2), (TEST_LIST2, 0), (TEST_LIST3, 7), (TEST_LIST4, 0), (TEST_LIST5,1), (TEST_LIST6,0)]
-TEST_LISTS_WITH_NUMBER_OF_DONE_ITEMS = [(TEST_LIST1, 2), (TEST_LIST2, 0), (TEST_LIST3, 0), (TEST_LIST4, 7), (TEST_LIST5,2), (TEST_LIST6,0)]
-TEST_LISTS_WITH_NUMBER_OF_RECENT_DONE_ITEMS = [(TEST_LIST1, 2), (TEST_LIST2, 0), (TEST_LIST3, 0), (TEST_LIST4, 7), (TEST_LIST5,2), (TEST_LIST6,0), (TEST_LIST7,10), (TEST_LIST8,12)]
-TEST_LISTS_WITH_NUMBER_OF_OLDER_DONE_ITEMS = [(TEST_LIST1, 0), (TEST_LIST2, 0), (TEST_LIST3, 0), (TEST_LIST4, 0), (TEST_LIST5,0), (TEST_LIST6,0), (TEST_LIST7,4), (TEST_LIST8,2)]
+test_lists = [test_list_mixture_of_items, test_list_only_todo_items, test_list_only_doing_items, test_list_only_done_items, test_list_missing_ids_items, test_list_empty]
+test_lists_with_number_of_todo_items = [(test_list_mixture_of_items, 3), (test_list_only_todo_items, 7), (test_list_only_doing_items, 0), (test_list_only_done_items, 0), (test_list_missing_ids_items,0), (test_list_empty,0)]
+test_lists_with_number_of_doing_items = [(test_list_mixture_of_items, 2), (test_list_only_todo_items, 0), (test_list_only_doing_items, 7), (test_list_only_done_items, 0), (test_list_missing_ids_items,1), (test_list_empty,0)]
+test_lists_with_number_of_done_items = [(test_list_mixture_of_items, 2), (test_list_only_todo_items, 0), (test_list_only_doing_items, 0), (test_list_only_done_items, 7), (test_list_missing_ids_items,2), (test_list_empty,0)]
+test_lists_with_number_of_recent_done_items = [(test_list_mixture_of_items, 2), (test_list_only_todo_items, 0), (test_list_only_doing_items, 0), (test_list_only_done_items, 7), (test_list_missing_ids_items,2), (test_list_empty,0), (test_list_done_items_with_older_items,10), (test_list_done_items_with_past_and_future_items,12)]
+test_lists_with_number_of_older_done_items = [(test_list_mixture_of_items, 0), (test_list_only_todo_items, 0), (test_list_only_doing_items, 0), (test_list_only_done_items, 0), (test_list_missing_ids_items,0), (test_list_empty,0), (test_list_done_items_with_older_items,4), (test_list_done_items_with_past_and_future_items,2)]
 
-@pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
+@pytest.mark.parametrize("TEST_ITEMS", test_lists)
 def test_view_todoitems_contains_only_todo_items(TEST_ITEMS):
     view = vm.ViewModel(TEST_ITEMS)
     for item in view.todoitems:
         assert item.status == "To Do"
 
-@pytest.mark.parametrize("TEST_ITEMS, number_of_todo_items", TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS)
+@pytest.mark.parametrize("TEST_ITEMS, number_of_todo_items", test_lists_with_number_of_todo_items)
 def test_view_todoitems_contains_correct_number_of_items(TEST_ITEMS, number_of_todo_items):
     view = vm.ViewModel(TEST_ITEMS)   
     assert len(view.todoitems) == number_of_todo_items
 
-@pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
+@pytest.mark.parametrize("TEST_ITEMS", test_lists)
 def test_view_doingitems_contains_only_doing_items(TEST_ITEMS):
     view = vm.ViewModel(TEST_ITEMS)
     for item in view.doingitems:
         assert item.status == "Doing"
 
-@pytest.mark.parametrize("TEST_ITEMS, number_of_doing_items", TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS)
+@pytest.mark.parametrize("TEST_ITEMS, number_of_doing_items", test_lists_with_number_of_doing_items)
 def test_view_doingitems_contains_correct_number_of_items(TEST_ITEMS, number_of_doing_items):
     view = vm.ViewModel(TEST_ITEMS)   
     assert len(view.doingitems) == number_of_doing_items
 
-@pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
+@pytest.mark.parametrize("TEST_ITEMS", test_lists)
 def test_view_show_all_done_items_contains_only_done_items(TEST_ITEMS):
     view = vm.ViewModel(TEST_ITEMS)
     for item in view.show_all_done_items:
         assert item.status == "Done"
 
-@pytest.mark.parametrize("TEST_ITEMS, number_of_done_items", TEST_LISTS_WITH_NUMBER_OF_DONE_ITEMS)
+@pytest.mark.parametrize("TEST_ITEMS, number_of_done_items", test_lists_with_number_of_done_items)
 def test_view_show_all_done_items_contains_correct_number_of_items(TEST_ITEMS, number_of_done_items):
     view = vm.ViewModel(TEST_ITEMS)   
     assert len(view.show_all_done_items) == number_of_done_items
 
-@pytest.mark.parametrize("TEST_ITEMS, number_of_recent_done_items", TEST_LISTS_WITH_NUMBER_OF_RECENT_DONE_ITEMS)
+@pytest.mark.parametrize("TEST_ITEMS, number_of_recent_done_items", test_lists_with_number_of_recent_done_items)
 def test_view_recent_done_items_contains_only_items_completed_today(TEST_ITEMS, number_of_recent_done_items):
     view = vm.ViewModel(TEST_ITEMS)
     today = datetime.date.today()
@@ -132,7 +132,7 @@ def test_view_recent_done_items_contains_only_items_completed_today(TEST_ITEMS, 
         assert item.lastmodifieddate >= today
     assert len(view.recent_done_items) == number_of_recent_done_items
 
-@pytest.mark.parametrize("TEST_ITEMS, number_of_older_done_items", TEST_LISTS_WITH_NUMBER_OF_OLDER_DONE_ITEMS)
+@pytest.mark.parametrize("TEST_ITEMS, number_of_older_done_items", test_lists_with_number_of_older_done_items)
 def test_view_older_done_items_contains_only_items_completed_before_today(TEST_ITEMS, number_of_older_done_items):
     view = vm.ViewModel(TEST_ITEMS)
     today = datetime.date.today()
