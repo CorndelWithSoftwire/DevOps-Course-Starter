@@ -2,16 +2,16 @@ import requests
 import os, datetime
 
 def get_trello_key():
-    TRELLO_KEY = os.environ.get('TRELLO_KEY')
-    return TRELLO_KEY
+    trello_key = os.environ.get('TRELLO_KEY')
+    return trello_key
     
 def get_trello_token():
-    TRELLO_TOKEN = os.environ.get('TRELLO_TOKEN')
-    return TRELLO_TOKEN
+    trello_token = os.environ.get('TRELLO_TOKEN')
+    return trello_token
 
 def get_trello_todo_boardid():
-    TRELLO_TODO_BOARDID = os.environ.get('TRELLO_TODO_BOARDID')
-    return TRELLO_TODO_BOARDID
+    trello_todo_board_id = os.environ.get('TRELLO_TODO_BOARDID')
+    return trello_todo_board_id
 
 def get_trello_todo_listid():
     lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
