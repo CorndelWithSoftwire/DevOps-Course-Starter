@@ -1,4 +1,5 @@
-import app, Trello_items, pytest, datetime
+import Trello_items, pytest, datetime
+import viewmodel as vm
 
 #list containing a mixture of items
 TEST_LIST1 = [
@@ -92,40 +93,40 @@ TEST_LISTS_WITH_NUMBER_OF_OLDER_DONE_ITEMS = [(TEST_LIST1, 0), (TEST_LIST2, 0), 
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
 def test_view_todoitems_contains_only_todo_items(TEST_ITEMS):
-    view = app.ViewModel(TEST_ITEMS)
+    view = vm.ViewModel(TEST_ITEMS)
     for item in view.todoitems:
         assert item.status == "To Do"
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_todo_items", TEST_LISTS_WITH_NUMBER_OF_TODO_ITEMS)
 def test_view_todoitems_contains_correct_number_of_items(TEST_ITEMS, number_of_todo_items):
-    view = app.ViewModel(TEST_ITEMS)   
+    view = vm.ViewModel(TEST_ITEMS)   
     assert len(view.todoitems) == number_of_todo_items
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
 def test_view_doingitems_contains_only_doing_items(TEST_ITEMS):
-    view = app.ViewModel(TEST_ITEMS)
+    view = vm.ViewModel(TEST_ITEMS)
     for item in view.doingitems:
         assert item.status == "Doing"
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_doing_items", TEST_LISTS_WITH_NUMBER_OF_DOING_ITEMS)
 def test_view_doingitems_contains_correct_number_of_items(TEST_ITEMS, number_of_doing_items):
-    view = app.ViewModel(TEST_ITEMS)   
+    view = vm.ViewModel(TEST_ITEMS)   
     assert len(view.doingitems) == number_of_doing_items
 
 @pytest.mark.parametrize("TEST_ITEMS", TEST_LISTS)
 def test_view_show_all_done_items_contains_only_done_items(TEST_ITEMS):
-    view = app.ViewModel(TEST_ITEMS)
+    view = vm.ViewModel(TEST_ITEMS)
     for item in view.show_all_done_items:
         assert item.status == "Done"
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_done_items", TEST_LISTS_WITH_NUMBER_OF_DONE_ITEMS)
 def test_view_show_all_done_items_contains_correct_number_of_items(TEST_ITEMS, number_of_done_items):
-    view = app.ViewModel(TEST_ITEMS)   
+    view = vm.ViewModel(TEST_ITEMS)   
     assert len(view.show_all_done_items) == number_of_done_items
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_recent_done_items", TEST_LISTS_WITH_NUMBER_OF_RECENT_DONE_ITEMS)
 def test_view_recent_done_items_contains_only_items_completed_today(TEST_ITEMS, number_of_recent_done_items):
-    view = app.ViewModel(TEST_ITEMS)
+    view = vm.ViewModel(TEST_ITEMS)
     today = datetime.date.today()
     for item in view.recent_done_items:
         assert item.lastmodifieddate >= today
@@ -133,7 +134,7 @@ def test_view_recent_done_items_contains_only_items_completed_today(TEST_ITEMS, 
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_older_done_items", TEST_LISTS_WITH_NUMBER_OF_OLDER_DONE_ITEMS)
 def test_view_older_done_items_contains_only_items_completed_before_today(TEST_ITEMS, number_of_older_done_items):
-    view = app.ViewModel(TEST_ITEMS)
+    view = vm.ViewModel(TEST_ITEMS)
     today = datetime.date.today()
     for item in view.older_done_items:
         assert item.lastmodifieddate < today
