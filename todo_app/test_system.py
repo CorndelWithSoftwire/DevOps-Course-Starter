@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import dotenv
 import requests
+from time import sleep
  
 @pytest.fixture(scope='module')
 def test_app():
@@ -26,7 +27,6 @@ def test_app():
     )
     boardid = os.environ['TRELLO_BOARD']
     r = requests.get(f'https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
-
     to_do_id = r.json()[0]['id']
     doing_id = r.json()[1]['id']
     done_id = r.json()[2]['id']
@@ -62,5 +62,6 @@ def test_adding_new_task(driver, test_app):
     input_field.send_keys("TestTask")
     add_item = driver.find_element_by_id('new_task')
     add_item.click()    
-    page_source = driver.page_source    
-    assert "TestTask" in page_source
+    #sleep(60)
+    page_source = driver.page_source 
+    assert page_source.find("TestTask") >= 0
