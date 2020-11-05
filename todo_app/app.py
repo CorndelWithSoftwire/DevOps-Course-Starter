@@ -10,40 +10,43 @@ headers = {
    "Accept": "application/json"
 }
 
-def create_app():
-    app = Flask(__name__)
+#def create_app():
+    #app = Flask(__name__)
     #app.config.from_object('dotenv')
 
-    @app.route('/', methods=['Get'])
-    def index():
-        tasks = trello.get_all_tasks()        
-        task_view_model = view_model.ViewModel(tasks)
-        return render_template('index.html', view_model=task_view_model)
+@app.route('/', methods=['Get'])
+def index():
+    tasks = trello.get_all_tasks()        
+    task_view_model = view_model.ViewModel(tasks)
+    return render_template('index.html', view_model=task_view_model)
 
-    @app.route('/add_todo', methods=['Post'])
-    def add_todo_task():
-        trello.create_todo_task(request.form.get('title'))
-        return redirect('/')
+@app.route('/add_todo', methods=['Post'])
+def add_todo_task():
+    trello.create_todo_task(request.form.get('title'))
+    return redirect('/')
 
-    @app.route('/move_to_doing/<todo_task_id>', methods=['Post'])
-    def move_to_doing(todo_task_id):
-        trello.move_to_doing(todo_task_id)
-        return redirect('/')
+@app.route('/move_to_doing/<todo_task_id>', methods=['Post'])
+def move_to_doing(todo_task_id):
+    trello.move_to_doing(todo_task_id)
+    return redirect('/')
 
-    @app.route('/move_to_done/<task_id>', methods=['Post'])
-    def move_to_done(task_id):
-        trello.move_to_done(task_id)
-        return redirect('/')
+@app.route('/move_to_done/<task_id>', methods=['Post'])
+def move_to_done(task_id):
+    trello.move_to_done(task_id)
+    return redirect('/')
 
-    @app.route('/delete_task/<task_id>', methods=['Post'])
-    def delete_task(task_id):
-        trello.delete_task(task_id)
-        return redirect('/')
+@app.route('/delete_task/<task_id>', methods=['Post'])
+def delete_task(task_id):
+    trello.delete_task(task_id)
+    return redirect('/')
 
-    if __name__ == '__main__':
-        app.run()
+    #if __name__ == '__main__':
+    #    app.run()
     
-    return app
+    #return app
+if __name__ == '__main__':
+    #app.debug = True
+    app.run(host='0.0.0.0', port=5000)  
 
 
 

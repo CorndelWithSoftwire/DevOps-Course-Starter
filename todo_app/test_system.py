@@ -26,10 +26,7 @@ def test_app():
         ('fields', 'all')
     )
     boardid = os.environ['TRELLO_BOARD']
-    print(boardid)
-    r = requests.get('https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
-    print(r.json()[0]['id'])
-    print(r.json()[0]['name'])
+    r = requests.get(f'https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
     to_do_id = r.json()[0]['id']
     doing_id = r.json()[1]['id']
     done_id = r.json()[2]['id']
