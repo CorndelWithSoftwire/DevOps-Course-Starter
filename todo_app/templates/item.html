@@ -1,0 +1,48 @@
+{% extends "layout.html" %} {% block title %}To-Do App{% endblock %} {% block
+content %}
+<h2>Task View</h2>
+<div class="container">
+  <div class="row my-3">
+    <div class="col-md-12">
+      <form action="/{{item.id}}/edit" method="POST">
+        <div class="form-group">
+          <label for="msg">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            value="{{item.title}}"
+          />
+          <label class="mt-3" for="msg">Status</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statusRadio"
+            id="radio1" value="Not Started" {% if item.status=="Not Started"
+            %}checked{%endif%} />
+            <label class="form-check-label" for="Radio1"> Not Started </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statusRadio"
+            id="radio2" value="In Progress" {% if item.status=="In Progress"
+            %}checked{%endif%} />
+            <label class="form-check-label" for="Radio2"> In Progress </label>
+          </div>
+          <div class="form-check disabled">
+            <input class="form-check-input" type="radio" name="statusRadio"
+            id="radio3" value="Completed" {% if item.status=="Completed"
+            %}checked{%endif%} />
+            <label class="form-check-label" for="Radio3"> Completed </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+        <button
+          type="delete"
+          class="btn btn-danger btn-sm"
+          formaction="/{{item.id}}/delete"
+        >
+          Delete
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
