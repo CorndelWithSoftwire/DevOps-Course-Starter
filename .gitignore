@@ -110,7 +110,7 @@ dmypy.json
 .DS_Store
 
 ### Virtual environment ###
-env/
+.venv/
 
 ### Configuration files ###
 .env
