@@ -118,3 +118,6 @@ geckodriver.log
 
 ### selenium executables ###
 geckodriver.exe
+
+### Vagrant details ###
+.vagrant/
