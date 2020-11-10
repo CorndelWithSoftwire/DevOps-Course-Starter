@@ -114,3 +114,7 @@ env/
 
 ### Configuration files ###
 .env
+geckodriver.log
+
+### selenium executables ###
+geckodriver.exe
