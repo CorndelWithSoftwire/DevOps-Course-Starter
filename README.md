@@ -39,3 +39,14 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Vagrant 
+included is a vagrantfile for provisioning a VM to run the project and dependencies
+required:
+download and install vagrant
+download and install virtualbox
+
+start the project by navigating to the working directory for the project and typing the following
+```bash
+$ vagrant up
+```
