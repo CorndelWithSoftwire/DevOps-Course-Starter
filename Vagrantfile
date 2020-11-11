@@ -20,5 +20,7 @@ Vagrant.configure("2") do |config|
    config.vm.provision "shell", privileged: false, inline: <<-SHELL
       pyenv install 3.8.6
       pyenv global 3.8.6
+      #Download and install Poetry
+      curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
    SHELL
 end
