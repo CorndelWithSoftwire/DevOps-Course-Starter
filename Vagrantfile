@@ -15,14 +15,16 @@ Vagrant.configure("2") do |config|
       echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
       echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
       echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.profile
-   SHELL
-
-   #start a new shell to install python using pyenv
-   config.vm.provision "shell", privileged: false, inline: <<-SHELL
+      
+      #load variables to the current shell
+      source ~/.profile
+      #install python using pyenv
       pyenv install 3.8.6
       pyenv global 3.8.6
+      
       #Download and install Poetry
       curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      
    SHELL
 
       config.trigger.after :up do |trigger|
