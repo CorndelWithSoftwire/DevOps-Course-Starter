@@ -23,4 +23,14 @@ Vagrant.configure("2") do |config|
       #Download and install Poetry
       curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
    SHELL
+
+      config.trigger.after :up do |trigger|
+      trigger.name = "Launching App"
+      trigger.info = "Running the TODO app setup script"
+      trigger.run_remote = {privileged: false, inline: "
+         cd /vagrant
+         poetry install
+         poetry run flask run --host=0.0.0.0
+      "}
+   end
 end
