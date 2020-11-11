@@ -1,17 +1,36 @@
 # DevOps Apprenticeship: Project Exercise
 
-## Getting started
+## System Requirements
 
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
+The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
-### On macOS and Linux
+### Poetry installation (Bash)
+
 ```bash
-$ source setup.sh
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 ```
-### On Windows (Using Git Bash)
+
+### Poetry installation (PowerShell)
+
+```powershell
+(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
+```
+
+## Dependencies
+
+The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
+
 ```bash
-$ source setup.sh --windows
+$ poetry install
 ```
+
+You'll also need to clone a new `.env` file from the `.env.tempalate` to store local configuration options. This is a one-time operation on first setup:
+
+```bash
+$ cp .env.template .env  # (first time only)
+```
+
+The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change)
 
 ## Setting up Trello
 
@@ -26,11 +45,11 @@ You'll need a Trello account to run this project. You will need:
 After doing this, you'll need to fill in the empty values in the `.env` file that is created by running the setup script.
 * You may want to use postman to obtain these ids
 
-## Running the Application
+## Running the App
 
-Once the setup script has completed and you've setup trello as bove, start the Flask app by running:
+Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
 ```bash
-$ flask run
+$ poetry run flask run
 ```
 
 You should see output similar to the following:
