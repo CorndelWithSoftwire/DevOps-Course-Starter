@@ -14,6 +14,7 @@ __pycache__/
 
 # Vagrant
 .vagrant
+.venv
 
 # C extensions
 *.so
