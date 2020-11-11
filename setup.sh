@@ -1,22 +1,16 @@
-#!/bin/bash
-Windows=0;
+pip install poetry 
 
-while [[ "$#" -gt 0 ]]; do case $1 in
-  --windows) 
-    Windows=1;;
-esac; shift; done
 
-# Create and enable a virtual environment
-python -m venv --clear env
 
-if [ $Windows == 1 ]
-    then source env/scripts/activate
-    else source env/bin/activate
-fi
-
-# Upgrade pip and install required packages
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# Create a .env file from the .env.template
-cp -n .env.template .env
+"""
+• Run the test suite
+• Deactivate system-provided Python
+• Create a virtual environment
+        • Install poetry
+• Check if poetry is already installed
+• Grant super-user privileges
+• Install Python 3.7+
+• Launch the application
+• Create a new user to run the app
+• Install application dependencies
+• Check which Python versions are available
