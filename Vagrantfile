@@ -33,7 +33,7 @@ Vagrant.configure("2") do |config|
       trigger.run_remote = {privileged: false, inline: "
          cd /vagrant
          poetry install
-         poetry run flask run --host=0.0.0.0
+         poetry run gunicorn --config gunicorn.conf.py 'app:create_app()'
       "}
    end
 end

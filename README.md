@@ -50,3 +50,14 @@ start the project by navigating to the working directory for the project and typ
 ```bash
 $ vagrant up
 ```
+Vagrant will use Gunicorn running in daemon mode to run the application in the background so you won't see the flask app load output above.
+You should see output similar to the following followed by installing various dependencies:
+```bash
+==> default: Running action triggers after up ...
+==> default: Running trigger: Launching App...
+==> default: Running the TODO app setup script
+    default: Running: inline script
+```
+
+gunicorn_access.log will be created to log access
+gunicorn_error.log will be created to log errors
