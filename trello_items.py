@@ -15,6 +15,7 @@ def get_cards_list(card_id):
 
 def get_lists():
     response = requests.get(f'http://api.trello.com/1/boards/{board_id}/lists', params ={'key': api_key, 'token': api_secret})
+    print(response)
     return response.json()
 
 def create_task(new_task_text):

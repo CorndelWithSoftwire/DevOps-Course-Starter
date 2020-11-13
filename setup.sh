@@ -1,24 +1,45 @@
-pip install poetry 
+#sets the condition for the script to stop on error
+shebang | -ex
 
-python -m pip install requests
+#updates the list of available resources 
+sudo apt-get update -y
+
+#installs the PyEnv requisites 
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+
+#installs Python
+xxx
+
+#installs poetry 
+curl -sSL https://raw.githubusercontent.com/python-poetry/
+poetry/master/get-poetry.py | python
+
+#clone repository of App code
+git clone https://github.com/tobyr84/Project-1.git 
+
+#sets the dependances 
+poetry install 
 cp .env.template .env
 
-poetry run flask run
+#user to input credentials into the .env file to enable access Trello
+
+
 
 
 
 """
-• Install Ubuntu
-Run the test suite
-• Deactivate system-provided Python
-• Check if poetry is already installed
-• Grant super-user privileges
-• Install Python 3.7+
-• Create a new user to run the app
-• Install application dependencies
-• Check which Python versions are available
-       
+poetry add requests
+python -m pip install requests
+poetry run flask run
 
+• Install Ubuntu
+• Grant super-user privileges
+• Create a new user to run the app
+
+Install Python 3.7+
 Install poetry
+Install application dependencies
 Create a virtual environment
 Launch the application
