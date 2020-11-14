@@ -28,9 +28,9 @@ Vagrant.configure("2") do |config|
 
     
     # Install Poetry
-    # curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 
-    # source $HOME/.poetry/env
+    source $HOME/.poetry/env
 
     # echo poetry install >> ~/.bashrc
     # echo poetry run flask run >> ~/.bashrc
