@@ -6,40 +6,22 @@ The project uses poetry for Python to create an isolated environment and manage 
 
 ### Poetry installation (Bash)
 
-```bash
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-```
-
-### Poetry installation (PowerShell)
-
-```powershell
-(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
-```
+Installed by Vagrant
 
 ## Dependencies
 
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
-
-```bash
-$ poetry install
-```
-
-You'll also need to clone a new `.env` file from the `.env.tempalate` to store local configuration options. This is a one-time operation on first setup:
-
-```bash
-$ cp .env.template .env  # (first time only)
-```
-
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+All dependencies will be deployed into the VM by vagrant.
 
 ## Running the App
 
-Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
+Simply run kick vagrant into life with
+
 ```bash
-$ poetry run flask run
+$ vagrant up
+$ vagrant ssh
 ```
 
-You should see output similar to the following:
+You should see python installing and output similar to the following:
 ```bash
  * Serving Flask app "app" (lazy loading)
  * Environment: development

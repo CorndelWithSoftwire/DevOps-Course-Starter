@@ -19,16 +19,26 @@ Vagrant.configure("2") do |config|
 
     echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
 
-    echo pyenv init >> ~/.bashrc
-    echo pyenv install 3.8.5 >> ~/.bashrc
-    echo pyenv global 3.8.5 >> ~/.bashrc
+
+   
+    echo pyenv install 3.8.6 --skip-existing >> ~/.bashrc
+    echo pyenv global 3.8.6 >> ~/.bashrc
 
     source ~/.bashrc
 
-
+    echo source ~/.bashrc >> ~/.bashrc
 
     
+    # Install Poetry
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+    # source $HOME/.poetry/env
 
-    # curl -sSL https://raw.githubusercontent.com/python-poetry/ poetry/master/get-poetry.py | python
+    # echo poetry install >> ~/.bashrc
+    # echo poetry run flask run >> ~/.bashrc
+    # source ~/.bashrc
+
+    # Run final updates
+    # sudo -- sh -c 'apt-get update; apt-get upgrade -y; apt-get dist-upgrade -y; apt-get autoremove -y; apt-get autoclean -y'
+
   SHELL
 end
