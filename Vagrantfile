@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "hashicorp/bionic64"
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo apt-get update
 
@@ -22,11 +23,11 @@ Vagrant.configure("2") do |config|
     echo pyenv install 3.8.6 --skip-existing >> ~/.bashrc
     echo pyenv global 3.8.6 >> ~/.bashrc
 
-    # source ~/.bashrc
+    source ~/.bashrc
 
     # echo source ~/.bashrc >> ~/.bashrc
 
-    
+    echo install poetry
     # Install Poetry
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 
@@ -45,11 +46,17 @@ Vagrant.configure("2") do |config|
     trigger.name = "Launching app"
     trigger.info = "Running the TODO app setup"
     trigger.run_remote = {privileged: false, inline: "
-      pyenv install 3.8.6
-      pyenv global 3.8.6
+      echo ******** PYENV *******
       cd /vagrant
+      pyenv install 3.8.6 --skip-existing
+      echo ******** GLOBAL *******
+      pyenv global 3.8.6
+      echo ******** POETRY INSTALL *******
       poetry install
+      echo ******** FLASH RUN *******
       poetry run flask run
     "}
   end
+
+
 end
