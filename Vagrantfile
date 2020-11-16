@@ -40,4 +40,16 @@ Vagrant.configure("2") do |config|
     # sudo -- sh -c 'apt-get update; apt-get upgrade -y; apt-get dist-upgrade -y; apt-get autoremove -y; apt-get autoclean -y'
 
   SHELL
+
+  config.trigger.after :up do |trigger|
+    trigger.name = "Launching app"
+    trigger.info = "Running the TODO app setup"
+    trigger.run_remote = {privileged: false, inline: "
+      pyenv install 3.8.6
+      pyenv global 3.8.6
+      cd /vagrant
+      poetry install
+      poetry run flask run
+    "}
+  end
 end
