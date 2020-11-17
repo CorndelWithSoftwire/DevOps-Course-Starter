@@ -9,9 +9,37 @@
 
   <div class="row">
     <div class="col-md-12">
+      <h2>New item</h2>
+      <form action="{{ url_for('add_item') }}" method="POST">
+        <div class="form-group form-row align-items-center">
+          <div class="col-auto">
+            <label for="title-input">Title</label>
+          </div>
+          <div class="col">
+            <input type="text" name="title" id="title-input" class="form-control">
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-success">Add Item</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+        {% for item in items %}
+          <li class="list-group-item flex-column">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mt-1 mb-1">{{ item.title }}</h5>
+              {% if item.status != 'Completed' %}
+                <a href="{{ url_for('complete_item', id=item.id) }}" class="btn btn-sm btn-primary">Mark as Complete</a>
+              {% endif %}
+            </div>
+          </li>
+        {% endfor %}
       </ul>
     </div>
   </div>
