@@ -10,7 +10,7 @@ libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
 xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
 #installs Python
-xxx
+sudo apt-get install python3-pip
 
 #installs poetry 
 curl -sSL https://raw.githubusercontent.com/python-poetry/
