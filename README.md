@@ -1,5 +1,11 @@
 # DevOps Apprenticeship: Project Exercise
 
+## Setup.sh
+
+Designed to automate the boring stuff for you.  Updates your resources, installs the pre-requisites, installs the latest version of python, installs poetry, clones the required GIT respository for the App and establishes your dependences.  
+
+All you need to do is input your Trello credendtials.  
+
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
