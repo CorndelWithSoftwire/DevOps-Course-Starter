@@ -75,7 +75,7 @@ def add_trello_list_to_board(name, board_id):
 
 
 def delete_trello_board(board_id):
-    url = "https://api.trello.com/1/boards/{id}"
+    url = f"https://api.trello.com/1/boards/{id}"
 
     query = cf.get_trello_query()
     query['id'] = board_id

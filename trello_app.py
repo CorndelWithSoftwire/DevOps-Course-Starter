@@ -44,11 +44,11 @@ def index():
     return render_template('index.html', view_model=item_view_model)
 
 
-@trello_bp.route('/complete_item/<idCard>', methods=['GET', 'PUT'])
+@trello_bp.route('/complete_item/<idCard>', methods=['GET', 'PUT', 'POST'])
 #@app.route('/complete_item/<idCard>', methods=['GET', 'PUT'])
 def update_card(idCard):
 
-    url = "https://api.trello.com/1/cards/{idCard}"
+    url = f"https://api.trello.com/1/cards/{idCard}"
     headers = {"Accept": "application/json"}
     list_id = cf.get_trello_list_id_done()
     query = cf.get_trello_query()
