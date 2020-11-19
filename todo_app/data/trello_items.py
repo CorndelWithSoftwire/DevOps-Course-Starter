@@ -5,6 +5,7 @@ from todo_app.data.item import Item
 from todo_app.data.trelloList import TrelloList
 import todo_app.data.trello_constants as constants
 import iso8601
+
 class Trello_service(object):
     trello_lists = {}
     def get_auth_params(self):
@@ -140,3 +141,6 @@ class Trello_service(object):
         """
         url = f"{constants.TRELLO_API_URL}boards/{id}?{self.TRELLO_CREDENTIALS}"
         response = requests.request("DELETE", url)
+
+def sendRequest(verb, url):
+    return requests.request(verb, url)
