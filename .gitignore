@@ -114,3 +114,7 @@ env/
 
 ### Configuration files ###
 .env
+
+
+## VM / Vagrant
+.vagrant
