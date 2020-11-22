@@ -14,8 +14,12 @@ Vagrant.configure("2") do |config|
         echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
         echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
         echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile
-        pyenv install 3.9.0
-        pyenv global 3.9.0
-        
+        exec "$SHELL"
+        pyenv install 3.8.1
+        pyenv global 3.8.1
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+        source $HOME/.poetry/env
+        python3 -m venv venv
+        source venv/bin/activate
     SHELL
 end
