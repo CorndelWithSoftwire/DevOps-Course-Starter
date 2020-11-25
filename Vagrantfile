@@ -19,26 +19,34 @@ Vagrant.configure("2") do |config|
             xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
             # Install pyenv
             echo 'About to set pyenv'
-            if [ ! -d \"/home/vagrant/.pyenv\" ]; then
+            if [ ! -d \"~/.pyenv\" ]; then
                 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
                 echo 'export PYENV_ROOT=\"$HOME/.pyenv\"' >> ~/.bash_profile
                 echo 'export PATH=\"$PYENV_ROOT/bin:$PATH\"' >> ~/.bash_profile
                 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval \"$(pyenv init -)\"\nfi' >> ~/.bash_profile
             fi
+            echo 'About to setup venv for python'
+            #if [ ! -d \"~/venv/bin/activate\" ]; then
+                sudo apt-get --assume-yes install python3-venv
+                python3 -m venv ~/venv
+                echo 'eval \"$(pyenv init -)\"' >> ~/.bash_profile
+                source ~/.profile
+            #fi
+                
+            echo 'Source venv'
+            source ~/venv/bin/activate
+            pyenv version
             pyenv install 3.8.1
             pyenv global 3.8.1
+            pyenv rehash
+
             pip install --upgrade pip
-            #exec $SHELL
             echo 'About to get poetry'
             curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-            source /home/vagrant/.poetry/env
-            echo 'About to setup venv for python'
-            if [ ! -d \"/home/vagrant/venv/bin/activate\" ]; then
-                #sudo apt-get install python3-venv
-                python3 -m venv /home/vagrant/venv
-                source venv/bin/activate
-            fi
+            source ~/.poetry/env
+
             cd /vagrant
+            echo 'About to run poetry install'
             poetry install
             flask run --host 0.0.0.0
         "}
