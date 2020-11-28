@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  dev:
+    build: 
+      context: .
+      target: development
+
+    ports:
+      - 5000:5000
+      
+    env_file:
+      ./.env
+    volumes:
+      - ./todo-app:/app/todo_app 
