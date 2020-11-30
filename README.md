@@ -24,7 +24,7 @@ The project uses a virtual environment to isolate package dependencies. To creat
 $ poetry install
 ```
 
-You'll also need to clone a new `.env` file from the `.env.tempalate` to store local configuration options. This is a one-time operation on first setup:
+You'll also need to clone a new `.env` file from the `.env.template` to store local configuration options. This is a one-time operation on first setup:
 
 ```bash
 $ cp .env.template .env  # (first time only)
