@@ -1,0 +1,12 @@
+.env
+.env.test
+.env.template
+chromedriver
+Vagrantfile
+Dockerfile
+.venv/
+tutorial-env/
+.vagrant/
+.pytest_cache/
+tests/
+README.md

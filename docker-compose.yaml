@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  todo_app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+    image: todo-app:dev
+    ports:
+    - 5000:5000
+    volumes:
+    - ".:/app"
