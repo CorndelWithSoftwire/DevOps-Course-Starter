@@ -121,3 +121,5 @@ geckodriver.exe
 
 ### Vagrant details ###
 .vagrant/
+gunicorn_access.log
+gunicorn_error.log
