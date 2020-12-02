@@ -1,5 +1,5 @@
 .env
-.env.test
+#.env.test
 .env.template
 chromedriver
 Vagrantfile
@@ -8,5 +8,4 @@ Dockerfile
 tutorial-env/
 .vagrant/
 .pytest_cache/
-tests/
 README.md

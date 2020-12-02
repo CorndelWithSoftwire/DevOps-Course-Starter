@@ -16,3 +16,9 @@ COPY . /app
 WORKDIR /app
 EXPOSE 8000/tcp
 CMD ["poetry", "run", "gunicorn", "-b", "0.0.0.0", "todo_app.app:create_app()"]
+
+FROM base as test
+COPY tests /app/tests
+COPY .env.test /app
+WORKDIR /app
+CMD ["poetry", "run", "pytest", "tests/test_viewmodel.py", "tests/test_integration.py"]
