@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   todo_app:
@@ -12,4 +12,7 @@ services:
     ports:
     - 5000:5000
     volumes:
-    - ".:/app"
+    - type: bind
+      source: ./todo_app
+      target: /app/todo_app
+      read_only: true
