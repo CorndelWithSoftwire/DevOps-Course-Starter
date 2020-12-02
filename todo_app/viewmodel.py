@@ -1,6 +1,6 @@
 from datetime import date
 
-from item import Status
+from todo_app.item import Status
 
 
 class ViewModel:

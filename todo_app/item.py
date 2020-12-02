@@ -1,7 +1,7 @@
 from datetime import date, datetime
 from enum import Enum, auto
 
-from flask_config import Config
+from todo_app.flask_config import Config
 
 
 class Item:

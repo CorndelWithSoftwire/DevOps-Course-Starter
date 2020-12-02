@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-import trello_items as trello
-from viewmodel import ViewModel
+from todo_app import todo_app.trello_items as trello
+from todo_app.viewmodel import ViewModel
 
 
 def create_app():
