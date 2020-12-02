@@ -2,32 +2,30 @@
 
 ## Getting started
 
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
+The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
 
-### On macOS and Linux
-```bash
-$ source setup.sh
-```
-### On Windows (Using PowerShell)
-```powershell
-$ .\setup.ps1
-```
-### On Windows (Using Git Bash)
-```bash
-$ source setup.sh --windows
-```
 
-Once the setup script has completed and all packages have been installed, update the environment variables with relevant Trello API information
+```bash
+$ poetry install
+```
+You'll also need to clone a new .env file from the .env.tempalate to store local configuration options. This is a one-time operation on first setup:
+```bash
+$ cp .env.template .env  # (first time only)
+```
+The .env file is used by flask to set environment variables when running flask run. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a SECRET_KEY variable which is used to encrypt the flask session cookie.
+update the .env variables with relevant Trello API information
+
 ```bash
 TRELLO_KEY = ##replace with Trello API Key##
 TRELLO_TOKEN = ##replace with Trello API Token##
 TRELLO_TODO_BOARDID = ##replace with ID of board from Trello to use with this app##
 
 ```
+## Running the App
 
-start the Flask app by running:
+Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
 ```bash
-$ flask run
+$ poetry run flask run
 ```
 
 You should see output similar to the following:
@@ -42,9 +40,24 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
-### Notes
+## Vagrant 
+included is a vagrantfile for provisioning a VM to run the project and dependencies
+required:
+download and install vagrant
+download and install virtualbox
 
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like developement mode (which also enables features like hot reloading when you make a file change).
-* There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+start the project by navigating to the working directory for the project and typing the following
+```bash
+$ vagrant up
+```
+Vagrant will use Gunicorn running in daemon mode to run the application in the background so you won't see the flask app load output above.
+You should see output similar to the following followed by installing various dependencies:
+```bash
+==> default: Running action triggers after up ...
+==> default: Running trigger: Launching App...
+==> default: Running the TODO app setup script
+    default: Running: inline script
+```
 
-When running `setup.sh`, the `.env.template` file will be copied to `.env` if the latter does not exist.
+gunicorn_access.log will be created to log access
+gunicorn_error.log will be created to log errors
