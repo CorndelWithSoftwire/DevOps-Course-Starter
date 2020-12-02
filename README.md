@@ -1,4 +1,65 @@
-# DevOps Apprenticeship: Project Exercise
+Docker Container :  To do list
+Python code interacts with Trello APIs to give a unique front end interacting with Trello's systems
+
+Getting Started
+
+Docker image 1 (tag:  dave2): 
+Gunicorn production environment, built using:
+docker build --target production -f Dockerfile --tag dave2
+
+Docker image 2 (tag:  davedev):
+Flask development environment, built using:
+docker build --target development -f Dockerfile --tag davedev
+
+Prerequisities
+
+In order to run this container you'll need 
+1) Docker installed
+2) A file, recommended called .env, that has at least below elements (found using Trello API):
+
+Minimum variable file:
+# Flask server configuration.
+FLASK_APP=app
+FLASK_ENV=development
+
+# Change the following values for local development.
+SECRET_KEY=secret-key
+key=   Enter value here
+token= Enter value here
+todo_listid= Enter value here
+doing_listid= Enter value here
+done_listid= Enter value here
+board_id= Enter value here
+
+#END OF FILE
+
+Container Parameters
+--env-file                   Recommended value:       .env 
+-p                           Recommended value:       5000:5000
+Image name                   Recommended value:       davedev or dave2
+
+Example:
+RUN DEVELOPMENT ENVIRONMENT IMAGE:
+docker run --env-file .env -p 5000:5000 davedev
+RUN DEVELOPMENT ENVIRONMENT WITH BIND MOUNT FOR HOT RELOADING:
+docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app dave2
+RUN PRODUCTION ENVIRONMENT IMAGE:
+docker run --target production --env-file .env -p 5000:5000 dave2
+
+
+Authors
+
+Dave Rawlinson
+
+Acknowledgments
+
+Thanks ot Alex, without which this would have been a catastrophe
+
+ADDITIONAL NOTES:
+
+To developers, original notes:
+
+DevOps Apprenticeship: Project Exercise
 
 ## Getting started
 
