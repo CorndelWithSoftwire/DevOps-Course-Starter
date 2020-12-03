@@ -1,28 +1,27 @@
 # DevOps Apprenticeship: Project Exercise
 
-## Getting started
+## System Requirements
 
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
+The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
-### On macOS and Linux
+### Poetry installation (Bash)
+
+Installed by Vagrant
+
+## Dependencies
+
+All dependencies will be deployed into the VM by vagrant.
+
+## Running the App
+
+Simply run kick vagrant into life with
+
 ```bash
-$ source setup.sh
-```
-### On Windows (Using PowerShell)
-```powershell
-$ .\setup.ps1
-```
-### On Windows (Using Git Bash)
-```bash
-$ source setup.sh --windows
+$ vagrant up
+$ vagrant ssh
 ```
 
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
-```bash
-$ flask run
-```
-
-You should see output similar to the following:
+You should see python installing and output similar to the following:
 ```bash
  * Serving Flask app "app" (lazy loading)
  * Environment: development
@@ -39,7 +38,7 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change).
 * There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-When running `setup.sh`, the `.env.template` file will be copied to `.env` if the latter does not exist.
+Create the .env file for the first time by running `cp .env.template .env`
 
 .env file should contain the following keys that are excluded from the git synch by .gitignore
  - TRELLO_KEY

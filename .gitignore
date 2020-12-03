@@ -12,6 +12,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Vagrant
+.vagrant
+.venv
+
 # C extensions
 *.so
 
