@@ -1,0 +1,17 @@
+Vagrant.configure("2") do |config|
+   config.vm.box = "hashicorp/bionic64"
+   config.vm.provider "hyperv"
+   config.vm.network "private_network", type: "dhcp"
+   config.vm.synced_folder ".", "/vagrant", type: "smb", smb_username: "p10211837@capita.co.uk", smb_password: "M1n1SKY1989!", smb_host: "192.168.1.84"
+   config.vm.provision "shell", inline: <<-SHELL
+	  sudo apt-get update
+	  # Install pyenv prerequisites
+      sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+      libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+      xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+	  #sudo mount -t cifs //192.168.1.84/vgt-6fca4f4222f55c189ae36624a020810b-6ad5fdbcbf2eaa93bd62f92333a2e6e5 /vagrant -o user=p10211837@capita.co.uk
+#Install shared drive
+#sudo mount -t cifs //192.168.1.84/vgt-6fca4f4222f55c189ae36624a020810b-6ad5fdbcbf2eaa93bd62f92333a2e6e5 /vagrant -o user=p10211837@capita.co.uk
+# TODO: Install pyenv
+SHELL
+end
