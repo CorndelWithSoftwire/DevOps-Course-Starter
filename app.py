@@ -1,4 +1,4 @@
-from trello_items import get_cards, get_cards_list, get_lists, create_task
+import trello_items
 from flask import Flask, render_template, request, redirect, url_for
 import requests
 import os
@@ -10,10 +10,10 @@ app.config.from_object('flask_config.Config')
 @app.route('/')
 def index():
     tasks=[]
-    lists = get_lists()
-    for card in get_cards():
+    lists = trello_items.get_lists()
+    for card in trello_items.get_cards():
         
-        for task_list in get_lists():
+        for task_list in trello_items.get_lists():
             if task_list['id']== card['idList']:
                 card_list = task_list
         
@@ -22,32 +22,24 @@ def index():
     
     return render_template('index.html', todos = tasks)
 
-#import session_items as session
-
 if __name__ == "__main__":
     app.run(debug=True)
 
-@app.route('/add-todo', methods=["POST"])
+#add-todo
+@app.route('/create_task', methods=["POST"])
 def add_todo():
     item = request.form.get('todo_task')
-    create_task(item)
+    print(item)
+    trello_items.create_task(item)
     return redirect('/')
-
-"""
-#update from work 2.0
-@app.route('/')
-def index():
-    items = session.get_items()
-    return render_template('index.html', todos = items)
-    
 
 
 #delete function 
-@app.route('/delete-todo', methods=["POST"])
+@app.route('/delete_todo', methods=["POST"])
 def delete_todo():
     item = request.form.get('todo_id')
     print(item)
-    session.delete_item(item)
+    trello_items.delete_todo(item)
     return redirect('/')
 
 #update function 
@@ -58,4 +50,4 @@ def update_todo():
     new_status_value = request.form.get("status")
     session.update_item(item, new_todo_value, new_status_value)
     return redirect('/')
-    """
+

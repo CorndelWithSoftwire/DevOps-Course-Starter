@@ -1,12 +1,15 @@
 import os
 import requests
 
+from todo_item import TodoItem
+
 board_id = os.getenv('TRELLO_BOARD_ID')
 api_key = os.getenv('TRELLO_API_KEY')
 api_secret = os.getenv('TRELLO_API_SECRET')
+not_started = os.getenv('NOT_STARTED')
 
 def get_cards():
-    response = requests.get(f'http://api.trello.com/1/boards/{board_id}/cards', params ={'key': api_key, 'token': api_secret})
+    response = requests.get(f'http://api.trello.com/1/boards/{board_id}/cards', params ={'key': api_key, 'token': api_secret, 'idList': '5f523f68b6899286325cf067'})
     return response.json()
 
 def get_cards_list(card_id):
@@ -15,17 +18,22 @@ def get_cards_list(card_id):
 
 def get_lists():
     response = requests.get(f'http://api.trello.com/1/boards/{board_id}/lists', params ={'key': api_key, 'token': api_secret})
-    print(response)
     return response.json()
 
 def create_task(new_task_text):
-    for task_list in get_lists():
-        print(task_list)
-        if task_list['name'] == "Not Started":
-            new_task = task_list['id']
-    response = requests.post(f'http://api.trello.com/1/cards', params ={'key': api_key, 'token': api_secret, 'idList': new_task, 'name': new_task_text})
+    query={'key': api_key, 'token': api_secret, 'idList': not_started, 'name': new_task_text}
+    response = requests.request(
+        "POST",
+        f"https://api.trello.com/1/cards",
+        params=query
+    )
+    return response
+
+def delete_todo(id):
+    
+    response = requests.delete(
+        f"https://api.trello.com/1/cards/{id}", params ={'key': api_key, 'token': api_secret}
+    )
+
+    print(response.text)
     return response.json()
-
-
-#def update_cards_to_complete(card_id)
- #   requests.put('')
