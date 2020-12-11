@@ -23,7 +23,7 @@ def get_cards_url_with_auth():
 def get_items():
     """ Simple attempt to get all cards from Trello. """
     request_url = make_trello_auth(f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/cards")
-    response = requests.get(make_trello_auth(request_url))
+    response = requests.get(request_url)
     todos = response.json()
     for card in todos:
         print(card['name'], card['desc'])
