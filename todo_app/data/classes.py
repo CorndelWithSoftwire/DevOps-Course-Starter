@@ -1,3 +1,4 @@
+
 from flask import session
 import requests
 from requests.exceptions import HTTPError
@@ -19,7 +20,6 @@ class Trello:
     def get_lists(self):
         """
         Gets the lists associated with the board
-
         Returns:
             dictionary of lists
         """
@@ -31,7 +31,6 @@ class Trello:
     def get_cards(self):
         """
         Gets the cards associated with the board
-
         Returns:
             dictionary of the cards on the board
         """
@@ -43,10 +42,8 @@ class Trello:
     def get_card(self, id):
         """
         Fetches the saved item with the specified ID.
-
         Args:
             id: The ID of the card.
-
         Returns:
             card: The saved card
         """
@@ -58,10 +55,8 @@ class Trello:
     def add_card(self, Lists, name, desc, due):
         """
         Adds a new item with the specified title to the session.
-
         Args:
             title: The title of the item.
-
         Returns:
             item: The saved item.
         """
@@ -77,7 +72,6 @@ class Trello:
     def save_card(self, id, name, desc, due, idList):
         """
         Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
-
         Args:
             item: The item to save.
         """
@@ -93,7 +87,6 @@ class Trello:
     def delete_card(self, id):
         """
         Deletes an existing item in the session.
-
         Args:
             item: the item to delete
         """
@@ -105,7 +98,6 @@ class Trello:
 class Card:
     """
     card class for processing contents of API
-
     Returns:
         Card class object
     """
@@ -143,7 +135,6 @@ class Card:
 class List:
     """
     list class for processing contents of the API
-
     Return:
         List class object
     """
