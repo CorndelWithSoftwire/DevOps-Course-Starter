@@ -9,8 +9,8 @@ python = "^3.7"
 flask = "^1.1.2"
 python-dotenv = "^0.14.0"
 requests = "^2.24.0"
-pytz = "^2020.1"
 pytest = "^6.1.1"
+pytest-dotenv = "^0.5.2"
 
 [tool.poetry.dev-dependencies]
 
