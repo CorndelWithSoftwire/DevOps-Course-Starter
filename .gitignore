@@ -118,3 +118,6 @@ env/
 
 ## VM / Vagrant
 .vagrant
+
+# Poetry
+.venv/
