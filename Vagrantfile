@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
       xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
    # TODO: Install pyenv
+      rm -rf /home/vagrant/.pyenv 
       git clone https://github.com/pyenv/pyenv.git /home/vagrant/.pyenv 
       echo 'export PYENV_ROOT="/home/vagrant/.pyenv"' >> /home/vagrant/.profile
       echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/vagrant/.profile
@@ -22,8 +23,8 @@ Vagrant.configure("2") do |config|
       pyenv global 3.8.3
 
    # install poetry
-      curl -sSL https://raw.githubusercontent.com/python-poetry/
-      poetry/master/get-poetry.py | python
+      #curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      
 
  SHELL
 end
