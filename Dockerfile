@@ -6,9 +6,7 @@ RUN apt-get update &&\
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
 RUN ["/bin/bash", "-c", "source /root/.poetry/env"]
 ENV PATH="${PATH}:/root/.poetry/bin"
-RUN mkdir tests_e2e && mkdir tests && mkdir templates
-COPY flask_config.py viewmodel.py Trello_items.py Trello_boards.py README.md pyproject.toml poetry.toml poetry.lock gunicorn.conf.py app.py .env ./ 
-COPY tests_e2e/ tests_e2e/ 
-COPY tests/ tests/ 
-COPY templates/ templates/
+COPY todo_app todo_app
+WORKDIR /todo_app
+RUN poetry install
 ENTRYPOINT [ "poetry", "run", "flask", "run"]
