@@ -9,4 +9,5 @@ ENV PATH="${PATH}:/root/.poetry/bin"
 COPY todo_app todo_app
 WORKDIR /todo_app
 RUN poetry install
-ENTRYPOINT [ "poetry", "run", "flask", "run"]
+EXPOSE 5000
+ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
