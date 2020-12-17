@@ -12,3 +12,4 @@ Vagrantfile
 .venv
 .vscode
 Data
+*/.env
