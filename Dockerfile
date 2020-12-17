@@ -10,4 +10,4 @@ COPY todo_app todo_app
 WORKDIR /todo_app
 RUN poetry install
 EXPOSE 5000
-ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
+ENTRYPOINT [ "poetry", "run", "gunicorn", "--config", "gunicorn.conf.py", "app:create_app()" ]
