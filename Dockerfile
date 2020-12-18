@@ -8,4 +8,4 @@ RUN poetry install --no-root
 
 EXPOSE 5000
 
-ENTRYPOINT ["./run.sh"]
+ENTRYPOINT ["poetry","run","flask","run","--host=0.0.0.0"]

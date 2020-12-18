@@ -4,6 +4,4 @@
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
  * Restarting with stat
  * Debugger is active!
- * Debugger PIN: 968-903-571
-10.0.2.2 - - [30/Nov/2020 17:30:03] "[37mGET / HTTP/1.1[0m" 200 -
-10.0.2.2 - - [30/Nov/2020 17:30:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ * Debugger PIN: 515-329-093
