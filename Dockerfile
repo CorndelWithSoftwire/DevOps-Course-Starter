@@ -1,10 +1,7 @@
 FROM python:3.8-buster
 WORKDIR /todo
-ENV PYENV_ROOT="$HOME/.pyenv"
-ENV PATH="$PYENV_ROOT/bin:$PATH"
 COPY . .
-RUN pip install poetry
-RUN poetry install --no-root
+RUN pip install poetry && poetry install --no-root
 
 EXPOSE 5000
 
