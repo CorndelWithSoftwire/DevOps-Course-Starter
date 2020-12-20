@@ -7,7 +7,7 @@ while [[ "$#" -gt 0 ]]; do case $1 in
 esac; shift; done
 
 # Create and enable a virtual environment
-python -m venv --clear env
+python3 -m venv --clear env
 
 if [ $Windows == 1 ]
     then source env/scripts/activate
@@ -15,8 +15,8 @@ if [ $Windows == 1 ]
 fi
 
 # Upgrade pip and install required packages
-pip install --upgrade pip
-pip install -r requirements.txt
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
 
 # Create a .env file from the .env.template
 cp -n .env.template .env
