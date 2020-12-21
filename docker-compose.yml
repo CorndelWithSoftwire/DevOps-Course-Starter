@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  todo_app_dev:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "5000:5000"
+    env_file: 
+      - "todo_app/.env"
+    volumes:
+      - type: bind
+        source: ./todo_app
+        target: /todo_app
