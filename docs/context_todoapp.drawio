@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-22T11:33:26.937Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="BU-1SJ8eGBHPL9xm7cJm" version="14.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-12-22T11:36:44.216Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="MXW3IXhxTPm0R1EV1_6e" version="14.1.1" type="github">
   <diagram id="vDZJ2-XgSOJW-uE1lTO6" name="Page-1">
     <mxGraphModel dx="1186" dy="741" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -27,6 +27,12 @@
             <mxPoint x="300" y="394.5" as="sourcePoint" />
             <mxPoint x="530" y="395" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="a_quTBTWjb0IByhMvpDL-8" value="Text" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="390" y="300" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a_quTBTWjb0IByhMvpDL-9" value="&lt;h1&gt;&lt;font style=&quot;font-size: 18px&quot;&gt;System context diagram for the Todo App&lt;/font&gt;&lt;/h1&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;The context diagram that displays and manages the todo list for a user&lt;/font&gt;&lt;font style=&quot;font-size: 18px&quot;&gt;.&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="480" width="460" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
