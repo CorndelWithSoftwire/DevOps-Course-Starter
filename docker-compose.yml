@@ -14,3 +14,14 @@ services:
       - type: bind
         source: ./todo_app
         target: /todo_app
+  todo_app_test:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: test
+    env_file: 
+      - "todo_app/.env"
+    volumes:
+      - type: bind
+        source: ./todo_app
+        target: /todo_app
