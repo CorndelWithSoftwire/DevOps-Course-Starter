@@ -1,7 +1,7 @@
 FROM python:3.8-buster
 WORKDIR /todo
 COPY . .
-RUN pip install poetry && poetry install --no-root
+RUN pip install poetry && poetry install --no-root && pip install gunicorn
 
 EXPOSE 5000
 
