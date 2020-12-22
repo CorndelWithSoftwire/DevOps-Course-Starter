@@ -21,3 +21,8 @@ COPY todo_app/poetry.toml todo_app/pyproject.toml ./
 RUN poetry install
 ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
 
+FROM base as test
+WORKDIR /todo_app
+COPY todo_app/poetry.toml todo_app/pyproject.toml ./
+RUN poetry install
+ENTRYPOINT [ "poetry", "run", "watchmedo", "shell-command", "--recursive", "--patterns=*.py;*.html", "--command=poetry run pytest tests", "." ]
