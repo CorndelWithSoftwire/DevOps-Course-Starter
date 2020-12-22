@@ -6,15 +6,18 @@ RUN apt-get update \
     && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
 RUN ["/bin/bash", "-c", "source /root/.poetry/env"]
 ENV PATH="${PATH}:/root/.poetry/bin"
-WORKDIR /todo_app
-COPY todo_app/poetry.toml todo_app/pyproject.toml ./
-RUN poetry install
 
 FROM base as production
 EXPOSE 5000
 COPY todo_app todo_app
+WORKDIR /todo_app
+RUN poetry install --no-dev
 ENTRYPOINT [ "poetry", "run", "gunicorn", "--config", "gunicorn.conf.py", "app:create_app()" ]
 
 FROM base as development
 EXPOSE 5000
+WORKDIR /todo_app
+COPY todo_app/poetry.toml todo_app/pyproject.toml ./
+RUN poetry install
 ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
+
