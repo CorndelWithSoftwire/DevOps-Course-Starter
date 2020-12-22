@@ -10,10 +10,12 @@ flask = "^1.1.2"
 python-dotenv = "^0.14.0"
 requests = "^2.24.0"
 gunicorn = "^20.0.4"
+watchdog = {extras = ["watchmount"], version = "^1.0.2"}
 
 [tool.poetry.dev-dependencies]
 selenium = "^3.141.0"
 pytest = "^6.1.2"
+watchdog = {extras = ["watchmedo"], version = "^1.0.2"}
 
 [build-system]
 requires = ["poetry>=0.12"]
