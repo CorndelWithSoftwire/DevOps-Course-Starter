@@ -111,6 +111,7 @@ dmypy.json
 
 ### Virtual environment ###
 env/
+.venv/
 
 ### vscode settings ###
 .vscode/
@@ -123,3 +124,6 @@ not_an_init_.py
 #  Selenium Driver and logs
 geckodriver.exe
 geckodriver.log
+
+# Vagrant
+.vagrant/
