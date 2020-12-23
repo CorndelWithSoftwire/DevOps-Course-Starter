@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
-import trello_items as trello
-from viewmodel import ViewModel
+import todo_app.trello_items as trello
+from todo_app.viewmodel import ViewModel
 
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('flask_config.Config')
+    app.config.from_object('todo_app.flask_config.Config')
 
     @app.route('/')
     def index():

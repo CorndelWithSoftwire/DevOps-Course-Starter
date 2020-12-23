@@ -1,7 +1,7 @@
 import requests
 
-from flask_config import Config
-from item import Item
+from todo_app.flask_config import Config
+from todo_app.item import Item
 
 
 def get_items():

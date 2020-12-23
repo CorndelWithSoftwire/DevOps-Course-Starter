@@ -1,8 +1,8 @@
 import pytest
 from dotenv import find_dotenv, load_dotenv
 
-import app
-from flask_config import Config
+from todo_app import app
+from todo_app.flask_config import Config
 
 
 @pytest.fixture

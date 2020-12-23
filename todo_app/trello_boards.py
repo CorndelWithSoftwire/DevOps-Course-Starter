@@ -1,7 +1,7 @@
 import requests
 from requests import Response
 
-from flask_config import Config
+from todo_app.flask_config import Config
 
 
 def create_board(name) -> Response:

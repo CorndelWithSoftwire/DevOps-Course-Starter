@@ -1,7 +1,7 @@
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 
-from item import Item, Status
-from viewmodel import ViewModel
+from todo_app.item import Item, Status
+from todo_app.viewmodel import ViewModel
 
 not_started = [
     Item(item_id=1, tittle="todo 1", desc='todo 1', status=Status.NOT_STARTED),

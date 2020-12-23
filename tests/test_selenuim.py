@@ -5,10 +5,8 @@ import pytest
 from selenium import webdriver
 from dotenv import find_dotenv, load_dotenv
 
-import app
-import trello_boards
-from flask_config import Config
-from trello_boards import TrelloBoard
+from todo_app import trello_boards, app
+from todo_app.trello_boards import TrelloBoard
 
 
 @pytest.fixture(scope='module')

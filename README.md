@@ -44,6 +44,19 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 - Download and install vagrant if not present https://safe.menlosecurity.com/https://www.vagrantup.com/docs/installation
 - run `vagrant up` to start development env and start app   
 
-how to run tests
+#### Running with Docker
+##### Development
+ - create an development docker image `docker build --target development -t todo-app:dev .`
+ - run start container with docker-compose `docker-compose up -d`
+ - view app on browser at "http://localhost:5000"
+##### Production
+ - create an production docker image `docker build --target production -t todo-app:prod .`
+ - start container with `docker run --env-file .env -p 8000:8000 todo-app:prod`
+ - view app on browser at "http://localhost:8000"app
+##### Running tests
+  - create an production docker image `docker build --target test -t todo-app:test .`
+ -  start tests in container with `docker run todo-app:test`
+ 
+#### how to run tests
 - ensure chromedriver is downloaded and added to system path (https://chromedriver.chromium.org/downloads) 
 - run `poetry run pytest` from the command line
