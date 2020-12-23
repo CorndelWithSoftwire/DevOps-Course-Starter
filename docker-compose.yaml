@@ -3,10 +3,9 @@ version: "3.8"
 services:
   todo_app:
     container_name: todo_app
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-    image: todo-app:dev
+    build:
+      context: .
+      target: development
     env_file:
       - .env
     ports:
