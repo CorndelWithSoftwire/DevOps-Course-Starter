@@ -52,7 +52,10 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ##### Production
  - create an production docker image `docker build --target production -t todo-app:prod .`
  - start container with `docker run --env-file .env -p 8000:8000 todo-app:prod`
- - view app on browser at "http://localhost:8000"
+ - view app on browser at "http://localhost:8000"app
+##### Running tests
+  - create an production docker image `docker build --target test -t todo-app:test .`
+ -  start tests in container with `docker run todo-app:test`
  
 #### how to run tests
 - ensure chromedriver is downloaded and added to system path (https://chromedriver.chromium.org/downloads) 

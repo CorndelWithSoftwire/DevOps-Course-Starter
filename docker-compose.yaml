@@ -15,11 +15,11 @@ services:
       source: ./todo_app
       target: /app/todo_app
       read_only: true
-  todo_app_tests:
-    container_name: todo_app_tests
-    image: todo-app:test
-    volumes:
-    - type: bind
-      source: ./todo_app
-      target: /app/todo_app
-      read_only: true
+#  todo_app_tests:
+#    container_name: todo_app_tests
+#    image: todo-app:test
+#    volumes:
+#    - type: bind
+#      source: ./todo_app
+#      target: /app/todo_app
+#      read_only: true
