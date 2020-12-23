@@ -6,6 +6,8 @@ RUN apt-get update \
     && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
 RUN ["/bin/bash", "-c", "source /root/.poetry/env"]
 ENV PATH="${PATH}:/root/.poetry/bin"
+WORKDIR /todo_app
+COPY todo_app/poetry.toml todo_app/pyproject.toml todo_app/poetry.lock ./
 
 FROM base as production
 EXPOSE 5000
@@ -16,13 +18,9 @@ ENTRYPOINT [ "poetry", "run", "gunicorn", "--config", "gunicorn.conf.py", "app:c
 
 FROM base as development
 EXPOSE 5000
-WORKDIR /todo_app
-COPY todo_app/poetry.toml todo_app/pyproject.toml todo_app/poetry.lock ./
 RUN poetry install
 ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
 
 FROM base as test
-WORKDIR /todo_app
-COPY todo_app/poetry.toml todo_app/pyproject.toml todo_app/poetry.lock ./
 RUN poetry install
 ENTRYPOINT [ "poetry", "run", "watchmedo", "shell-command", "--recursive", "--patterns=*.py;*.html", "--command=poetry run pytest tests", "--debug-force-polling", "." ]
