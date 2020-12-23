@@ -33,7 +33,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 @pytest.fixture(scope="module")
 def driver():
-    with webdriver.Firefox() as driver:
+    opts = webdriver.FirefoxOptions()
+    opts.add_argument('--headless')
+    with webdriver.Firefox(options=opts) as driver:
         yield driver
 
 def test_task_journey(driver, test_app):
