@@ -50,7 +50,7 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
  - run start container with docker-compose `docker-compose up -d`
  - view app on browser at "http://localhost:5000"
 ##### Production
- - create an production docker image `docker build --target production -t todo-app:prrod .`
+ - create an production docker image `docker build --target production -t todo-app:prod .`
  - start container with `docker run --env-file .env -p 8000:8000 todo-app:prod`
  - view app on browser at "http://localhost:8000"
  
