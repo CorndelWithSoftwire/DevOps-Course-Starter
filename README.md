@@ -26,10 +26,11 @@ $ vagrant ssh
 ### As a docker
 
 ```bash
-docker run -p 8080:5000 --env-file .env todo:4
+docker run -p 8080:5000 --env-file .env todo
 ```
 
 You should see python installing and output similar to the following:
+
 ```bash
  * Serving Flask app "app" (lazy loading)
  * Environment: development
