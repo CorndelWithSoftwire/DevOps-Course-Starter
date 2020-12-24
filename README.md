@@ -27,6 +27,7 @@ $ vagrant ssh
 
 ```bash
 docker run -p 8080:5000 --env-file .env todo
+docker run -p 89:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo-app,target=/app/todo-app todo:dev
 ```
 
 You should see python installing and output similar to the following:

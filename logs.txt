@@ -1,7 +1,9 @@
- * Serving Flask app "app" (lazy loading)
+ * Serving Flask app "todo-app/app" (lazy loading)
  * Environment: development
  * Debug mode: on
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
  * Restarting with stat
  * Debugger is active!
- * Debugger PIN: 515-329-093
+ * Debugger PIN: 310-958-236
+10.0.2.2 - - [23/Dec/2020 12:10:09] "[37mGET / HTTP/1.1[0m" 200 -
+10.0.2.2 - - [23/Dec/2020 12:10:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
