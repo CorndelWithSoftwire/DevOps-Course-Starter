@@ -12,23 +12,34 @@ Doc
 
 ## Dependencies
 
-All dependencies will be deployed into the VM by vagrant.
+All dependencies will be deployed into the VM by vagrant or into the container by docker
 
 ## Running the App
 
+### With Vagrant creating a VM
+
 Simply run kick vagrant into life with
 
-```bash
+``` bash
 $ vagrant up
 $ vagrant ssh
 ```
 
 ### As a docker
 
-```bash
-docker run -p 8080:5000 --env-file .env todo
-docker run -p 89:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo-app,target=/app/todo-app todo:dev
-```
+#### Development
+
+Build the image with  
+`docker build --target dev --tag todo:dev .`  
+Run the container with  
+`docker run -p 9000:5000 --name DEV --env-file .env --mount type=bind,source="$(pwd)"/todo-app,target=/todo-app todo:dev`
+
+#### Production
+
+Build the image with  
+`docker build --target prod --tag todo:prod .`  
+Run the container with  
+`docker run -p 8080:5000 --name PROD --env-file .env todo:prod`
 
 You should see python installing and output similar to the following:
 
@@ -41,6 +52,7 @@ You should see python installing and output similar to the following:
  * Debugger is active!
  * Debugger PIN: 226-556-590
 ```
+
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
 ### Notes
@@ -56,5 +68,4 @@ Create the .env file for the first time by running `cp .env.template .env`
  - TRELLO_DOING
  - TRELLO_DONE
 
-## How to run it
 
