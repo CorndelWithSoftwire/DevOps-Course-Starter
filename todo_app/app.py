@@ -10,7 +10,6 @@ app.config.from_object(Config)
 
 @app.route('/')
 def index():
-    #TODO: get items and display them
     items = session_items.get_items()
     return render_template('index.html',items = items)
 
