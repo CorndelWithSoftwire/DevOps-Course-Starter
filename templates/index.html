@@ -9,39 +9,35 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+     <h2>Items</h2>
       <ul class="list-group mb-4">
           {% for item in items %}
-            <li>{{ item.title}} - {{item.status}}</li>
+            <li class="list-group-item flex-column">
+             <div class="d-flex w-100 justify-content-between">
+               <h5 class="mt-1 mb-1">{{ item.title }} - {{item.status}}</h5>
+                {% if item.status == 'To Do' %}
+                   <a href="{{ url_for('doing_item', id=item.id) }}" class="btn btn-sm btn-primary">Mark as Doing</a>
+                {% elif item.status == 'Doing' %}
+                   <a href="{{ url_for('done_item', id=item.id) }}" class="btn btn-sm btn-primary">Mark as Done</a>
+                {% elif item.status == 'Done' %}
+                   <a href="{{ url_for('undo_item', id=item.id) }}" class="btn btn-sm btn-primary">Mark as Todo</a>
+                {% endif %}
+             <div>  
+            <li>
           {% endfor %}
       </ul>
-
+    <div>
+  <div>
+  <div class="row">
+    <div class="col-md-12">
+     <h2>New Items To Add</h2>
       <form action = "/items/new" method="POST">
         <div class="form-group"></div>
         <label for ="title">Title Input</label>
         <input type="text" id="title" name="title" required>
         <input type="submit" value ="Submit"/>
       </form>
-      <div>
-   </div>
-
-   <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        {% for item in items %}
-          <li class="list-group-item flex-column">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mt-1 mb-1">{{ item.title }}</h5>
-              {% if item.status != 'Done' %}
-                <a href="{{ url_for('complete_item', id=item.id) }}" class="btn btn-sm btn-primary">Mark as Complete</a>
-              {% endif %}
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+    <div>
   </div>
-
 {% endblock %}
 

@@ -11,7 +11,7 @@ app.config.from_object(Config)
 
 base_url = "https://api.trello.com/1/"
 query = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
-id = os.getenv('MEMBER_ID')
+
 
 @app.route('/')
 def index():
@@ -25,10 +25,22 @@ def add_item():
     trello.add_card(name)
     return redirect("/")
 
-@app.route('/items/<id>/complete')
-def complete_item(id):
-    trello.move_to_do_card(id)
+@app.route('/items/<id>/doing')
+def doing_item(id):
+    trello.move_to_doing_card(id)
     return redirect("/")
+
+@app.route('/items/<id>/done')
+def done_item(id):
+    trello.get_card_by_id(id)
+    trello.move_to_done_card(id)
+    return redirect("/")
+
+@app.route('/items/<id>/undo')
+def undo_item(id):
+    trello.undo_done_card(id)
+    return redirect("/")
+
 
 if __name__ == '__main__':
     app.run()
