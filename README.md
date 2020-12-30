@@ -6,6 +6,12 @@ Designed to automate the boring stuff for you.  Updates your resources, installs
 
 All you need to do is input your Trello credentials.  
 
+## Documention 
+Schematic overviews of the appliation seperated into 3 level views; 
+* Level 1 - Context
+* Level 2 - Container 
+* Level 3 - Component
+
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
