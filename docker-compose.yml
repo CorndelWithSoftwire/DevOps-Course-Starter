@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
       target: test
     env_file: 
-      - "todo_app/.env"
+      - "todo_app/tests/.env.test"
     volumes:
       - type: bind
         source: ./todo_app
