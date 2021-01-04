@@ -40,6 +40,23 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+## Docker 
+Included is a multi-stage Dockerfile which can be used to build live, dev and test containers along with a docker-compose file to build and run the dev and test containers
+
+First ensure you have a Docker environment and to build and run the test and dev containers simply type the following from the root folder
+```bash
+docker-compose up
+```
+
+To build the production container use a command similar to the following 
+```bash
+docker build --target production --tag todo-app:prod .
+```
+Then to run the container on port 80 of your host machine:
+```bash
+docker run -d -p 80:5000 --env-file todo_app/.env  todo-app:prod
+```
+
 ## Vagrant 
 included is a vagrantfile for provisioning a VM to run the project and dependencies
 required:
