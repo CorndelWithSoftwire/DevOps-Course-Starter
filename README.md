@@ -63,3 +63,15 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Running the App on a VM
+
+This project comes with a Vagrant file that allows the ToDo app to run a VM.  You will need to download and install the following two software: Virtual Box, https://www.virtualbox.org/ and Vagrant, https://www.vagrantup.com/.  Open up a terminal console, and navigate to this project folder, type:
+```bash 
+vagrant up
+```
+If this is not done before, it will take several minutes to download an Ubuntu image from hashicorp site and do various configuration.
+
+At the end, the output should be similar in above section on Running The App.
+
+To end the Vagrant session, CTRL-C and kill the ruby process.
