@@ -12,6 +12,7 @@ requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
+pytest = "^6.2.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
