@@ -5,8 +5,14 @@ import todo_app.trello_client as trello_client
 from todo_app.data.todo_item import TodoItem
 import todo_app.view_model as ViewModel
 
-app = Flask(__name__)
-app.config.from_object(Config)
+# app = Flask(__name__)
+# app.config.from_object(Config)
+
+def create_app():
+ app = Flask(__name__) 
+ app.config.from_object('app_config.Config')
+    # All the routes and setup code etc
+return app
 
 def skeleton():
      """ test function to test pytest """
