@@ -23,7 +23,7 @@ def gecko_test(site_000=story):
     # and chill a bit
     sleep(7)
 
-    # k, cool. let's bounce. 
+    # k, cool. let's bouncdriver
     driver.quit()
 
 
