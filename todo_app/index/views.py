@@ -1,12 +1,9 @@
-from flask import Blueprint, render_template, redirect, request
-from todo_app.classes.trello import *
-from todo_app.classes.objects import *
-from config import Config
-
+from flask import Blueprint, render_template, redirect, request, current_app
+from .trello import Trello
+from .objects import Card, List, ViewModel
 
 index = Blueprint('index', __name__)
-
-trello = Trello(Config)
+trello = Trello(current_app)
 
 # web pages
 

@@ -20,18 +20,26 @@ class Card:
                 i["due"].replace('Z', '+00:00')), "%Y-%m-%d")
         except:
             self.due = ""
+
         self.listName = [l.name for l in Lists if l.id == i["idList"]][0]
         self.orderBy = [l.orderBy for l in Lists if l.id == i["idList"]][0]
+
+        try:
+            self.dateLastActivity = datetime.strftime(datetime.fromisoformat(
+                i["dateLastActivity"].replace('Z', '+00:00')), "%Y-%m-%d")
+        except:
+            self.dateLastActivity = ""
 
     def __repr__(self):
         return {
             'id': self.id,
             'name': self.name,
             'listId': self.listId,
+            'listName': self.listName,
             'desc': self.desc,
             'creationTime': self.creationTime,
             'due': self.due,
-            'list': self.listName,
+            'dateLastActivity': self.dateLastActivity,
             'orderBy': self.orderBy
         }
 
@@ -63,9 +71,13 @@ class List:
 
 
 class ViewModel:
+
     def __init__(self, cards, lists):
         self._cards = cards
         self._lists = lists
+
+    def get_date(self):
+        return datetime.date(datetime.today()).strftime("%Y-%m-%d")
 
     @property
     def cards(self):
@@ -74,3 +86,17 @@ class ViewModel:
     @property
     def lists(self):
         return self._lists
+
+    @property
+    def show_all_done_items(self):
+        if len([i for i in self._cards if i.listName == "DONE"]) > 5:
+            return False
+        return True
+
+    @property
+    def recent_done_items(self):
+        return [i for i in self._cards if i.listName == "DONE" and i.dateLastActivity == self.get_date()]
+
+    @property
+    def older_done_items(self):
+        return [i for i in self._cards if i.listName == "DONE" and i.dateLastActivity != self.get_date()]

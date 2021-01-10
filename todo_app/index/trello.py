@@ -1,18 +1,17 @@
 
+from flask import current_app
 import requests
 from requests.exceptions import HTTPError
 import json
 
-from config import Config
-
 
 class Trello:
-    def __init__(self, Config):
-        self.board = Config.TRELLO_BOARD
+    def __init__(self, current_app):
+        self.board = current_app.config['TRELLO_BOARD']
         self.url_prefix = "https://api.trello.com/1/"
         self.query = {
-            'key': Config.TRELLO_KEY,
-            'token': Config.TRELLO_TOKEN
+            'key': current_app.config['TRELLO_KEY'],
+            'token': current_app.config['TRELLO_TOKEN']
         }
 
     def get_lists(self):
@@ -22,7 +21,7 @@ class Trello:
             dictionary of lists
         """
         url = self.url_prefix+"boards/"+self.board+"/lists"
-        response = requests.request("GET", url, params=self.query)
+        response = requests.get(url, params=self.query)
         response.raise_for_status()
         return response.json()
 
@@ -33,7 +32,7 @@ class Trello:
             dictionary of the cards on the board
         """
         url = self.url_prefix+"boards/"+self.board+"/cards"
-        response = requests.request("GET", url, params=self.query)
+        response = requests.get(url, params=self.query)
         response.raise_for_status()
         return response.json()
 
@@ -46,7 +45,7 @@ class Trello:
             card: The saved card
         """
         url = self.url_prefix+"cards/"+id
-        response = requests.request("GET", url, params=self.query)
+        response = requests.get(url, params=self.query)
         response.raise_for_status()
         return response.json()
 
@@ -64,7 +63,7 @@ class Trello:
         query["idList"] = Lists[0].id
         query["due"] = due
         query["desc"] = desc
-        response = requests.request("POST", url, params=query)
+        response = requests.post(url, params=query)
         response.raise_for_status()
 
     def save_card(self, id, name, desc, due, idList):
@@ -79,7 +78,7 @@ class Trello:
         query["idList"] = idList
         query["desc"] = desc
         query["due"] = due
-        response = requests.request("PUT", url, params=query)
+        response = requests.put(url, params=query)
         response.raise_for_status()
 
     def delete_card(self, id):
@@ -89,5 +88,5 @@ class Trello:
             item: the item to delete
         """
         url = self.url_prefix+"cards/"+id
-        response = requests.request("DELETE", url, params=self.query)
+        response = requests.delete(url, params=self.query)
         response.raise_for_status()
