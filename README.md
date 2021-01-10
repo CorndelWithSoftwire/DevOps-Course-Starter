@@ -4,10 +4,6 @@
 
 The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
 
-### On macOS and Linux
-```bash
-$ source setup.sh
-```
 ### On Windows (Using Git Bash)
 ```bash
 $ source setup.sh --windows
@@ -22,11 +18,6 @@ TOKEN=xxx61x75051xx88x69x6xxx781x54xx885x16x8394xxx5xxx223x48xxxx19507
 These two IDs are for the sake of simplicity been hardcoded
 BOARD_ID=5f5a4b008a129438843fcf0f
 LIST_ID=5f5a4b008a129438843fcf10
-
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
-```bash
-$ flask run
-```
 
 You should see output similar to the following:
 ```bash
@@ -47,6 +38,8 @@ ensure pytest is installed
 to runn all tests, navigate to the project folder and, from the command line, run the below
 >>> pytest
 
+# VM
+The option exists to run the application in VM.  Indeed a Vagranfile has been added to the project to cater such need.
 
 # Poetry installation (Bash)
 >>> curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
