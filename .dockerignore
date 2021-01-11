@@ -1,0 +1,13 @@
+**/__pycache__
+**/.coverage
+**/tests
+**/.coverage
+**/.git
+*.log
+*.env*
+.gitignore
+Dockerfile
+.pytest_cache
+.vagrant
+.vscode
+poetry.lock
