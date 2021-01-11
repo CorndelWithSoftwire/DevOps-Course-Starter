@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y build-essential libssl-dev zlib1g-dev l
             xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
 RUN pip install "poetry==$POETRY_VERSION"
-RUN pip install gunicorn
 WORKDIR /project
 COPY /todo_app /project/todo_app
 COPY /tests/ /project/tests/
