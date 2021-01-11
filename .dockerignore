@@ -116,6 +116,9 @@ env/
 
 ### Configuration files ###
 .env
+.envdocker
+.env.template
+.env.test
 
 ### Dockerfile
 Dockerfile
