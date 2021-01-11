@@ -1,12 +1,5 @@
 # DevOps Apprenticeship: Project Exercise
 
-
-### On macOS and Linux
-```bash
-$ source setup.sh
-```
-
-
 ### How to use this app
 1. Obtain a key and code from Trello API, set this in the .env file
 2. Get your board ID from tello and set this in the .env file
