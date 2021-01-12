@@ -11,7 +11,7 @@ Docker image 2 (tag:  davedev):
 Flask development environment, built using:
 docker build --target development -f Dockerfile --tag davedev .
 
-Prerequisities
+## Prerequisities
 
 In order to run this container you'll need 
 1) Docker installed
