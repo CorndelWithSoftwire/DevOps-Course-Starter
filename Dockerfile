@@ -1,16 +1,4 @@
-FROM python:3.8-slim-buster as base
-
-# Apps required
-RUN apt-get update
-RUN apt-get install -y cron
-RUN apt-get install -y curl
-RUN apt-get install -y git build-essential wget software-properties-common 
-RUN apt-get install -y python-pip
-
-# PIP installs where apt-get is not suitable
-RUN pip install git+https://github.com/benoitc/gunicorn.git
-RUN pip install flask
-RUN pip install requests
+FROM python:3.8 as base
 
 # Get poetry and set PATH
 
