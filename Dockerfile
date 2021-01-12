@@ -4,8 +4,6 @@ FROM python:3.8 as base
 
 ENV POETRY_HOME=/poetry       
 ENV PATH=${POETRY_HOME}/bin:${PATH}
-ENV PATH=$PATH:$HOME/.poetry/bin
-ENV PATH="${PATH}:/root/.poetry/bin"
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 
