@@ -10,7 +10,6 @@ class Todo:
         self.status = status
         
 app = Flask(__name__)
-app.config.from_object('flask_config.Config')
 
 def get_trello_auth():
     return {'key': os.getenv('TRELLO_KEY'), 'token': os.getenv('TRELLO_TOKEN')}
