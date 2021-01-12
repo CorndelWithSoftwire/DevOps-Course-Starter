@@ -9,7 +9,7 @@ docker build --target production -f Dockerfile --tag dave2 .
 
 Docker image 2 (tag:  davedev):
 Flask development environment, built using:
-docker build --target development -f Dockerfile --tag davedev
+docker build --target development -f Dockerfile --tag davedev .
 
 Prerequisities
 
