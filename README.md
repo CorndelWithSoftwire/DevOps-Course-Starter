@@ -32,14 +32,14 @@ $ vagrant ssh
 Build the image with  
 `docker build --target dev --tag todo:dev .`  
 Run the container with  
-`docker run -p 9000:5000 --name DEV --env-file .env --mount type=bind,source="$(pwd)"/todo-app,target=/todo-app todo:dev`
+`docker run -p 9000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo-app,target=/todo-app todo:dev`
 
 #### Production
 
 Build the image with  
 `docker build --target prod --tag todo:prod .`  
 Run the container with  
-`docker run -p 8080:5000 --name PROD --env-file .env todo:prod`
+`docker run -p 8000:8000 --env-file .env todo:prod`
 
 You should see python installing and output similar to the following:
 
