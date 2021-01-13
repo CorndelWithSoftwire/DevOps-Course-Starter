@@ -22,7 +22,7 @@
               <td>
                 {{ todo.idShort }}
               </td>
-              <form action="/update-todo" method="post">
+              <form action="/update_todo" method="POST">
                 <input type="hidden" name="todo_id" value="{{ todo.id }}">
                 <td>  
                     <input type="text" name="title" value="{{ todo.name }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">

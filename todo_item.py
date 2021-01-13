@@ -1,14 +1,14 @@
 import os
 
 class TodoItem:
-    def __init__(self, id, name, id_list):
+    def __init__(self, id, name, idList):
         self.id = id
         self.title = name
         self.status = ""
 
-        if id_list == os.getenv('TRELLO_TODO_LIST'):
-            self.status = "To Do"
-        elif id_list == os.getenv('TRELLO_IN_PROGRESS_LIST'):
+        if idList == os.getenv('NOT_STARTED'):
+            self.status = "Not Started"
+        elif idList == os.getenv('IN_PROGRESS'):
             self.status = "In Progress"
-        elif id_list == os.getenv('TRELLO_COMPLETED_LIST'):
-            self.status = "Done"
+        elif idList == os.getenv('COMPLETED'):
+            self.status = "Completed"

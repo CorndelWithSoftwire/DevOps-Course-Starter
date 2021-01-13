@@ -1,5 +1,5 @@
 import trello_items
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import requests
 import os
 import json
@@ -43,11 +43,13 @@ def delete_todo():
     return redirect('/')
 
 #update function 
-@app.route('/update-todo', methods=["POST"])
+@app.route('/update_todo', methods=["POST"])
 def update_todo():
-    item = request.form.get('todo_id')
+    id = request.form.get('todo_id')
     new_todo_value = request.form.get("title")
     new_status_value = request.form.get("status")
-    session.update_item(item, new_todo_value, new_status_value)
+    print(id)
+    trello_items.update_todo(id, new_todo_value, )
+    flash("updated")
     return redirect('/')
 
