@@ -26,7 +26,7 @@ services:
 
   todo-app-unittests:
     build:
-      target: runtests
+      target: unittests
       context: .
       dockerfile: Dockerfile
     env_file:
@@ -34,7 +34,7 @@ services:
 
   todo-app-integrationtests:
     build:
-      target: runtests
+      target: integrationtests
       context: .
       dockerfile: Dockerfile
     env_file:

@@ -26,6 +26,7 @@ RUN poetry config virtualenvs.create false && \
     poetry install --no-dev
 
 COPY runGunicorn.sh /app
+COPY gunicorn_config.py /app
 COPY todoapp /app/todoapp
 
 RUN chmod 755 runGunicorn.sh && \
@@ -35,9 +36,22 @@ ENV FLASK_ENV=production
 
 ENTRYPOINT ["./runGunicorn.sh"]
 
+# RUN TESTS
+FROM base as unittests
+
+ENV FLASK_ENV=development \
+    PYTHONPATH=/app
+
+COPY todoapp /app/todoapp
+COPY tests /app/tests
+
+RUN poetry config virtualenvs.create false && \
+    poetry install
+
+ENTRYPOINT ["poetry", "run", "pytest", "tests/unit", "--junit-xml", "test_results.xml"]
 
 # RUN TESTS
-FROM base as runtests
+FROM base as integrationtests
 
 RUN apt-get update && apt-get install -y \
     fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 \
@@ -58,15 +72,16 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
     ln -s /opt/firefox/firefox /usr/bin/firefox && \
     rm $FIREFOX_SETUP
 
-ENV FLASK_ENV=development
-    
+ENV FLASK_ENV=development \
+    PYTHONPATH=/app
+
 COPY todoapp /app/todoapp
-COPY unittests /app/tests
+COPY tests /app/tests
 
 RUN poetry config virtualenvs.create false && \
     poetry install
 
-ENTRYPOINT ["poetry", "run", "pytest", "--junit-xml", "test_results.xml"]
+ENTRYPOINT ["poetry", "run", "pytest", "tests/integration", "--junit-xml", "test_results.xml"]
 
 
 
