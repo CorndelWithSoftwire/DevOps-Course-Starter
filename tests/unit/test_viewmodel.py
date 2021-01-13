@@ -1,8 +1,8 @@
+from datetime import datetime, timedelta
 from unittest import TestCase
 
-from common import NOT_STARTED, TodoItem, COMPLETED
-from viewmodel import ViewModel
-from datetime import datetime, timedelta
+from todoapp.common import NOT_STARTED, TodoItem, COMPLETED
+from todoapp.viewmodel import ViewModel
 
 
 class TestViewModel(TestCase):

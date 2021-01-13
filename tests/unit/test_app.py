@@ -1,10 +1,9 @@
-import os
 from unittest.mock import patch
 
 import pytest
 from dotenv import load_dotenv, find_dotenv
 
-import app
+from todoapp import app
 
 
 def _mock_response(
@@ -61,7 +60,7 @@ board_lists_json = [
 
 @pytest.fixture
 def client():
-    mock_get_request = patch('trello_request.requests.request')
+    mock_get_request = patch('todoapp.trello_request.requests.request')
     mock_get = mock_get_request.start()
     mock_get.return_value = _mock_response(json_data=board_lists_json)
 
@@ -78,7 +77,7 @@ def client():
         yield client
 
 
-@patch('trello_request.requests.request')
+@patch('todoapp.trello_request.requests.request')
 def test_index_page_with_todos(mock_get_requests, client):
     mock_resp = _mock_response(json_data=todos_json)
     mock_get_requests.return_value = mock_resp
@@ -93,7 +92,7 @@ def test_index_page_with_todos(mock_get_requests, client):
     assert b"Sep 22" in response.data
 
 
-@patch('trello_request.requests.request')
+@patch('todoapp.trello_request.requests.request')
 def test_add_item_with_a_todo(mock_post_request, client):
     # Given
 
@@ -107,5 +106,6 @@ def test_add_item_with_a_todo(mock_post_request, client):
 
     # Then
     mock_post_request.assert_called_with('POST', 'https://api.trello.com/1/cards',
-                                         params={'key': 'eiruty89457934iy', 'token': 'ijehgeriu835hghe8r9348hfi539h585terh5893', 'idList': '5f4dfb5dc9f1a151051ce7a6',
+                                         params={'key': 'eiruty89457934iy', 
+                                                 'token': 'ijehgeriu835hghe8r9348hfi539h585terh5893', 'idList': '5f4dfb5dc9f1a151051ce7a6',
                                                  'name': 'Valid Item', 'due': '2020-10-21'})

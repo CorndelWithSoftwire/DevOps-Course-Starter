@@ -1,9 +1,9 @@
-from common import *
-
-import os
 import logging
+
 import requests
 from requests.exceptions import HTTPError
+
+from todoapp.common import *
 
 
 class TrelloRequest:
@@ -37,11 +37,11 @@ class TrelloRequest:
 
             response.raise_for_status()
 
-            jsonResponse = response.json()
+            json_response = response.json()
 
-            self.logger.info(jsonResponse)
+            self.logger.info(json_response)
 
-            return jsonResponse
+            return json_response
 
         except HTTPError as http_err:
             self.logger.error(f'HTTP error occurred: {http_err}')
@@ -56,8 +56,8 @@ class TrelloGetCards(TrelloRequest):
     def __init__(self, list_to_status_map):
         self._list_to_status_map = list_to_status_map
 
-    def fetchForList(self, idList):
-        url = self.URL_PATH.format(idList)
+    def fetchForList(self, id_list):
+        url = self.URL_PATH.format(id_list)
         return super().makeRequest(url, "GET")
 
     def fetchCard(self, id):

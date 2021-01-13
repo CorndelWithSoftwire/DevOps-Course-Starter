@@ -2,13 +2,12 @@ import os
 import random
 from threading import Thread
 
+from todoapp import app
+from todoapp import common
 import pytest
 from dotenv import find_dotenv, load_dotenv
 from selenium import webdriver
-
-import app
-import common
-from trello_request import TrelloRequest
+from todoapp.trello_request import TrelloRequest
 
 
 class TrelloCreateBoard(TrelloRequest):
@@ -93,7 +92,9 @@ def test_app():
 
 @pytest.fixture(scope="module")
 def driver():
-    with webdriver.Firefox() as driver:
+    options = webdriver.FirefoxOptions()
+    options.add_argument('--headless')
+    with webdriver.Firefox(options=options) as driver:
         yield driver
 
 

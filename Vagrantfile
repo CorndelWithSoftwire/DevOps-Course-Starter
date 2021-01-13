@@ -51,7 +51,7 @@ Vagrant.configure("2") do |config|
               
               sudo mkdir -p /var/log/gunicorn
               sudo chown vagrant:vagrant /var/log/gunicorn
-              poetry run gunicorn --daemon --bind 0.0.0.0:5000 -w 1 'wsgi:create_app()' --error-logfile /var/log/gunicorn/gunicorn_error.log, --log-file /var/log/gunicorn/gunicorn.log
+              poetry run gunicorn --daemon --bind 0.0.0.0:5000 -w 1 'todoapp.wsgi:create_app()' --error-logfile /var/log/gunicorn/gunicorn_error.log, --log-file /var/log/gunicorn/gunicorn.log
               echo 'Launched on host http://localhost:5001'
         "}
     end

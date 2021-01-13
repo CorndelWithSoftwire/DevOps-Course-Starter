@@ -1,9 +1,10 @@
-from trello_request import *
+import os
 
-from flask import Flask, render_template, request, redirect
 import dateutil.parser
+from flask import Flask, render_template, request, redirect
 
-from viewmodel import ViewModel
+from todoapp.trello_request import *
+from todoapp.viewmodel import ViewModel
 
 
 def createListWithStatus(status, itemList):
@@ -13,7 +14,7 @@ def createListWithStatus(status, itemList):
 
 def create_app():
     app = Flask(__name__, static_url_path='/static')
-    app.config.from_object('flask_config.Config')
+    app.config.from_object('todoapp.flask_config.Config')
 
     TrelloRequest.APP_API_KEY = os.getenv("APP_API_KEY")
     TrelloRequest.APP_TOKEN = os.getenv("APP_TOKEN")
@@ -81,4 +82,4 @@ def setup_lists():
 
 
 if __name__ == '__main__':
-    create_app().run()
+    create_app().run(debug=True, host='0.0.0.0')

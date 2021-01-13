@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from common import NOT_STARTED, COMPLETED
+from todoapp.common import NOT_STARTED, COMPLETED
 
 MAX_DONE_SHOWN = 5
 

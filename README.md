@@ -32,7 +32,34 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-## Running the App
+### Notes
+
+The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change).
+
+APP_API_KEY - This is the Trello API key which you can obtain from [here](https://trello.com/app-key)
+APP_TOKEN - This is the Trello APP token which you can be obtained by clicking the create manual Token link on the same page as fetching the app key
+
+Create a trello TODO board with 2 lists and obtain their IDs and set in the environment variables below
+
+TODO_BOARD_ID 
+
+### Running tests locally
+
+```bash
+PYTHONPATH=. pytest tests
+```
+
+#### Just Unit tests
+```bash
+PYTHONPATH=. pytegit pushst tests/unit
+```
+
+#### Just Integration tests
+```bash
+PYTHONPATH=. pytest tests/integration
+```
+
+## Running the App Locally
 
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
 ```bash
@@ -51,25 +78,46 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
-### Notes
-
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change).
-
-APP_API_KEY - This is the Trello API key which you can obtain from [here](https://trello.com/app-key)
-APP_TOKEN - This is the Trello APP token which you can be obtained by clicking the create manual Token link on the same page as fetching the app key
-
-Create a trello TODO board with 2 lists and obtain their IDs and set in the environment variables below
-
-TODO_BOARD_ID 
 
 ### gunicorn support
 Support for gunicorn local run 
 ```
-poetry run gunicorn --daemon --bind 0.0.0.0:5000 -w 1 "wsgi:create_app()"
+$ poetry run gunicorn --daemon --bind 0.0.0.0:5000 -w 1 "wsgi:create_app()"
 ```
 
 ### Vagrant
 You can also use vagrant
 ```
 $ vagrant up
+```
+
+### Docker Compose
+
+```
+$ docker-compose build && docker-compose up -d <target>
+```
+
+### Docker
+
+Building and running development 
+```
+$ docker build --target development --tag todo-app:dev .
+$ docker run --env-file ./.env -p 5100:5000 --mount type=bind,source="$(pwd)/todoapp",target=/app/todoapp todo-app:dev
+```
+
+Building and running production 
+```
+$ docker build --target production --tag todo-app:prod .
+$ docker run --env-file ./.env -p 5200:5000 todo-app:prod
+```
+
+Building and running tests 
+```
+$ docker build --target runtests --tag todo-app:runtests .
+
+# unit tests
+$ docker run --env-file ./.env.test todo-app:runtests
+
+# integration tests
+$ docker run --env-file ./.env todo-app:runtests
 ```

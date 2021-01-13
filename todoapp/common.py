@@ -1,5 +1,5 @@
-import os
 from datetime import datetime
+
 import dateutil.parser
 
 NOT_STARTED = 'Not Started'
