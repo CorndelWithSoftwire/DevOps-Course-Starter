@@ -123,3 +123,4 @@ todo_app/data/trello_secrets.txt
 .vscode/launch.json
 geckodriver.log
 .vagrant
+.vscode/settings.json

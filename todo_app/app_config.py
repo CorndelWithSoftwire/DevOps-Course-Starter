@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv, find_dotenv
 
 class Config:
     """Base configuration variables."""
