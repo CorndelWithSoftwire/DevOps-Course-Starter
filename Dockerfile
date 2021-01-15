@@ -11,14 +11,14 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 WORKDIR /app
 RUN mkdir ./models
 RUN mkdir ./templates
-COPY ./app.py ./app.py 
-COPY ./todo.py ./todo.py
-COPY ./models/view_model.py ./models/view_model.py
-COPY ./templates/layout.html ./templates/layout.html
-COPY ./templates/index.html ./templates/index.html
+COPY ./todo_app/app.py ./todo_app/app.py 
+COPY ./todo_app/todo.py ./todo_app/todo.py
+COPY ./todo_app/models/view_model.py ./todo_app/models/view_model.py
+COPY ./todo_app/templates/layout.html ./todo_app/templates/layout.html
+COPY ./todo_app/templates/index.html ./todo_app/templates/index.html
 COPY ./poetry.toml ./poetry.toml
 COPY ./pyproject.toml ./pyproject.toml
-COPY ./wsgi.py ./wsgi.py
+COPY ./todo_app/wsgi.py ./todo_app/wsgi.py
 
 #Install Poetry
 
@@ -29,7 +29,7 @@ RUN poetry install
 #Production Gunicorn
 FROM base as production
 
-ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:5000 wsgi:app
+ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:5000 todo_app.wsgi:app
 
 #Development Flask
 

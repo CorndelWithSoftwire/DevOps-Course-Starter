@@ -4,16 +4,17 @@ from flask import Flask, render_template, request, redirect, url_for
 import requests                     # Import the whole of requests
 import json
 import os        # Secrets for example Trello tokens etc in here (local only)
-from models.view_model import ViewModel
-from todo import Todo
+from todo_app.models.view_model import ViewModel
+from todo_app.todo import Todo
 app = Flask(__name__)
 
 #Set up variables we'll be using
 
 trellokey=os.environ["key"]            # get the secret key
 trellotoken=os.environ["token"]         # get the secret token
-
-
+listid=os.environ["todo_listid"]
+cardsurl = "https://api.trello.com/1/cards"
+dave="cool"
 
 
 @app.route('/', methods = ["GET","PUT"])
@@ -60,8 +61,7 @@ def entry():
         'name': request.form['title']
     }
 
-    response = requests.request(
-        "POST",
+    response = requests.post(
         cardsurl,
         params=query
     )
