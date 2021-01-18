@@ -100,3 +100,16 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+
+### Heroku deployment
+Commands to build and deploy to heroku
+```
+docker build --target production --tag kjnvarma/todo-app:latest . 
+docker push kjnvarma/todo-app:latest
+docker tag kjnvarma/todo-app:latest registry.heroku.com/todo-app-pv/web
+docker push registry.heroku.com/todo-app-pv/web
+heroku login
+heroku container:release web --app=todo-app-pv
+```
+Note: Setup up the Trello related environment varaibles and PORT (for heroku) in Config Vars section on heroku app settings (https://dashboard.heroku.com/apps/todo-app-pv/settings)
