@@ -4,11 +4,15 @@ from flask import Flask, render_template, request, redirect, url_for
 
 from todo_app.data.trello_items import Trello_service
 from todo_app.data.item import Item
+from werkzeug.debug import DebuggedApplication
 import todo_app.data.trello_constants as constants
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
+
+    if app.debug:
+        app.wsgi_app = DebuggedApplication(app.wsgi_app, evalex=True)
 
     with app.app_context():
         service = Trello_service()
