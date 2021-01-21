@@ -1,13 +1,16 @@
-class Item:
+from datetime import datetime
 
-    def __init__(self, id, title, dateLastActivity, status ):
+class Item:
+    def __init__(self, id, title, datetime, status):
         self.id = id
         self.title = title
         self.status = status
-        self.dateLastActivity = dateLastActivity
+        self.datetime = datetime
 
+    @classmethod
+    def from_raw_trello_card(cls, trello_card, status):
+        time = datetime.strptime(trello_card['dateLastActivity'],'%Y-%m-%dT%H:%M:%S.%fZ')
+        id = trello_card['id']
+        title = trello_card['name']
 
-    def get_items(self):    
-        itemslist = []
-        itemslist = { 'id': self.id , 'title': self.title, 'dateLastActivity': self.dateLastActivity, 'status': self.status }
-        return itemslist
+        return cls(id, title, time, status)
