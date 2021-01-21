@@ -4,7 +4,6 @@ from .objects import Card, List, ViewModel
 
 index = Blueprint('index', __name__)
 trello = Trello(current_app)
-
 # web pages
 
 

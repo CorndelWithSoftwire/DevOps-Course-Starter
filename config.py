@@ -17,7 +17,14 @@ class TestingConfig(Config):
     TRELLO_BOARD = "TEST_BOARD"
 
 
+class SystemTestingConfig(Config):
+    """Test configuration variables."""
+    TESTING = True
+    TRELLO_BOARD = "SYSTEM_TEST_BOARD"
+
+
 config = {
+    'system testing': SystemTestingConfig,
     'testing': TestingConfig,
     'default': Config
 }
