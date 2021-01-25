@@ -7,6 +7,7 @@ import os        # Secrets for example Trello tokens etc in here (local only)
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
 app = Flask(__name__)
+print ("Program starting now") 
 
 #Set up variables we'll be using
 
@@ -14,8 +15,6 @@ trellokey=os.environ["key"]            # get the secret key
 trellotoken=os.environ["token"]         # get the secret token
 listid=os.environ["todo_listid"]
 cardsurl = "https://api.trello.com/1/cards"
-dave="cool"
-
 
 @app.route('/', methods = ["GET","PUT"])
 def index():
@@ -37,19 +36,14 @@ def index():
      )
 
     card_list = json.loads(board_response.text)     # A list of cards
-
+    
     for trello_card in card_list:
         todo = Todo.from_trello_card(trello_card)
         superlist.append(todo)
 
-
     item_view_model = ViewModel(superlist)
-   
+    
     return render_template('index.html', view_model=item_view_model)
-
-
-    # return render_template('index.html',passedItems=Items,todisplay=superlist)
-    # return redirect("/")
 
 
 @app.route('/addentry', methods = ["POST"])

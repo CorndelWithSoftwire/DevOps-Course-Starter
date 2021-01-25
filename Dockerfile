@@ -24,6 +24,7 @@ COPY ./todo_app/wsgi.py ./todo_app/wsgi.py
 
 RUN poetry install
 
+
 #Entrypoints
 
 #Production Gunicorn
@@ -36,3 +37,8 @@ ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:5000 todo_app.wsgi:app
 FROM base as development
 
 ENTRYPOINT poetry run flask run --host=0.0.0.0
+
+#Test
+FROM base as test
+
+ENTRYPOINT ["poetry", "run", "pytest"]

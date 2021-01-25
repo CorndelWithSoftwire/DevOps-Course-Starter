@@ -11,16 +11,17 @@
     <div class="col-md-12">
       <h2>Items from COOKIE, not from Trello</h2>
       <ul class="list-group mb-4">  
-	      {% for D in passedItems %}     
+        {% for D in passedItems %}   
             <li>{{D.title}} </li>
 	      {% endfor %}
       </ul>
 
       <h2>Items from TRELLO To-Do list</h2>
       <ul class="list-group mb-4">
-     
+      
       {% for item in view_model.todo_items %}
         <li>{{item.title}}</li>
+        <li>{{item.id}}</li>
         <form action="/complete_item" method="POST">
           <input type="hidden" id="todo.id" name="item_id" value="{{ item.id }}">
           <button class="button button1" id='btn1' type="submit" >Change to complete</button> 
@@ -41,14 +42,12 @@
      
       {% for item in view_model.done_items %}
         <li>{{item.title}}</li>
+        <li>{{item.id}}</li>
+        <li>{{item.carddate}}</li>
       {% endfor %}
 
       </ul>  
 
-
-
-
-    
     </div>
   </div>
   <form action="/addentry" method="post">
