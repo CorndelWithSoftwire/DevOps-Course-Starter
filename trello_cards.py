@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from requests.api import request
 load_dotenv(".env")
 
 api_key =os.getenv('TRELLO_API_KEY')
@@ -84,18 +85,24 @@ def update_item(id):
     return response
 
 
-def get_id_of_card():
-    params = {"key": os.getenv('TRELLO_API_KEY'),
-              "token": os.getenv('TRELLO_API_TOKEN')}
-    response = requests.get(
-        f"https://api.trello.com/1/cards/{os.getenv('DOING_CARD_ID')}/labels?", params=params)
-
-    return response[id]
-
-
 def delete_item(id):
     params = {"key": os.getenv('TRELLO_API_KEY'),
               "token": os.getenv('TRELLO_API_TOKEN')}
     response = requests.delete(
         f"https://api.trello.com/1/cards/{id}", params=params)
+    return response
+
+def create_a_board(name):
+    params = {"key": os.getenv('TRELLO_API_KEY'),
+              "token": os.getenv('TRELLO_API_TOKEN'), "name": name}
+    response = requests.post(
+        f"https://api.trello.com/1/boards", params=params)
+    return response.json()["id"]
+             
+
+def delete_a_board(id):
+    params = {"key": os.getenv('TRELLO_API_KEY'),
+              "token": os.getenv('TRELLO_API_TOKEN'),}
+    response = requests.delete(
+        f"https://api.trello.com/1/boards/{id}", params=params)
     return response
