@@ -6,6 +6,9 @@ import json
 import os        # Secrets for example Trello tokens etc in here (local only)
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
+# from dateutil.parser import parser
+
+
 app = Flask(__name__)
 print ("Program starting now") 
 
@@ -77,6 +80,11 @@ def complete_item():
         params=query
     )
     return redirect("/")
+
+
+
+
+    
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@
       
       {% for item in view_model.todo_items %}
         <li>{{item.title}}</li>
-        <li>{{item.id}}</li>
+        
         <form action="/complete_item" method="POST">
           <input type="hidden" id="todo.id" name="item_id" value="{{ item.id }}">
           <button class="button button1" id='btn1' type="submit" >Change to complete</button> 
@@ -36,15 +36,26 @@
         {% endfor %}  
       </ul> 
 
-      
-      <h2>Items from TRELLO Done list</h2>
+      <h2>Todays Items from TRELLO Done list</h2>
       <ul class="list-group mb-4">
      
+        {% for item in view_model.RecentlyDone %}
+          <li>{{item.title}}</li>
+        {% endfor %}  
+      </ul> 
+
+      <details>
+        <summary>OLDER Items from TRELLO done list</summary>
+      <h2>Items from TRELLO Done list</h2>
+      <ul class="list-group mb-4">
+      
       {% for item in view_model.done_items %}
-        <li>{{item.title}}</li>
-        <li>{{item.id}}</li>
+        <li><b>{{item.title}}</b></li>
+        <li>Date it was done:</li>
         <li>{{item.carddate}}</li>
       {% endfor %}
+    </details
+
 
       </ul>  
 

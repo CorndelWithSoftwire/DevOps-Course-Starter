@@ -24,7 +24,6 @@ COPY ./todo_app/wsgi.py ./todo_app/wsgi.py
 
 RUN poetry install
 
-
 #Entrypoints
 
 #Production Gunicorn
