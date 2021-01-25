@@ -1,13 +1,14 @@
 import os
 import pytest
 from threading import Thread
-import selenium.webdriver
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from app import app
 from trello_cards import create_a_board, delete_a_board
 
 @pytest.fixture(scope="module")
 def driver():
-    with selenium.webdriver.Firefox() as driver:
+    with webdriver.Firefox() as driver:
         yield driver
 
 
@@ -37,7 +38,4 @@ def test_task_journey(driver, test_app):
 
     search_page.load()
     assert driver.title == 'To-Do App'
-
-
-def test_seearch_task(driver, test_app):
 
