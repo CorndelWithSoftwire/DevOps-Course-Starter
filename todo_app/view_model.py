@@ -1,6 +1,9 @@
 class ViewModel:
-   def __init__(self, items):
+   def __init__(self, items, todo, doing, done):
         self._items = items
+        self._todo = todo
+        self._doing_list = doing
+        self._done_list = done
 
    @property
    def items(self): 
@@ -8,16 +11,24 @@ class ViewModel:
 
    @property
    def todo(self): 
-      empty_list=[]
+      todo_list=[]
       for item in self._items:
           if item.status == "To Do":
-            empty_list.append(item)
-      return empty_list
+            todo_list.append(item)
+      return todo_list
 
    @property
    def doing(self): 
-      pass
+      doing_list=[]
+      for item in self._items:
+          if item.status == "Doing":
+            doing_list.append(item)
+      return doing_list
 
    @property
    def done(self): 
-      pass
+      done_list=[]
+      for item in self._items:
+          if item.status == "Done":
+            done_list.append(item)
+      return done_list
