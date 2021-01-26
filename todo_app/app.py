@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from todo_app.data.session_items import get_items, add_item
 # from todo_app.flask_config import Config
 import todo_app.trello_client as trello_client
+from todo_app.view_model import ViewModel
 from todo_app.data.todo_item import TodoItem
-import todo_app.view_model as ViewModel
 
 app = Flask(__name__)
 # app.config.from_object(Config)

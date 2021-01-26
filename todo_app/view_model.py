@@ -1,9 +1,6 @@
 class ViewModel:
-   def __init__(self, items, todo, doing, done):
+   def __init__(self, items):
         self._items = items
-        self._todo = todo
-        self._doing = doing
-        self._done = done
 
    @property
    def items(self): 
