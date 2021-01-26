@@ -12,6 +12,10 @@ def driver():
         yield driver
 
 
+def setUp(self):
+    self.driver = webdriver.Firefox()
+
+
 @pytest.fixture(scope='module')
 def test_app():
     # Create the new board & update the board id environment variable
@@ -32,10 +36,10 @@ def test_app():
     delete_a_board(board_id)
 
 
-search_page = driver.get('http://localhost:5000/')
-
 def test_task_journey(driver, test_app): 
 
-    search_page.load()
+    driver.get('http://localhost:5000/')
+    
     assert driver.title == 'To-Do App'
+
 
