@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-from todo_app.data.session_items import get_items, add_item
 # from todo_app.flask_config import Config
 import todo_app.trello_client as trello_client
 from todo_app.view_model import ViewModel
@@ -26,8 +25,15 @@ def index():
 @app.route('/add_item', methods=['POST'])
 def add_item():
     item_title = request.form['Title']
-    add_item(item_title)
+    trello_client.add_todo(item_title)
     return redirect('/')
+
+@app.route('/complete_item', methods=['POST'])
+def complete_item():
+    todo_id = request.form['id']
+    trello_client.complete_todo(todo_id)
+    return redirect('/')
+
 
 
 if __name__ == '__main__':
