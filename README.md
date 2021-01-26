@@ -58,7 +58,17 @@ poetry run pytest
 ## Working with GIT
 
 git add --all
+
 git commit -m "<add change details>"
+  
 git push origin Module-3
+
+## Working with Selenium
+
+poetry add selenium
+
+selenium --version
+
+
   
   
