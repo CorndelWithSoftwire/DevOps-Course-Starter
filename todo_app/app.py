@@ -14,11 +14,6 @@ app = Flask(__name__)
    # All the routes and setup code etc
 # return app
 
-# def skeleton():
-#      """ test function to test pytest """
-#      result: float = 1.0
-#      return result
-
 @app.route('/')
 def index():
     raw_cards = trello_client.get_cards_for_board()
