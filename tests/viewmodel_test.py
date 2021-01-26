@@ -4,12 +4,15 @@ from todo_app.data.todo_item import TodoItem
 def test_view_model_can_show_todo_items():
     items = [
         TodoItem("1", "To Do", "New Todo"),
-        TodoItem("2", "Done", "Done Todo")
+        TodoItem("2", "Doing", "New Doing"),
+        TodoItem("3", "Done", "Done Todo")
     ]
 
-    view_model = ViewModel(items)
+    view_model = ViewModel(items, todo, doing, done)
 
     todo_items = view_model.todo
+    doing_items = view_model.doing
+    done_items = view_model.done
 
     assert len(todo_items) == 1
 
