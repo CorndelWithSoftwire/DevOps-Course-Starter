@@ -5,7 +5,7 @@ def test_view_model_can_show_todo_items():
     items = [
         TodoItem("1", "To Do", "New Todo"),
         TodoItem("2", "Doing", "New Doing"),
-        TodoItem("3", "Done", "Done Todo")
+        TodoItem("3", "Done", "New Done")
     ]
 
     view_model = ViewModel(items, todo, doing, done)
@@ -21,3 +21,18 @@ def test_view_model_can_show_todo_items():
     assert todo_item.title == "New Todo"
     assert todo_item.status == "To Do"
     assert todo_item.id == "1"
+
+# show all the completed items, or just the most recent ones.
+
+    def test_show_all_done_items():
+        pass
+
+# return all the tasks that have been completed today.
+
+    def test_recent_done_items():
+        pass
+
+# Return all of the tasks that were completed before today.
+
+    def test_older_done_items():
+        pass
