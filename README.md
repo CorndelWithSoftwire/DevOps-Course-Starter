@@ -53,6 +53,8 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ## Working with pytest
 
+poetry install pytest
+
 poetry run pytest
 
 ## Working with GIT
