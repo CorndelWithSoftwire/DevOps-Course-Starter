@@ -7,6 +7,7 @@ import todo_item
 board_id = os.getenv('TRELLO_BOARD_ID')
 api_key = os.getenv('TRELLO_API_KEY')
 api_secret = os.getenv('TRELLO_API_SECRET')
+new_status_value = todo_item
 not_started = os.getenv('NOT_STARTED')
 in_progress = os.getenv('IN_PROGRESS')
 completed = os.getenv('COMPLETED')
@@ -42,14 +43,14 @@ def delete_todo(id):
     print(response.text)
     return response.json()
  
-def update_todo(id, new_todo_value):
+def update_todo(id, new_todo_value, new_status_value):
     
-    url =  f"https://api.trello.com/1/cards/{id}"
+    url =  f"https://api.trello.com/1/cards/{id}/", 
     
     headers = {
         "Accept": "application/json"
     }
-    query = {'key': api_key, 'token': api_secret, 'name': new_todo_value}
+    query = {'key': api_key, 'token': api_secret, 'name': new_todo_value, 'idList': new_status_value}
     #print repsonses to help build code
     print (query)
     print(id)
