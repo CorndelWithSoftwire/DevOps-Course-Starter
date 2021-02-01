@@ -119,3 +119,6 @@ env/
 
 
 .vscode/settings.json
+geckodriver
+geckodriver.log
+settings.json
