@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for
-import todo_app.trello_cards
+from todo_app.trello_cards import trello_cards
 import os
 from todo_app.card import Card
 from todo_app.view_model import ViewModel
