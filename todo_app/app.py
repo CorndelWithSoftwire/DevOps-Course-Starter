@@ -1,8 +1,8 @@
 from flask import Flask, redirect, render_template, request, url_for
-import trello_cards
+import todo_app.trello_cards
 import os
-from card import Card
-from view_model import ViewModel
+from todo_app.card import Card
+from todo_app.view_model import ViewModel
 
 def create_app():
     app = Flask(__name__)

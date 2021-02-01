@@ -5,8 +5,8 @@ from selenium import webdriver
 from selenium.webdriver import Firefox
 
 from selenium.webdriver.common.keys import Keys
-from app import app
-from trello_cards import create_a_board, delete_a_board
+from todo_app.app import app
+from todo_app.trello_cards import create_a_board, delete_a_board
 from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(scope="module")

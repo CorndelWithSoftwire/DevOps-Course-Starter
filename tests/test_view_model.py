@@ -1,5 +1,5 @@
-from view_model import ViewModel
-from card import Card
+from todo_app.view_model import ViewModel
+from todo_app.card import Card
 from datetime import datetime, timedelta
 
 def test_todo_property():
