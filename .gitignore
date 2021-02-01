@@ -122,3 +122,5 @@ env/
 geckodriver
 geckodriver.log
 settings.json
+.vscode/
+.venv/
