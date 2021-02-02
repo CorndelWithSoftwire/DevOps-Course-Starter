@@ -44,9 +44,15 @@ def test_task_journey(driver, test_app):
 
 
     driver.get('http://localhost:5000/')
-    # # To_do: Create a task, Move it along, and delete the task
-    # add_new_item = driver.find_element_by_name("name")
-    # add_description = 
-    
+    # To_do: Create a task, Move it along, and delete the task
+    add_new_item = driver.find_element_by_name("name")
+    add_description = driver.find_element_by_name("desc")
+    submit = driver.find_element_by_class_name('btn-success')
+  
+
+    add_new_item.send_keys("New item")
+    add_description.send_keys("New Description")
+    # submit.click()
+
     assert driver.title == 'To-Do App'
 
