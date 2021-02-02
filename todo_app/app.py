@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for
-from todo_app.trello_cards import trello_cards
+import todo_app.trello_cards as trello_cards
 import os
 from todo_app.card import Card
 from todo_app.view_model import ViewModel
@@ -32,7 +32,7 @@ def create_app():
     def update_item(id):
         trello_cards.update_item(id)
 
-        return redirect('/done')
+        return redirect('/')
 
 
     @app.route('/delete_item/<id>', methods=['POST'])
@@ -43,8 +43,7 @@ def create_app():
 
     return app
 
-app = create_app()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    create_app().run(host='0.0.0.0', debug=True)
 
