@@ -12,14 +12,30 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in items %}
-          <li>{{item.title}}</li>
-        {% endfor %}
+        
+          <li>{{item.title}}-{{item.status}}</li>
+ 
+          {% if item.status == 'To Do' %}
+            <a href="{{ url_for('move_item_to_doing', id=item.id) }}" class="btn btn-sm btn-primary">Mark above as Doing</a>
+         
+          {% elif item.status == 'Doing' %}
+            <a href="{{ url_for('move_item_to_done', id=item.id) }}" class="btn btn-sm btn-primary">Mark above as Done</a>
+                   
+          {% elif item.status == 'Done' %}
+            <a href="{{ url_for('undo_card_move', id=item.id) }}" class="btn btn-sm btn-primary">Undo Move</a>
+                    
+          {% endif %} 
+        
+        {% endfor %}  
       </ul>
     </div>
   </div>
 
-  <form action="/additem" method="POST">
+  <form action="/item/add" method="POST">
     <input type="text" name="title" required>
-    <button type="submit">Save</button>
+    <button type="submit">Add to To Do</button>
   </form>
+  
+
+
 {% endblock %}

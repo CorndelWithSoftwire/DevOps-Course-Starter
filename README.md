@@ -1,5 +1,7 @@
 # DevOps Apprenticeship: Project Exercise
 
+ This project    
+
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
