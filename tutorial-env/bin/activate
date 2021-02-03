@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/tobes/DevOps/Module1/module-1/DevOps-Course-Starter/tutorial-env"
+VIRTUAL_ENV="/Users/tobes/DevOps/Project-1/tutorial-env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

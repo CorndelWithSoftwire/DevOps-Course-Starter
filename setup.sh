@@ -1,22 +1,45 @@
-#!/bin/bash
-Windows=0;
+#sets the condition for the script to stop on error
+shebang | -ex
 
-while [[ "$#" -gt 0 ]]; do case $1 in
-  --windows) 
-    Windows=1;;
-esac; shift; done
+#updates the list of available resources 
+sudo apt-get update -y
 
-# Create and enable a virtual environment
-python -m venv --clear env
+#installs the PyEnv requisites 
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
-if [ $Windows == 1 ]
-    then source env/scripts/activate
-    else source env/bin/activate
-fi
+#installs Python
+sudo apt-get install python3-pip
 
-# Upgrade pip and install required packages
-pip install --upgrade pip
-pip install -r requirements.txt
+#installs poetry 
+curl -sSL https://raw.githubusercontent.com/python-poetry/
+poetry/master/get-poetry.py | python
 
-# Create a .env file from the .env.template
-cp -n .env.template .env
+#clone repository of App code
+git clone https://github.com/tobyr84/Project-1.git 
+
+#sets the dependances 
+poetry install 
+cp .env.template .env
+
+#user to input credentials into the .env file to enable access Trello
+
+
+
+
+
+"""
+poetry add requests
+python -m pip install requests
+poetry run flask run
+
+• Install Ubuntu
+• Grant super-user privileges
+• Create a new user to run the app
+
+Install Python 3.7+
+Install poetry
+Install application dependencies
+Create a virtual environment
+Launch the application
