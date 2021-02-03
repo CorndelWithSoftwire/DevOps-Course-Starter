@@ -1,4 +1,5 @@
 import trello_items
+import todo_item
 from flask import Flask, render_template, request, redirect, url_for, flash
 import requests
 import os
@@ -49,7 +50,7 @@ def update_todo():
     new_todo_value = request.form.get("title")
     new_status_value = request.form.get("status")
     print(id)
-    trello_items.update_todo(id, new_todo_value, )
+    trello_items.update_todo(id, new_todo_value, new_status_value)
     flash("updated")
     return redirect('/')
 
