@@ -43,9 +43,15 @@ def delete_todo(id):
     print(response.text)
     return response.json()
  
+<<<<<<< HEAD
 def update_todo(id, new_todo_value, new_status_value): 
 
     url =  f"https://api.trello.com/1/cards/{id}" 
+=======
+def update_todo(id, new_todo_value, new_status_value):
+    
+    url =  f"https://api.trello.com/1/cards/{id}/", 
+>>>>>>> 28ae79a5f639f8900bf9c359044d7723dd13b21a
     
     headers = {
         "Accept": "application/json"
