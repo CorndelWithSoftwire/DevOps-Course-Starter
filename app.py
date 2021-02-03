@@ -48,8 +48,11 @@ def delete_todo():
 def update_todo():
     id = request.form.get('todo_id')
     new_todo_value = request.form.get("title")
+    new_status_value = request.form.get("idList")
     print(id)
-    trello_items.update_todo(id, new_todo_value)
+    print(new_todo_value)
+    print(new_status_value)
+    trello_items.update_todo(id, new_todo_value, new_status_value)
     flash("updated")
     return redirect('/')
 
