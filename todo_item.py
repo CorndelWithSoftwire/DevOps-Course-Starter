@@ -1,14 +1,23 @@
 import os
 
 class TodoItem:
-    def __init__(self, id, name, idList):
+    def __init__(self, id, title, status):
         self.id = id
-        self.title = name
-        self.status = ""
+        self.title = title
+        self.status = status
 
-        if idList == os.getenv('NOT_STARTED'):
-            self.status = "Not Started"
-        elif idList == os.getenv('IN_PROGRESS'):
-            self.status = "In Progress"
-        elif idList == os.getenv('COMPLETED'):
-            self.status = "Completed"
+    @classmethod
+    def from_trello_card(cls, trello_card):
+        id = trello_card["id"]
+        title = trello_card["name"]
+        status = ""
+
+        if trello_card["idList"] == os.getenv('NOT_STARTED'):
+            status = "Not Started"
+        elif trello_card["idList"] == os.getenv('IN_PROGRESS'):
+            status = "In Progress"
+        elif trello_card["idList"] == os.getenv('COMPLETED'):
+            status = "Completed"
+
+        return cls(id, title, status)
+

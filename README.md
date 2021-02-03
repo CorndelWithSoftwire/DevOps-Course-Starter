@@ -1,6 +1,7 @@
 # DevOps Apprenticeship: Project Exercise
 
 ## Setup.sh
+ 
 
 Designed to automate the boring stuff for you.  Updates your resources, installs the pre-requisites, installs the latest version of python, installs poetry, clones the required GIT respository for the App and establishes your dependences.  
 
@@ -67,7 +68,11 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ### Notes
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like developement mode (which also enables features like hot reloading when you make a file change).
-* There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+
+You'll need a trello account and fill in your trello credentials in the .env file.
+
+Please ensure that you populate the `.env` file with the details of names and IDs of your respective lists within Trello. 
+
 
 
 
