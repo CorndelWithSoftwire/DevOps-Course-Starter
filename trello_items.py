@@ -43,14 +43,14 @@ def delete_todo(id):
     print(response.text)
     return response.json()
  
-def update_todo(id, new_todo_value, new_status_value):
-    
-    url =  f"https://api.trello.com/1/cards/{id}/", 
+def update_todo(id, new_todo_value): 
+
+    url =  f"https://api.trello.com/1/cards/{id}" 
     
     headers = {
         "Accept": "application/json"
     }
-    query = {'key': api_key, 'token': api_secret, 'name': new_todo_value, 'idList': new_status_value}
+    query = {'key': api_key, 'token': api_secret, 'name': new_todo_value}
     #print repsonses to help build code
     print (query)
     print(id)
