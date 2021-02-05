@@ -45,6 +45,7 @@ You'll need a Trello account to run this project. You will need:
 After doing this, you'll need to fill in the empty values in the `.env` file that is created by running the setup script.
 * You may want to use postman to obtain these ids
 
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
@@ -63,6 +64,13 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Running the Tests
+Tests are added for Unit, Integration, Selenium Tests
+To run the tests using Poetry and Pytest
+```bash
+$ poetry run pytest
+```
 
 ## Running the App in Docker using Dockerfile
  To build the image:
