@@ -1,12 +1,14 @@
 import os
 import pytest
+import time
+import requests
 from threading import Thread
 from selenium import webdriver
 from selenium.webdriver import Firefox
 from dotenv import find_dotenv, load_dotenv
 from selenium.webdriver.common.keys import Keys
 from todo_app.app import create_app
-from todo_app.trello_cards import create_a_board, delete_a_board
+from todo_app.trello_cards import create_a_board, delete_a_board, make_trello_auth
 from selenium.webdriver.chrome.options import Options
 
 
@@ -18,13 +20,29 @@ def driver():
     with webdriver.Firefox() as driver:
         yield driver
 
+def load_list():
+    """ Simple attempt to get all cards from Trello. """
+    request_url = make_trello_auth(f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/lists")
+    response = requests.get(request_url)
+    todos = response.json()
+    for list in todos:
+        print(list['name'], list['id'])
+        if list['name'] == "To Do":
+            os.environ['TODO_idList'] = list['id']
+        if list['name'] == "Doing":
+            os.environ['DOING_idList'] = list['id']
+        if list['name'] == "Done":
+            os.environ['DONE_idList'] = list['id']
+    return list
 
 
 @pytest.fixture(scope='module')
 def test_app():
     # Create the new board & update the board id environment variable
-    board_id = create_a_board('testboard')
-    os.environ['TRELLO_BOARD_ID'] = board_id
+    board_id = create_a_board('board_id')
+    os.environ['BOARD_ID'] = board_id
+    load_list()
+
 
     # construct the new application
     application = create_app()
@@ -42,17 +60,22 @@ def test_app():
 
 def test_task_journey(driver, test_app): 
 
-
     driver.get('http://localhost:5000/')
-    # To_do: Create a task, Move it along, and delete the task
-    add_new_item = driver.find_element_by_name("name")
-    add_description = driver.find_element_by_name("desc")
-    submit = driver.find_element_by_class_name('btn-success')
-  
-
-    add_new_item.send_keys("New item")
-    add_description.send_keys("New Description")
-    # submit.click()
-
     assert driver.title == 'To-Do App'
 
+    # Create a task
+    driver.find_element_by_name("name").send_keys("New Item")
+    driver.find_element_by_name("desc").send_keys("New Description - Done")
+    driver.find_element_by_class_name('btn-success').click()
+    time.sleep(3)
+    # assert ("New Description - Done" in driver.page_source)
+
+    # Mark task as complete 
+    driver.find_element_by_xpath("//*[contains(text(), 'Complete Item')]").click()
+    # assert ("New Description - Done" in driver.page_source)
+
+    # Delete the task
+    driver.find_element_by_class_name('btn-danger').click()
+    # assert "New Description - Done" not in driver.page_source
+    driver.quit()
+    
