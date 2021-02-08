@@ -42,16 +42,31 @@ FROM base as unittests
 ENV FLASK_ENV=development \
     PYTHONPATH=/app
 
-COPY todoapp /app/todoapp
-COPY tests /app/tests
-
 RUN poetry config virtualenvs.create false && \
     poetry install
+
+COPY todoapp /app/todoapp
+COPY tests /app/tests
 
 ENTRYPOINT ["poetry", "run", "pytest", "tests/unit", "--junit-xml", "test_results.xml"]
 
 # RUN TESTS
 FROM base as integrationtests
+
+ENV FLASK_ENV=development \
+    PYTHONPATH=/app
+
+RUN poetry config virtualenvs.create false && \
+    poetry install
+
+COPY todoapp /app/todoapp
+COPY tests /app/tests
+
+ENTRYPOINT ["poetry", "run", "pytest", "tests/integration", "--junit-xml", "test_results.xml"]
+
+
+# RUN TESTS
+FROM base as endtoendtests
 
 RUN apt-get update && apt-get install -y \
     fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 \
@@ -75,13 +90,13 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
 ENV FLASK_ENV=development \
     PYTHONPATH=/app
 
+RUN poetry config virtualenvs.create false && \
+    poetry install
+    
 COPY todoapp /app/todoapp
 COPY tests /app/tests
 
-RUN poetry config virtualenvs.create false && \
-    poetry install
-
-ENTRYPOINT ["poetry", "run", "pytest", "tests/integration", "--junit-xml", "test_results.xml"]
+ENTRYPOINT ["poetry", "run", "pytest", "tests/endtoend", "--junit-xml", "test_results.xml"]
 
 
 

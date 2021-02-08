@@ -29,12 +29,18 @@ services:
       target: unittests
       context: .
       dockerfile: Dockerfile
-    env_file:
-      - ./.env.test
 
   todo-app-integrationtests:
     build:
       target: integrationtests
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env.test
+
+  todo-app-endtoendtests:
+    build:
+      target: endtoendtests
       context: .
       dockerfile: Dockerfile
     env_file:

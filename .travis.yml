@@ -1,0 +1,22 @@
+language: python
+services:
+    - docker
+env:
+  global:
+    - secure: 1gBid0U4/pNYcK93WsFwJzDwle1Beh13EX/GB7hWiq8BPXh5R+38K2VFhzejj8hwo0hN+YMsKZGtE9D+oxC80sz3TrtRREMWuEAY5njqHwkJIPF3TEy7PATb/SS78WvytGZnbTxLCMZ6s7dgbdBbTapVqCMXS/SUoqif5iCVGu8BOfBGMRmpmEPtJvTkA7EYG137e1/nxOHdx7B/Qp+ZnJ1kHWDrfxjUz6EZh4+4MTU+EFp60x1fRjqRK47tcDBRZ4lF73rtsGr+Hx0ZSkKrRQdSYeDh9TJv9En2w/GaFR3DvjC9YRQeSIhR0wLVwcu1eLY3BFCynvxKyFAofQB4HJIWlevPYunntCaacdlQwWRZ7CN33tJRg1FThUy3NTyn1zbaZOe+YMj7ETHGjkvXH3/yxSGcoZS8jo2lL/lsSlO59jjQviwNTCqCezCRxE0PSg/1UXHjBXVHCNN+EV+mLKcZ2LhohCP2iBkLp1588gGvxN+aMC3wwF9gXDIat2kXzNqDtzVT/rAGqDjQXOUHBxXODyXvqi7OnUP/GWCWCZFVni2m8CTK2icl5AWKqhFV2txCC8dMXyelzXjgf+EwElzg9fQkXL++qdDQQjTpz3tDjK0CHiqzoCV6SR9yGzoaKJHYX3TE6fT7g0nVVzhxuisDZzFrzaHJInayjeW1Tro=
+    - secure: Q/BF5IimAkOCNNJ163LnNWYsg2OAtaQck1KdplTmq2ncKcdn90R5jjNmXebmUNRHv4iEbC+j7lnqZtJLG10jvdbet/EKpLV02haCiw/WCRF078/IYpozPb5ZCu1jMDXRgHt6PQeogeo3x7qJEFtwZIUgBm7fJjlajCHz7wZRV+ewc5PH1NMMLh5hck0DaH248iD/QNsGXWR6hDDIODkXV3PNbe93tamZr4Ua/eGQkmvoxP7i0q6UCpe8Pv8wJbnpye8CW5clHkZ/0dwSb9WCIb52oPa85OfKDi9Iz+ID0wYy/0WL4mHZrLTZ3jK6IHOg8mA4GwE53j9nsJJilB3MazzRaApFacEH3gKD2m5enXjOzTCWr+m1hfI+aKbhpTCla+rEBxQ1Hkf1gWwI+CE56nKYFU2Vq44ajLLefmJ9AdbIfALI4qqhDgimWYsAdWXqP2eotYIdkKoojo2msbt8OqTUc8j3U7DjsQG8BN0rPNGyyiQNaQvyMv+DkRQzYF0SGnHanlskHUFwozPvie9Kv7hVGZA/jEJZAp+yN4T1FZcsKVl1iop+3bm2Yhh8O3dr2cr+8E+xUCpu2zgr2+HQWuPiLiKRvqvBZlhWDZMJUSN9XYdGM70eDJv5jP+A8mPFgqc9peLuG8VTEivMPmKnolM5Fgi3be6gA+T3tu35QNk=
+notifications:
+  slack:
+    secure: xsQM9c0gQYB4HK9ugFF5jdE/1sHcAytF7bB9sVtC4jrDBxLaHFtQYrdijzbf3yn9kKUbcOtESov1ary4e9NcF3751tbt0hD6b6QT2Dbx6ZcWrKB6MuCY/ady/T4KvwVlPOwsBk5QXyG2anRxaV1nqPu4/eUPVHe+RBNDkNzU88WcYx8BsUCsWIG4u9uWs8WJj4KVbgGNMoi8AflpB/YeQOYY0TOmVP84/QM4w8EwssE8fHGpNsq+Ad1iGyKLF1HSon9dAIT4QEx4DnJ6N8hT+oGWjIGaiS6MsZHH6w0mL2D0mBxTHaoDoOqjaZ+rDsbSDhM6c+WpLTde1nK0sbcgbvWDGD+g5fYmX43QNv75++7CkO0+GTuNCKF9vnW/P4eaqNjPvpR4vBbGjWw8cQsPjhinLf6ZRRdURYGEAmKfX3c2SNprEi5bto4kI4rmWbrR1cs3ny7esz/lKg6RsqWrTvDHeVsmIIXDSH+gHFtHK0pjlvrgLKwZUNMwKUh21wGY/xgXVNk4r++18S3FyitWBkEP2HRf8eWGDgqWCXSDqMOj1OKeyXAEUiXeSB7m/qPIrVEqqXNc6IRoxETBlWZg4xf5ZZJMCPJu65e4D7GL9TMGNmhTC6Er8xAZB4NN/mhikFC5mNGhxaMOJ4FnCcy2tn/nZWrcL4Gqb9zyNcEk1ys=
+  email:
+    - wijimec635@poetred.com
+script:
+- echo "Build unit tests"
+- docker build --target unittests --tag todo-app:unittests .
+- docker run todo-app:unittests
+- echo "integration tests"
+- docker build --target integrationtests --tag todo-app:integrationtests .
+- docker run --env-file ./.env.test todo-app:integrationtests
+- echo "endtoend tests"
+- docker build --target endtoendtests --tag todo-app:endtoendtests .
+- docker run -e APP_API_KEY=$APP_API_KEY -e APP_TOKEN=$APP_TOKEN todo-app:endtoendtests

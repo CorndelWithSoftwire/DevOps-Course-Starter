@@ -1,5 +1,7 @@
 # DevOps Apprenticeship: Project Exercise
 
+[![Build Status](https://www.travis-ci.com/jatin-28/DevOps-Course-Starter.svg?branch=master)](https://www.travis-ci.com/jatin-28/DevOps-Course-Starter)
+
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
@@ -113,11 +115,16 @@ $ docker run --env-file ./.env -p 5200:5000 todo-app:prod
 
 Building and running tests 
 ```
-$ docker build --target runtests --tag todo-app:runtests .
 
 # unit tests
-$ docker run --env-file ./.env.test todo-app:runtests
+$ docker build --target unittests --tag todo-app:unittests .
+$ docker run todo-app:unittests
 
 # integration tests
-$ docker run --env-file ./.env todo-app:runtests
+$ docker build --target integrationtests --tag todo-app:integrationtests .
+$ docker run --env-file ./.env.test todo-app:integrationtests
+
+# endtoend tests
+$ docker build --target endtoendtests --tag todo-app:endtoendtests .
+$ docker run --env-file ./.env todo-app:endtoendtests
 ```
