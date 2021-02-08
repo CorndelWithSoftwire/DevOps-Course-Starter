@@ -1,78 +1,58 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-import session_items as session
+from flask import Flask, render_template, request, redirect, url_for
+import trello_items as trello_items
+import items_view_model as ItemsViewModel
 
-app = Flask(__name__)
-app.config.from_object('flask_config.Config')
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('flask_config.Config')
 
-url = "https://api.trello.com/1/"
+    @app.route('/')
+    def index():
+        trello_items.get_items()
+        return redirect('tasks')
 
-@app.route('/')
-def index():
-    return redirect('tasks')
+    @app.route('/tasks')
+    def list_tasks():
+        items = trello_items.get_items()
+        # Get ToDo items
+        view_model = ItemsViewModel.ItemsViewModel(items)
 
-@app.route('/clearsession')
-def clearsession():
-    session.clearsessions()
-    #items = session.get_items()
-    return render_template("index.html")
+        return render_template('index.html', view_model=view_model)
 
-@app.route('/tasks')
-def list_tasks():
-    items = session.get_items()
-    return render_template("index.html", items=items)
+    @app.route('/add', methods=['POST'])
+    def add_item():
+        task = request.form['task_description']
+        trello_items.add_item(task)
 
-@app.route('/tasks', methods=['POST'])
-def post_item():
-    
-    form = request.form
-    complete = False
-    remove = False
-    id = 0
+        return redirect(url_for('index'))
 
-    # Take ID from form and split by _ to get item ID
-    for key in form:
-        #print(key)
-        if key.startswith('Done_'):
-            complete = True
-            id = key.partition('_')[-1]
-            
-        if key.startswith('Remove_'):
-            remove = True
-            id = key.partition('_')[-1]
-    
-    # If new item added
-    if "addtask" in form:
-         tasktitle = request.form['addtask']
-         if(tasktitle != ''):
-            session.add_item(tasktitle)
-         items = session.get_items()
+    @app.route('/tasks/<id>/complete', methods=['POST'])
+    def complete_item(id):
+        trello_items.markAsDone(id)
 
-    # If item marked as Done
-    if complete:
-        session.markAsDone(id)
-        items = session.get_items()
+        return redirect(url_for('index'))
 
-    # If item marked as Remove
-    if remove:  
-        session.remove_item(id)
-        items = session.get_items()
+    @app.route('/tasks/<id>/remove', methods=['POST'])
+    def remove_item(id):
+        trello_items.remove_item(id)
 
-    else:
-        items = session.get_items()
-    
-    
+        return redirect(url_for('index'))
 
-    return render_template("index.html", items=items)
-    #return render_template("index.html")
+    @app.route('/tasks/<id>/inprogress', methods=['POST'])
+    def inprogress_item(id):
+        trello_items.inprogress_item(id)
 
-@app.route('/tasks/<id>', methods=['GET'])
-def get_item(id):
-    singleitem = session.get_item(id)
-    print(singleitem)
-    return render_template("index.html", singleitem=singleitem)
+        return redirect(url_for('index'))
 
+    @app.route('/tasks/<id>', methods=['GET'])
+    def get_item(id):
+        singleitem = trello_items.get_single_item(id)
+        print(singleitem)
+        return render_template("index.html", singleitem=singleitem)
 
+    # All the routes and setup code etc
+    return app
 
 if __name__ == '__main__':
-    app.run()
+    create_app().run()
 

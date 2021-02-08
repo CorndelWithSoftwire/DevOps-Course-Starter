@@ -3,58 +3,222 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
+    <div class="row">
+      <div  class="col-md-7">
+        <h1 class="display-4">To-Do App</h1>
+        <p class="lead">Just another to-do app.</p>
+      </div>
+      <div class="col-md-5 bg-warning rounded text-center">
+        <h2 class="display-4">Add New Task</h2>
+        <ul class="list-group mb-4 lead">
+          <!-- List the todo items here -->
+          <form action="/add" method="POST">
+            Task: <input type="text" name="task_description" >
+            <input type="submit">
+          </form>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List multiple todo items here -->
-        <form action="/tasks" method="POST">
-          <table class="table">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">Status</th>
-              <th scope="col">Mark as Done</th>
-              <th scope="col">Remove</th>
-            </tr>
-            {% for item in items %} 
+        
+          <table  class="table" >
+            <thead class="thead-dark">
               <tr>
-                <th>{{item.id}}</th>
-                <th>{{item.title}}</th>
-                <th>{{item.status}}</th>
-                <th><input name="Done_{{item.id}}" type="submit" value="done" {% if item.status == 'Done' %}disabled{% endif %}> </th>
-                <th><input name="Remove_{{item.id}}" type="submit" value="remove"></th>
+                <th id="item" scope="col">
+                    Task ID
+                </th>
+                <th id="title" scope="col">
+                    Task
+                </th>
+                <th id="done" scope="col">
+                    Done
+                </th>
+                <th id="update" scope="col">
+                    Update
+                </th>
+                <th id="timestamp" scope="col">
+                    Last Updated
+                </th>
               </tr>
-            {% endfor %}
-            {% if singleitem %}
-              <!-- List single todo items here -->
+            </thead>
+            <tbody>
+              <tr class="statusheader">
+                <th id="ThingsToDo" class="span" colspan="5" scope="colgroup">
+                    To Do Tasks
+                </th>
+              </tr>
+              {% for item in view_model.todo_items %} 
               <tr>
-                <th>{{singleitem.id}}</th>
-                <th>{{singleitem.title}}</th>
-                <th>{{singleitem.status}}</th>
-                <th><input name="Done_{{singleitem.id}}" type="submit" value="done"> </th>
-                <th><input name="Remove_{{singleitem.id}}" type="submit" value="remove"></th>
+                <th headers="ThingsToDo" id="{{item.id}}">
+                  {{item.id}}
+                </th>
+                <td headers="ThingsToDo {{item.id}} title">
+                  {{item.title}}
+                </td>
+                <td headers="ThingsToDo {{item.id}} done">
+                  <form action="/tasks/{{item.id}}/complete" method="POST">
+                    <input name="Done" type="submit" class="btn btn-success  " value="Complete" >
+                  </form>
+                </td>
+                <td headers="ThingsToDo {{item.id}} update">
+                  <form action="/tasks/{{item.id}}/inprogress" method="POST">
+                    <input name="InProgress" type="submit" class="btn btn-warning" value="InProgress">
+                  </form>
+                </td>
+                <td headers="ThingsToDo {{item.id}} timestamp">
+                  {{item.dateLastActivity}}
+                </td>
               </tr>
-            {% endif %}
+              {% endfor %}
+              <tr class="statusheader">
+                <th id="Doing" class="span" colspan="5" scope="colgroup">
+                  Tasks In Progress
+                </th>
+              </tr>
+              {% for item in view_model.doing_items%} 
+              <tr>
+                <th headers="Doing" id="{{item.id}}">
+                  {{item.id}}
+                </th>
+                <td headers="Doing {{item.id}} title">
+                  {{item.title}}
+                </td>
+                <td headers="Doing {{item.id}} done">
+                  <form action="/tasks/{{item.id}}/complete" method="POST">
+                    <input name="Done" type="submit" class="btn btn-success  " value="Complete" >
+                  </form>
+                </td>
+                <td headers="Doing {{item.id}} update">
+                  <form action="/tasks/{{item.id}}/remove" method="POST">
+                    <input name="Remove" type="submit" class="btn btn-danger" value="Remove">
+                  </form>
+                </td>
+                <td headers="Doing {{item.id}} timestamp">
+                  {{item.dateLastActivity}}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
-        </form>
         
-        
-      </ul>
+
+          <div id="accordion" class="accordion">
+            <div class="card mb-0">
+                <div class="card-header collapsed statusheader" data-toggle="collapse" href="#collapseOne">
+                    <a class="card-title"><strong>Completed Tasks Today</strong> </a>
+                </div>
+                <div id="collapseOne" class="card-body collapse {% if view_model.show_all_done_items != True %} show {% endif %}" data-parent="#accordion">
+                  <table class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th id="item" scope="col">
+                          Task ID
+                        </th>
+                        <th id="title" scope="col">
+                          Task
+                        </th>
+                        <th id="timestamp" scope="col">
+                          Task Completed
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in view_model.recent_done_items%} 
+                      <tr>
+                        <th headers="Done_Today" id="{{item.id}}">
+                          {{item.id}}
+                        </th>
+                        <td headers="Done_Today {{item.id}} title">
+                          {{item.title}}
+                        </td>
+                        <td headers="Done_Today {{item.id}} timestamp">
+                          {{item.datetime}}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-header collapsed statusheader" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <a class="card-title"><strong>Prior To Today</strong>  </a>
+                </div>
+                <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                  <table class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th id="item" scope="col">
+                          Task
+                        </th>
+                        <th id="title" scope="col">
+                          Task
+                        </th>
+                        <th id="timestamp" scope="col">
+                          Task Completed
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in view_model.older_done_items%} 
+                      <tr>
+                        <th headers="Done_Older" id="{{item.id}}">
+                          {{item.id}}
+                        </th>
+                        <td headers="Done_Older {{item.id}} title">
+                          {{item.title}}
+                        </td>
+                        <td headers="Done_Older {{item.id}} timestamp">
+                          {{item.datetime}}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-header collapsed statusheader" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    <a class="card-title"><strong>All Completed Tasks </strong></a>
+                </div>
+                <div id="collapseThree" class="collapse {% if view_model.show_all_done_items %} show {% endif %}" data-parent="#accordion">
+                  <table class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th id="item" scope="col">
+                          Task
+                        </th>
+                        <th id="title" scope="col">
+                          Task
+                        </th>
+                        <th id="timestamp" scope="col">
+                          Task Completed
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in view_model.done_items%} 
+                      <tr>
+                        <th headers="Done_All" id="{{item.id}}">
+                          {{item.id}}
+                        </th>
+                        <td headers="Done_All {{item.id}} title">
+                          {{item.title}}
+                        </td>
+                        <td headers="Done_All {{item.id}} timestamp">
+                          {{item.datetime}}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-12">
-      <h2>Add New To-Do Task</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        <form action="/tasks" method="POST">
-          Task: <input type="text" name="addtask" >
-          <input type="submit">
-        </form>
-      </ul>
-    </div>
+
+
+    
   </div>
 {% endblock %}
