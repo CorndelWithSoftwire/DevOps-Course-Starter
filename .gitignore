@@ -116,3 +116,4 @@ env/
 .env
 .vagrant
 .venv
+.poetry
