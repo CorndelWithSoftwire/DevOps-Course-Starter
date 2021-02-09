@@ -1,39 +1,52 @@
-# DevOps Apprenticeship: Project Exercise
+## System Requirements
 
-## Getting started
+The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from a bash shell terminal:
+### Poetry installation (Bash)
 
-### On macOS and Linux
 ```bash
-$ source setup.sh
-```
-### On Windows (Using Git Bash)
-```bash
-$ source setup.sh --windows
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 ```
 
-Once the setup script has completed and all packages have been installed, start the Flask app by running:
-```bash
-$ flask run
+### Poetry installation (PowerShell)
+
+```powershell
+(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
 ```
 
-You should see output similar to the following:
+## Dependencies
+
+The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
+
 ```bash
- * Serving Flask app "app" (lazy loading)
- * Environment: development
- * Debug mode: on
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
- * Restarting with fsevents reloader
- * Debugger is active!
- * Debugger PIN: 226-556-590
+$ poetry install
 ```
-Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+You'll also need to clone a new `.env` file from the `.env.tempalate` to store local configuration options. This is a one-time operation on first setup:
 
-### How to use this app
-1. Obtain a key and code from Trello API, set this in the .env file
-2. Get your board ID from tello and set this in the .env file
-3. Run the app, it should work.
+```bash
+$ cp .env.template .env  # (first time only)
+```
 
-Enjoy!!
+The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+
+## Running the App
+
+Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
+```bash
+$ poetry run flask run
+```
+
+## Trello Setup
+Setup the below Environment variables for Trello API
+```
+TRELLO_KEY
+TRELLO_TOKEN
+TRELLO_BOARD_ID
+TRELLO_TODO_LIST_ID
+TRELLO_DOING_LIST_ID
+TRELLO_DONE_LIST_ID
+```
+
+Install geckodriver and Firefox as we need these two for running selenium tests.
+

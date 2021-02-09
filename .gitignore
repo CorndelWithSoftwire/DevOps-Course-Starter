@@ -115,5 +115,11 @@ env/
 
 ### Configuration files ###
 .env
+<<<<<<< HEAD
 .venv
 .vagrant
+=======
+.vagrant
+.venv
+.poetry
+>>>>>>> module_4
