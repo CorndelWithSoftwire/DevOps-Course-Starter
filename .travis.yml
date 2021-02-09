@@ -15,5 +15,4 @@ script:
 - done_listid=5f3528981725711087e10339
 - board_id=5f3528983d4fb244aae9f934
 
-
 - docker run -p 5000:5000 my-test-image
