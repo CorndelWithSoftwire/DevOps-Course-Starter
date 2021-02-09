@@ -13,7 +13,7 @@ RUN apt-get update
  	apt-get install ./chrome.deb -y &&\
 	rm ./chrome.deb
 
-
+# ALTERNATIVE -- KEPT HERE FOR A COUPOLE OF RELEASES IN CASE I NEED IT IN FUTURE
 # FROM debian:jessie
 # ENV CHROME_VERSION "google-chrome-stable"
 # RUN sed -i -- 's&deb http://deb.debian.org/debian jessie-updates main&#deb http://deb.debian.org/debian jessie-updates main&g' /etc/apt/sources.list \
@@ -26,11 +26,11 @@ RUN apt-get update
 
 # Install Chromium WebDriver
 
-# RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` &&\ 
-#     echo "Installing chromium webdriver version ${LATEST}" &&\
-# 	curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
-# 	apt-get install unzip -y &&\
-# 	unzip ./chromedriver_linux64.zip
+RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` &&\ 
+    echo "Installing chromium webdriver version ${LATEST}" &&\
+ 	curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
+ 	apt-get install unzip -y &&\
+ 	unzip ./chromedriver_linux64.zip
 
 
 
