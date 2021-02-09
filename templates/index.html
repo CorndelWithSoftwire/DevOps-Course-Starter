@@ -52,7 +52,7 @@
                     To Do Tasks
                 </th>
               </tr>
-              {% for item in thingstodo.items%} 
+              {% for item in view_model.todo_items %} 
               <tr>
                 <th headers="ThingsToDo" id="{{item.id}}">
                   {{item.id}}
@@ -80,7 +80,7 @@
                   Tasks In Progress
                 </th>
               </tr>
-              {% for item in doing.items%} 
+              {% for item in view_model.doing_items%} 
               <tr>
                 <th headers="Doing" id="{{item.id}}">
                   {{item.id}}
@@ -107,117 +107,117 @@
           </table>
         
 
-
           <div id="accordion" class="accordion">
-              <div class="card mb-0">
-                  <div class="card-header collapsed statusheader" data-toggle="collapse" href="#collapseOne">
-                      <a class="card-title"><strong>Completed Tasks Today</strong> </a>
-                  </div>
-                  <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
-                    <table class="table table-striped">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th id="item" scope="col">
-                            Task ID
-                          </th>
-                          <th id="title" scope="col">
-                            Task
-                          </th>
-                          <th id="timestamp" scope="col">
-                            Task Completed
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {% for item in done_today.items%} 
-                        <tr>
-                          <th headers="Done_Today" id="{{item.id}}">
-                            {{item.id}}
-                          </th>
-                          <td headers="Done_Today {{item.id}} title">
-                            {{item.title}}
-                          </td>
-                          <td headers="Done_Today {{item.id}} timestamp">
-                            {{item.dateLastActivity}}
-                          </td>
-                        </tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="card-header collapsed statusheader" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                      <a class="card-title"><strong>Prior To Today</strong>  </a>
-                  </div>
-                  <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
-                    <table class="table table-striped">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th id="item" scope="col">
-                            Task
-                          </th>
-                          <th id="title" scope="col">
-                            Task
-                          </th>
-                          <th id="timestamp" scope="col">
-                            Task Completed
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {% for item in done_older.items%} 
-                        <tr>
-                          <th headers="Done_Older" id="{{item.id}}">
-                            {{item.id}}
-                          </th>
-                          <td headers="Done_Older {{item.id}} title">
-                            {{item.title}}
-                          </td>
-                          <td headers="Done_Older {{item.id}} timestamp">
-                            {{item.dateLastActivity}}
-                          </td>
-                        </tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="card-header collapsed statusheader" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                      <a class="card-title"><strong>All Completed Tasks </strong></a>
-                  </div>
-                  <div id="collapseThree" class="collapse" data-parent="#accordion">
-                    <table class="table table-striped">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th id="item" scope="col">
-                            Task
-                          </th>
-                          <th id="title" scope="col">
-                            Task
-                          </th>
-                          <th id="timestamp" scope="col">
-                            Task Completed
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {% for item in done_all.items%} 
-                        <tr>
-                          <th headers="Done_All" id="{{item.id}}">
-                            {{item.id}}
-                          </th>
-                          <td headers="Done_All {{item.id}} title">
-                            {{item.title}}
-                          </td>
-                          <td headers="Done_All {{item.id}} timestamp">
-                            {{item.dateLastActivity}}
-                          </td>
-                        </tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-              </div>
-          </div>
-      </div>
+            <div class="card mb-0">
+                <div class="card-header collapsed statusheader" data-toggle="collapse" href="#collapseOne">
+                    <a class="card-title"><strong>Completed Tasks Today</strong> </a>
+                </div>
+                <div id="collapseOne" class="card-body collapse {% if view_model.show_all_done_items != True %} show {% endif %}" data-parent="#accordion">
+                  <table class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th id="item" scope="col">
+                          Task ID
+                        </th>
+                        <th id="title" scope="col">
+                          Task
+                        </th>
+                        <th id="timestamp" scope="col">
+                          Task Completed
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in view_model.recent_done_items%} 
+                      <tr>
+                        <th headers="Done_Today" id="{{item.id}}">
+                          {{item.id}}
+                        </th>
+                        <td headers="Done_Today {{item.id}} title">
+                          {{item.title}}
+                        </td>
+                        <td headers="Done_Today {{item.id}} timestamp">
+                          {{item.datetime}}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-header collapsed statusheader" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <a class="card-title"><strong>Prior To Today</strong>  </a>
+                </div>
+                <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                  <table class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th id="item" scope="col">
+                          Task
+                        </th>
+                        <th id="title" scope="col">
+                          Task
+                        </th>
+                        <th id="timestamp" scope="col">
+                          Task Completed
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in view_model.older_done_items%} 
+                      <tr>
+                        <th headers="Done_Older" id="{{item.id}}">
+                          {{item.id}}
+                        </th>
+                        <td headers="Done_Older {{item.id}} title">
+                          {{item.title}}
+                        </td>
+                        <td headers="Done_Older {{item.id}} timestamp">
+                          {{item.datetime}}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-header collapsed statusheader" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    <a class="card-title"><strong>All Completed Tasks </strong></a>
+                </div>
+                <div id="collapseThree" class="collapse {% if view_model.show_all_done_items %} show {% endif %}" data-parent="#accordion">
+                  <table class="table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th id="item" scope="col">
+                          Task
+                        </th>
+                        <th id="title" scope="col">
+                          Task
+                        </th>
+                        <th id="timestamp" scope="col">
+                          Task Completed
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in view_model.done_items%} 
+                      <tr>
+                        <th headers="Done_All" id="{{item.id}}">
+                          {{item.id}}
+                        </th>
+                        <td headers="Done_All {{item.id}} title">
+                          {{item.title}}
+                        </td>
+                        <td headers="Done_All {{item.id}} timestamp">
+                          {{item.datetime}}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     
   </div>

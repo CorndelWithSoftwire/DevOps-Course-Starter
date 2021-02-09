@@ -9,23 +9,25 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
-    lists_on_board = test_app.trello_items.getListsOnBoards(os.environ['trello_boardid'] )
+    trello_board_id = trello.create_trello_board("test_task_journey")
+    lists_on_board = test_app.trello_items.getListsOnBoards(trello_board_id)
     test_app.trello_items.setListIdInEnv(lists_on_board)
-    task_id = test_app.trello_items.add_item("test task", os.environ["todo_list_id"])
-    moved_to_inprogress = test_app.trello_items.inprogress_item(task_id, os.environ["doing_list_id"] )
-    mark_as_done = test_app.trello_items.markAsDone(task_id, os.environ["done_list_id"] )
+    task_id = test_app.trello_items.add_item("test task")
+    moved_to_inprogress = test_app.trello_items.inprogress_item(task_id)
+    mark_as_done = test_app.trello_items.markAsDone(task_id )
+    trello.delete_trello_board(trello_board_id)
 
     assert driver.title == 'To-Do App'
     assert task_id is not None
     assert moved_to_inprogress is True
     assert mark_as_done is True
 
-# def test_create_and_delete_board():
-#     trello_board_id = trello.create_trello_board("TestBoard")
-#     board_deleted = trello.delete_trello_board(trello_board_id)
+def test_create_and_delete_board():
+     trello_board_id = trello.create_trello_board("test_create_and_delete_board")
+     board_deleted = trello.delete_trello_board(trello_board_id)
 
-#     assert trello_board_id is not None
-#     assert board_deleted is True
+     assert trello_board_id is not None
+     assert board_deleted is True
     
 @pytest.fixture(scope='module')
 def test_app():

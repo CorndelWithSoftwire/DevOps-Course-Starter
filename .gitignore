@@ -116,3 +116,4 @@ env/
 ### Configuration files ###
 .env
 .venv
+.vagrant

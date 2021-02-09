@@ -31,7 +31,7 @@ def getCardsOnList(listid, status):
     items = []
     
     for i in cards:
-        item_from_list = Item(i['id'],i['name'],i['dateLastActivity'],status).get_items()
+        item_from_list = Item.from_raw_trello_card(i, status)
         items.append(item_from_list)
 
     return items
@@ -43,9 +43,10 @@ def get_single_item(id):
     items = get_items()
     return next((item for item in items if item['id'] == id), None)
 
-def add_item(title, _todo_list_id):
+def add_item(title):
     # Post item to Trello and retrieve items list from Trello
-    response = callTrelloAPI("post", "lists", "cards", _todo_list_id , title)
+    todo_list_id = os.environ["todo_list_id"]
+    response = callTrelloAPI("post", "lists", "cards", todo_list_id , title)
     cardid = response["id"]
     return cardid
 
@@ -54,15 +55,17 @@ def remove_item(cardId):
     callTrelloAPI("delete","cards","",cardId, "")
     return 
 
-def inprogress_item(cardId, _doing_list_id):
-    #Delmove card to Doing 
-    response = callTrelloAPI("put","cards","",cardId, _doing_list_id)
-    return _doing_list_id == response["idList"]
+def inprogress_item(cardId):
+    #move card to Doing 
+    doing_list_id = os.environ["doing_list_id"]
+    response = callTrelloAPI("put","cards","",cardId, doing_list_id)
+    return doing_list_id == response["idList"]
 
-def markAsDone(cardId, _done_list_id):
+def markAsDone(cardId):
     # Move items marks as Done to "Done" list on Trello
-    response = callTrelloAPI("put","cards","",cardId, _done_list_id)
-    return _done_list_id == response["idList"]
+    done_list_id = os.environ["done_list_id"]
+    response = callTrelloAPI("put","cards","",cardId, done_list_id)
+    return done_list_id == response["idList"]
 
 def callTrelloAPI(method,section,call,id,args):
 ######################################################################################
