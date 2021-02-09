@@ -1,4 +1,3 @@
 script:
 - echo "This is Daves first ever travis.yml"
-
-docker build --target development -f Dockerfile --tag davedev .
+- echo "Will this text print?"
