@@ -1,6 +1,6 @@
 script:
 - echo "This is Daves first ever travis.yml"
-- echo "Which also includes the run of the unit tests! Final edit"
+- echo "Which also includes the run of the unit tests! Final edit with bad syntax"
 
 
 this is bad syntax
