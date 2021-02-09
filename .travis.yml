@@ -1,3 +1,5 @@
 script:
 - echo "This is Daves first ever travis.yml"
 - echo "Will this text print?"
+
+docker run --env-file .env -p 5000:5000 my-test-image
