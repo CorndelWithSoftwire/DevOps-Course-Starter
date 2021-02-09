@@ -13,6 +13,7 @@
       <ul class="list-group mb-4">  
         {% for D in passedItems %}   
             <li>{{D.title}} </li>
+       
 	      {% endfor %}
       </ul>
 
@@ -26,6 +27,8 @@
           <input type="hidden" id="todo.id" name="item_id" value="{{ item.id }}">
           <button class="button button1" id='btn1' type="submit" >Change to complete</button> 
         </form>
+       
+        
       {% endfor %}
 
       <h2>Items from TRELLO Doing list</h2>

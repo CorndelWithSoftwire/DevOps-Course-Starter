@@ -4,10 +4,10 @@ from flask import Flask, render_template, request, redirect, url_for
 import requests                     # Import the whole of requests
 import json
 import os        # Secrets for example Trello tokens etc in here (local only)
+# import pytest
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
 # from dateutil.parser import parser
-
 
 app = Flask(__name__)
 print ("Program starting now") 
@@ -46,6 +46,7 @@ def index():
 
     item_view_model = ViewModel(superlist)
     
+
     return render_template('index.html', view_model=item_view_model)
 
 

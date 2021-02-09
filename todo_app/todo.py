@@ -1,6 +1,14 @@
 import os
 from datetime import datetime
 from dateutil import *
+class Newviewmodel:
+    def __init__(self, items):
+        self.items1 = items
+    @property
+    def items(self):
+        return self.items1
+
+
 class Todo:
     def __init__(self, id, title, carddate, status="Todo"):
         self.id = id

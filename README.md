@@ -11,6 +11,10 @@ Docker image 2 (tag:  davedev):
 Flask development environment, built using:
 docker build --target development -f Dockerfile --tag davedev .
 
+Docker image 3 (tag:  test):
+Flack test environment, built using:
+docker build --target test --tag my-test-image .
+
 ## Latest Updates:  Travis CI environment setting up
 
 ## Prerequisities
@@ -47,6 +51,8 @@ RUN DEVELOPMENT ENVIRONMENT WITH BIND MOUNT FOR HOT RELOADING:
 docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app davedev
 RUN PRODUCTION ENVIRONMENT IMAGE:
 docker run --env-file .env -p 5000:5000 dave2
+RUN TESTS FOR APP:
+docker run --env-file .env -p 5000:5000 my-test-image
 
 
 Authors
