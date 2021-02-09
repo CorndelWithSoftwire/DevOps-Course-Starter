@@ -1,6 +1,6 @@
 import os
 import tempfile
-import mock
+#import mock
 import requests
 import dotenv
 import pytest
@@ -22,18 +22,8 @@ def client():
     with test_app.test_client() as client:
         yield client
 
-@mock.patch('requests.get')
-def test_index_page(mock_get_requests, client):
-    response = client.get('/')
+# @mock.patch('requests.get')
+# def test_index_page(mock_get_requests, client):
+#     response = client.get('/')
 
-    assert response.status_code == 302
-
-# def test_get_list_on_board():
-#     thingstodo = [{
-#         "id": "5efa545c830dc848ae0c7cd8",
-#         "name": "Things To Do",
-#         "idBoard": "5efa545c03a3ef1751b35411"    
-#     }]
-#     resp = session.getListId(thingstodo,"Things To Do")
-
-#     assert resp == "5efa545c830dc848ae0c7cd8"
+#     assert response.status_code == 302
