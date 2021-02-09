@@ -116,5 +116,11 @@ env/
 ### Configuration files ###
 .env
 .vagrant/
+
+
+.vscode/settings.json
+geckodriver
+geckodriver.log
+settings.json
 .vscode/
 .venv/
