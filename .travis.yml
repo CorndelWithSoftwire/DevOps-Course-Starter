@@ -2,4 +2,3 @@ script:
 - echo "This is Daves first ever travis.yml"
 - echo "Which also includes the run of the unit tests! Another edit"
 
-docker run --env-file .env -p 5000:5000 my-test-image
