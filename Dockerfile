@@ -50,6 +50,7 @@ COPY ./todo_app/test_Todo.py ./todo_app/test_Todo.py
 COPY ./todo_app/test_Newviewmodel.py ./todo_app/test_Newviewmodel.py
 
 
+
 #Install Poetry
 
 RUN poetry install
