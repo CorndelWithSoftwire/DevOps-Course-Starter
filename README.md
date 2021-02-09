@@ -1,52 +1,34 @@
 ## System Requirements
 
-The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
-
-### Poetry installation (Bash)
-
-```bash
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-```
-
-### Poetry installation (PowerShell)
-
-```powershell
-(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python
-```
-
-## Dependencies
-
-The project uses a virtual environment to isolate package dependencies. To create the virtual environment and install required packages, run the following from your preferred shell:
+### How to use this app
+1. Obtain a key and code from Trello API, set this in the .env file
+2. Get your board ID from tello and set this in the .env file
+3. Obtain from trello your list id's and set these in the *_list_id variables 
 
 ```bash
-$ poetry install
+trello_key=
+trello_token=
+trello_boardid=
+todo_list_id=
+doing_list_id=
+done_list_id =
 ```
-
-You'll also need to clone a new `.env` file from the `.env.tempalate` to store local configuration options. This is a one-time operation on first setup:
-
+### Building Docker Image
 ```bash
-$ cp .env.template .env  # (first time only)
+docker build --target development --tag todoapp:dev .
+docker build --target production --tag todoapp:prod .
 ```
 
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
-
-## Running the App
-
-Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
+## Running Docker Image as Production
+To run the ToDo app as production, run the following
 ```bash
-$ poetry run flask run
+docker run -p 80:5000 --env-file .env -d todoapp:prod
 ```
+Go to http://localhost:80 and you should see the ToDo app now running
 
-## Trello Setup
-Setup the below Environment variables for Trello API
+## Running Docker Image as Development
+To run the ToDo app as production, run the following
+```bash
+docker run -p 80:5000 --env-file .env --mount type=bind,source=$(pwd),target=/usr/src/app todoapp:dev
 ```
-TRELLO_KEY
-TRELLO_TOKEN
-TRELLO_BOARD_ID
-TRELLO_TODO_LIST_ID
-TRELLO_DOING_LIST_ID
-TRELLO_DONE_LIST_ID
-```
-
-Install geckodriver and Firefox as we need these two for running selenium tests.
-
+Go to http://localhost:80 and you should see the ToDo app now running
