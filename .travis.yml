@@ -1,3 +1,6 @@
 script:
   - docker build --target test --tag my-test-image .
   - docker run my-test-image test_view_model.py
+  - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
+
+ 
