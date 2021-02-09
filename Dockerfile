@@ -9,17 +9,30 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 
 # RUN sudo apt update
 # Install Chrome
-RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
-	apt-get install ./chrome.deb -y &&\
-	rm ./chrome.deb
+# RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
+# 	apt-get install ./chrome.deb -y &&\
+#	rm ./chrome.deb
+#
+
+# FROM debian:jessie
+# ENV CHROME_VERSION "google-chrome-stable"
+# RUN sed -i -- 's&deb http://deb.debian.org/debian jessie-updates main&#deb http://deb.debian.org/debian jessie-updates main&g' /etc/apt/sources.list \
+#   && apt-get update && apt-get install wget -y
+# ENV CHROME_VERSION "google-chrome-stable"
+# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+#   && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list \
+#   && apt-get update && apt-get -qqy install ${CHROME_VERSION:-google-chrome-stable}
+# CMD /bin/bash
 
 # Install Chromium WebDriver
 
-RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` &&\ 
-    echo "Installing chromium webdriver version ${LATEST}" &&\
-	curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
-	apt-get install unzip -y &&\
-	unzip ./chromedriver_linux64.zip
+# RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` &&\ 
+#     echo "Installing chromium webdriver version ${LATEST}" &&\
+# 	curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
+# 	apt-get install unzip -y &&\
+# 	unzip ./chromedriver_linux64.zip
+
+
 
 # Get application files required and place in correct subdirectories
 WORKDIR /app
