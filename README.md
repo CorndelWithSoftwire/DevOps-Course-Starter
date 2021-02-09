@@ -55,7 +55,7 @@ RUN TESTS FOR APP:
 docker run --env-file .env -p 5000:5000 my-test-image
 
 
-Authors
+Authors.
 
 Dave Rawlinson
 
