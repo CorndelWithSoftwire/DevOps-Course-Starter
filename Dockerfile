@@ -7,12 +7,12 @@ ENV PATH=${POETRY_HOME}/bin:${PATH}
 
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 
-# RUN sudo apt update
+RUN apt-get update
 # Install Chrome
-# RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
-# 	apt-get install ./chrome.deb -y &&\
-#	rm ./chrome.deb
-#
+ RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
+ 	apt-get install ./chrome.deb -y &&\
+	rm ./chrome.deb
+
 
 # FROM debian:jessie
 # ENV CHROME_VERSION "google-chrome-stable"
