@@ -44,11 +44,12 @@ COPY ./todo_app/models/view_model.py ./todo_app/models/view_model.py
 COPY ./todo_app/templates/layout.html ./todo_app/templates/layout.html
 COPY ./todo_app/templates/index.html ./todo_app/templates/index.html
 COPY ./poetry.toml ./poetry.toml
+COPY ./banana ./banana
 COPY ./pyproject.toml ./pyproject.toml
 COPY ./todo_app/wsgi.py ./todo_app/wsgi.py
 # COPY ./todo_app/test_Todo.py ./todo_app/test_Todo.py
 # COPY ./test_Newviewmodel.py ./test_Newviewmodel.py
-COPY ./banana ./banana
+
 
 
 
