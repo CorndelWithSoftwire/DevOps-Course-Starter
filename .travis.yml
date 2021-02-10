@@ -1,19 +1,13 @@
 script:
-- echo "This is Daves travis.yml"
+- openssl aes-256-cbc -K $encrypted_1e3732aec487_key -iv $encrypted_1e3732aec487_iv -in Secrets.enc -out Secrets -d
+
+  - echo "This is Daves travis.yml"
 - echo "-----------------------------------x"
 
 
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
 
-
-- SECRET_KEY=secret-key
-- key=308200bc2fe025877202575cdf262bd4
-- token=4daaeb343f3caa00ef17dcfee17214fe8c5bb8ba4df30c0f10fc8db70cbcf6c7
-- todo_listid=5f352898dc8a8c31a0a1e439
-- doing_listid=5f35289963b720014dd8a0ce
-- done_listid=5f3528981725711087e10339
-- board_id=5f3528983d4fb244aae9f934
 
 - docker build --target test --tag my-test-image .
 
