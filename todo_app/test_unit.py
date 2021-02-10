@@ -2,6 +2,7 @@ import pytest
 from todo_app.todo import Newviewmodel    
 
 
+
 def test_from_trello_card():
 	# Given 
 	test_array=[1,2,3,4]
