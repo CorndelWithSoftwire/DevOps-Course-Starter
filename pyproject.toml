@@ -10,11 +10,11 @@ gunicorn = "^20.0.4"
 flask = "^1.1.2"
 python-dotenv = "^0.14.0"
 requests = "^2.24.0"
-pytest = "^6.1.1"
 iso8601 = "^0.1.13"
-selenium = "^3.141.0"
 
 [tool.poetry.dev-dependencies]
+pytest = "^6.1.1"
+selenium = "^3.141.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

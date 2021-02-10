@@ -90,11 +90,11 @@ docker build --target developments --tag todo-app:dev .
 ```
 To run the app server from the container:
 ```powershell
-docker run -p 5000:5000 --env-file .\.env todo-app:dev
+docker run -p 5000:5000 --env-file .\.env --mount type=bind,source="$(pwd)"/todo_app,target=/project/todo_app todo-app:dev
 ```
 If you want to run the container in background:
 ```powershell
-docker run -d -p 5000:5000 --env-file .\.env todo-app:dev 
+docker run -d -p 5000:5000 --env-file .\.env --mount type=bind,source="$(pwd)"/todo_app,target=/project/todo_app todo-app:dev 
 ```
 
 ### Creating and running a container for production
