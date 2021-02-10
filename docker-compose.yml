@@ -8,8 +8,6 @@ services:
       target: development
     ports:
       - "5000:5000"
-    env_file: 
-      - "todo_app/.env"
     volumes:
       - type: bind
         source: ./todo_app
@@ -19,8 +17,6 @@ services:
       context: ./
       dockerfile: Dockerfile
       target: test
-    env_file: 
-      - "todo_app/tests/.env.test"
     volumes:
       - type: bind
         source: ./todo_app
