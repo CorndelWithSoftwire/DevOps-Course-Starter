@@ -3,7 +3,6 @@
 Vagrantfile
 .gitignore
 .env.template
-*/session_items.py
 */geckodriver.log
 */geckodriver.exe
 **/__pycache__
