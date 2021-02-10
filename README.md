@@ -5,8 +5,8 @@
 
 Designed to automate the boring stuff for you.  Updates your resources, installs the pre-requisites, installs the latest version of python, installs poetry, clones the required GIT respository for the App and establishes your dependences.  
 
-All you need to do is input your Trello credentials.  
-
+All you need to do is input your Trello credentials into the .env file
+ 
 ## Documention 
 Schematic overviews of the appliation seperated into 3 level views; 
 * Level 1 - Context

@@ -24,22 +24,3 @@ poetry install
 cp .env.template .env
 
 #user to input credentials into the .env file to enable access Trello
-
-
-
-
-
-"""
-poetry add requests
-python -m pip install requests
-poetry run flask run
-
-• Install Ubuntu
-• Grant super-user privileges
-• Create a new user to run the app
-
-Install Python 3.7+
-Install poetry
-Install application dependencies
-Create a virtual environment
-Launch the application
