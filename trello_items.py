@@ -1,41 +1,28 @@
 import requests, json, os
 from item import Item
 
-key = os.environ.get("trello_key", "")
-token = os.environ.get("trello_token", "")
-boardid = os.environ.get("trello_boardid", "")
-done_list_id = os.environ.get("done_list_id", "")
-doing_list_id = os.environ.get("doing_list_id", "")
-todo_list_id = os.environ.get("todo_list_id", "")
-uridomain = "https://api.trello.com/1/"
-
+boardid = os.environ["trello_boardid"]
+done_list_id = os.environ["done_list_id"]
+doing_list_id = os.environ["doing_list_id"]
+todo_list_id = os.environ["todo_list_id"]
 
 def get_items():
     #Get cards from "Things To Do" list on Trello
-    getListsOnBoards(boardid) # get the lists on a board
-    items = []
-    items.extend(getCardsOnList(todo_list_id,"Things To Do"))
-    items.extend(getCardsOnList(done_list_id, "Done"))
-    items.extend(getCardsOnList(doing_list_id, "Doing"))
-    
-    return items 
+    lists = getListsOnBoards(boardid) # get the lists on a board
+    setListIdInEnv(lists)
+
+    items = [] 
+    cards = callTrelloAPI("get","boards","cards",boardid,"")
+    for card in cards:
+        item_from_list = Item.from_raw_trello_card(card)
+        items.append(item_from_list)
+
+    return items
 
 def getListsOnBoards(boardid):  
     # Fetch lists from Trello board
     lists = callTrelloAPI("get","boards","lists",boardid,"")
     return lists
-
-def getCardsOnList(listid, status):
-
-    cards = callTrelloAPI("get","lists","cards",listid,"")
-    items = []
-    
-    for i in cards:
-        item_from_list = Item.from_raw_trello_card(i, status)
-        items.append(item_from_list)
-
-    return items
-
 
 def get_single_item(id):
     # Get specific card based on its ID
@@ -73,8 +60,17 @@ def callTrelloAPI(method,section,call,id,args):
 ### requests.put('https://httpbin.org / put', data ={'key':'value'})              ####
 ######################################################################################
 
+    params = (
+        ('key', os.environ['trello_key']),
+        ('token', os.environ['trello_token']),        
+    )
+
+    callurl = ""
+
     if(method=="get" and section=="boards" and call=="lists"):
         callurl = "boards/" + id + "/lists?"
+    elif(method=="get" and section=="boards" and call=="cards"):
+        callurl = "boards/" + id + "/cards?"
     elif(method=="get" and section=="lists" and call=="cards"):
         callurl = "lists/"+ id +"/cards?"
     elif(method=="post" and section=="lists"and call=="cards"):
@@ -88,23 +84,23 @@ def callTrelloAPI(method,section,call,id,args):
     elif(method=="delete" and section=="boards"and call==""):
         callurl = "boards/"+ id +"?" + args
 
-    requestUrl = uridomain + callurl + "&key=" + key + "&token=" + token
+    requestUrl = "https://api.trello.com/1/" + callurl
 
     try:
         if(method == "get"):
-            response = requests.get(requestUrl)
+            response = requests.get(requestUrl, params=params)
         elif(method == "post"):
-            response = requests.post(requestUrl)
+            response = requests.post(requestUrl, params=params)
         elif(method == "put"):
-            response = requests.put(requestUrl)
+            response = requests.put(requestUrl, params=params)
         elif(method == "delete"):
-            response = requests.delete(requestUrl)
+            response = requests.delete(requestUrl, params=params)
     except:
         print("Unexpected error:", sys.exc_info()[0])
         raise
 
     try:
-        jsonResponse = json.loads(response.text)
+        jsonResponse = response.json()
     except:
         jsonResponse = ""
         print("No JSON Data returned from Trello")
@@ -126,7 +122,7 @@ def delete_trello_board(boardid):
 def setListIdInEnv(listofboards):
     # Get list IDs for a Board
     for i in listofboards:
-        if i['name'] == "To Do":
+        if i['name'] == "Things To Do":
             os.environ["todo_list_id"] = i['id']
         if i['name'] == "Doing":
             os.environ["doing_list_id"] = i['id']

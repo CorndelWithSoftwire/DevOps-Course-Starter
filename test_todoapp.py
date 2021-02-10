@@ -9,6 +9,12 @@ import trello_items as trello
 import app as app
 from threading import Thread 
 
+ thingstodo = [{
+        "id": "5efa545c830dc848ae0c7cd8",
+        "name": "Things To Do",
+        "idBoard": "5efa545c03a3ef1751b35411"    
+    }]
+
 @pytest.fixture
 def client():
     # Use our test integration config instead of the 'real' version
@@ -24,6 +30,7 @@ def client():
 
 @mock.patch('requests.get')
 def test_index_page(mock_get_requests, client):
+    mock_get_requests.return_value.json.return_value = thingstodo
     response = client.get('/')
 
     assert response.status_code == 302
