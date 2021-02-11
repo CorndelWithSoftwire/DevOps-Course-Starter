@@ -51,6 +51,15 @@ You should see output similar to the following:
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
+## Operations
+
+The backend is now in Trello. The local .env file contains the variables. These are not shared in Github
+
+Items are marked To Do, Doing and Done. The 'complete action' button has been added to move any item to Done *
+
+
+* Future revision should limit this to To Do and Doing Only.
+
 ## Working with pytest
 
 poetry install pytest
@@ -63,7 +72,7 @@ git add --all
 
 git commit -m "<add change details>"
   
-git push origin Module-3
+git push origin module-2
 
 ## Working with Selenium
 
