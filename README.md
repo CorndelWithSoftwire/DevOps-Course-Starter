@@ -45,7 +45,7 @@ Included is a multi-stage Dockerfile which can be used to build live, dev and te
 
 First ensure you have a Docker environment and to build and run the test and dev containers simply type the following from the root folder
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 To build the production container use a command similar to the following 
