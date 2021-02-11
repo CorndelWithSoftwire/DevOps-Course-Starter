@@ -14,9 +14,9 @@ class TodoItem:
 
         if card["idList"] == os.getenv("TRELLO_TODO_LIST_ID"):
             status = "To Do"
-        elif card["idList"] == os.getenv("TRELLO_TODO_DOING_ID"):
+        elif card["idList"] == os.getenv("TRELLO_DOING_LIST_ID"):
             status = "Doing"
-        elif card["idList"] == os.getenv("TRELLO_TODO_DONE_ID"):
+        elif card["idList"] == os.getenv("TRELLO_DONE_LIST_ID"):
             status = "Done"
 
         return cls(id, status, title)

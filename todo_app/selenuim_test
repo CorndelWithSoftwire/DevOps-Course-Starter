@@ -1,0 +1,12 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+user_name = "jeremybrex@gmail.com"
+password = "Namaste123"
+driver = webdriver.Firefox()
+driver.get("https://trello.com/login")
+element = driver.find_element_by_id("email")
+element.send_keys(user_name)
+element = driver.find_element_by_id("pass")
+element.send_keys(password)
+element.send_keys(Keys.RETURN)
+element.close()
