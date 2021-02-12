@@ -33,10 +33,11 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 
 # Tests
-ensure pytest is installed
->>> pip install pytest pytest-flask
+For pytest installation ensure the following line is included in your pyproject.toml under dev dependencies:
+   pytest = "6.0.2"
+
 to runn all tests, navigate to the project folder and, from the command line, run the below
->>> pytest
+>>> poetry run pytest
 
 # VM
 The option exists to run the application in VM.  Indeed a Vagranfile has been added to the project to cater such need.
