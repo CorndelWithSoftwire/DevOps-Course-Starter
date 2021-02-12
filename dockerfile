@@ -20,3 +20,12 @@ COPY docker-flask-entrypoint.sh ./docker-entrypoint.sh
 RUN cd /project/
 RUN poetry install
 CMD ["./docker-entrypoint.sh"]
+
+FROM base as test
+COPY /tests/ /project/tests/
+COPY  poetry.lock pyproject.toml /project/
+COPY docker-flask-entrypoint.sh ./docker-entrypoint.sh
+RUN cd /project/
+RUN poetry install
+#CMD ["./docker-entrypoint.sh"]
+ENTRYPOINT ["poetry", "run", "pytest"]
