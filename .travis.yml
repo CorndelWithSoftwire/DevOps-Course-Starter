@@ -1,2 +1,3 @@
 script:
-- echo "hello world"
+  - docker build --target test -t todo-app:test .
+  - docker run todo-app:test
