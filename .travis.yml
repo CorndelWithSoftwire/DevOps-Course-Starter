@@ -1,6 +1,7 @@
 services:
 - docker
 script:
+- docker login -U ${DOCKER_USER} -P {DOCKER_PASSWORD}
 - docker build --target test --tag my-test-image .
 - docker run my-test-image test_items.py
 - docker run -e TRELLO_KEY=$TRELLO_KEY -e TRELLO_TOKEN=$TRELLO_TOKEN -e TRELLO_BOARD_ID=$TRELLO_BOARD_ID -e TRELLO_TODO_LIST_ID=$TRELLO_TODO_LIST_ID -e TRELLO_DOING_LIST_ID=$TRELLO_DOING_LIST_ID -e TRELLO_DONE_LIST_ID=$TRELLO_DONE_LIST_ID my-test-image test_client.py
