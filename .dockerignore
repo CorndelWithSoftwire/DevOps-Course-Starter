@@ -1,0 +1,4 @@
+.venv
+.vagrant
+.env
+chromedriver.exe
