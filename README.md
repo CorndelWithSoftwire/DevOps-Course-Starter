@@ -1,6 +1,12 @@
 # DevOps Apprenticeship: Project Exercise
 
- This project    
+ This project is to create a GUI for the Trello app using REST api. One can initiate the app and without login eplicitly to the Trello app on their website, can maintain work status. 
+
+ This web-app uses flask, portry, python, html and Trello login to function.    
+ trello_mod contains the python codes to create the URL to invoke Trello api.
+ trello_item contains the class for Trello cards
+ env file contains the different boards, list and other IDs.
+   
 
 ## System Requirements
 
