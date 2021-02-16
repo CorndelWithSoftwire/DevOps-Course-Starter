@@ -1,0 +1,15 @@
+*/gunicorn_access.log
+*/gunicorn_error.log
+Vagrantfile
+.gitignore
+.env.template
+*/geckodriver.log
+*/geckodriver.exe
+**/__pycache__
+.pytest_cache
+.vagrant
+.venv
+.vscode
+Data
+*/.env
+Dockerfile
