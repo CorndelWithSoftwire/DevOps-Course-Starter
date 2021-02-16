@@ -106,15 +106,30 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/flask
 
+<<<<<<< HEAD
 ## Intellij ###
 .idea/
 
+=======
+>>>>>>> my commit
 ### macOS ###
 .DS_Store
 
 ### Virtual environment ###
 env/
+<<<<<<< HEAD
 .venv/
 
 ### Configuration files ###
 .env
+=======
+
+### Configuration files ###
+.env
+.idea/
+.vscode/
+.venv
+.vagrant
+pytestdebug.log
+geckodriver.log
+>>>>>>> my commit

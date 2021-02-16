@@ -1,3 +1,7 @@
 [virtualenvs]
 create = true
+<<<<<<< HEAD
 in-project = true
+=======
+in-project = true
+>>>>>>> my commit

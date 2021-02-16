@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">To-Do App</h1>
+    <p class="lead">Just another to-do app.</p>
+  </div>
+
+  <div class="input">
+    <form action="/" method="POST">
+      <input type="text" name="item" id="item" required>
+      <button type="submit" id="submit">Add Item</button>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Things To Do!</h2>
+      <ul class="list-group-item">
+        <!-- List the todo items here -->
+          {% for item in view_model.items %}
+            <li>{{ item.title }} - {{item.status}} 
+              <table>
+                {% if item.status == 'To Do' %}
+                  <tr>
+                    <form class="completed" action="/update/{{item.id}}" method="POST"><input type="submit" value="Complete" id="{{item.title}}_complete"></form>
+                  </tr>
+                {% endif %}
+                <tr>
+                  <form class="remove" action="/delete/{{item.id}}"><input type="submit" value="Delete" id="{{item.title}}_delete"></form>
+                </tr>
+              </table>
+            </li>
+          {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
