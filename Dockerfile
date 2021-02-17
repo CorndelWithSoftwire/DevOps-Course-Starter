@@ -15,7 +15,7 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 
 WORKDIR /app
 COPY . .
-RUN poetry config virtualenvs.create false --local && \\
+RUN poetry config virtualenvs.create false --local && \
 poetry install --no-dev --no-root
 
 
@@ -32,3 +32,12 @@ ENV FLASK_ENV=development
 ENTRYPOINT ["poetry", "run", "flask", "run"]
 CMD ["--host", "0.0.0.0"]
 EXPOSE 5000
+
+
+# testing stage
+FROM base as test
+# Configure for local development
+ENV FLASK_ENV=development
+ENTRYPOINT ["poetry", "run", "pytest"]
+CMD ["--bind", "0.0.0.0:80"]
+EXPOSE 80

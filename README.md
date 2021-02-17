@@ -76,20 +76,34 @@ $ poetry run pytest
  To build the image:
 
 1. To run the docker file in dev mode:	     
+```
 docker build --target development --tag todo-app:dev .
-To run the docker file in dev mode:      
+```
+
+To run the docker file in dev mode: 
+```     
 docker run --env-file ./.env -p 5000:5000 todo-app:dev
+```
 Then Navigate to localhost:5000 
    
-2. To build the docker file in prod mode:    
+2. To build the docker file in prod mode:  
+```  
 docker build --target production --tag todo-app:prod .
-   To run the docker file in prod mode:       
+```
+To run the docker file in prod mode:  
+```     
 docker run --env-file ./.env -p 5000:80 todo-app:prod
+```
 Then navigate to http://0.0.0.0:5000/
 
 3. To test local setup on UNIX:
+```
 docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)",target=/app/ todo-app:dev
+```
 
 ## Running the App  using Docker compose
+```
 docker-compose up --build
+```
+
 
