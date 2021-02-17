@@ -19,6 +19,6 @@ CMD ["poetry", "run", "gunicorn", "-b", "0.0.0.0", "todo_app.app:create_app()"]
 
 FROM base as test
 COPY tests /app/tests
-COPY .env.test /app
+COPY . /app
 WORKDIR /app
 CMD ["poetry", "run", "pytest", "tests/test_viewmodel.py", "tests/test_integration.py"]
