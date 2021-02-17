@@ -9,15 +9,18 @@ from dotenv import find_dotenv, load_dotenv
 from selenium.webdriver.common.keys import Keys
 from todo_app.app import create_app
 from todo_app.trello_cards import create_a_board, delete_a_board, make_trello_auth
-from selenium.webdriver.chrome.options import Options
-
+from selenium.webdriver.firefox.options import Options
 
 
 @pytest.fixture(scope="module")
 def driver():
+    opts = webdriver.FirefoxOptions()
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
-    with webdriver.Firefox() as driver:
+    with webdriver.Firefox(options=opts) as driver:
         yield driver
 
 def load_list():

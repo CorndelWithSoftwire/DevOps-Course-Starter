@@ -13,3 +13,15 @@ services:
       ./.env
     volumes:
       - ./todo-app:/app/todo_app 
+
+
+  selenium:
+    build: 
+      context: .
+      target: development
+      
+    ports:
+        - 5000:5000
+    volumes:
+        - ./todo-app:/app/todo_app 
+    privileged: true
