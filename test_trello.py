@@ -5,7 +5,10 @@ import requests
 import app as app
 import trello_items as trello
 from threading import Thread 
+import time
+import unittest
 from selenium import webdriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import Firefox
@@ -30,6 +33,7 @@ def test_create_and_delete_board():
      assert trello_board_id is not None
      assert board_deleted is True
     
+
 @pytest.fixture(scope='module')
 def test_app():
     file_path = dotenv.find_dotenv('.env')    
@@ -65,5 +69,11 @@ def driver():
     with webdriver.Firefox() as driver:
         yield driver
 
-
+def test_createTask(driver, test_app):
+    driver.get('http://localhost:5000/')
+    driver.find_element_by_id("addTask").send_keys("raj is the best")
+    driver.find_element_by_id("submit").click()
+    text = driver.find_elements_by_xpath("//*[contains(text(), 'raj is the best')]")
+    time.sleep(2)
+    assert len(text) > 0
 

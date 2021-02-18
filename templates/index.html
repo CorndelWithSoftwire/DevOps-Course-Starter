@@ -13,8 +13,8 @@
         <ul class="list-group mb-4 lead">
           <!-- List the todo items here -->
           <form action="/add" method="POST">
-            Task: <input type="text" name="task_description" >
-            <input type="submit">
+            Task: <input id="addTask" type="text" name="task_description" >
+            <input id="submit" type="submit">
           </form>
         </ul>
       </div>
@@ -57,7 +57,7 @@
                 <th headers="ThingsToDo" id="{{item.id}}">
                   {{item.id}}
                 </th>
-                <td headers="ThingsToDo {{item.id}} title">
+                <td id="ThingsToDo_Title" headers="ThingsToDo {{item.id}} title">
                   {{item.title}}
                 </td>
                 <td headers="ThingsToDo {{item.id}} done">

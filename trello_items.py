@@ -1,10 +1,8 @@
 import requests, json, os
 from item import Item
+import sys
 
 boardid = os.environ["trello_boardid"]
-done_list_id = os.environ["done_list_id"]
-doing_list_id = os.environ["doing_list_id"]
-todo_list_id = os.environ["todo_list_id"]
 
 def get_items():
     #Get cards from "Things To Do" list on Trello
@@ -28,8 +26,9 @@ def get_single_item(id):
     # Get specific card based on its ID
     items = []
     items = get_items()
-    return next((item for item in items if item['id'] == id), None)
 
+    return next((items for item in items if item['id'] == id), None)
+    
 def add_item(title):
     # Post item to Trello and retrieve items list from Trello
     todo_list_id = os.environ["todo_list_id"]

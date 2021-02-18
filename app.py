@@ -47,8 +47,8 @@ def create_app():
     @app.route('/tasks/<id>', methods=['GET'])
     def get_item(id):
         singleitem = trello_items.get_single_item(id)
-        print(singleitem)
-        return render_template("index.html", singleitem=singleitem)
+        #print(singleitem)
+        return render_template("index.html", ViewModel=singleitem)
 
     # All the routes and setup code etc
     return app
