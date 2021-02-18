@@ -1,3 +1,12 @@
+env:
+  global:
+    - secure: "Dh7ndyxgpTHDa3ilqSNPInRUNyWd4/PLQSlk9FYtcnUcMnLU4KD4hK4bJ+VMsXh8pvAi4TMgB3+rffud2Koo920Syu9evclTgiKAFbZpxQgK/R3zfV0OS7VN8edgnUaF3P9WTbUeRkPXxqGbjLAToFmMRTbIxPoX5VvRmMyQNpwxdwEmmfeWqQG1QL5GtiIKJlDXYJDDSxgPL18XFnWEblzX2C3vaqn2A7m95Z02sOS5FIVWgnr0SB7UN1wpeqg6QNXjKbNAdhQlBs0Nl3nmUBKZQvZWweGAWBhYylEQ0twjqkXAH5v52wvizbpNJpxOu/4G+ukl91wkK+7bF4m0EVbD2giSjzSyM08nDUJ5+EUFEs9ALWKHqetWeexqjIR9eJ97rT9+rp+wlIU6sQ9X9ZeyJuDpP3sF9sIB/talVdbLSyVwE7v2xTKSZgzMyG2OE7ZIEWgm9tO5NoLfCHDx9TD0Zb9G6tgRbOGIfVbN6QLRR6v15AjYP7Z3w0QykObaieqWU6j2xcqib2k0o5ePrKYvm7QvYcoUIPbSOW8w/ApQZ5o7OJBQ3u0tU6GIuKZPgDD+dCrf33BBPSbakoqS8AJsWFlAkpyygW5UY4ZF2ruicD1PX8HdIkLIOk+PGk19iuvMv+cN1qF08/q91FK82peh8kttXWL0lz5ePoCZj8Y="
+    - secure: "SQa4hlf24DE77YhEaG/MA694g0+EEmaxzd7y6I1wdV7P8wkcOdWtSmwHTuklzkVljzE5a6jPeOC0pi8eedU90rPwfytEQlpmTODTgu2RgZJpTzHW9ePIKaH+2BPXFrwuFwnY12NWJIunXGZa8DDDDom8oS3UuJsyLq9UdDoETJPtq+31gpzJ55EtxVtGu/ROTD5rLDjQgABiASKgjITqgMn0dy27pVxv3Qn49dBEzwBvXiOqi5BSisI8mRKZBHWc4xSUWX6lIk5gvj6ou3S1SSKwL57EXuUIF6HJzjYgbaXow0pcDth9ExHCNyGZAmHEhoIlXYyvbGFA5BxDOyQKPK+6Z8dVC7vKzds+ETwnCyB4D92sWfAHYvFS7/EydKFBNdn2NYlKAYTTY/VtNgS7RzJoFMdziwi+H6o3gZHast8dmJmL9I9vijpMBBtADkfLs7/D5SsPiwZnBikvH+XxecgkaqD+IGf4RGFNQsVMd2DBacFlJB5DcXYWISKhXWYIthfwnbKx5f+luciu7OX2h/Pganw20TsJBotl0IW33w/lzu/pElhH/XVl5NDWSdbcv/0+uOU8yDEzfaeY0qlrFKD9a7adcUNAiAFSsNuHGUXQYcT5qfquSCD0hmxLJ7yqdDxyBi2IsPiRR28v3cTsyiKIIf+3E/6kOKQ7GhBfMRQ="
+    - trello_boardid: J3hiTYRX
+    - todo_list_id: 5efa545c830dc848ae0c7cd8
+    - doing_list_id: 5efa545cf6f6961180a75b76
+    - done_list_id: 5efa545c20355627365e68fd
+
 script:
 # Docker Build the Image
 - docker build --target test --tag my-test-image .
@@ -12,4 +21,4 @@ script:
 
 # Docker Run E2E 
 - echo "Running E2E Tests"
-- #docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
+- docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
