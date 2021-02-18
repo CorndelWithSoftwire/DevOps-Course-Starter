@@ -8,11 +8,9 @@ from threading import Thread
 import time
 import unittest
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.options import Options
 
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
@@ -36,7 +34,6 @@ def test_create_and_delete_board():
 
 @pytest.fixture(scope='module')
 def test_app():
-    file_path = dotenv.find_dotenv('.env')    
     # Create the new board & update the board id environment variable
     board_id = trello.create_trello_board("TestAppBoard") 
     os.environ['trello_boardid'] = board_id
@@ -65,8 +62,15 @@ def test_app():
     trello.delete_trello_board(board_id)
 
 @pytest.fixture(scope="module")
+# def driver():
+#     with webdriver.Firefox() as driver:
+#         yield driver
 def driver():
-    with webdriver.Firefox() as driver:
+    opts = webdriver.ChromeOptions()
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
+    with webdriver.Chrome(ChromeDriverManager().install(), options=opts) as driver:
         yield driver
 
 def test_createTask(driver, test_app):
