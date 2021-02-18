@@ -19,10 +19,10 @@
           </li>         
         {% endfor %}
       </ul>
-        <form method="POST" action="/add&id=?&title=?&status=?">
+        <form method="POST" action="/add"><!-- refrence to app.route add -->
           <ul>
-            <li>id:     <input name="id"></li>
-            <li>title:  <input name="title"></li>
+            <li>id: <input name="id"></li>
+            <li>title: <input name="title"></li>
             <li>status: <input name="status"></li>
           </ul>
           <input type="submit" value="Add To-Do Item">   
