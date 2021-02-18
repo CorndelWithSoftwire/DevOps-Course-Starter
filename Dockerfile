@@ -43,7 +43,7 @@ COPY ./todo_app /code/todo_app
 COPY ./poetry.lock /code/
 COPY ./poetry.toml /code/
 COPY ./pyproject.toml /code/
-COPY ./.env /code/.env
+#COPY ./.env /code/.env
 
 # Setup the entry point
 ENTRYPOINT ["poetry", "run", "flask"]
