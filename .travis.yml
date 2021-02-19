@@ -19,3 +19,14 @@ jobs:
     - script: ./test_selenium
       stage: deploy
       script: ./deploy
+
+notifications:
+  slack: '<account>:<token>'
+    on_success: never 
+    on_failure: always 
+
+  email:
+    recipients:
+      - yomi.olutimehin@yahoo.com
+    on_success: never 
+    on_failure: always   
