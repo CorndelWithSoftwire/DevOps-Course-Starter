@@ -6,7 +6,7 @@ COPY ./todo_app /code/todo_app
 COPY ./poetry.lock /code/
 COPY ./poetry.toml /code/
 COPY ./pyproject.toml /code/
-RUN poetry install --no-root --no-dev
+RUN poetry install
 FROM base as dev
 ENTRYPOINT poetry run flask run -h 0.0.0.0 -p 5000
 FROM base as prod
@@ -14,30 +14,16 @@ ENV FLASK_ENV=production
 ENTRYPOINT poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:5000
 
 FROM base as test
-COPY ./pyproject.toml .
-RUN poetry install
-
-
-# Install the latest versions of Mozilla Firefox and Geckodriver
-RUN export DEBIAN_FRONTEND=noninteractive && apt-get update \
-  && apt-get install --no-install-recommends --no-install-suggests --assume-yes \
-    curl \
-    bzip2 \
-    libgtk-3-0 \
-    libdbus-glib-1-2 \
-    xvfb \
-  && FIREFOX_DOWNLOAD_URL='https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64' \
-  && curl -sL "$FIREFOX_DOWNLOAD_URL" | tar -xj -C /opt \
-  && ln -s /opt/firefox/firefox /usr/local/bin/ \
-  && BASE_URL='https://github.com/mozilla/geckodriver/releases/download' \
-  && VERSION=$(curl -sL 'https://api.github.com/repos/mozilla/geckodriver/releases/latest' | grep tag_name | cut -d '"' -f 4) \
-  && curl -sL "${BASE_URL}/${VERSION}/geckodriver-${VERSION}-linux64.tar.gz" | tar -xz -C /usr/local/bin \
-  && apt-get purge -y \
-    curl \
-    bzip2 \
-  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-  && rm -rf /tmp/* /usr/share/doc/* /var/cache/* /var/lib/apt/lists/* /var/tmp/*
-  
+RUN apt-get update
+RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
+ apt-get install ./chrome.deb -y &&\
+ rm ./chrome.deb
+# Install Chromium WebDriver
+RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` &&\
+ echo "Installing chromium webdriver version ${LATEST}" &&\
+ curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip &&\
+ apt-get install unzip -y &&\
+ unzip ./chromedriver_linux64.zip
 # Copy all files
 COPY ./todo_app /code/todo_app
 COPY ./poetry.lock /code/
@@ -46,4 +32,4 @@ COPY ./pyproject.toml /code/
 #COPY ./.env /code/.env
 
 # Setup the entry point
-ENTRYPOINT ["poetry", "run", "flask"]
+ENTRYPOINT ["poetry", "run", "pytest"]
