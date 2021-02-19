@@ -57,7 +57,7 @@ Install geckodriver and Firefox as we need these two for running selenium tests.
 To build the docker image run the following command
 
 ```
-docker build --target development --tag todo-app:dev .
+docker build --target dev --tag todo-app:dev .
 docker build --target prod --tag todo-app:prod .
 docker build --target test --tag my-test-image .
 ```
