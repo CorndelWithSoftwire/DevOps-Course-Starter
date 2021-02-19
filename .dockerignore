@@ -1,0 +1,15 @@
+# Ignore files from the docker context
+**/__pycache__
+**/.coverage
+**/tests
+**/.coverage
+**/.git
+.gitignore
+.pytest_cache
+.vagrant
+.vscode
+Dockerfile
+chromedriver.exe
+poetry.lock
+*.log
+*.env*
