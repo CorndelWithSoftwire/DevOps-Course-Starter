@@ -28,6 +28,6 @@ script:
 - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
 
 # Docker Build and Login to Docker and Push 
-- docker build --target production --tag $docker_login/todoapp .
+- docker build --target production --tag $docker_login/todoapp:latest .
 - docker login --username $docker_login --password $docker_password
-- docker push $docker_login/todoapp
+- docker push $docker_login/todoapp:latest
