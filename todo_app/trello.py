@@ -12,7 +12,7 @@ def get_all_tasks():
         ('key', os.environ['TRELLO_KEY']),
         ('token', os.environ['TRELLO_TOKEN']),        
     )
-    board_id = os.environ['TRELLO_BOARD']
+    board_id = os.environ['TRELLO_BOARD_ID']
     data = requests.get('https://api.trello.com/1/boards/' + board_id + '/cards', params=params).json()
     task_list = []
     for task in data:
