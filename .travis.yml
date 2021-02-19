@@ -29,3 +29,7 @@ script:
 
 # Login to Docker
 - docker login --username "$docker_login" --password "$docker_password"
+
+# Docker Build and Push 
+- docker build --target production --tag todoapp:production .
+- docker push rajrahman/todoapp:production
