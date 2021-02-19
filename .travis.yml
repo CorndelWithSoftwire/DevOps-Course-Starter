@@ -1,2 +1,21 @@
- script:
+ services:
+  - docker
+  
+  script:
 - docker build --target development --tag todo-app:dev .
+
+script:
+  - docker build --target test --tag my-test-image .
+  - docker run --env-file ./.env my-test-image tests
+
+jobs:
+  include:
+    - stage: "Tests"                
+      name: "Unit Tests"            
+      script: ./test_view_model
+      name: "Integration Tests"
+    - script: ./integration-tests
+      name: "E2E Tests"     
+    - script: ./test_selenium
+      stage: deploy
+      script: ./deploy
