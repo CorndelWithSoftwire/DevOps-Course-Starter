@@ -5,25 +5,25 @@ script:
   - docker build --target test --tag my-test-image .
   - docker run --env-file ./.env my-test-image tests
 
-jobs:
-  include:
-    - stage: "Tests"                
-      name: "Unit Tests"            
-      script: ./test_view_model
-      name: "Integration Tests"
-    - script: ./integration-tests
-      name: "E2E Tests"     
-    - script: ./test_selenium
-      stage: deploy
-      script: ./deploy
+# jobs:
+#   include:
+#     - stage: "Tests"                
+#       name: "Unit Tests"            
+#       script: ./test_view_model
+#       name: "Integration Tests"
+#     - script: ./integration-tests
+#       name: "E2E Tests"     
+#     - script: ./test_selenium
+#       stage: deploy
+#       script: ./deploy
 
-notifications:
-  slack: '<account>:<token>'
-    on_success: never 
-    on_failure: always 
+# notifications:
+#   slack: '<account>:<token>'
+#     on_success: never 
+#     on_failure: always 
 
-  email:
-    recipients:
-      - yomi.olutimehin@yahoo.com
-    on_success: never 
-    on_failure: always   
+#   email:
+#     recipients:
+#       - yomi.olutimehin@yahoo.com
+#     on_success: never 
+#     on_failure: always   
