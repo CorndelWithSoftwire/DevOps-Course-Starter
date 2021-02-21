@@ -1,3 +1,4 @@
 script:
-  - docker build --target test -t todo-app:test .
-  - docker run --env TRELLO_BOARD_ID --env SECRET_KEY --env KEY --env TOKEN --env TODO_LIST_ID --env LIST_ID --env DONE_LIST_ID --env FLASK_APP --env FLASK_ENV todo-app:test
+  - echo $KEY
+#  - docker build --target test -t todo-app:test .
+#  - docker run --env TRELLO_BOARD_ID --env SECRET_KEY --env KEY --env TOKEN --env TODO_LIST_ID --env LIST_ID --env DONE_LIST_ID --env FLASK_APP --env FLASK_ENV todo-app:test
