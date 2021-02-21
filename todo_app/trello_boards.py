@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import requests
 from requests import Response
 
@@ -14,6 +16,7 @@ def create_board(name) -> Response:
     url = "https://api.trello.com/1/boards/"
     confg = Config()
 
+    pprint('keyyy ----------------->> ' + confg.KEY)
     query = {
         'key': confg.KEY,
         'token': confg.TOKEN,
