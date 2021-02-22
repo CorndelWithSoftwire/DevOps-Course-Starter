@@ -7,24 +7,23 @@ script:
 
   - docker build --target test --tag my-test-image .
   - docker run --env-file ./.env my-test-image tests/test_view_model.py
-  # - docker run --env-file ./.env my-test-image tests/test_integration.py
-  # - docker run --env-file ./.env my-test-image tests/test_selenium.py
+  - docker run --env-file ./.env my-test-image tests/test_integration.py
+  - docker run --env-file ./.env my-test-image tests/test_selenium.py
 
 # jobs:
 #   include:
 #     - stage: "Tests"                
 #       name: "Unit Tests"            
-#       script: ./test_view_model
+#       script: ./test_view_model.py
 #       name: "Integration Tests"
-#     - script: ./integration-tests
+#     - script: ./test_integration.py
 #       name: "E2E Tests"     
-#     - script: ./test_selenium
+#     - script: ./test_selenium.py
 #       stage: deploy
 #       script: ./deploy
 
 notifications:
-  slack: '<account>:<token>'
-  travis encrypt "amex-corndel-devops:7kult0gT0c3zcQB2ybiSgYO8" --add notifications.slack
+  slack: '<account>:'
 
     on_success: never # default: change
     on_failure: always # default: always
