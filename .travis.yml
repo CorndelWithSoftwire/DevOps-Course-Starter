@@ -7,6 +7,8 @@ env:
 notifications:
   slack:
     secure: UiQEMoNAG7Mx4DkwvhbpjeGzJAbPBu28frztNuytYVBN1rSRtCwlRTGIOzKNEihw8+Ht+m+1U435HpXum/PFYwFiXAEvYRBSeOF2tq7yTIgZCliLjyVOOynHtTOOa2d0uvFxmZgUG4nT3VuUAcBD38tzJB5gdFvghRghzGTzoVgTsV46kxbyxaq2Onnru7id3PnqBBR/qF+xosQqcm/aHFXG+EpT9xzppX+PfMaWoU0i5SpDCRArEd1bLVQP4u06Ox009wOLq4B9s2maotWJ/8QrdqYT1qc01Te5xq/sodYmy8eETXP+ES1XPxB70337Gjwd+pGfCEGHOeYyKuoJRovyqA1QhUBnTGyOXB6ejRXELTzX05B/OVtSO3wIoihbvkOmuhdLMsVAbY5zVlTDW6gUnE8hmVm47rarbN2geUyHxyMTgOtkjaQ5NOUS8a1RhtZm3jAnEvKoP7AiNkGU0ZIHR3kUF7pUoTPyln0fal2jpc7jp8ex3jdR17K1qquJHICn+Yd6xnb4RLfeFO7FnUA/5hWzRwy8acoJ+X70nNuJrb2wVX5YoJnBCkfaibxs8zMd84iU2Zq0Q448J8PV2fHPbYiouitFjZe3AlZnAHR23zWTreyTUBxGmdsMDJAkFKL3/qcg1/0uNIfg6bJs1nzKtCsN0g6nfkK0nzz63Po=
+  email:
+    aniboy25@gmail.com
 script:
 - docker build --target test -t todo-app:test .
 - echo starting unit tests
