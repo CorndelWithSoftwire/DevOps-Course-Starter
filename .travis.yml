@@ -18,38 +18,43 @@ env:
 services:
   - docker
 
-jobs:
-  include:
-    - stage: test
-        script:
-          # Docker Build the Image
-          - docker build --target test --tag my-test-image .
 
-          # Docker Run Unit Test
-          - echo "Running Unit Tests"
-          - docker run my-test-image test_view_model.py
+before_script:
+  - docker login --username $docker_login --password $docker_password
+  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
 
-          # Docker Run Integration tests 
-          - echo "Running Integration Tests"
-          - #docker run my-test-image test_view_model.py
+script:
+  # Docker Build the Image
+  - docker build --target test --tag my-test-image .
 
-          # Docker Run E2E 
-          - echo "Running E2E Tests"
-          - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
+  # Docker Run Unit Test
+  - echo "Running Unit Tests"
+  - docker run my-test-image test_view_model.py
+
+  # Docker Run Integration tests 
+  - echo "Running Integration Tests"
+  - docker run my-test-image test_todoapp.py
+
+  # Docker Run E2E 
+  - echo "Running E2E Tests"
+  - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
       
-    - stage: deploy
-        script:
-          # Docker Build and Login to Docker and Push 
-          - docker build --target production --tag $docker_login/todoapp:latest .
-          - docker login --username $docker_login --password $docker_password
-          - docker push $docker_login/todoapp
+  # Docker Build and Push 
+  - docker build --target production --tag $docker_login/todoapp:latest .
+  - docker push $docker_login/todoapp
 
-          # Heroku Push and Release
-          #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
-          - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
-          #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
-          - docker pull $docker_login/todoapp
-          - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
-          - docker push registry.heroku.com/$herokuapp/web
-          #- heroku container:push web --app $herokuapp
-          - heroku container:release web --app $herokuapp
+  # Heroku Push and Release
+  #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
+  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+  #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+  - docker pull $docker_login/todoapp
+  - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
+  - docker push registry.heroku.com/$herokuapp/web
+  #- heroku container:push web --app $herokuapp
+
+deploy:   
+  provider: script
+  script:    
+    - heroku container:release web --app $HEROKU_APP
+  on:
+    branch: module_8
