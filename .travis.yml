@@ -39,7 +39,8 @@ script:
       
   # Docker Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
-  - docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
+  #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
+  - docker login --username $docker_login --password $docker_password
   - docker push $docker_login/todoapp
 
   # Heroku Push and Release
