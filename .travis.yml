@@ -22,7 +22,8 @@ services:
 before_script:
   - docker login --username $docker_login --password $docker_password
   - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
-
+  - - curl https://cli-assets.heroku.com/install.sh | sh
+  
 script:
   # Docker Build the Image
   - docker build --target test --tag my-test-image .
