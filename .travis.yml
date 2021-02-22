@@ -20,7 +20,7 @@ stages:
   - name: deploy
     if : branch = module_8
 
-    jobs:
+jobs:
   include:
     - stage: test
       script:
