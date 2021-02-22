@@ -22,7 +22,7 @@ script:
 #       stage: deploy
 #       script: ./deploy
 
-# notifications:
+notifications:
 #   slack: '<account>:<token>'
 #   # travis encrypt "amex-corndel-devops:7kult0gT0c3zcQB2ybiSgYO8" --add notifications.slack
 
