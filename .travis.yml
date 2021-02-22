@@ -20,10 +20,10 @@ services:
 
 
 before_script:
-  - docker login --username $docker_login --password $docker_password
-  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
-  - - curl https://cli-assets.heroku.com/install.sh | sh
-  
+  #- docker login --username $docker_login --password $docker_password
+  #- echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+  - curl https://cli-assets.heroku.com/install.sh | sh
+
 script:
   # Docker Build the Image
   - docker build --target test --tag my-test-image .
@@ -34,7 +34,7 @@ script:
 
   # Docker Run Integration tests 
   - echo "Running Integration Tests"
-  - docker run my-test-image test_todoapp.py
+  #- docker run my-test-image test_todoapp.py
 
   # Docker Run E2E 
   - echo "Running E2E Tests"
@@ -46,16 +46,10 @@ script:
 
   # Heroku Push and Release
   #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
-  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
   #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
   - docker pull $docker_login/todoapp
   - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
   - docker push registry.heroku.com/$herokuapp/web
-  #- heroku container:push web --app $herokuapp
-
-deploy:   
-  provider: script
-  script:    
-    - heroku container:release web --app $HEROKU_APP
-  on:
-    branch: module_8
+  
+  - heroku container:push web --app $herokuapp
