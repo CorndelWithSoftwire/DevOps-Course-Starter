@@ -17,6 +17,7 @@ def create_board(name) -> Response:
     confg = Config()
 
     pprint('keyyy ----------------->> ' + confg.KEY)
+    pprint('token ----------------->> ' + confg.TOKEN)
     query = {
         'key': confg.KEY,
         'token': confg.TOKEN,
