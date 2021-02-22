@@ -4,17 +4,18 @@ RUN pip install poetry
 WORKDIR /DevOps-Course-Starter
 COPY pyproject.toml /DevOps-Course-Starter/
 COPY . /DevOps-Course-Starter/
+RUN ls -la ./
 RUN poetry config virtualenvs.create false && poetry install --no-interaction
 
 # Configure for production
 FROM base as production
-ENV PORT=5000
-RUN poetry install  --no-dev
+#ENV PORT=5000
+#RUN poetry install  --no-dev
+#EXPOSE 5000
 ENTRYPOINT poetry run gunicorn "app:create_app()" --bind 0.0.0.0:5000
 
 # Configure for local development
 FROM base as development
-RUN poetry install
 ENTRYPOINT poetry run flask run --host=0.0.0.0
 
 # Configure for Tests
