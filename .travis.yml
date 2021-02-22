@@ -5,4 +5,4 @@ env:
 
 script:
 - docker build --target test -t todo-app:test .
-- docker run -e KEY=$KEY -e TOKEN=$TOKEN SECRET_KEY=test todo-app:test
+- docker run -e KEY=$KEY -e TOKEN=$TOKEN -e SECRET_KEY=test todo-app:test
