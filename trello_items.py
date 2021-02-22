@@ -2,9 +2,10 @@ import requests, json, os
 from item import Item
 import sys
 
-boardid = os.environ["trello_boardid"]
+
 
 def get_items():
+    boardid = os.environ["trello_boardid"]
     #Get cards from "Things To Do" list on Trello
     lists = getListsOnBoards(boardid) # get the lists on a board
     setListIdInEnv(lists)
@@ -67,11 +68,11 @@ def callTrelloAPI(method,section,call,id,args):
     callurl = ""
 
     if(method=="get" and section=="boards" and call=="lists"):
-        callurl = "boards/" + id + "/lists?"
+        callurl = "boards/" + id + "/lists"
     elif(method=="get" and section=="boards" and call=="cards"):
-        callurl = "boards/" + id + "/cards?"
+        callurl = "boards/" + id + "/cards"
     elif(method=="get" and section=="lists" and call=="cards"):
-        callurl = "lists/"+ id +"/cards?"
+        callurl = "lists/"+ id +"/cards"
     elif(method=="post" and section=="lists"and call=="cards"):
         callurl = "lists/"+ id +"/cards?name=" + args
     elif(method=="put" and section=="cards"and call==""):

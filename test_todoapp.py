@@ -1,6 +1,5 @@
 import os
 import tempfile
-#import mock
 import requests
 import dotenv
 import pytest
@@ -9,14 +8,14 @@ import trello_items as trello
 import app as app
 import datetime
 from threading import Thread 
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 today = datetime.date.today()
 thingstodo = [{
         "id": "123456",
-        "title": "Another Task",
-        "time": str(today),
-        "status": "Things To Do"
+        "name": "Another Task",
+        "dateLastActivity": today.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
+        "idList": "test"
     }]
 lists = [{
         "id": "1",
@@ -44,21 +43,21 @@ def client():
     with test_app.test_client() as client:
         yield client
 
-@mock.patch('requests.get')
+@patch('requests.get')
 def test_index_page(mock_get_requests, client):
     mock_get_requests.side_effect = mock_get_cards
-    response = client.get('/')
+    response = client.get('/tasks')
 
-    assert response.status_code == 302
+    assert "Another Task" in response.data.decode() 
+    assert "123456" in response.data.decode() 
 
-def mock_get_cards(url):
+def mock_get_cards(url, params):
        TRELLO_BOARD_ID = os.environ.get("trello_boardid")
-       API_KEY = os.environ.get("trello_key")
-       TOKEN = os.environ.get("trello_token")
-       if url == f"https://api.trello.com/1/boards/"+TRELLO_BOARD_ID+"/cards?key="+API_KEY+"&token="+TOKEN:
-              print("URL was hit")
+      # API_KEY = os.environ.get("trello_key")
+      # TOKEN = os.environ.get("trello_token")
+       if url == f"https://api.trello.com/1/boards/{TRELLO_BOARD_ID}/cards":
               response = Mock()
               response.status_code = 200
-              response.json.return_value = sample_trello_cards_response 
+              response.json.return_value = thingstodo 
               return response
        return None

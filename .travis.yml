@@ -10,6 +10,8 @@ env:
   # Docker
     - secure: "xxUmhWPB0MLv7DrKeLrt7Q5eNOjSFOL1phnaLLdmvipKBz12eCzgRiAhCmXWroMe4diIaodvcgKgc32kMwiNXaAVGuSOdTs04vRPB5YyGJSQn0BcFuVfBHH+ZPdtLDHzMB/toC1Nk/vF9cUGPvBPA1wDlxbFuEP7ARFUzdfhANIttNB2PVpWOAEWRBFceCpmcKzonhyRKCHZUO1rn64hzTMHJJbPKrpeDDrlJKwIlCSL3JzmuLxZ7cAGoLwQ2irAat6ZX+o+E4L042/+/AFmmlW9AouGHhEACqL9HhzZ1Z7p7SDYV3c6yXQ75j/HpW5RtaJWywEO1aX7Kk0q9mcWjH/X+rlPhtIaUmxFhQyrw9wW6KphQSxIDUYD6bivEWtdwGxPSYQWeO0GczXDv8/dw+mtz8i0/MfsGzUXadmy8F/zvhxSMx5WwaKvleBzLpbuKxXO4BCxcpgXofECByqTdi00NogwEaQOgm+0YU90cl0bvDEqqGP/kDqsR0Q0ZPBiK3+ckrnJrqMnPYCo3eBDKaVVT6PWDSACfVo0xdTxmS0KJWVnAXsYBz8hOr8v0nkiTD3GL/fUZe1wNQO+3T1oRPeYB+Lj7A/WzMcGCBomcyzeW3a4oxCaiRAA4MMS5QFIX9K5NWvSage9NzCJux2dFDU9UgPj8Dylby94Fu4wlBY="
     - secure: "J61/KUCNGuWiZ6kiZDMjcKWFXGfnluE2+umVV8zgKX0MmGMv5ZyB1QIBNgQi72UUZSrvCUFh+lf77t7SgdHVM2hrsAITgFraFIl3Cyd3nfSoyoI2g7clhtar3rOovyg+hmScVDy96xeIgbT+DOzdEqKw5AEanQO9wZxI+X6jUcqOJsj8dTVPJwaNOfQ/416qQxGQXKQMyBRn9N6e/Im0UmpfifqYLvnWK5+ELhxuFNs7ZZd/nzQRgA97u9ytDzHC1SIIK2LPLgn64IaiBdau8jWqD2PiveYlKzLEAu7aiDkLF7KUcOkh8Q3UUbf0sJt3IO0TJRUe0hdvcbpHpgHHQlTdKUuTVijpN9spdWobuLIp1QUug+zv1vlFUvypt1wR80wmiv9xFPYHrOvV7hTksNReo6yDeIE2H/YSLQSSKJaWfvT9vXDxMj4aNb3UVWp0FTdmd4d0xFG94pxYImXI/ZyzFqPES33MDDSC8ffIJfyX9MmNsEl3e6PaeWrgulp4Nkhene25R+kLrosqw+cTPoc92Hctm6zndrbUVeiywBPbRjXiEWakJ2MDzAqzd4GP/1tuxIL1YY8MOpKw4SNV19Ke1ywy59iRAb8GY4nj66aQOgErOdkGla8s69KJrr221rh4PusisYDRrirMev4MS0b68snxNjcN0FEk+IBvlL4="
+  # Heroku
+    - herokuapp: rajrahmantodo
 
 script:
 # Docker Build the Image
@@ -30,4 +32,9 @@ script:
 # Docker Build and Login to Docker and Push 
 - docker build --target production --tag $docker_login/todoapp:latest .
 - docker login --username $docker_login --password $docker_password
-- docker push $docker_login/todoapp:latest
+- docker push $docker_login/todoapp
+
+# Heroku Push and Release
+- docker tag $docker_login/todoapp:latest registry.heroku.com/$herokuapp/web
+- docker push registry.heroku.com/$herokuapp/web
+- heroku container:release web --app $herokuapp
