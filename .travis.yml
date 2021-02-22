@@ -7,4 +7,4 @@ script:
 - docker build --target test -t todo-app:test .
 - docker run todo-app:test tests/test_viewmodel.py
 - docker run todo-app:test tests/test_integration.py
-- docker run -e KEY=$KEY -e TOKEN=$TOKEN -e SECRET_KEY=test todo-app:test
+- docker run -e KEY=$KEY -e TOKEN=$TOKEN -e SECRET_KEY=test todo-app:test tests/test_selenuim.py
