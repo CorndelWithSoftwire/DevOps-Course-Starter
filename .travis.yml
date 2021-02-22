@@ -15,44 +15,41 @@ env:
     - secure: "XqhzBHilcb6pvc+JpJRfsFDsRS0px5ymO7S4czUnODcdZDaOwp13uU5uUU1WWUIP5N9A9KJrnfp9QRERmGvNi1GULfDzSeNbhLynCSzfIBrHUnmaXMCIscqCZl7ApE0/wh5ALMp5vwoowULKHXv63ALGxoBmW0UD5nVBoXSISdVQnettrA0wxWci32+CmlGdMkM+B0y+QTCIp2kW6n89ZZdipmrURBi6Yw4H5wLaf8+3ZpwSCaj6rRDyyAdRf4GM69/yRvSetNlBJ3QgXm2ZP/w5QWyapaKk0uLYqAaaMu0l+8kk+dc/GHLnGQ/+QayXAZ6QDTWXr3SM/KbAVQv7k9eSdleRnv89ps2Flkw4yK3BzmXdsezD+peXiua5/q/cwK2/h5kJ2fHymY0E8UjjZXtpfXdc3jhK9OVUbXvC1v4GkyVzeGj/XueVSjJ5xB918tnSofujIg/CuKz0DY7I95NdugqPfnRPIFbq67rDDONCYdB6yygjLKrlNKGf6xS/mrr4w+4mMYmn69dLJJFOsXovgd7C5XEW6dX3hmv+rG2Vtn+PTL3mjIQG7hMURoAG5QWFOo9yDeQMcG7V+o7gug9c3AyTjcBoz0nRLXEh4Rry50VdMoWtujEV2Fy+Ub6MXiBa7neIRGjRMG+T3MY2YVguJ4Ha20yV5Ra6rc7G/9Y="
     - secure: "gOWWEMWMUnNWJmwH25wEzjcbOMhA6E/WHyNoI1QclNZFrHtUhhZXYO53lTWtAgvRZf9D0ouPmwAcE7Hgbjh/ql3ERWpsU8W0XiolCopd5zMfYp4gpxiQVdiYTyEW8WYv8mrtwQ/lHzWSij58MAsgBDML/IYdgHHvl7Ty8b2tGE3dUd+wrLsE8nZ3XohyUELnqfNAC5+qPOv3vWSL3cAVOSSAkWsrsowbpnbprpNmV18HO0dZZno3cGj3Sj9KOUTE6ceS1TSyz9oyzyZ3zp63IUkISGS6hOcMmQEU1toixO80tQG447mkRYAZlsXo6z3rjYNNvxVZsmKFxreYeBZGbOJeiW7fI8ZBin2fhuRoERYP84psB1IFEvOuBGyrHZiScZgmFPF0r75pp8we7w/3fBQq35luCnL5hJQ13V28JFDyHYUPAm5+alzUIA2hOBjYBtGVhSSevLlpQrLUdGmxqZFWumo2qXXWxsabsbwWG4oK3ixCJP1ET0rkls5BmLr1MjWLJN30miekP54O/gk23yWH0XviAbs8MOUY+Mel6TiwEF2N1X7UdjfMSrcnKknv78dfvoAFByqlT54oiZv6yzpb7cyFuQfqRWBiMDKulu6u819F5UQzE7Z+rVOQnXglPkrwuJu8ky8Lrsdd2Lfrbc6Zaz3w5+Tcixux1jbVvhQ="
 
-stages:
-  - test
-  - name: deploy
-    if : branch = module_8
 
 jobs:
   include:
     - stage: test
-      script:
-        # Docker Build the Image
-        - docker build --target test --tag my-test-image .
+        script:
+          # Docker Build the Image
+          - docker build --target test --tag my-test-image .
 
-        # Docker Run Unit Test
-        - echo "Running Unit Tests"
-        - docker run my-test-image test_view_model.py
+          # Docker Run Unit Test
+          - echo "Running Unit Tests"
+          - docker run my-test-image test_view_model.py
 
-        # Docker Run Integration tests 
-        - echo "Running Integration Tests"
-        - #docker run my-test-image test_view_model.py
+          # Docker Run Integration tests 
+          - echo "Running Integration Tests"
+          - #docker run my-test-image test_view_model.py
 
-        # Docker Run E2E 
-        - echo "Running E2E Tests"
-        - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
-    
+          # Docker Run E2E 
+          - echo "Running E2E Tests"
+          - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
+      
     - stage: deploy
-      script:
-          #Heroku
-        # Docker Build and Login to Docker and Push 
-        - docker build --target production --tag $docker_login/todoapp:latest .
-        - docker login --username $docker_login --password $docker_password
-        - docker push $docker_login/todoapp
+        script:
+          # Docker Build and Login to Docker and Push 
+          - docker build --target production --tag $docker_login/todoapp:latest .
+          - docker login --username $docker_login --password $docker_password
+          - docker push $docker_login/todoapp
 
-        # Heroku Push and Release
-        #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
-        - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
-        #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
-        - docker pull $docker_login/todoapp
-        - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
-        - docker push registry.heroku.com/$herokuapp/web
-        #- heroku container:push web --app $herokuapp
-        - heroku container:release web --app $herokuapp
+          # Heroku Push and Release
+          #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
+          - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+          #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+          - docker pull $docker_login/todoapp
+          - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
+          - docker push registry.heroku.com/$herokuapp/web
+          #- heroku container:push web --app $herokuapp
+          - heroku container:release web --app $herokuapp
+        on:
+          branch: module_8
