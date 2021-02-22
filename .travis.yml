@@ -1,3 +1,5 @@
+services:
+  - docker
 env:
   global:
   - secure: frD0XnJmb80aWqMhT5Nj80rgjAfb5LWmMlAblDf+cTOym+djngXNEMKAUGet0wFbjIK3zJl5OL3G/D+ebigBKDKK2PVow81uRvV7OA7xYOPT86LnxOm93AgqNw8GpAwvULWmGCHimfhSbTF6fXHsJv6XQf6vQqZXl7E6SrZnEMTjM5bwSli3Muz1iHIi1D6gO6hiy3xUa4pPgm/p2b6Hq1em5f8ZP+UTfwkf8e8gUn/bitEm0G8MuTLH5rEiVentX+6npHwID8J107uh25ScTXb9OhWc/zbbNbXoPpi09pJsyPTPJZFPuPqJqsbuLX7Da061KYr17+mkl38HPDXTPmNv4npBYAB2qpUvjvRFX0qcLSVf7w6Ru5xGuxKoKFHHmpGcgINhpQUMLPXoCL6fQKeIN9YarTVAl2skmnSp5FHbLh6QVHmI70p1Md6C3ssuPx8Poyfwk1i00B0S5W90qn5B6Fo5HUNWzyn6cmk9kHSsjsUDki7WwSQ20KowtMrrTJCDhhAK0TcQmjfsNEw03Ib86Tpwl/uH82p9RhkJj362YVi81qwZ5nNqi7BMO1PXk7YmHK96onb3woYcGNrnBlD6h042vamfIgCsWuCAJLVM9z9oF7eSDL9+XWCVelactAbXbhR8O0UicdQOJanq/KPKYu6fjgs6BssfYF2Gvhc=
@@ -5,6 +7,9 @@ env:
 
 script:
 - docker build --target test -t todo-app:test .
+- echo starting unit tests
 - docker run todo-app:test tests/test_viewmodel.py
+- echo starting intgration tests
 - docker run todo-app:test tests/test_integration.py
+- echo starting e2 tests
 - docker run -e KEY=$KEY -e TOKEN=$TOKEN -e SECRET_KEY=test todo-app:test tests/test_selenuim.py
