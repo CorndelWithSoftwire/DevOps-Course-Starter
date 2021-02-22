@@ -18,7 +18,6 @@ env:
 services:
   - docker
 
-
 before_script:
   #- docker login --username $docker_login --password $docker_password
   #- echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
@@ -47,9 +46,20 @@ script:
   # Heroku Push and Release
   #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
   #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
+  - echo "Login to Heroku"
   - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+
+  - echo "Pull image from Dockerhub"
   - docker pull $docker_login/todoapp
+
+  - echo "Tag image"
   - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
+
+  - echo "Push image to Heroku"
   - docker push registry.heroku.com/$herokuapp/web
   
+  - echo "Login to Heroku"
+  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+
+  - echo "Heroku Release to web"
   - heroku container:push web --app $herokuapp
