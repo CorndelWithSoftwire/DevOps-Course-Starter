@@ -23,14 +23,14 @@ script:
 #       script: ./deploy
 
 notifications:
-#   slack: '<account>:<token>'
-#   # travis encrypt "amex-corndel-devops:7kult0gT0c3zcQB2ybiSgYO8" --add notifications.slack
+  # slack: '<account>:<token>'
+  # # travis encrypt "amex-corndel-devops:7kult0gT0c3zcQB2ybiSgYO8" --add notifications.slack
 
-#     on_success: never # default: change
-#     on_failure: always # default: always
+  #   on_success: never # default: change
+  #   on_failure: always # default: always
 
   email:
     recipients:
       - yomi.olutimehin@yahoo.com
-     on_success: never # default: change
-     on_failure: always # default: always
+    on_success: never # default: change
+    on_failure: always # default: always
