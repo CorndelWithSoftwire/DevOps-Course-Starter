@@ -1,14 +1,21 @@
- services:
-  - docker
+services:
+- docker
+env:
+  global:
+    secure: m/S6viN8qIJM6qCntGch+HmP8gTA/YdZtyXfz3EvtLEC8FL5D7e64Ulde/cS8i4TAg380LmjY+vuHOk29DjMG3otFTG0J742/tmQI0b+uHFQSuFwj6kWl12yX78Kqa6gZhAnukMPEaFmFX7DwCFFYL+oj7Kx/NQIQtPd0nTDzWlFd2lxtPcgOgvB4fXaVAVZD4Y21K30joQ7AdfVIhBmKPq49YaLeC1g9yMtzeZMvOIoodvr5RWL1rUhGv8XPCORRhLz/SThqG+c4n0BZgnDEqeMI6+RTSuu9tIZUsgoN2LWBLDwEgGFQ4KkhtMlW37CQZ8BFaVynmguqoHdhmAM6jA3HJb3DmJUqu5ogD0lmobiNhi26SYrU/aKDUTtNsbIL2fOKEZx7JmChoDIUjMiLsLQj6AVVZseBAQ0YXtp7MzynQBtjfeSjyYu3C3H26PaGn9L9PmLPGxR176Z4MihF1iXQ7AfXwxoyApwhlqFUPEaCtlQFe6M+gAznO3G5BfEsovsEIutxHS6AhVilnnwHwsHtseXZXqDCskxAkqL83Rhrgv3eaeraetsC5AQT/cXoWTFtCMdnwgMXh0iljKbpTzAGZjiIqBY7uiReWvOMai6a9L+75rklOQLPB0atur9uQ6XeoI2dUi6YQ4fEdH6GJvgjy9LmRoK6GhWVvOrZwg=
+
+ 
+#  services:
+#   - docker
   
 script:
     # - docker build --target production --tag todo-app:prod .
     # - docker run --env-file ./.env -p 5000:80 todo-app:prod
     - docker build --target test --tag my-test-image .
-    - docker run --env-file ./.env my-test-image tests/test_view_model.py
-    - docker run --env-file ./.env my-test-image tests/test_integration.py
-    - docker run --env-file ./.env my-test-image tests/test_selenium.py
-
+    - docker run ./test_view_model.py
+    - docker run ./test_integration.py
+    - docker run ./test_selenium.py
+  
 
 notifications:
   # # slack: '<account>:<token>'
