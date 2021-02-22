@@ -1,3 +1,5 @@
 script:
-  - docker build --target test -t todo-app:test .
-  - docker run -e KEY=$KEY -e TOKEN=$TOKEN todo-app:test
+  - ech $KEY
+  - ech $TOKEN
+#  - docker build --target test -t todo-app:test .
+#  - docker run -e KEY=$KEY -e TOKEN=$TOKEN todo-app:test
