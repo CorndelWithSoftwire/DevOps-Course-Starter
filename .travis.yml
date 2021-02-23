@@ -50,7 +50,7 @@ script:
   - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
   - echo "Login to Heroku"
-  - docker login --username=$heroku_login --password=$(heroku auth:token) registry.heroku.com
+  - docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com
 
   - echo "Push image to Heroku"
   - docker push registry.heroku.com/rajrahmantodoapp/web
