@@ -58,5 +58,5 @@ script:
   - docker push registry.heroku.com/rajrahmantodoapp/web
 
   - echo "Heroku Release to web"
-  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+  - echo $heroku_api_key | docker login --username=$heroku_login --password-stdin registry.heroku.com
   - heroku container:release web --app rajrahmantodoapp
