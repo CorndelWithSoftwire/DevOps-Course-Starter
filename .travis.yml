@@ -40,18 +40,18 @@ script:
   # Docker Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
   - docker login --username $docker_login --password $docker_password
-  - docker push $docker_login/todoapp
+  - docker push $docker_login/todoapp:latest
 
   # Heroku Push and Release
   #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
   - echo "Pull image from Dockerhub"
-  - docker pull $docker_login/todoapp
+  - docker pull $docker_login/todoapp:latest
 
   - echo "Tag image"
-  - docker tag $docker_login/todoapp registry.heroku.com/$herokuapp/web
+  - docker tag $docker_login/todoapp:latest registry.heroku.com/$herokuapp/web
 
   - echo "Login to Heroku"
-  - docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
+  #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
   - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
 
   - echo "Push image to Heroku"
