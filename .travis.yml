@@ -25,7 +25,7 @@ before_script:
 script:
 
   # Docker Build the Image
-  - docker build --target test todoapp:test .
+  - docker build --target test --tag todoapp:test .
 
   # Docker Run Unit Test
   - echo "Running Unit Tests"
