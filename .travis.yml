@@ -48,14 +48,15 @@ script:
   - docker pull $docker_login/todoapp:latest
 
   - echo "Tag image"
-  - docker tag $docker_login/todoapp:latest registry.heroku.com/$herokuapp/web
+  - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
   - echo "Login to Heroku"
   #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
   - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
 
   - echo "Push image to Heroku"
-  - docker push registry.heroku.com/$herokuapp/web
+  - docker push registry.heroku.com/rajrahmantodoapp/web
 
   - echo "Heroku Release to web"
-  - heroku container:release web --app $herokuapp
+  - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
+  - heroku container:release web --app rajrahmantodoapp
