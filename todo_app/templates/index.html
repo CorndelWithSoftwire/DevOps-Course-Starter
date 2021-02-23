@@ -12,13 +12,20 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in items  %}
-        <li> Item_id {{item.id}} title {{ item.title}} and status {{item.status}}</li>
+        <li> Id: {{item.id}} Title: {{ item.title}} Status: {{item.status}}</li>
+        <form  action="/deleteitem" method ='POST'>
+          <input type =text name= "id" value = "{{item.id}}"/>
+         
+          <input type= "submit" value = "Delete"/>
+        </form>
         {% endfor%}
       </ul>
       <form  action="/additem" method ='POST'>
         <input type =text name= "title"/>
         <input type = "submit" value ="Submit"/> 
       </form>
+
+      
     </div>
   </div>
 {% endblock %}

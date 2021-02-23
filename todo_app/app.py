@@ -18,14 +18,18 @@ def add_item():
     return redirect(url_for("index"))
     
 
-@app.route('/<id>')
-def get_item(id):
-    item = session_items.get_item(id)
-    return f"Item returned is {item['title']}"
+# @app.route('/<id>')
+# def get_item(id):
+#     item = session_items.get_item(id)
+#     return f"Item returned is {item['title']}"
 
 
-
-
+@app.route('/deleteitem', methods =["POST"])
+def delete_item():
+    id = request.form.get("id")
+    session_items.delete_item(id)
+    return redirect(url_for("index"))
+    
 
 if __name__ == '__main__':
     app.run()
