@@ -38,17 +38,14 @@ script:
   # Docker Run E2E 
   - echo "Running E2E Tests"
   - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id todoapp:test test_trello.py
-  
-  # Docker Pull latest image
-  - echo "Pull image from Dockerhub"
-  - docker pull $docker_login/todoapp:latest     
 
   # Docker Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
   - docker push $docker_login/todoapp:latest
 
-  # Docker Tag Image 
-  - echo "Tag image"
+  # Docker Pull latest image & Tag
+  - echo "Pull image from Dockerhub and Tag"
+  - docker pull $docker_login/todoapp:latest     
   - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
   # Login to Heroku
