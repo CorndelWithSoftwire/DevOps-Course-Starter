@@ -1,6 +1,8 @@
 # Perform common operations, dependency installation etc...
 FROM python:3.8-slim-buster as base
 RUN pip install poetry
+RUN pip install gunicorn
+
 WORKDIR /DevOps-Course-Starter
 COPY pyproject.toml /DevOps-Course-Starter/
 COPY . /DevOps-Course-Starter/
