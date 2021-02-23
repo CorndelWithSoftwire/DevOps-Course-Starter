@@ -5,8 +5,6 @@ RUN pip install poetry
 WORKDIR /project
 
 FROM base as production
-COPY /todo_app /project/todo_app
-COPY  poetry.lock /project/
 COPY  poetry.lock pyproject.toml /project/
 COPY docker-entrypoint.sh ./
 RUN cd /project/
