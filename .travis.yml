@@ -56,8 +56,9 @@ script:
   - docker push registry.heroku.com/rajrahmantodoapp/web
 
   - echo "Heroku Release to web"
-  deploy:
-    provider: script
-    script: 
+
+deploy:
+  provider: script
+  script: 
       heroku container:release web --app rajrahmantodoapp
-  #- heroku container:release web --app rajrahmantodoapp
+
