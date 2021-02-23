@@ -10,7 +10,7 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction
 # Configure for production
 FROM base as production
 #ENV PORT=5000
-#RUN poetry install  --no-dev
+RUN poetry install  --no-dev
 #EXPOSE 5000
 ENTRYPOINT poetry run gunicorn "app:create_app()" --bind 0.0.0.0
 

@@ -43,11 +43,7 @@ script:
   - docker push $docker_login/todoapp
 
   # Heroku Push and Release
-  #
   #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
-  
-
-
   - echo "Pull image from Dockerhub"
   - docker pull $docker_login/todoapp
 
