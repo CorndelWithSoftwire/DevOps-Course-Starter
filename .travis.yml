@@ -50,9 +50,7 @@ script:
   - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
   - echo "Login to Heroku"
-  #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
-  - echo $heroku_api_key | docker login --username=$heroku_login --password=$(heroku auth:token) registry.heroku.com
-  #- echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+  - docker login --username=$heroku_login --password=$(heroku auth:token) registry.heroku.com
 
   - echo "Push image to Heroku"
   - docker push registry.heroku.com/rajrahmantodoapp/web
@@ -62,5 +60,4 @@ script:
     provider: script
     script: 
       heroku container:release web --app rajrahmantodoapp
-  #- echo $heroku_api_key | docker login --username=$heroku_login --password-stdin registry.heroku.com
   #- heroku container:release web --app rajrahmantodoapp
