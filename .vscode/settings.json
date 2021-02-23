@@ -2,7 +2,6 @@
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.testing.pytestArgs": [
-        "tests",
         "tests_e2e"
     ],
     "python.testing.unittestEnabled": false,
