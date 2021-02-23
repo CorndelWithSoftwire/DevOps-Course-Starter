@@ -12,7 +12,7 @@ env:
     - secure: "J61/KUCNGuWiZ6kiZDMjcKWFXGfnluE2+umVV8zgKX0MmGMv5ZyB1QIBNgQi72UUZSrvCUFh+lf77t7SgdHVM2hrsAITgFraFIl3Cyd3nfSoyoI2g7clhtar3rOovyg+hmScVDy96xeIgbT+DOzdEqKw5AEanQO9wZxI+X6jUcqOJsj8dTVPJwaNOfQ/416qQxGQXKQMyBRn9N6e/Im0UmpfifqYLvnWK5+ELhxuFNs7ZZd/nzQRgA97u9ytDzHC1SIIK2LPLgn64IaiBdau8jWqD2PiveYlKzLEAu7aiDkLF7KUcOkh8Q3UUbf0sJt3IO0TJRUe0hdvcbpHpgHHQlTdKUuTVijpN9spdWobuLIp1QUug+zv1vlFUvypt1wR80wmiv9xFPYHrOvV7hTksNReo6yDeIE2H/YSLQSSKJaWfvT9vXDxMj4aNb3UVWp0FTdmd4d0xFG94pxYImXI/ZyzFqPES33MDDSC8ffIJfyX9MmNsEl3e6PaeWrgulp4Nkhene25R+kLrosqw+cTPoc92Hctm6zndrbUVeiywBPbRjXiEWakJ2MDzAqzd4GP/1tuxIL1YY8MOpKw4SNV19Ke1ywy59iRAb8GY4nj66aQOgErOdkGla8s69KJrr221rh4PusisYDRrirMev4MS0b68snxNjcN0FEk+IBvlL4="
   # Heroku
     - herokuapp: rajrahmantodoapp
-    #- secure: "XqhzBHilcb6pvc+JpJRfsFDsRS0px5ymO7S4czUnODcdZDaOwp13uU5uUU1WWUIP5N9A9KJrnfp9QRERmGvNi1GULfDzSeNbhLynCSzfIBrHUnmaXMCIscqCZl7ApE0/wh5ALMp5vwoowULKHXv63ALGxoBmW0UD5nVBoXSISdVQnettrA0wxWci32+CmlGdMkM+B0y+QTCIp2kW6n89ZZdipmrURBi6Yw4H5wLaf8+3ZpwSCaj6rRDyyAdRf4GM69/yRvSetNlBJ3QgXm2ZP/w5QWyapaKk0uLYqAaaMu0l+8kk+dc/GHLnGQ/+QayXAZ6QDTWXr3SM/KbAVQv7k9eSdleRnv89ps2Flkw4yK3BzmXdsezD+peXiua5/q/cwK2/h5kJ2fHymY0E8UjjZXtpfXdc3jhK9OVUbXvC1v4GkyVzeGj/XueVSjJ5xB918tnSofujIg/CuKz0DY7I95NdugqPfnRPIFbq67rDDONCYdB6yygjLKrlNKGf6xS/mrr4w+4mMYmn69dLJJFOsXovgd7C5XEW6dX3hmv+rG2Vtn+PTL3mjIQG7hMURoAG5QWFOo9yDeQMcG7V+o7gug9c3AyTjcBoz0nRLXEh4Rry50VdMoWtujEV2Fy+Ub6MXiBa7neIRGjRMG+T3MY2YVguJ4Ha20yV5Ra6rc7G/9Y="
+    - secure: "u9PjQ6s5qpMRnQZVbHaQ3u/9JmI2ooMafJoLaFTeb7+b14x169/dxsvH+58iFLiqjQgyG3eoM539CwLOQ3PkeE3VFmSysQ4Sw2B9tqE9ee763Pb+mSnTceZ6l3/OAvJmb3ZO9P1p0GG5pTDBSl9PdXZQBYoN8Tcx6OrXR1pAMAmbme1BYuuvqeX+TQvj5gK7kdXK7IINKbRcIO6QmO4h/w4Bhh9q/p2iLsEqjoXWHVWpAaz4H/YWQTs5rT3/zaI1NzXf6vXYZikdr2c4Hlyhnv1q+P052r2hr9DKoI/qKQbY8Wd8/9dtmiCTpyzGz2MSh4wIxNYUcxQ8clzIasGmUfLTPJiL0Rbu9soly5/mAV73na2g6vRO12Hng4MlR4C1pfAk541Vx1pll5+9/HSu3Bw4tyngOc1y0knn6H7HWPz3CfuPAz45PaZCn9QI+Zt0/5jlBeXC5Ez6kV2n4Sywt3hDevZP2lbq4Q0dtQGd6au0u+Os3TMq+jTg13Cj/u9Zbyoce5ywZA1W8EXqtSNu7MCvSD0bcbIn4HOFA85m5Qjbblg5NkxbW+xA3lrH/BhkW/B1d1ifVxTV4reuaNlR9q+KYEI8I9ZvOxnZgfenl5IjplXx4ayTVXny9JaM0vJTjQ2XPzxYlkwuFdAIpN3gq8F5FmlajDsULfpDTCBhxxY="
     - secure: "gOWWEMWMUnNWJmwH25wEzjcbOMhA6E/WHyNoI1QclNZFrHtUhhZXYO53lTWtAgvRZf9D0ouPmwAcE7Hgbjh/ql3ERWpsU8W0XiolCopd5zMfYp4gpxiQVdiYTyEW8WYv8mrtwQ/lHzWSij58MAsgBDML/IYdgHHvl7Ty8b2tGE3dUd+wrLsE8nZ3XohyUELnqfNAC5+qPOv3vWSL3cAVOSSAkWsrsowbpnbprpNmV18HO0dZZno3cGj3Sj9KOUTE6ceS1TSyz9oyzyZ3zp63IUkISGS6hOcMmQEU1toixO80tQG447mkRYAZlsXo6z3rjYNNvxVZsmKFxreYeBZGbOJeiW7fI8ZBin2fhuRoERYP84psB1IFEvOuBGyrHZiScZgmFPF0r75pp8we7w/3fBQq35luCnL5hJQ13V28JFDyHYUPAm5+alzUIA2hOBjYBtGVhSSevLlpQrLUdGmxqZFWumo2qXXWxsabsbwWG4oK3ixCJP1ET0rkls5BmLr1MjWLJN30miekP54O/gk23yWH0XviAbs8MOUY+Mel6TiwEF2N1X7UdjfMSrcnKknv78dfvoAFByqlT54oiZv6yzpb7cyFuQfqRWBiMDKulu6u819F5UQzE7Z+rVOQnXglPkrwuJu8ky8Lrsdd2Lfrbc6Zaz3w5+Tcixux1jbVvhQ="
 
 services:
@@ -22,12 +22,16 @@ before_script:
   - curl https://cli-assets.heroku.com/install.sh | sh
 
 script:
+  # Docker Pull latest image
+  - echo "Pull image from Dockerhub"
+  - docker pull $docker_login/todoapp:latest
+
   # Docker Build the Image
-  - docker build --target test --tag my-test-image .
+  - docker build --target test $docker_login/todoapp:latest .
 
   # Docker Run Unit Test
   - echo "Running Unit Tests"
-  - docker run my-test-image test_view_model.py
+  - docker run $docker_login/todoapp:latest test_view_model.py
 
   # Docker Run Integration tests 
   - echo "Running Integration Tests"
@@ -42,29 +46,20 @@ script:
   - docker login --username $docker_login --password $docker_password
   - docker push $docker_login/todoapp:latest
 
-  # Heroku Push and Release
-  - echo "Pull image from Dockerhub"
-  - docker pull $docker_login/todoapp:latest
-
+  # Docker Tag Image 
   - echo "Tag image"
   - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
+  # Login to Heroku
   - echo "Login to Heroku"
-  #- echo $heroku_api_key | docker login --username=$heroku_login --password-stdin registry.heroku.com
-  - docker login -u "$heroku_login" --password=$(heroku auth:token) registry.heroku.com #logged in
+  - echo $HEROKU_API_KEY | docker login --username=$heroku_login --password-stdin registry.heroku.com
 
+  # Push image to Heroku
   - echo "Push image to Heroku"
   - docker push registry.heroku.com/rajrahmantodoapp/web
 
-  - echo "Heroku Release to web"
-
-
-
+# Release image in Heroku
 deploy:
-  #provider: heroku
-  #api-key: 
-  #  secure: "XqhzBHilcb6pvc+JpJRfsFDsRS0px5ymO7S4czUnODcdZDaOwp13uU5uUU1WWUIP5N9A9KJrnfp9QRERmGvNi1GULfDzSeNbhLynCSzfIBrHUnmaXMCIscqCZl7ApE0/wh5ALMp5vwoowULKHXv63ALGxoBmW0UD5nVBoXSISdVQnettrA0wxWci32+CmlGdMkM+B0y+QTCIp2kW6n89ZZdipmrURBi6Yw4H5wLaf8+3ZpwSCaj6rRDyyAdRf4GM69/yRvSetNlBJ3QgXm2ZP/w5QWyapaKk0uLYqAaaMu0l+8kk+dc/GHLnGQ/+QayXAZ6QDTWXr3SM/KbAVQv7k9eSdleRnv89ps2Flkw4yK3BzmXdsezD+peXiua5/q/cwK2/h5kJ2fHymY0E8UjjZXtpfXdc3jhK9OVUbXvC1v4GkyVzeGj/XueVSjJ5xB918tnSofujIg/CuKz0DY7I95NdugqPfnRPIFbq67rDDONCYdB6yygjLKrlNKGf6xS/mrr4w+4mMYmn69dLJJFOsXovgd7C5XEW6dX3hmv+rG2Vtn+PTL3mjIQG7hMURoAG5QWFOo9yDeQMcG7V+o7gug9c3AyTjcBoz0nRLXEh4Rry50VdMoWtujEV2Fy+Ub6MXiBa7neIRGjRMG+T3MY2YVguJ4Ha20yV5Ra6rc7G/9Y="
-  #app: rajrahmantodoapp
   provider: script
   script: 
       - echo "Heroku Release to web"
