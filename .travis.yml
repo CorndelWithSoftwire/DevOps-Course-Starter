@@ -43,7 +43,6 @@ script:
   - docker push $docker_login/todoapp:latest
 
   # Heroku Push and Release
-  #- docker login --username=_ --password=$(heroku auth:token) registry.heroku.com
   - echo "Pull image from Dockerhub"
   - docker pull $docker_login/todoapp:latest
 
@@ -52,7 +51,8 @@ script:
 
   - echo "Login to Heroku"
   #- docker login --username=$heroku_login --password=$heroku_api_key registry.heroku.com 
-  - echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
+  - echo $heroku_api_key | docker login --username=$heroku_login --password=$(heroku auth:token) registry.heroku.com
+  #- echo $heroku_api_key | docker login --username=_ --password-stdin registry.heroku.com
 
   - echo "Push image to Heroku"
   - docker push registry.heroku.com/rajrahmantodoapp/web
