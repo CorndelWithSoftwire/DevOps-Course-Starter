@@ -23,25 +23,26 @@ before_script:
   - docker login --username $docker_login --password $docker_password
 
 script:
-  # Docker Pull latest image
-  - echo "Pull image from Dockerhub"
-  - docker pull $docker_login/todoapp:latest
 
   # Docker Build the Image
-  - docker build --target test $docker_login/todoapp:latest .
+  - docker build --target test todoapp:test .
 
   # Docker Run Unit Test
   - echo "Running Unit Tests"
-  - docker run $docker_login/todoapp:latest test_view_model.py
+  - docker run todoapp:test test_view_model.py
 
   # Docker Run Integration tests 
   - echo "Running Integration Tests"
-  #- docker run my-test-image test_todoapp.py
+  #- docker run todoapp:test test_todoapp.py
 
   # Docker Run E2E 
   - echo "Running E2E Tests"
-  - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id my-test-image test_trello.py
-      
+  - docker run -e trello_key=$trello_key -e trello_token=$trello_token -e trello_boardid=$trello_boardid -e todo_list_id=$todo_list_id -e doing_list_id=$doing_list_id -e done_list_id=$done_list_id todoapp:test test_trello.py
+  
+  # Docker Pull latest image
+  - echo "Pull image from Dockerhub"
+  - docker pull $docker_login/todoapp:latest     
+
   # Docker Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
   - docker push $docker_login/todoapp:latest
