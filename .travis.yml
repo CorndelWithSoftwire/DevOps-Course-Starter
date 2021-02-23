@@ -61,4 +61,5 @@ deploy:
   provider: script
   script: 
       heroku container:release web --app rajrahmantodoapp
-
+  on:
+      branch: module_8
