@@ -20,6 +20,7 @@ services:
 
 before_script:
   - curl https://cli-assets.heroku.com/install.sh | sh
+  - docker login --username $docker_login --password $docker_password
 
 script:
   # Docker Pull latest image
@@ -43,7 +44,6 @@ script:
       
   # Docker Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
-  - docker login --username $docker_login --password $docker_password
   - docker push $docker_login/todoapp:latest
 
   # Docker Tag Image 
