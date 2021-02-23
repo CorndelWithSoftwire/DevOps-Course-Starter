@@ -12,7 +12,8 @@ FROM base as production
 #ENV PORT=5000
 RUN poetry install  --no-dev
 #EXPOSE 5000
-ENTRYPOINT poetry run gunicorn "app:create_app()" --bind 0.0.0.0
+#ENTRYPOINT poetry run gunicorn "app:create_app()" --bind 0.0.0.0
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
 
 # Configure for local development
 FROM base as development
