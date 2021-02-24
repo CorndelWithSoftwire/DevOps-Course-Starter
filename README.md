@@ -1,5 +1,10 @@
 # DevOps Apprenticeship: Project Exercise
 
+## This is for scripting for Automating
+ 
+The script will error if there is an issue, setup Python, Poetry Install, Setup the dependencies. All you need is to copy TRELLO Credentials to .env for running the To Do App
+
+
 ## System Requirements
 
 The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
