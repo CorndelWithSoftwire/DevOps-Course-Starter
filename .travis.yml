@@ -5,11 +5,7 @@ script:
 - FLASK_ENV=development
 - docker build --target test --tag my-test-image .
 - docker run -p 5000:5000 my-test-image
-# - DOCKER_USERNAME=britboy4321
 
-# - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-# - docker tag my-test-image $DOCKER_USERNAME/my-test-image
-# - docker push $DOCKER_USERNAME/my-test-image
 env:
   - Docker_hub_id=Britboy4321
   global:
