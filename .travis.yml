@@ -1,5 +1,4 @@
 env:
-- DOCKERHUB_USERNAME=britboy4321
   global:
     secure: do3j6BVDZM9Islr426PeuxGrBNc6E7ToIImtcZ7knNcxuu8YPw/itOM8XaTvm1oxWBK6DPs6WZuKFW13Ug9wvpsUPWVMm2x6pqI+TOu/N7QAO1vFbGDGmE7EOJtxoGp729TkS3dNz7xsWqxrhhdAzmCKSTpBrUfz7McQAunNidV69hJLkdLdyhS2e1Wi1E2vqJ+wuFxKHEBEI4TDecaDjFS4gfBHnVIy/Zlnu3eWCr50rHeul8tRCXOSJma4Zkh/cMuP4zk+Us3ARVRtIYEwsivJcpRH24W3MhfsoqhMIpe9AzWonX07nlmQJ35IVXfouRsmgrRdQAP28jW3YsYnjgNx4eTIwYukqN9TBTE5lMmWepff9JmWFnQV2s/mFEqLILWLiZrOACQkgQb9AKzV3S/jBXq8SOUU4hqXPAwHhrN/xSiBik3JWI3i+L9cRKWEDXavg8cr4ougNUoed57wJsRDOzenndM/yDIj9s0LAgir2FrwuyL4dKx0PZlQAjTj5p0IFQlrfuBsbowyEyC0H0c+KpWTqHQAaAFfrRl7t1t8LfRGabv8FJnKRmUa+9jxYYor/yNWlXB3ek4Vy1GaMdb3bzsGl7WI4pz5bAc1Fav139pK2Ho3hvvcf0jJBVJ0+bhpzMYnqmY/8FpiIU8OoD7bceBEV8Z43oGKIOHZmaw=  
 script:
@@ -7,5 +6,6 @@ script:
 - echo "-----------------------------------"
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
+- DOCKERHUB_USERNAME=britboy4321
 - docker build --target test --tag my-test-image .
 - docker run -p 5000:5000 my-test-image
