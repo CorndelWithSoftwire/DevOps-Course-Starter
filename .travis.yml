@@ -12,4 +12,4 @@ script:
 - docker login --username $DOCKERHUB_USERNAME --password Dockerhub123
 - echo "Now for the push"
 - echo "----------------"
-- docker push latest 
+ 
