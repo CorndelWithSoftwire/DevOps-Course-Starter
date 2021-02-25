@@ -5,6 +5,12 @@ script:
 - FLASK_ENV=development
 - docker build --target test --tag my-test-image .
 - docker run -p 5000:5000 my-test-image
+- DOCKER_USERNAME=britboy4321
+
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker tag my-test-image $DOCKER_USERNAME/my-test-image
+- docker push $DOCKER_USERNAME/my-test-image
 env:
+  - Docker_hub_id=Britboy4321
   global:
     secure: DSTcbnI+O2YFJSj1FhP7zDlXwjJs4gFl5t7AupgP2efbw5EqPgnnfkgfKQ9fuBr/GtqIrRCwM9i8aLhQxtGbELdknokH+lPrkaHNHBJ0BmMj469ehYDzrmNS2WQu4KdNmEWTck+BUnW0sG1+AlGYN7Mg1LnqLdxYbDbgb/KaWzFfv6OQKstpCk3sjpsKNPFVzvf6POfjL2PxzCLyHol4JMNhBKhjcdlCiZgdMOVSgtAuLnnZTjNZnwemgMrByHy7KytHOtizfscZX8/rulS0ywjaS7nQ4yHzA4YRj3mnZNNRemGCHogfzX+9e/BDRcD6GzokREkWBj/pgY8RQmvqUklLLoVzTxbJ+V5gkBtZK+69oM0DtEicmZmkHwVS0FAh/TuCCpn6z2p00leuXK5o01bR65xFUKH5Uu6okCcSoZD73qQHHyf3IefDgJUJvPeCYIQ9jn73VK9Ifsw5aKlXB+VuSBbRkgTqyaiPMbpByc/sVP3NvhAHWSg1UUPuRtMupA8UHDEUDe4kXtVrqbXS+RNb6ny9njM+k5OXmnF21cagpIiFdmwXf0ZFs/flKrx+8pSLp6+B0nOIb4whikl2437AGz4c9kC02KTKQrHPI654lukrqf7yTK5D9ax/6uxfXLX3/X+lQno/2EOwVU0gCl4VNiZyMSQyjr4zBFg8YIQ=
