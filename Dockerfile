@@ -1,6 +1,6 @@
 FROM python:3.8 as base
 
-# Get poetry and set PATH
+# Get poetry and set PATH work
 
 ENV POETRY_HOME=/poetry       
 ENV PATH=${POETRY_HOME}/bin:${PATH}
