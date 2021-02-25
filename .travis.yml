@@ -1,5 +1,5 @@
 script:
-- echo "This is Daves travis.yml"
+- echo "This is Daves travis LATEST.yml"
 - echo "-----------------------------------"
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
