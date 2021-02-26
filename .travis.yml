@@ -59,8 +59,6 @@ script:
 # Release image in Heroku
 deploy:
   provider: script
-  script: 
-      - echo "Heroku Release to web"
-      - heroku container:release web --app rajrahmantodoapp
+  script: heroku container:release web --app rajrahmantodoapp
   on:
       all_branches: true
