@@ -33,7 +33,6 @@ RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE
  unzip ./chromedriver_linux64.zip
 # Copy all files
 COPY ./todo_app /code/todo_app
-COPY ./poetry.lock /code/
 COPY ./poetry.toml /code/
 COPY ./pyproject.toml /code/
 #COPY ./.env /code/.env
