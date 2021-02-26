@@ -2,7 +2,7 @@
 
 ## This is for scripting for Automating
  
-The script will error if there is an issue, setup Python, Poetry Install, Setup the dependencies. All you need is to copy TRELLO Credentials to .env for running the To Do App
+The setup.sh file is script will error if there is an issue, setup Python, Poetry Install, Setup the dependencies. All you need is to copy TRELLO Credentials to .env for running the To Do App
 
 
 ## System Requirements
