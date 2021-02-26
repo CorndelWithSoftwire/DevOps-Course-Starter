@@ -2,7 +2,7 @@ services:
 - docker
 
 before_script:
-  - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD   #login to dockerhub
+  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD   #login to dockerhub
   - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
   - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com 
 
@@ -11,9 +11,9 @@ script:
   - docker run my-test-image todo_app/app.py
   - docker run -e TRELLO_KEY=$TRELLO_KEY -e TRELLO_TOKEN=$TRELLO_TOKEN -e TRELLO_BOARD_ID=$TRELLO_BOARD_ID -e TRELLO_TODO_LIST_ID=$TRELLO_TODO_LIST_ID -e TRELLO_DOING_LIST_ID=$TRELLO_DOING_LIST_ID -e TRELLO_DONE_LIST_ID=$TRELLO_DONE_LIST_ID my-test-image todo_app/test_client.py
   - docker run -e TRELLO_KEY=$TRELLO_KEY -e TRELLO_TOKEN=$TRELLO_TOKEN -e TRELLO_BOARD_ID=$TRELLO_BOARD_ID -e TRELLO_TODO_LIST_ID=$TRELLO_TODO_LIST_ID -e TRELLO_DOING_LIST_ID=$TRELLO_DOING_LIST_ID -e TRELLO_DONE_LIST_ID=$TRELLO_DONE_LIST_ID   my-test-image todo_app/test_system.py
-  - docker build --target production --tag $DOCKER_HUB_USER/todo-app:latest .  
-  - docker push $DOCKER_HUB_USER/todo-app:latest
-  - docker tag $DOCKER_HUB_USER/todo-app:latest registry.heroku.com/$HEROKU_APP/web
+  - docker build --target production --tag $DOCKER_USER/todo-app:latest .  
+  - docker push $DOCKER_USER/todo-app:latest
+  - docker tag $DOCKER_USER/todo-app:latest registry.heroku.com/$HEROKU_APP/web
   - docker push registry.heroku.com/$HEROKU_APP/web
   
 deploy:   
