@@ -21,6 +21,7 @@ ENTRYPOINT poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:5000
 
 FROM base as test
 RUN apt-get update
+RUN apt-get install -y curl
 RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb &&\
  apt-get install ./chrome.deb -y &&\
  rm ./chrome.deb
@@ -32,7 +33,6 @@ RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE
  unzip ./chromedriver_linux64.zip
 # Copy all files
 COPY ./todo_app /code/todo_app
-COPY ./poetry.lock /code/
 COPY ./poetry.toml /code/
 COPY ./pyproject.toml /code/
 #COPY ./.env /code/.env
