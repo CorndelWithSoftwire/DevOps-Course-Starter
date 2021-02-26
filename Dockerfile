@@ -5,6 +5,7 @@ WORKDIR /code
 COPY ./todo_app /code/todo_app
 COPY ./poetry.toml /code/
 COPY ./pyproject.toml /code/
+
 RUN poetry install
 FROM base as dev
 COPY ./pyproject.toml ./
