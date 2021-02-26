@@ -12,7 +12,7 @@ def get_all_tasks():
         ('key', os.environ['TRELLO_KEY']),
         ('token', os.environ['TRELLO_TOKEN']),        
     )
-    board_id = os.environ['TRELLO_BOARD']
+    board_id = os.environ['TRELLO_BOARD_ID']
     data = requests.get('https://api.trello.com/1/boards/' + board_id + '/cards', params=params).json()
     task_list = []
     for task in data:
@@ -34,6 +34,9 @@ def create_todo_task(title):
         ('name', title),
         ('idList', os.environ['TRELLO_TODO_LIST_ID'])
     )
+    print(os.environ['TRELLO_KEY'])
+    print(os.environ['TRELLO_TOKEN'])
+    print(os.environ['TRELLO_TODO_LIST_ID'])
     requests.post('https://api.trello.com/1/cards', params=params)
 
 def move_to_doing(id):

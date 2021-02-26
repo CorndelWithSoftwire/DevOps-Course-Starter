@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import dotenv
 import requests
+from time import sleep
  
 @pytest.fixture(scope='module')
 def test_app():
@@ -16,7 +17,7 @@ def test_app():
 
     # Create the new board & set it to env variable
     board_id = create_board() 
-    os.environ['TRELLO_BOARD'] = board_id
+    os.environ['TRELLO_BOARD_ID'] = board_id
 
     # Get the new board list ids and update the environment variables
     params = (
@@ -24,9 +25,8 @@ def test_app():
         ('token', os.environ['TRELLO_TOKEN']),
         ('fields', 'all')
     )
-    boardid = os.environ['TRELLO_BOARD']
+    boardid = os.environ['TRELLO_BOARD_ID']
     r = requests.get(f'https://api.trello.com/1/boards/' + boardid + '/lists', params=params)
-
     to_do_id = r.json()[0]['id']
     doing_id = r.json()[1]['id']
     done_id = r.json()[2]['id']
@@ -51,9 +51,13 @@ def test_app():
 
 
 @pytest.fixture(scope="module")
-def driver():     
-    with webdriver.Chrome() as driver:
-        yield driver 
+def driver():
+    opts = webdriver.ChromeOptions()
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    with webdriver.Chrome('./chromedriver', options=opts) as driver:
+        yield driver   
+    
 
 def test_adding_new_task(driver, test_app):
     driver.get('http://localhost:5000/')  
@@ -62,5 +66,6 @@ def test_adding_new_task(driver, test_app):
     input_field.send_keys("TestTask")
     add_item = driver.find_element_by_id('new_task')
     add_item.click()    
-    page_source = driver.page_source    
-    assert "TestTask" in page_source
+    #sleep(60)
+    page_source = driver.page_source 
+    assert page_source.find("TestTask") >= 0
