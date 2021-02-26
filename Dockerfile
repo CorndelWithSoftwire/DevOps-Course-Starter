@@ -3,7 +3,6 @@ RUN pip install poetry
 EXPOSE 5000
 WORKDIR /code
 COPY ./todo_app /code/todo_app
-COPY ./poetry.lock /code/
 COPY ./poetry.toml /code/
 COPY ./pyproject.toml /code/
 RUN poetry install
