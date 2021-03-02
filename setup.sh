@@ -10,10 +10,10 @@ xcode-select --install
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Use Homebrew to Install Python 3.7+                                                                                                                                                                                                          $ brew install python3
-brew install python3 
+brew install python@3.8 
 
 # Check Python version installed                                                                                                                                                                                                                     $ python3 --version
-python3 --version
+python --version
 
 # Check if poetry is already installed 
 
