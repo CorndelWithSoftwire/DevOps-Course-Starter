@@ -21,4 +21,4 @@ deploy:
   script:    
     - heroku container:release web --app $HEROKU_APP
   on:
-    branch: master
+    branch: module_8
