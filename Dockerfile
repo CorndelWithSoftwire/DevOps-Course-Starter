@@ -18,7 +18,15 @@ EXPOSE 8000/tcp
 CMD ["poetry", "run", "gunicorn", "-b", "0.0.0.0", "todo_app.app:create_app()"]
 
 FROM base as test
-COPY tests /app/tests
-COPY .env.test /app
+COPY . /app
 WORKDIR /app
-CMD ["poetry", "run", "pytest", "tests/test_viewmodel.py", "tests/test_integration.py"]
+RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb \
+    && apt-get update \
+    && apt-get -f install ./chrome.deb -y \
+    && rm ./chrome.deb
+RUN LATEST=`curl -sSL https://chromedriver.storage.googleapis.com/LATEST_RELEASE` \
+    && echo "Installing chromium webdriver version ${LATEST}" \
+    && curl -sSL https://chromedriver.storage.googleapis.com/${LATEST}/chromedriver_linux64.zip -o chromedriver_linux64.zip \
+    && apt-get install unzip -y \
+    && unzip ./chromedriver_linux64.zip
+ENTRYPOINT ["poetry", "run", "pytest"]

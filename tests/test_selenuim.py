@@ -38,7 +38,10 @@ def test_app():
 
 @pytest.fixture(scope="module")
 def driver():
-    with webdriver.Chrome() as driver:
+    opts = webdriver.ChromeOptions()
+    opts.add_argument('--headless')
+    opts.add_argument('--no-sandbox')
+    with webdriver.Chrome('./chromedriver', options=opts) as driver:
         yield driver
 
 
