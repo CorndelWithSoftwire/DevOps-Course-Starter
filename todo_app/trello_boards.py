@@ -16,8 +16,6 @@ def create_board(name) -> Response:
     url = "https://api.trello.com/1/boards/"
     confg = Config()
 
-    pprint('keyyy ----------------->> ' + confg.KEY)
-    pprint('token ----------------->> ' + confg.TOKEN)
     query = {
         'key': confg.KEY,
         'token': confg.TOKEN,
