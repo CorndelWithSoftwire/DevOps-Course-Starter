@@ -4,7 +4,7 @@ services:
 before_script:
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD   #login to dockerhub
   - curl https://cli-assets.heroku.com/install.sh | sh  #install heroku
-  - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com 
+  - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com 
 
 script:
   - docker build --target test --tag my-test-image .
@@ -21,4 +21,4 @@ deploy:
   script:    
     - heroku container:release web --app $HEROKU_APP
   on:
-    branch: module_8
+    branch: master
