@@ -22,12 +22,10 @@ def add_item():
 @app.route('/item/<id>/doing')
 def move_item_to_doing(id):
     trello.move_card_doing(id)
- #   trello.move_card_done(id)
     return redirect('/')
 
 @app.route('/item/<id>/done')
 def move_item_to_done(id):
- #   trello.get_doing_cards(id)
     trello.move_card_done(id)
     return redirect('/')
 

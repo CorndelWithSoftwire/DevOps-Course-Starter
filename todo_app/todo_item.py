@@ -6,14 +6,12 @@ class TodoItem:
         self.id = id
         self.status = status
         self.title = title 
-     #   self.shortlink = shortlink
 
     @classmethod
     def from_raw_trello_card(cls, card):
         id = card["id"]
         title = card["name"]
         status = ""
-    #    shortlink = card["shortlink"]
 
 
         if card["idList"] == os.getenv("TODO_LIST_ID"):
