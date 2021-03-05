@@ -10,7 +10,7 @@ script:
     - docker run my-test-image tests/test_view_model.py
     - docker run my-test-image tests/test_integration.py
     # - docker run my-test-image tests/test_selenium.py
-    # - docker run -e TRELLO_API_KEY -e TRELLO_API_TOKEN my-test-image tests/test_selenium
+    - docker run -e TRELLO_API_KEY -e TRELLO_API_TOKEN my-test-image tests/test_selenium
 
 notifications:
 #   slack:
