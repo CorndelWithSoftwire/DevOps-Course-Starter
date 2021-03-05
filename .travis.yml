@@ -7,14 +7,15 @@ env:
 
 script:
     - docker build --target test --tag my-test-image .
-    - docker docker run my-test-image tests/test_view_model.py
-    - docker docker run my-test-image tests/test_integration.py
-    - docker docker run my-test-image tests/test_selenium.py
+    - docker run my-test-image tests/test_view_model.py
+    - docker run my-test-image tests/test_integration.py
+    # - docker run my-test-image tests/test_selenium.py
+    - docker run -e TRELLO_API_KEY -e TRELLO_API_TOKEN my-test-image tests/test_selenium
 
-notifications:
-  slack:
-    on_success: never # default: change
-    on_failure: always # default: always
+# notifications:
+#   slack:
+#     on_success: never # default: change
+#     on_failure: always # default: always
 
   email:
     recipients:

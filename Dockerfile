@@ -65,9 +65,6 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
     ln -s /opt/firefox/firefox /usr/bin/firefox && \
     rm $FIREFOX_SETUP
 
-# Configure for local development
-ENV FLASK_ENV=development
-ENTRYPOINT ["poetry", "run", "pytest"]
-EXPOSE 5000
+
 
 
