@@ -125,3 +125,4 @@ geckodriver.log
 .vagrant
 .vscode/settings.json
 .vscode/tasks.json
+chromedriver.exe
