@@ -1,2 +1,7 @@
+sudo: required
+language: python
+services:
+  - docker
+
 script:
-  - echo "hello world"
+  - docker build -t todo-app .
