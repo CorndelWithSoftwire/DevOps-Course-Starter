@@ -14,6 +14,7 @@ class Trello_service(object):
                 'list': os.getenv('TRELLO_BOARD_ID')}
 
     def initiate(self):
+        self.trello_lists = {}
         trello_config = self.get_auth_params()
         trello_key = trello_config ['key']
         trello_token = trello_config ['token']
