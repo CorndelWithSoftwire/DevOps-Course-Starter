@@ -3,7 +3,7 @@ from dotenv import load_dotenv, find_dotenv
 import pytest
 from todo_app import app
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def client():
     file_path = find_dotenv('.env.test')
     load_dotenv(file_path, override=True)

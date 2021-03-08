@@ -37,7 +37,9 @@ def test_change_todo_item_done(driver, test_app):
     submitTitleButtonElement(driver)
     submitDoingButtonElement(driver)
     submitDoneButtonElement(driver)
-
+    completedxpath = "/html/body/div/div[2]/div[2]/div/ul[3]/details[1]/summary"
+    completedItems = driver.find_elements(By.XPATH, completedxpath)
+    completedItems[0].click()
     doingToDoItemXPath = '/html/body/div/div[2]/div[2]/div/ul[3]/details[1]/div[1]/li/ul/div/div[2]'
     doingToDoItem = driver.find_elements(By.XPATH, doingToDoItemXPath)
 
