@@ -21,7 +21,7 @@ RUN poetry install
 COPY ./todo_app /code/
 ENV FLASK_ENV=production
 #ENTRYPOINT poetry run gunicorn "todo_app.app:create_app()" --bind 0.0.0.0:5000
-ENTRYPOINT ["poetry", "run", "gunicorn 'todo_app.app:create_app()' --bind 0.0.0.0:5000"]
+ENTRYPOINT ["poetry", "run", "gunicorn" ,"todo_app.app:create_app()", "--bind 0.0.0.0:5000"]
 
 FROM base as test
 RUN apt-get update
