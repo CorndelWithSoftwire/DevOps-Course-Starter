@@ -3,4 +3,4 @@ services:
 
 script:
   - docker build --target test --tag todo-app:test .
-  - docker run -p 5000:5000 --env-file .env.test --mount type=bind,source="$(pwd)"/todo_app,target=/project/todo_app todo-app:latest tests
+  - docker run -p 5000:5000 --env-file .env.test --mount type=bind,source="$(pwd)"/todo_app,target=/project/todo_app todo-app:test tests
