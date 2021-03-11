@@ -3,10 +3,19 @@ script:
 - echo "----------------------------------------"
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
-- docker build --target test --tag latest .
-- docker run -p 5000:5000 latest
-- docker build --target production -f Dockerfile --tag $DOCKERHUB_USERNAME/latest .
+- docker build --target test --tag todoapptest .
+- docker run -p 5000:5000 todoapptest
+- docker build --target production -f Dockerfile --tag $DOCKERHUB_USERNAME/todoapp .
 - echo $dockerhub_password | docker login --username $DOCKERHUB_USERNAME --password-stdin
 - echo "Now for the push"
 - echo "-------------------"
-- docker push $DOCKERHUB_USERNAME/latest
+- docker push $DOCKERHUB_USERNAME/todoapp
+deploy:
+  provider: script 
+  script: echo "We've done this   ..  deploy" 
+  on: 
+    branch:
+      - master
+      - module7       # To be removed eventually
+      - module8       # To be removed eventually
+      - module9       # To be removed eventually
