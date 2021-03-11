@@ -11,5 +11,5 @@ script:
 - docker run -p 5000:5000 latest
 - docker login --username britboy4321 --password-stdin Dockerhub123
 - echo "Now for the push"
-- echo "----------------"
+- echo "-----------------"
  
