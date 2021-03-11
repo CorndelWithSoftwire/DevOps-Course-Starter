@@ -1,3 +1,5 @@
+services:
+- docker
 script:
 - docker build --target travistest --tag todo-app:travis .
 - docker run --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app todo-app:travis
