@@ -4,5 +4,5 @@ script:
 - docker build --target travistest --tag todo-app:travis .
 - docker run --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app todo-app:travis
   tests
-- docker run --env TRELLO_KEY --env TRELLO_TOKEN --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app todo-app:travis
+- docker run --env TRELLO_KEY --env TRELLO_TOKEN --env SECRET_KEY --env TRELLO_TODO_BOARDID --mount type=bind,source="$(pwd)"/todo_app,target=/todo_app todo-app:travis
   tests_e2e
