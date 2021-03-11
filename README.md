@@ -70,7 +70,7 @@ docker run -p 5000:5000 --env-file .env -d todo-app:prod
 
 To run the development container as a daemon ensure you mount the project directory within the container e.g. run following command
 ```
-docker run -p 5000:5000 --env-file .env --mount type=bind,source=$(pwd),target=/code/todo_app/app -d todo-app:dev
+docker run -p 5000:5000 --env-file .env --mount type=bind,source=$(pwd),target=/code/todo_app -d todo-app:dev
 ```
 
 ### Documentation
@@ -81,7 +81,7 @@ These can be viewed at https://app.diagrams.net/
 
 You should see output similar to the following:
 ```bash
- * Serving Flask app "app" (lazy loading)
+ * Serving Flask app "todo_app/todo_app/app" (lazy loading)
  * Environment: development
  * Debug mode: on
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
@@ -95,10 +95,17 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ### Heroku deployment
 Commands to build and deploy to heroku
 ```
-docker build --target production --tag kjnvarma/todo-app:latest . 
-docker push kjnvarma/todo-app:latest
-docker tag kjnvarma/todo-app:latest registry.heroku.com/todo-app-pv/web
-docker push registry.heroku.com/todo-app-pv/web
+
+docker build --target test --tag my-test-image .
+docker run my-test-image todo_app/test_tasks.py
+docker run -e TRELLO_KEY=$TRELLO_KEY -e TRELLO_TOKEN=$TRELLO_TOKEN -e TRELLO_BOARD_ID=$TRELLO_BOARD_ID -e 
+    TRELLO_TODO_LIST_ID=$TRELLO_TODO_LIST_ID -e TRELLO_DOING_LIST_ID=$TRELLO_DOING_LIST_ID -e TRELLO_DONE_LIST_ID=$TRELLO_DONE_LIST_ID my-test-image todo_app/test_client.py
+docker run -e TRELLO_KEY=$TRELLO_KEY -e TRELLO_TOKEN=$TRELLO_TOKEN -e TRELLO_BOARD_ID=$TRELLO_BOARD_ID -e       
+    TRELLO_TODO_LIST_ID=$TRELLO_TODO_LIST_ID -e TRELLO_DOING_LIST_ID=$TRELLO_DOING_LIST_ID -e TRELLO_DONE_LIST_ID=$TRELLO_DONE_LIST_ID   my-test-image todo_app/test_system.py
+docker build --target prod --tag $DOCKER_USER/todo-app:latest .  
+docker push $DOCKER_USER/todo-app:latest
+docker tag $DOCKER_USER/todo-app:latest registry.heroku.com/$HEROKU_APP/web
+docker push registry.heroku.com/$HEROKU_APP/web
 heroku login
 heroku container:release web --app=todo-app-pv
 ```
