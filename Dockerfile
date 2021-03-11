@@ -20,6 +20,7 @@ WORKDIR /code
 ENV PORT=5000
 COPY pyproject.toml .
 RUN poetry install
+COPY ./run.sh /code/
 COPY ./todo_app /code/
 RUN chmod 777 run.sh
 ENV FLASK_ENV=production
