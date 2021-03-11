@@ -42,9 +42,6 @@ COPY ./todo_app/test_unit.py ./todo_app/test_unit.py
 COPY ./todo_app/test_integration.py ./todo_app/test_integration.py
 COPY ./todo_app/test_e2e.py ./todo_app/test_e2e.py
 
-
-
-
 #Install Poetry
 
 RUN poetry install
@@ -54,7 +51,7 @@ RUN poetry install
 #Production Gunicorn
 FROM base as production
 
-ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:5000 todo_app.wsgi:app
+ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:$PORT todo_app.wsgi:app
 
 #Development Flask
 
