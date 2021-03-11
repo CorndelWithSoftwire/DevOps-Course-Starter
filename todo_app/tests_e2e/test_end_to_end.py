@@ -8,8 +8,8 @@ from dotenv import load_dotenv, find_dotenv
 @pytest.fixture(scope='module')
 def test_app():
     # Create the new board & update the board id environment variable
-    file_path = find_dotenv('.env')
-    load_dotenv(file_path, override=True)
+    #file_path = find_dotenv('.env')
+    #load_dotenv(file_path, override=True)
     board_id = create_trello_board()
     os.environ['TRELLO_TODO_BOARDID'] = board_id
 
