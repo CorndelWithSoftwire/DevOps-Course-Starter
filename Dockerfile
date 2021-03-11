@@ -14,14 +14,16 @@ COPY ./todo_app /code/
 #ENTRYPOINT poetry run flask run -h 0.0.0.0 -p 5000
 ENTRYPOINT ["poetry", "run", "flask run -h 0.0.0.0 -p 5000"]
 
-
+################## prod ####################
 FROM base as prod
+WORKDIR /code
+ENV PORT=5000
 COPY pyproject.toml .
 RUN poetry install
 COPY ./todo_app /code/
+RUN chmod 777 run.sh
 ENV FLASK_ENV=production
-#ENTRYPOINT poetry run gunicorn todo_app.app:create_app() --bind 0.0.0.0:${PORT}
-ENTRYPOINT ["poetry", "run", "gunicorn" ,"todo_app.app:create_app\(\)", "--bind", "0.0.0.0:\$\{PORT\}"]
+ENTRYPOINT ./run.sh
 
 FROM base as test
 RUN apt-get update
