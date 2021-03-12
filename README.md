@@ -2,11 +2,11 @@
 
 ##  Build Development Docker image and Run the To-Do App
 
-$ docker build --target development --tag todo-app:dev .
+$ docker build --target development --tag todo-app:dev .                                                          
 $ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)/todoapp",target=/app/todoapp todo-app:dev
 
 ## Build Production Docker image and Run the To-Do App
-$ docker build --target production --tag todo-app:prod .
+$ docker build --target production --tag todo-app:prod .                                                          
 $ docker run --env-file ./.env -p 5000:5000 todo-app:prod
 
 ## This is for scripting for Automating
