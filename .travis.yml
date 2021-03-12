@@ -10,6 +10,9 @@ script:
 - docker run my-test-image tests/test_integration.py
 - docker run -e TRELLO_API_KEY -e TRELLO_API_TOKEN my-test-image tests/test_selenium.py
 notifications:
+  slack:
+    rooms:
+      secure: jEsGIxhymZFqwdGC2dw7weOlktjA87nNGPY6aVPe374dRP0OBA2K9dg5DtrfwZP6bUbx9VcGLn4FdKAE17tiayhbS+ba1XgdFhzai1PuXizufkST4nOpRaqkdcLkejMJI7F7SkkfIjjQ9W16Hr2hUv37CThPZ9ONgFBzYOmAA7rtIQkg30MU0RyUfSzltm2cG3X+KCfspJAiKremL7W5lu7MgloxZ5Sdw5/0wKw4K/v5S/cpvngqNCC4W7oVkOg/afX8JoVE6k868huLIfKrqBUI3d7vKM0iDfWPEkN7Z0740ZCJsDFDTcUvF7ZXvrfP3ITX6S0ZS0vGsMeLMZmTvNhm6CEE9xjvQtIzDSO6E2swyBHVglMMioaOk87VG6cqT1yFQhKbFcLPQtNkxF2rx0uvU96kvTImirMbq+oZ4T85vqPrgDUqPOiuzmwKJwjQpkiGP3qwv22cJpBLPIe5p9FdNC5rS8P3imAUSm8mn3UzTJMIIIubnm6UqNygOEK1S1LOUUhMQr82Q/ctEx1f1Le+bVQX9Lh4r3DFoIyuaEok4MmUZmN3fd2B55rdMOAmNrCf46J/d7N5I4DXWX1sspMRhgyKmFbvrwTqZ9FIxaprsLCOygJBF+WRHg0qgxOwReylk04aVRPV2k/k1XbGw+rWsUjIdsTRMCtw9UvfPb8=
   email:
     recipients:
     - yomi.olutimehin@yahoo.com
