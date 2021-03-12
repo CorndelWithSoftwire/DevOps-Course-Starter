@@ -2,23 +2,16 @@ services:
 - docker
 env:
   global:
-    secure: m/S6viN8qIJM6qCntGch+HmP8gTA/YdZtyXfz3EvtLEC8FL5D7e64Ulde/cS8i4TAg380LmjY+vuHOk29DjMG3otFTG0J742/tmQI0b+uHFQSuFwj6kWl12yX78Kqa6gZhAnukMPEaFmFX7DwCFFYL+oj7Kx/NQIQtPd0nTDzWlFd2lxtPcgOgvB4fXaVAVZD4Y21K30joQ7AdfVIhBmKPq49YaLeC1g9yMtzeZMvOIoodvr5RWL1rUhGv8XPCORRhLz/SThqG+c4n0BZgnDEqeMI6+RTSuu9tIZUsgoN2LWBLDwEgGFQ4KkhtMlW37CQZ8BFaVynmguqoHdhmAM6jA3HJb3DmJUqu5ogD0lmobiNhi26SYrU/aKDUTtNsbIL2fOKEZx7JmChoDIUjMiLsLQj6AVVZseBAQ0YXtp7MzynQBtjfeSjyYu3C3H26PaGn9L9PmLPGxR176Z4MihF1iXQ7AfXwxoyApwhlqFUPEaCtlQFe6M+gAznO3G5BfEsovsEIutxHS6AhVilnnwHwsHtseXZXqDCskxAkqL83Rhrgv3eaeraetsC5AQT/cXoWTFtCMdnwgMXh0iljKbpTzAGZjiIqBY7uiReWvOMai6a9L+75rklOQLPB0atur9uQ6XeoI2dUi6YQ4fEdH6GJvgjy9LmRoK6GhWVvOrZwg=
-    secure: S1m5nQUOS0pu4R66kNUTTcVMGqShMYMQwYrf7aXZ4GF1XDsuMdvT+OnJ716YTiVxHi4FqSWl+OQUn59aq1HGqHSAJjJfZMaPhrbUkp4ufGp9FyXGDy3xB0bCd/OACiDOuMom/ZaaPx6urEEqSdqeJFDsbM1v9w1mWrRWmCXpbgauWDW+AJcTfD/o2JCBztz9AOeZDY2MbcKtCRpBt+QUJx7REGN3tdjSgz6iK+OxEah3+jdhrmRDW8pBcplqPm35mUBSFnqNohqfBc3EBd5Y20DcriWaaUsV9dz6oy5QTFM5yzZlW+PZ/GCljY75N3GR9mI/C4LlQaE6VswfFZyqfOhtzAX+vDE/Aa1JF+he1pemQHBVdyyWPQIh5yhWhmGt6ojtOkQBFo2CCUpLc5oLIYw0wP2hNsikSRqlK8qvMCO6PaIokwKVHBFlFtmMsMBMvek7w6gQ84JqbBVlNcH54uT5InMIycgYM2SKlWn533z/9clx85vnIpGJyumCHYl53ncqcG4cC3NozME2B+xEU7wJLuBzFk4T4Y1hnG9T2J0xANaovy5WL0N2E19ji4U3kCQPbMN19rUCVsJXdTs7IHs2RJZyeLrImbAILL1r5zYq6vaq2HolG827IQKqQECJ2+rYABxCWq6+6WScexEbpkXtRGhecza2rtQlpuUrj4M=
-
+  - secure: TP9V3mSAnVJuzYmgAC2UOwXTCdp3aTGKf7i8hDqAZKe4WkVdSTLqksz4Z1/Ii5kEk3UrX46D0NjTy0wPLTRgHYdqybp1psQL394gw9VPADT/ZrZR1jl+MmqHQhg8ef2HnWSVG/upoSrEb3isEiwUDAwTizPEs1jR4OSQk5J/ZBFmykXassR8giF4zOLO2OQvl0H9L8eMB35/nWqS+vUHb1AdGE45ElOQ974tFra8sydSAx32vF6IzEDEJ45Iex+w/q1sq5WqiEeGjQlcwQDxuFcY1N2OiMDwLG4pD+efUeolU3OdK1qmZ0jU8rg8Jt2d4CEw+4cu1NbbKHbcsTAGVbAqXKjpdPePbsAs2H4pFjF7XoKlSn0QCoHuv4YTAL+81UNfq3Se2HwJtiufHNq80J3mTnZdybqxKN/Xl/oOJX2QzwqAQyay4Roab88PUKh2BKAOVtqfo0njdfzxMwUoF0DAP1E+FXu6h2Fvirlqf43VbJpidit7vOfBgKh0qjlWiYC21NPGJOxV4zwElvE6m2UyxRJegrOd45eoYNaccSasqtvxGb+p9QhhWtEk3T8P1bg8rMukYDegFoSlVCRGF5v9+sT0+jVk+yrd71EN2axX+JeLVMfFWVLN49yf0LtFISECCe/JJGgnFfLMoRLKImju6XXDHm/uuEs7i+INfb8=
+  - secure: jChdlwrKObp67AjFLxv4pybk4vZQ3DzkydcNflqzlaxs9FxoBi5AQ+d7d7cNAITFWpTppdt07UC7V6h7rFTVsu9G5gkpDfI5j2e3KtDo3yiI2+TwxZilh2ZEl15WqwarYMXxvlMdGyaa+emciqyhR/VG3PfBUy2ZuSa5/nI8gZjo8LDmfH0/a4QopiM5c1qoniFjxDI0XwXXXiYs5mHGbjTQxfe0raEYjVT5qqGzCBgPSIFRFjhRJcJ8ww7Xdsz9xlMwONWqQT5gl6Be+h4n/0NhNLFuO9lWkxpEquXIxBQjpnf7eISt7O5ENH2gg5fdl8fdQxt2YSPuPrLcNLrMHIphaC41kZFx+WxBmTP3Sbwi6Pk/uSYE2TBmPrLPDkHR8a8SdQ3w0KJA1nB2x5wxtonuDlORgWeHQRn5uecvqPkyUI+L2P/pmSC976lg9g8tGU6uok6XkFSGo42I56G/wjYdzbmCZOYdG2jXDaEocNMyRtiztrgoZZ1nNfI87vQJ2LLjZ86T+LwvQoU3RJN0TYCYF2MSP1++IChrhIdjVTQAb9AE+nesnUaVVI4wcdleSK1AhVyFUr0d5jbTgTwd1M1DwoScGDtF4Faozy0e7K7dOPYj2mAQiEqhoFF07lkQWW52F76QzgHYBVUeOGTxYRCulSJIoxBiEU7AXGvOY0Y=
 script:
-    - docker build --target test --tag my-test-image .
-    - docker run my-test-image tests/test_view_model.py
-    - docker run my-test-image tests/test_integration.py
-    # - docker run my-test-image tests/test_selenium.py
-    - docker run -e TRELLO_API_KEY -e TRELLO_API_TOKEN my-test-image tests/test_selenium.py
-
+- docker build --target test --tag my-test-image .
+- docker run my-test-image tests/test_view_model.py
+- docker run my-test-image tests/test_integration.py
+- docker run -e TRELLO_API_KEY -e TRELLO_API_TOKEN my-test-image tests/test_selenium.py
 notifications:
-#   slack:
-#     on_success: never # default: change
-#     on_failure: always # default: always
-
   email:
     recipients:
-      - yomi.olutimehin@yahoo.com
-    on_success: never # default: change
-    on_failure: always # default: always
+    - yomi.olutimehin@yahoo.com
+    on_success: never
+    on_failure: always
