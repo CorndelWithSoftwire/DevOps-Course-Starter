@@ -1,5 +1,9 @@
 # DevOps Apprenticeship: Project Exercise
 
+## Docker File
+DockerFile is a new Docker file added to containerise into prodouction and Development of To-Do App using Docker. This would build image independently through docker build and run commands
+
+
 ## This is for scripting for Automating
  
 The setup.sh file is script will error if there is an issue, setup Python, Poetry Install, Setup the dependencies. All you need is to copy TRELLO Credentials to .env for running the To Do App
