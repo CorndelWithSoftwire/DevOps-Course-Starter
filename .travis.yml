@@ -1,7 +1,12 @@
 notifications:
   slack:
     secure: AqMrNbyOlsvHRhUyo00H4ALLlv7KohF11A8iBKN3+KWdlWeiYzcCGTBjUPFellpRzP7+6tRF2E8VdSVjXds7WXGdRIrNVsTe1mmdvTGrnCZ98kS8QVodpG/Xw6424LNVneDfr1jxf5Y+wLKBiKbecSdaVVtaRvStp1WY4AMJNB65kzF9Fvp/AwRcYp/Xsth+X6bLcG2BxZFhLlUH8ShIHQeyHaYIKsk4cxoVNJuwgMTlJZdtYKbAlHL8G6Mt33pkyD1CXfZggmZAhxXBwALQ0G5Qku9AzgNbVI4hsH/II6cyXb3RzRNYdi6QyxT337eAh/W9+cJvx0KmsYwWk4jr9Ff0BYmTG0SNVlPUtwiLkOUV30xQC7a59p5VfxDQRb8HsUDoDvATA+/0w7KA2KpsvljDmvKKDPmxVBirM9etVgSRfXgondKmL/t9DIQ2X2eWdR5hPijbVfWdCsnlQxhnEolFonfy1Sl/gDnWeyS0WU+1HvOa73DkqhBKyWbeXbenyfXK4OesK4Vc//4GaAqI9Qg8l4Qea9ILHI6aw/61kV4v/rLv1Tq277stf5OinAS61gOv78IJi3S7576k4SgdiIzrm4TtDiHT9mfDbQF/zx9V1oic4dHFnh5HLXByeiWqtEja1nAnC+fX0GJnGrwz5gj+I3z+9mZ/avOcEh4I8/0=
-
+  email:
+    recipients:
+        - mark.mcewen@capita.com
+    on_success: never # default: change
+    on_failure: always # default: always
+    
 services:
 - docker
 script:
