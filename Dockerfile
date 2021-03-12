@@ -65,6 +65,7 @@ RUN FIREFOX_SETUP=firefox-setup.tar.bz2 && \
     ln -s /opt/firefox/firefox /usr/bin/firefox && \
     rm $FIREFOX_SETUP
 
+ENTRYPOINT ["poetry", "run", "pytest"]
 
 
 
