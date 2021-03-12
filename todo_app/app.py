@@ -2,8 +2,8 @@
 from flask import Flask, render_template, redirect, url_for, request,json
 import requests
 import os
-import trello_client as trello
-from todo_item import TodoItem
+import todo_app.trello_client as trello
+from todo_app.todo_item import TodoItem
 
 app = Flask(__name__)
 

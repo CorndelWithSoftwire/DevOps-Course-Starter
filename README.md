@@ -1,8 +1,16 @@
 # DevOps Apprenticeship: Project Exercise
 
 ## Docker File
-DockerFile is a new Docker file added to containerise into prodouction and Development of To-Do App using Docker. This would build image independently through docker build and run commands
+DockerFile is a new Docker file added to containerise into production and Development of To-Do App using Docker. This would build image independently through docker build and run commands
 
+# How to Build Development image and Run It
+
+$ docker build --target development --tag todo-app:dev .
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)/todoapp",target=/app/todoapp todo-app:dev
+
+# How to Build Production image and Run It
+$ docker build --target production --tag todo-app:prod .
+$ docker run --env-file ./.env -p 5000:5000 todo-app:prod
 
 ## This is for scripting for Automating
  
