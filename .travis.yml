@@ -1,12 +1,11 @@
 notifications:
   slack:
-    secure: AqMrNbyOlsvHRhUyo00H4ALLlv7KohF11A8iBKN3+KWdlWeiYzcCGTBjUPFellpRzP7+6tRF2E8VdSVjXds7WXGdRIrNVsTe1mmdvTGrnCZ98kS8QVodpG/Xw6424LNVneDfr1jxf5Y+wLKBiKbecSdaVVtaRvStp1WY4AMJNB65kzF9Fvp/AwRcYp/Xsth+X6bLcG2BxZFhLlUH8ShIHQeyHaYIKsk4cxoVNJuwgMTlJZdtYKbAlHL8G6Mt33pkyD1CXfZggmZAhxXBwALQ0G5Qku9AzgNbVI4hsH/II6cyXb3RzRNYdi6QyxT337eAh/W9+cJvx0KmsYwWk4jr9Ff0BYmTG0SNVlPUtwiLkOUV30xQC7a59p5VfxDQRb8HsUDoDvATA+/0w7KA2KpsvljDmvKKDPmxVBirM9etVgSRfXgondKmL/t9DIQ2X2eWdR5hPijbVfWdCsnlQxhnEolFonfy1Sl/gDnWeyS0WU+1HvOa73DkqhBKyWbeXbenyfXK4OesK4Vc//4GaAqI9Qg8l4Qea9ILHI6aw/61kV4v/rLv1Tq277stf5OinAS61gOv78IJi3S7576k4SgdiIzrm4TtDiHT9mfDbQF/zx9V1oic4dHFnh5HLXByeiWqtEja1nAnC+fX0GJnGrwz5gj+I3z+9mZ/avOcEh4I8/0=
+    secure: j3t/N/O0YD1BZsiihdrw5yYLFtyYZgVPkxcCIr0yWEYRhk1OWw2RS/UcM+fjQjaRZMhSn+k6vFW5YXNMEPEDvVbuTt75Sj9Gy3YeSYmO6b9ZIUBDDkamBMMx1c2YUxZTZaL7gRaLF8H9+xz9MIMvsGeJAjSs0H8QtOMscWEO6n+Uko/HX/Sw/p/EpdnWBj6CBu+WKutmRM/4QVRVe+kJirLrx8Hux7ejCnxskdfbh/i/beq6Oy9PQEsBLLn2+kGWxXb2lurCdH/eQtnshIJLHO5ee0XDEyp+H1QFXKQnu//QIAAW5QcEU6hM0aP1j37n5J/uRsARf86e6iYSIvP3esvuKGBLnb9iqR/qx/aekqc8fIXmi8a5Slgor4m2W2RxHlTKijdwwzIzX1BFOV3hxJ3ZmeOs8j95OpesQfHS4tAxhbLowJvZT38pBm3rOwTWeotz1CE81Zs2ycnjVI93a5xG9VteXh4xOfrHgBqkOgaohrl9wQknc7x0W5xGe1ycf6o6pLln6nFs9MqgXjFH7XTOajQL+mChukA7iRFznnE97xMN4rrKiRzluZ4C8A6z0GXWyYuI2FQdg5mj8zh2S4NkuJvud3vHanCDHjVkRDVv5AIi7qMGgt2c1Cv/lqGZhwT1nXpSpgF5TsOtKOHfa54wzqnJiEucWacuwdQziHc=
   email:
     recipients:
-        - mark.mcewen@capita.com
-    on_success: never # default: change
-    on_failure: always # default: always
-
+    - mark.mcewen@capita.com
+    on_success: never
+    on_failure: always
 services:
 - docker
 script:
