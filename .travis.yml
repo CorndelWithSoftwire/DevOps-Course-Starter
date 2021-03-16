@@ -21,5 +21,4 @@ notifications:
     recipients:
       - kevin.eaton@capita.com
     on_success: never # default: change
-    on_failure: always 
-    q# default: always
+    on_failure: always # default: always
