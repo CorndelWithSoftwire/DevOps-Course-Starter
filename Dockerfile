@@ -50,15 +50,14 @@ RUN poetry install
 
 #Production Gunicorn
 FROM base as production
-PORT=5000
-EXPOSE $PORT
+
 ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:$PORT todo_app.wsgi:app
 
 #Development Flask
 
 FROM base as development
 
-ENTRYPOINT poetry run flask run --host=0.0.0.0
+ENTRYPOINT poetry run flask run --host=0.0.0.0:$PORT
 
 #Test
 FROM base as test
