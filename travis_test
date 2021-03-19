@@ -1,0 +1,8 @@
+#!/bin/bash
+docker build --target test -t todo-app:test .
+echo starting unit tests
+docker run todo-app:test tests/test_viewmodel.py
+echo starting intgration tests
+docker run todo-app:test tests/test_integration.py
+echo starting e2e tests
+docker run -e KEY=$KEY -e TOKEN=$TOKEN -e SECRET_KEY=test todo-app:test tests/test_selenuim.py
