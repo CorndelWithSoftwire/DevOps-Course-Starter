@@ -1,3 +1,4 @@
+language: python
 services:
   - docker
 env:
@@ -13,9 +14,10 @@ notifications:
 jobs:
   include:
     - stage: test
+      name: "Test stage"
       script: bash travis_test
     - stage: deploy
-      name: "deploying docker image"
+      name: "Deploy Image stage"
       if: branch = master
       deploy:
         provider: script
