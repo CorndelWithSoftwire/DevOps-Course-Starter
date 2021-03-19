@@ -14,10 +14,10 @@ notifications:
 jobs:
   include:
     - stage: test
-      name: "Test stage"
+      name: "Testing Stage"
       script: bash travis_test
     - stage: deploy
-      name: "Deploy Image stage"
+      name: "Deploy Image Stage"
       if: branch = exercise-8
       deploy:
         provider: script
