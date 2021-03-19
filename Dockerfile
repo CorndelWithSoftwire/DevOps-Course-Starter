@@ -44,20 +44,22 @@ COPY ./todo_app/test_e2e.py ./todo_app/test_e2e.py
 
 #Install Poetry
 
-RUN poetry install
+# RUN poetry install    <-- old command kept here for prosperity!
+RUN poetry config virtualenvs.create false --local && poetry install
+
 
 #Entrypoints
 
 #Production Gunicorn
 FROM base as production
 
-ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:$PORT todo_app.wsgi:app
+ENTRYPOINT "poetry run gunicorn --bind 0.0.0.0:$PORT todo_app.wsgi:app"
 
 #Development Flask
 
 FROM base as development
 
-ENTRYPOINT poetry run flask run --host=0.0.0.0:$PORT
+ENTRYPOINT "poetry run flask run --host=0.0.0.0:$PORT"
 
 #Test
 FROM base as test
