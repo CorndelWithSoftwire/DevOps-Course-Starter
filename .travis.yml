@@ -13,10 +13,10 @@ script:
 
 # module 8 Part 3:  Continous deployment
 
-docker pull britboy4321/todoapp      #  Ensure that we have latest version (possibly not required)
-docker tag britboy4321/todoapp registry.heroku.com/todoappbritboy/web  # Tag it ready for Heroku
-docker push registry.heroku.com/todoappbritboy/web   # put it onto Heroku
-heroku container:release web --app todoappbritboy    # Actually release it
+- docker pull britboy4321/todoapp      #  Ensure that we have latest version (possibly not required)
+- docker tag britboy4321/todoapp registry.heroku.com/todoappbritboy/web  # Tag it ready for Heroku
+- docker push registry.heroku.com/todoappbritboy/web   # put it onto Heroku
+- heroku container:release web --app todoappbritboy    # Actually release it
 
 # ---
 
