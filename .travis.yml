@@ -18,9 +18,10 @@ jobs:
       script: bash travis_test
     - stage: deploy
       name: "Deploy Image Stage"
-      if: branch = exercise-8
+#      if: branch = master
       deploy:
         provider: script
         script: bash docker_push
         on:
-          branch: exercise-8
+          all_branches: true
+#          branch: exercise-8
