@@ -45,26 +45,27 @@ def get_single_item(id):
     return next((items for item in items if item['id'] == id), None)
     
 def add_item(title):
-    # Post item to Trello and retrieve items list from Trello
+    # Post item and retrieve items list
     todo_list_id = os.environ["MONGO_LIST_TODO"]
     database = connect_to_mongo()
     collection = database[todo_list_id]
-    collection.insert_one({
+    doc = collection.insert_one({
         "name":title, 
         "idList":"Things To Do", 
         "dateLastActivity": datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-    })
-
-    return 
+    }).inserted_id
+    _id = str(ObjectId(doc))
+    print(_id)
+    return _id
 
 def remove_item(cardId):
-    #Delete card on Trello
+    #Delete card 
     id = ObjectId(cardId)
     database = connect_to_mongo()
     inprogress_collection = database[os.environ["MONGO_LIST_INPROGRESS"]]
     inprogress_collection.delete_one({"_id": id})
 
-    return 
+    return True
 
 def inprogress_item(cardId):
     #move card to Doing 
@@ -77,10 +78,10 @@ def inprogress_item(cardId):
     insert_and_update_doc(inprogress_collection,card,id,"Doing")
     todo_collection.delete_one({"_id": id})
 
-    return
+    return True
 
 def markAsDone(cardId):
-    # Move items marks as Done to "Done" list on Trello
+    # Move items marks as Done to "Done" list 
     id = ObjectId(cardId)
     database = connect_to_mongo()
     inprogress_collection = database[os.environ["MONGO_LIST_INPROGRESS"]]
@@ -99,7 +100,7 @@ def markAsDone(cardId):
 
     insert_and_update_doc(done_collection,card,id,"Done")
 
-    return 
+    return True
 
 def insert_and_update_doc(collection,card,id,status):
     collection.insert_many(card)
@@ -112,17 +113,21 @@ def insert_and_update_doc(collection,card,id,status):
         },upsert=True
     )
 
-def create_trello_board(board_name):
-    response = callTrelloAPI("post","boards","","", board_name)
-    board_id = response['id']
+def create_database(dbname):
+    mongo_conn = os.environ["MONGO_CONN"]
+    client = pymongo.MongoClient(mongo_conn)
+    db = client[dbname]
+    collection = db['test-collection']
+    id = collection.insert_one({"test": 'test'})
 
-    return board_id
+    return id
 
-def delete_trello_board(boardid):
-    response = callTrelloAPI("delete","boards","",boardid, "")
-    value = response["_value"]
+def delete_database(dbname):
+    mongo_conn = os.environ["MONGO_CONN"]
+    client = pymongo.MongoClient(mongo_conn)
+    client.drop_database(dbname)
 
-    return value is None
+    return True
 
 def setListIdInEnv(collections):
     # Get list IDs for a Board

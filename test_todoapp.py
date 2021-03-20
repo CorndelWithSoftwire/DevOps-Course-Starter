@@ -4,7 +4,7 @@ import requests
 import dotenv
 import pytest
 from flask import Flask, render_template, request, redirect, url_for, session
-import trello_items as trello
+import mongo_items as mongo
 import app as app
 import datetime
 from threading import Thread 
@@ -12,22 +12,11 @@ from unittest.mock import Mock, patch
 
 today = datetime.date.today()
 thingstodo = [{
-        "id": "123456",
+        "_id": "123456",
         "name": "Another Task",
         "dateLastActivity": today.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
         "idList": "test"
     }]
-lists = [{
-        "id": "1",
-        "name": "Things To Do"
-    },{
-        "id": "2",
-        "name": "Doing"
-    },{
-        "id": "3",
-        "name": "Done"
-    },
-    ]
 
 
 @pytest.fixture
@@ -52,12 +41,11 @@ def test_index_page(mock_get_requests, client):
     assert "123456" in response.data.decode() 
 
 def mock_get_cards(url, params):
-       TRELLO_BOARD_ID = os.environ.get("trello_boardid")
-      # API_KEY = os.environ.get("trello_key")
-      # TOKEN = os.environ.get("trello_token")
-       if url == f"https://api.trello.com/1/boards/{TRELLO_BOARD_ID}/cards":
+       #TRELLO_BOARD_ID = os.environ.get("trello_boardid")
+
+       #if url == f"https://api.trello.com/1/boards/{TRELLO_BOARD_ID}/cards":
               response = Mock()
               response.status_code = 200
               response.json.return_value = thingstodo 
               return response
-       return None
+       #return None
