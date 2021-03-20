@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import trello_items as trello_items
+import mongo_items as trello_items
 import items_view_model as ItemsViewModel
 
 def create_app():

@@ -120,3 +120,4 @@ env/
 .venv
 .poetry
 run.sh
+bash.exe.stackdump
