@@ -55,7 +55,7 @@ def add_item(title):
         "dateLastActivity": datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
     }).inserted_id
     _id = str(ObjectId(doc))
-    print(_id)
+
     return _id
 
 def remove_item(cardId):
@@ -133,7 +133,6 @@ def setListIdInEnv(collections):
     # Get list IDs for a Board
     for i in collections:
 
-        print(i)
         # if i == "todo":
         #     os.environ["MONGODB_LIST_TODO"] = i
         # if i['name'] == "inprogress":
