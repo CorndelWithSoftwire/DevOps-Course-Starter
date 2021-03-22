@@ -16,12 +16,18 @@ jobs:
     - stage: test
       name: "Testing Stage"
       script: bash travis_test
-    - stage: deploy
+    - stage: docker
       name: "Deploy Image Stage"
-#      if: branch = master
       deploy:
         provider: script
         script: bash docker_push
         on:
           all_branches: true
-#          branch: exercise-8
+          branch: exercise-8
+    - stage: deploy-heroku
+      name: "Deploy To Heroku"
+      deploy:
+        provider: script
+        script: bash heroku_deploy
+        on:
+          branch: exercise-8
