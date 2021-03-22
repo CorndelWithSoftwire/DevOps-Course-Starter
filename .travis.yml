@@ -23,11 +23,11 @@ jobs:
         script: bash docker_push
         on:
           all_branches: true
-          branch: exercise-8
+          branch: exercise_8_test
     - stage: deploy-heroku
       name: "Deploy To Heroku"
       deploy:
         provider: script
         script: bash heroku_deploy
         on:
-          branch: exercise-8
+          branch: exercise_8_test
