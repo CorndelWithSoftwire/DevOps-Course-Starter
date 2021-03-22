@@ -3,6 +3,7 @@ FROM python:3.8-slim-buster as base
 RUN pip install poetry
 RUN pip install gunicorn
 RUN pip install flask
+RUN pip install pymongo
 
 WORKDIR /DevOps-Course-Starter
 COPY pyproject.toml /DevOps-Course-Starter/

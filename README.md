@@ -1,17 +1,16 @@
 ## System Requirements
 
 ### How to use this app
-1. Obtain a key and code from Trello API, set this in the .env file
-2. Get your board ID from tello and set this in the .env file
-3. Obtain from trello your list id's and set these in the *_list_id variables 
+1. set the mongodb connection string variable
+2. create a database called "DevOps"
+3. create 3 collections as below 
 
 ```bash
-trello_key=
-trello_token=
-trello_boardid=
-todo_list_id=
-doing_list_id=
-done_list_id =
+MONGO_CONN=mongodb+srv://<username>:<password>@corndel.gyf3r.mongodb.net/test?w=majority 
+MONGO_DB_NAME=DevOps
+MONGO_LIST_TODO=todo
+MONGO_LIST_INPROGRESS=inprogress
+MONGO_LIST_DONE=done
 ```
 ### Building Docker Image
 ```bash
@@ -32,3 +31,10 @@ To run the ToDo app as production, run the following
 docker run -p 80:5000 --env-file .env --mount type=bind,source=$(pwd),target=/usr/src/app todoapp:dev
 ```
 Go to http://localhost:80 and you should see the ToDo app now running
+
+## Heroku Deployment
+docker pull rajrahman/todoapp
+docker tag rajrahman/todoapp registry.heroku.com/rajrahmantodoapp/web
+docker push registry.heroku.com/rajrahmantodoapp/web
+heroku container:push web --app rajrahmantodoapp
+heroku container:release web --app rajrahmantodoapp
