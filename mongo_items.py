@@ -131,7 +131,7 @@ def delete_database(dbname):
 
 def setListIdInEnv(collections):
     # Get list IDs for a Board
-    for i in collections:
+    #for i in collections:
 
         # if i == "todo":
         #     os.environ["MONGODB_LIST_TODO"] = i

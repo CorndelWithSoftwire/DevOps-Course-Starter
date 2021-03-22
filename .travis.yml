@@ -23,7 +23,7 @@ before_script:
 
 script:
 
-  # Docker Build the Image
+  # Docker TEST Build the Image
   - docker build --target test --tag todoapp:test .
 
   # Docker Run Unit Test
@@ -38,7 +38,7 @@ script:
   - echo "Running E2E Tests"
   - docker run -e MONGO_DB_NAME=$MONGO_DB_NAME -e MONGO_CONN=$MONGO_CONN -e MONGO_LIST_TODO=$MONGO_LIST_TODO -e MONGO_LIST_INPROGRESS=$MONGO_LIST_INPROGRESS -e MONGO_LIST_DONE=$MONGO_LIST_DONE todoapp:test test_mongo.py
 
-  # Docker Build and Push 
+  # Docker PRODUCTION Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
   - docker push $docker_login/todoapp:latest
 
