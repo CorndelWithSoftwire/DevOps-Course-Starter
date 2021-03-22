@@ -4,6 +4,7 @@ RUN pip install poetry
 RUN pip install gunicorn
 RUN pip install flask
 RUN pip install pymongo
+RUN pip install dnspython
 
 WORKDIR /DevOps-Course-Starter
 COPY pyproject.toml /DevOps-Course-Starter/
