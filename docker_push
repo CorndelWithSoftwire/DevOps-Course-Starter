@@ -1,5 +1,8 @@
 #!/bin/bash
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker build --target production -t aniekano/todo-app
-docker push aniekano/todo-app
+if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+  echo "Building and pushing docker image to docker hub"
+  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  docker build --target production -t $DOCKER_USERNAME/todo-app .
+  docker push $DOCKER_USERNAME/todo-app
+fi
 #:$TRAVIS_COMMIT
