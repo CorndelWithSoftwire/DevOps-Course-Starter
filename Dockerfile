@@ -22,6 +22,6 @@ ENTRYPOINT [ "poetry", "run", "flask", "run", "--port", "5000" , "--host", "0.0.
 FROM base as production
 
 ENV FLASK_ENV=production
-RUN poetry install
+RUN poetry install --no-dev
 RUN poetry add gunicorn
 ENTRYPOINT ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:5000", "todo_app.app:app"]
