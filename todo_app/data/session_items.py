@@ -9,7 +9,6 @@ _DEFAULT_ITEMS = [
 def get_items():
     """
     Fetches all saved items from the session.
-
     Returns:
         list: The list of saved items.
     """
@@ -19,10 +18,8 @@ def get_items():
 def get_item(id):
     """
     Fetches the saved item with the specified ID.
-
     Args:
         id: The ID of the item.
-
     Returns:
         item: The saved item, or None if no items match the specified ID.
     """
@@ -33,10 +30,8 @@ def get_item(id):
 def add_item(title):
     """
     Adds a new item with the specified title to the session.
-
     Args:
         title: The title of the item.
-
     Returns:
         item: The saved item.
     """
@@ -57,7 +52,6 @@ def add_item(title):
 def save_item(item):
     """
     Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
-
     Args:
         item: The item to save.
     """
