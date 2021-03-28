@@ -30,16 +30,24 @@ trello=Trello()
 def index():
     
   #Call trello.py get cards from List
-    response = trello.getCardsfromList()
-    items=[]
-    for item in response.json():
-        if item['idList'] ==listid_todo:
-            status="ToDo"
-        elif item['idList'] == listid_done:
-            status ='Done'
-        items.append({'id':item['id'], 'status':status, 'title': item['name']})
+    items = trello.getCardsfromList()
     return render_template('index.html', items=items)
 
+@app.route('/additem', methods =["POST"])
+def add_item():
+    trello.addCardtodoList(request.form.get('title'))
+    return redirect(url_for("index"))
+    
+@app.route('/movecarddoing', methods =["POST"])
+def move_carddoing():
+    trello.moveCardfromtodoListdoing(request.form.get('id'))
+    return redirect(url_for("index"))
+    
+@app.route('/movecarddone', methods =["POST"])
+def move_carddone():
+    trello.moveCardfromtodoListdone(request.form.get('id'))
+    return redirect(url_for("index"))
+    
 
 
 
