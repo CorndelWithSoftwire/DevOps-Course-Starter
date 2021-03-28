@@ -58,7 +58,7 @@ Move the card from To Do list to Doing List using Card id
 Move the cards from Doing list to done List using Done List Id
 Delete a Card using Card id
 
-
+Set Up
 Register with Trello
 Generated api key and token  for the Trello account
 Saved api key and token in env
@@ -67,6 +67,9 @@ Create Classes
 Trello
 Items
 app
+
+Run the Tests
+poetry run flask run
 
 Changes to template
 index.html
