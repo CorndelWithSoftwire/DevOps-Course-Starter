@@ -48,9 +48,28 @@ class Trello():
         print(response.text)
 
     def moveCardfromtodoListdone(self, donecardid):
-        params= {'key':api_key, 'token':api_token, 'idList':listid_doing}
+        params= {'key':api_key, 'token':api_token, 'idList':listid_done}
         response = requests.put(f'https://api.trello.com/1/cards/{donecardid}', params= params)
         print(response.text)
+
+    def deleteCard(self, cardid):
+        params= {'key':api_key, 'token':api_token, 'idList':listid_doing}
+        response = requests.put(f'https://api.trello.com/1/cards/{cardid}', params= params)
+        print(response.text)
+
+
+
+
+
+
+
+
+
+    # def getboardid(self, boardid):
+    #     params= {'key': api_key, 'token': api_token}
+    #     response =  requests.get(f'https://api.trello.com/1/boards/{board_id}', params= params)
+    #     print(response.text)
+     
 
 
     
