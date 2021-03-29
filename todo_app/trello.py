@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+from todo_app.item import Item
 
 secret_key = os.getenv('SECRET_KEY')
 api_key = os.getenv('TRELLO_API_KEY')
@@ -34,7 +35,8 @@ class Trello():
                 status="ToDo"
             elif item['idList'] == listid_done:
                 status ='Done'
-            items.append({'id':item['id'], 'status':status, 'title': item['name']})
+            item = Item(item['id'], status, item['name'])
+            items.append(item)
         return items
 
     def addCardtodoList(self,cardname):

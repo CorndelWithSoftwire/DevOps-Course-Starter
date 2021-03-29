@@ -48,7 +48,7 @@ def move_carddone():
     trello.moveCardfromtodoListdone(request.form.get('id'))
     return redirect(url_for("index"))
 
-@app.route('/deletecard', methods =["DELETE"])
+@app.route('/deletecard', methods =["POST"])
 def deletecard():
     trello.deleteCard(request.form.get('id'))   
     return redirect(url_for("index"))
