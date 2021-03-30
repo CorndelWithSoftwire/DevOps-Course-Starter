@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import requests                     # Import the whole of requests
 import json
 import os        # Secrets for example Trello tokens etc in here (local only)
+import pymongo   # required for new mongo database   EXERCISE 9
 # import pytest
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
@@ -16,6 +17,10 @@ print ("Program starting now")
 
 trellokey=os.environ["key"]            # get the secret key
 trellotoken=os.environ["token"]         # get the secret token
+mondo_username="britboy4321"              # to be put into secrets later, not used right now
+mondo_password="Mongodbpass"              # to be put into secrets later, not used right now
+client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority")
+
 listid=os.environ["todo_listid"]
 cardsurl = "https://api.trello.com/1/cards"
 
@@ -37,16 +42,15 @@ def index():
          boardurl,
          params=query
      )
-
-    card_list = json.loads(board_response.text)     # A list of cards
-    
+    # people.find_one({ "name.last": "Turing" })
+    dave = client.list_database_names
+    print(dave)
+    card_list = json.loads(board_response.text)     # A list of cards TRELLO
     for trello_card in card_list:
         todo = Todo.from_trello_card(trello_card)
         superlist.append(todo)
-
     item_view_model = ViewModel(superlist)
     
-
     return render_template('index.html', view_model=item_view_model)
 
 
