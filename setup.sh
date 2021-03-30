@@ -15,8 +15,3 @@ sudo apt-get update -y && sudo apt-get install -y python3.8
 
 #Store local variables 
 cp .env.template .env 
-
-# Run the application
-poetry run flask run 
-
-# MEntion in readme about script and how to use 
