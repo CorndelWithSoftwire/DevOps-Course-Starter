@@ -61,7 +61,7 @@ Dave Rawlinson
 
 Acknowledgments
 
-Thanks ot Alex, without which this would have been a catastrophe
+Thanks to Alex, without which this would have been a catastrophe
 
 ADDITIONAL NOTES:
 
