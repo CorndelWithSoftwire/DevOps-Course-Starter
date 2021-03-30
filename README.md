@@ -12,7 +12,7 @@ Flask development environment, built using:
 docker build --target development -f Dockerfile --tag davedev .
 
 Docker image 3 (tag:  test):
-Flack test environment, built using:
+Flask test environment, built using:
 docker build --target test --tag my-test-image .
 
 ## Latest Updates:  Travis CI environment setting up
@@ -21,7 +21,7 @@ docker build --target test --tag my-test-image .
 
 In order to run this container you'll need 
 1) Docker installed
-2) A file, recommended called .env, that has at least below elements (found using Trello API):
+2) A file, recommended called .env, that has at least below elements (found using Trello API    TO BE UPDATED when trello retired and replaced with MongoDB):
 
 Minimum variable file:
 # Flask server configuration.

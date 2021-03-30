@@ -4,12 +4,12 @@
 {% block content %}
   <div class="jumbotron">
     <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app with a change to check module 8 pipeline.</p>
+    <p class="lead">MODULE 9, hot MongoDB lovin' time.</p>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items from COOKIE, not from Trello</h2>
+      <h2>This section here is for historic reasons (cookie)</h2>
       <ul class="list-group mb-4">  
         {% for D in passedItems %}   
             <li>{{D.title}} </li>
@@ -17,7 +17,7 @@
 	      {% endfor %}
       </ul>
 
-      <h2>Items from TRELLO To-Do list</h2>
+      <h2>Items from MONGO To-Do list (collection)</h2>
       <ul class="list-group mb-4">
       
       {% for item in view_model.todo_items %}
@@ -31,7 +31,7 @@
         
       {% endfor %}
 
-      <h2>Items from TRELLO Doing list</h2>
+      <h2>Items from MONGO Doing list (collection)</h2>
       <ul class="list-group mb-4">
      
         {% for item in view_model.doing_items %}
@@ -39,7 +39,7 @@
         {% endfor %}  
       </ul> 
 
-      <h2>Todays Items from TRELLO Done list</h2>
+      <h2>Todays Items from MONGO Done list</h2>
       <ul class="list-group mb-4">
      
         {% for item in view_model.RecentlyDone %}
