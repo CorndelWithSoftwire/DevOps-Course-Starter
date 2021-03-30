@@ -1,6 +1,6 @@
 script:
-- echo "This is  Daves travis and then heroku module 8.yml"
-- echo "--------------------------------------------------"
+- echo "This is  Daves travis now for module 9"
+- echo "--------------------------------------"
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
 - docker build --target test --tag todoapptest .
