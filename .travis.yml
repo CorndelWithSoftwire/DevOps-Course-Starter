@@ -23,11 +23,11 @@ env:
   - SECRET_KEY=secret-key
   - FLASK_APP=app
   - FLASK_ENV=development
-  notifications:
+notifications:
   slack:
     secure: VY5FnTJoDaCRx46cR2pvQqM5mqBzoR4iVSRblNqt2dYx8HwMGdWJjb5SPTQfToCdY3WWn0bqVFAuXNz+GsOha2XILNZXgqejo0GexRwA+yPkon8cCH/8h/sPWUWu/qeO4/bO00IC5nYkmpKmVlSg+9CcRybopF/RGgRNapTa484uAUlRrTfRWhVwCe7RgNTMf1wGbRmOOeKxoTTKOfW2tpX4xgt2dNC+8Wr9cYbfuH+4yBHghXSB327JRTTH7K5VEOh+SVJRj5L6lQ4SplZrb/1EXUAMgip+iOnjnDQiRum93ChmLEo0OUaLrl1V3RsocjF6FXZBPBNAuWvUbNywcAI/tOAQt5BASRXHJ1HreZRt6q0B5BJAUThS7ESQ3DxDClRgQzkwPwopsCurxhxHnV0EwSMKUXuaRyJc7nhHHuiYBeF5qjJ7p2f19nr7bta/D7YrAU/uEI+vDMx205U85PBsPAvtQZcW0gz65L1GAb0slalSlMftGJTxcUQTN2eoLclWtn0R1neoi/xve96k4E30pxBizUwlkk/dGlM3xVhHAG6NRkrjy2F97fo9bHB/K+lYDNBL/BfHqAvMv131VaKq4xgPGZTuFMqG1cZ2NsLwCIowtUY73FB2CQgrjf4enVL0X3tLTQtDfknHnzP5SPIkW/SagWIB2v1vko4C1MA=
   email:
     recipients:
-     - kevin.eaton@capita.com
+    - kevin.eaton@capita.com
     on_success: never
     on_failure: always
