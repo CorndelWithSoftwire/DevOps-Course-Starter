@@ -29,10 +29,13 @@ def test_app():
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+import geckodriver_autoinstaller
+
 
 
 @pytest.fixture(scope="module")
 def driver():
+    geckodriver_autoinstaller.install()
     opts = webdriver.FirefoxOptions()
     opts.add_argument('--headless')
     with webdriver.Firefox(options=opts) as driver:
@@ -47,8 +50,6 @@ def test_task_journey(driver, test_app):
     elem.send_keys(Keys.RETURN)
     driver.implicitly_wait(2)
     driver.find_element_by_name('todo_doing').click()
-    driver.implicitly_wait(2)
-    driver.find_element_by_name('doing_complete').click()
     assert "test item" in driver.page_source
 
     
