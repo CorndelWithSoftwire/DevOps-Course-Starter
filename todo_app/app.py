@@ -5,6 +5,8 @@ import requests                     # Import the whole of requests
 import json
 import os        # Secrets for example Trello tokens etc in here (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
+
+
 # import pytest
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
@@ -20,7 +22,7 @@ trellotoken=os.environ["token"]         # get the secret token
 mondo_username="britboy4321"              # to be put into secrets later, not used right now
 mondo_password="Mongodbpass"              # to be put into secrets later, not used right now
 client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority")
-
+db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
 cardsurl = "https://api.trello.com/1/cards"
 
@@ -28,6 +30,7 @@ cardsurl = "https://api.trello.com/1/cards"
 def index():
     thislist=[]                  
     superlist=[] 
+    mongosuperlist=[]
     cardsurl = "https://api.trello.com/1/cards"      
     boardurl = f"https://api.trello.com/1/boards/{os.environ['board_id']}/cards"             # The board ID is not a secret!
 
@@ -42,16 +45,21 @@ def index():
          boardurl,
          params=query
      )
-    # people.find_one({ "name.last": "Turing" })
-    dave = client.list_database_names
-    print(dave)
+    # dave = client.list_database_names     #  WORKS - good test
+    mongosuperlist = (db.posts.find_one())
+    print("THIS IS WHAT IS IN MONGO SUPERLIST RIGHT NOW:")
+    print(mongosuperlist)        
     card_list = json.loads(board_response.text)     # A list of cards TRELLO
+# Populate the mongo list here    
+    mongo_view_model = mongosuperlist
+
+# Keep the trello list for the moment
     for trello_card in card_list:
         todo = Todo.from_trello_card(trello_card)
         superlist.append(todo)
     item_view_model = ViewModel(superlist)
-    
-    return render_template('index.html', view_model=item_view_model)
+
+    return render_template('index.html', view_model=item_view_model, passed_items=mongo_view_model)
 
 
 @app.route('/addentry', methods = ["POST"])

@@ -9,15 +9,14 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>This section here is for historic reasons (cookie)</h2>
+      <h2>This section here is for MONGO</h2>
       <ul class="list-group mb-4">  
-        {% for D in passedItems %}   
-            <li>{{D.title}} </li>
-       
+        {% for title in passed_items %}   
+            <li>{{title}} </li> 
 	      {% endfor %}
       </ul>
 
-      <h2>Items from MONGO To-Do list (collection)</h2>
+      <h2>Items from TRELLO To-Do list (collection)</h2>
       <ul class="list-group mb-4">
       
       {% for item in view_model.todo_items %}
@@ -31,7 +30,7 @@
         
       {% endfor %}
 
-      <h2>Items from MONGO Doing list (collection)</h2>
+      <h2>Items from trello Doing list (collection)</h2>
       <ul class="list-group mb-4">
      
         {% for item in view_model.doing_items %}
@@ -39,7 +38,7 @@
         {% endfor %}  
       </ul> 
 
-      <h2>Todays Items from MONGO Done list</h2>
+      <h2>Todays Items from trello Done list</h2>
       <ul class="list-group mb-4">
      
         {% for item in view_model.RecentlyDone %}
