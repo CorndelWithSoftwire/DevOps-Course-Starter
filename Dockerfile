@@ -23,12 +23,11 @@ ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
 
 FROM base as test
 RUN apt-get install firefox-esr -y
-RUN curl -sSL https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz | tar xvz -C /usr/bin
 RUN poetry install
 ENTRYPOINT [ "poetry", "run", "watchmedo", "shell-command", "--recursive", "--patterns=*.py;*.html", "--command=poetry run pytest tests", "--debug-force-polling", "." ]
 
 FROM base as travistest
 RUN apt-get install firefox-esr -y
-RUN curl -sSL https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz | tar xvz -C /usr/bin
+
 RUN poetry install
 ENTRYPOINT [ "poetry", "run", "pytest" ]
