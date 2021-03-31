@@ -29,10 +29,13 @@ def test_app():
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+import geckodriver_autoinstaller
+
 
 
 @pytest.fixture(scope="module")
 def driver():
+    geckodriver_autoinstaller.install()
     opts = webdriver.FirefoxOptions()
     opts.add_argument('--headless')
     with webdriver.Firefox(options=opts) as driver:
