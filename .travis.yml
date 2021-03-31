@@ -5,7 +5,7 @@ script:
 - docker run todo-app:travis tests
 - docker run --env TRELLO_KEY --env TRELLO_TOKEN --env SECRET_KEY todo-app:travis
   tests_e2e
-true:
+on:
   branch: master
 after_success:
 - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
