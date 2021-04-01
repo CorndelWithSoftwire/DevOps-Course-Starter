@@ -30,8 +30,10 @@ cardsurl = "https://api.trello.com/1/cards"
 def index():
     thislist=[]                  
     superlist=[] 
-    mongosuperlist=[]
-    mongo_view_model=[]
+    mongosuperlist=[]               # The name of the Mongo OVERALL list
+    mongo_view_model=[]             # The name of the Mongo TO DO list (section of collection)
+    mongo_view_model_doing=[]       # The name of the Mongo DOING list (section of collection)
+    mongo_view_model_done=[]        # The name of the Mongo DONE list (section of collection)
     cardsurl = "https://api.trello.com/1/cards"      
     boardurl = f"https://api.trello.com/1/boards/{os.environ['board_id']}/cards"             # The board ID is not a secret!
 
@@ -49,13 +51,25 @@ def index():
     # dave = client.list_database_names     #  WORKS - good test
     mongosuperlist = list(db.newposts.find()) 
      
-    # mongo_view_model = mongosuperlist
 
-#  Create the mongo list
+#  Create the mongo list for status TO DO items
     for mongo_card in mongosuperlist:
-        mongotodo = Todo.from_mongo_card(mongo_card)
-        print(mongo_card)
-        mongo_view_model.append(mongo_card)
+        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
+        # print(mongo_card)                     # Debugging stuff 
+        mongo_view_model.append(mongo_card)             # Append to the list (class)
+#  Create the mongo list for status DOING items
+    for mongo_card in mongosuperlist:
+        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
+        # print(mongo_card)                     # Debugging stuff 
+        mongo_view_model_doing.append(mongo_card)             # Append to the list (class)
+
+#  Create the mongo list for status DONE items
+
+    for mongo_card in mongosuperlist:
+        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
+        # print(mongo_card)                     # Debugging stuff 
+        mongo_view_model_done.append(mongo_card)             # Append to the list (class)
+
 
 # Keep the trello list for the moment
     card_list = json.loads(board_response.text)     # A list of cards TRELLO 
@@ -63,7 +77,14 @@ def index():
         todo = Todo.from_trello_card(trello_card)
         superlist.append(todo)
     item_view_model = ViewModel(superlist)
-    return render_template('index.html', view_model=item_view_model, passed_items=mongo_view_model)
+
+
+    return render_template('index.html', 
+    view_model=item_view_model,                     # The trello list
+    passed_items_todo=mongo_view_model,             # Mongo To Do
+    passed_items_doing=mongo_view_model_doing,      # Mongo Doing
+    passed_items_done=mongo_view_model_done         # Mongo Done
+    )
 
 
 @app.route('/addentry', methods = ["POST"])
@@ -103,8 +124,7 @@ def mongoentry():
 
 
 
-
-
+# A trello complete action
 @app.route('/complete_item', methods = ["PUT","GET","POST"])
 
 def complete_item():
@@ -121,6 +141,38 @@ def complete_item():
         params=query
     )
     return redirect("/")
+
+
+
+
+
+# MONGO move item to 'doing'
+
+@app.route('/move_to_doing_item', methods = ["PUT","GET","POST"])
+
+def move_to_doing_item():
+    # update 'row' sent from collection, set status = "doing"
+    title = request.form['item_title']
+    print("Debug print")
+    print(title)       # The ID of what I want to change DOES show
+    # db.newposts.update({"_id":id},{set:{"status":"doing"}})
+    # db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
+
+    myquery = { "title": title }
+    newvalues = { "$set": { "status": "doing" } }
+    db.newposts.update_one(myquery, newvalues)
+    for doc in db.newposts.find():  
+      print(doc)
+    return redirect("/")
+
+
+
+
+
+
+
+
+
 
 
 

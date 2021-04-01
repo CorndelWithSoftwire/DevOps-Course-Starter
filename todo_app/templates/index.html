@@ -9,16 +9,42 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>This section here is for MONGO strictly to do items</h2>
+      <h2>---------------------------- MONGO STUFF ------------------------------</h2>
+      <h2>MONGO to do items</h2>
       <ul class="list-group mb-4">  
-        {% for eachrow in passed_items %}   
-            <li>{{eachrow['title']}} </li> 
-	      
-        
-        
+        {% for eachrow in passed_items_todo %}   
+            <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+            <form action="/move_to_doing_item" method="POST">
+            <input type="hidden" id="todo.title" name="item_title" value="{{ eachrow.title }}"> 
+              <button class="button button1" id='btn1' type="submit" >Change to doing</button>
+ 
+            </form>
+
             {% endfor %}
       </ul>
 
+      <h2>MONGO doing items</h2>
+
+      <ul class="list-group mb-4">  
+        {% for eachrow in passed_items_doing %}   
+            <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+            <button class="button button1" id='btn1' type="submit" >Change to done</button>
+            {% endfor %}
+      </ul>
+
+      <h2>MONGO done items</h2>
+
+      <ul class="list-group mb-4">  
+        {% for eachrow in passed_items_done %}   
+            <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+            {% endfor %}
+      </ul>
+      <form action="/addmongoentry" method="post">
+        <label for="title">Insert a new mongo title:</label><br>
+        <input type="text" id="title" name="title"><br>
+      
+      </form>
+      <h2>---------------------------- TRELLO STUFF ------------------------------</h2>
       <h2>Items from TRELLO To-Do list (collection)</h2>
       <ul class="list-group mb-4">
       
@@ -72,11 +98,7 @@
   
   </form>
 
-  <form action="/addmongoentry" method="post">
-    <label for="title">Insert a new mongo title:</label><br>
-    <input type="text" id="title" name="title"><br>
-  
-  </form>
+
 
   <form action="/complete_item" method="POST">
     <label for="title">CARD ID of item to be moved to DONE:</label><br>
