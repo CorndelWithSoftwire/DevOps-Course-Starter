@@ -17,8 +17,6 @@ print ("Program starting now")
 
 #Set up variables we'll be using.
 
-mongo_username="britboy4321"              # to be put into secrets later, not used right now
-mongo_password="Mongodbpass"              # to be put into secrets later, not used right now
 client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority")
 db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
@@ -65,16 +63,12 @@ def index():
     passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
     )
 
-
 @app.route('/addmongoentry', methods = ["POST"])
 def mongoentry():
-
     name = request.form['title']
     mongodict={'title':name,'status':'todo', 'mongodate':datetime.now()}
     db.newposts.insert(mongodict)
     return redirect("/")
-
-# MONGO move item to 'doing'
 
 @app.route('/move_to_doing_item', methods = ["PUT","GET","POST"])
 
