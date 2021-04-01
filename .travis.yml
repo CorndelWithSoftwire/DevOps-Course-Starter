@@ -3,15 +3,12 @@ services:
 script:
 - docker build --target travistest --tag todo-app:travis .
 - docker run todo-app:travis tests
-- docker run --env TRELLO_KEY --env TRELLO_TOKEN --env SECRET_KEY todo-app:travis
-  tests_e2e
-on:
-  branch: master
-after_success:
-- echo $DOCKER_PASSWORD | docker login --username $DOCKER_USER --password-stdin
-- docker build --target production --tag kevineatondevops/todo-app:latest --tag kevineatondevops/todo-app:$TRAVIS_COMMIT
-  .
-- docker push kevineatondevops/todo-app:latest
+- docker run --env TRELLO_KEY --env TRELLO_TOKEN --env SECRET_KEY todo-app:travis tests_e2e
+deploy:
+  provider: script
+  script: bash deploy.sh
+  on:
+    branch: master
 env:
   global:
   - secure: ueCzDPFfr9WyT6SsGY4bH/7D6rdNOadN3dTgmDPoFkWXv4mKkCwEWAKXS0Cm17vzlRBHRrnxoX/ty+ZKPiRgD8ljPgm2ZhbikMwV8Y0zdV/x3wD7F5eVnQo9ofVez1AG0cgeXHdz9knkZnapl/Q6zN6mLrLOmjK2M4SSI5oBNnoBnToDIVLQ+/xUu8vJu9+bLBZtcuFFFlIVLkowjfIt+ztuAYc05QryqybKHirDfeLF8JeYynApRV1T97NJC977f0xw7DQFq226HqDBYXb7GGs1CTHJtNLLkW3gRxAbW5Nx5NX55cdnQ+0sfS9UjHj6qDFhlt6MkLr6Ijpnh28bGiz0TJwUSJ4CubCXfXqZ4vm43qaXT4yd8P9I7KDEEJEoeHSCdQaAyN/6LjwmV0kICMotHK/sg8VAPlaRQcy5wAZ5KvRgBuF5PiV/BpXZgy+oSNwNCo2DUjQ8APBGaxIZAqw5Aea6U0vBLa+4QAM2Dk7o+WgdEv/1OCe8gqgruGFWU66zp2dyRnow6xKEY6aq2No3Y8xjftAcaQTZdb806ajwkPPUzaPTV+/80ACgXkmlubISP/68PDaIyAY0DBXEBY07WsvIsRxK0QUCtjCqxeL+B2Ib8rSriSVweXovqvLTzNv1vVLU9tW+AZdZc0tZ4Kyx5d04tRM7QEAtPJ0JGZE=
