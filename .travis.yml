@@ -1,6 +1,6 @@
 script:
-- echo "This is  Daves travis now for module 9"
-- echo "--------------------------------------"
+- echo "This is Daves Mondo module 9 work"
+- echo "---------------------------------"
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
 - docker build --target test --tag todoapptest .
@@ -18,7 +18,11 @@ script:
 - docker login --username=drawlinson48@gmail.com --password=12d12e9c-c546-498f-9bdb-5c8911cf27ec registry.heroku.com
 - docker push registry.heroku.com/todoappbritboy/web   # put it onto Heroku
 
+echo "CONTINUOUS DEPLOYMENT SETUP COMPLETED NOW"
+echo "-----------------------------------------"
 # ---
+echo "TIME FOR ACTUAL DEPLOY"
+echo "----------------------"
 
 deploy:
   provider: script 
