@@ -41,18 +41,16 @@ class Todo:
         return new_class_instance
 
 
-
-
     @classmethod
     def from_mondo_card(cls, card):
         id = card["id"]
         title = card["name"]
-        status = ""
-        firstcarddate = card["dateLastActivity"]
-        carddate = firstcarddate[:10]               # Just need date bit, not the time etc
-        currentcarddate = datetime.today().strftime('%Y-%m-%d') # Now just need today's date
-        currentcarddatefor = parser.parse(currentcarddate)  # The above line turned it into a string, turn back into a date
-        indateformat = datetime.strptime(carddate,'%Y-%m-%d')   
+        # status = ""
+        # firstcarddate = card["dateLastActivity"]
+        # carddate = firstcarddate[:10]               # Just need date bit, not the time etc
+        # currentcarddate = datetime.today().strftime('%Y-%m-%d') # Now just need today's date
+        # currentcarddatefor = parser.parse(currentcarddate)  # The above line turned it into a string, turn back into a date
+        # indateformat = datetime.strptime(carddate,'%Y-%m-%d')   
 
         status = "Todo"            # Temporary - set them all to doing
 

@@ -46,21 +46,21 @@ def index():
          params=query
      )
     # dave = client.list_database_names     #  WORKS - good test
-    mongosuperlist = db.posts.find()
-    # print("THIS IS WHAT IS IN MONGO SUPERLIST RIGHT NOW:")
-    # print(mongosuperlist)        
-    card_list = json.loads(board_response.text)     # A list of cards TRELLO
-# Populate the mongo list here    
+    mongosuperlist = list(db.newposts.find()) 
+     
     mongo_view_model = mongosuperlist
 
+#  Create the mondo list
+    #for mondo_card in mongosuperlist:
+        # mondotodo = Todo.from_mondo_card(mondo_card)
+    #    print(mondo_card)
+
 # Keep the trello list for the moment
-
-
+    card_list = json.loads(board_response.text)     # A list of cards TRELLO 
     for trello_card in card_list:
         todo = Todo.from_trello_card(trello_card)
         superlist.append(todo)
     item_view_model = ViewModel(superlist)
-
     return render_template('index.html', view_model=item_view_model, passed_items=mongo_view_model)
 
 
@@ -90,7 +90,7 @@ def mongoentry():
     name = request.form['title']
     mongodict={'title':name,'status':'todo'}
 
-    db.posts.insert(mongodict)
+    db.newposts.insert(mongodict)
 
 
     return redirect("/")
