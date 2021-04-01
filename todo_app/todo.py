@@ -42,9 +42,11 @@ class Todo:
 
 
     @classmethod
-    def from_mondo_card(cls, card):
-        id = card["id"]
-        title = card["name"]
+    def from_mongo_card(cls, card):
+        id = ""
+        title = ""
+        #id = card["id"]
+        #title = card["name"]
         # status = ""
         # firstcarddate = card["dateLastActivity"]
         # carddate = firstcarddate[:10]               # Just need date bit, not the time etc

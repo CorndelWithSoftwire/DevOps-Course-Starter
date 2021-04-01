@@ -19,8 +19,8 @@ print ("Program starting now")
 
 trellokey=os.environ["key"]            # get the secret key
 trellotoken=os.environ["token"]         # get the secret token
-mondo_username="britboy4321"              # to be put into secrets later, not used right now
-mondo_password="Mongodbpass"              # to be put into secrets later, not used right now
+mongo_username="britboy4321"              # to be put into secrets later, not used right now
+mongo_password="Mongodbpass"              # to be put into secrets later, not used right now
 client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority")
 db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
@@ -31,6 +31,7 @@ def index():
     thislist=[]                  
     superlist=[] 
     mongosuperlist=[]
+    mongo_view_model=[]
     cardsurl = "https://api.trello.com/1/cards"      
     boardurl = f"https://api.trello.com/1/boards/{os.environ['board_id']}/cards"             # The board ID is not a secret!
 
@@ -48,12 +49,13 @@ def index():
     # dave = client.list_database_names     #  WORKS - good test
     mongosuperlist = list(db.newposts.find()) 
      
-    mongo_view_model = mongosuperlist
+    # mongo_view_model = mongosuperlist
 
-#  Create the mondo list
-    #for mondo_card in mongosuperlist:
-        # mondotodo = Todo.from_mondo_card(mondo_card)
-    #    print(mondo_card)
+#  Create the mongo list
+    for mongo_card in mongosuperlist:
+        mongotodo = Todo.from_mongo_card(mongo_card)
+        print(mongo_card)
+        mongo_view_model.append(mongo_card)
 
 # Keep the trello list for the moment
     card_list = json.loads(board_response.text)     # A list of cards TRELLO 
