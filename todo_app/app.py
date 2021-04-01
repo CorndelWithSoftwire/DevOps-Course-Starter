@@ -14,10 +14,9 @@ from todo_app.todo import Todo
 
 app = Flask(__name__)
 print ("Program starting now") 
-
+mongopassword=os.environ["mongopass"]           # Secure password
 #Set up variables we'll be using.
-
-client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority")
+client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
 db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
 olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide items older than 5 days
