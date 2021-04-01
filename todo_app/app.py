@@ -5,7 +5,7 @@ import requests                     # Import the whole of requests
 import json
 import os        # Secrets for example Trello tokens etc in here (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
-from datetime import datetime, timedelta   # Needed for Mongo dates
+from datetime import datetime, timedelta   # Needed for Mongo dates for 'older' records seperation
 
 # import pytest
 from todo_app.models.view_model import ViewModel
@@ -25,7 +25,7 @@ client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfy
 db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
 cardsurl = "https://api.trello.com/1/cards"
-olddate = (datetime.now() - timedelta(days=5))   # Used later to hide items older than 5 days
+olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide items older than 5 days
 
 # olddate = (datetime.now() + timedelta(days=5))  #Uncomment this line to check 'older items'
                                                   # work without having to hang around for 5 days!
@@ -38,7 +38,7 @@ def index():
     mongo_view_model=[]             # The name of the Mongo TO DO list (section of collection)
     mongo_view_model_doing=[]       # The name of the Mongo DOING list (section of collection)
     mongo_view_model_done=[]        # The name of the Mongo DONE list (section of collection)
-    mongo_view_model_olddone=[]   # Older 'done' items
+    mongo_view_model_olddone=[]     # Older 'done' items to be stored here (section of collection)
     cardsurl = "https://api.trello.com/1/cards"      
     boardurl = f"https://api.trello.com/1/boards/{os.environ['board_id']}/cards"             # The board ID is not a secret!
 
@@ -62,7 +62,7 @@ def index():
  
 
 #  Create the various lists depending on status
-    counter=0                   # Well, it works!
+    counter=0                                           # Well, it works!
     for mongo_card in mongosuperlist:
         mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts' 
         whatsthestatus=(mongosuperlist[counter]['status'])
@@ -80,7 +80,6 @@ def index():
                   
                   
                                                             # note: Invalid or no status won't appear at all
-
 
 # Keep the trello list for the moment
     card_list = json.loads(board_response.text)     # A list of cards TRELLO 
