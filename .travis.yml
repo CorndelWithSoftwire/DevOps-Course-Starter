@@ -15,7 +15,7 @@ script:
 
 - docker pull britboy4321/todoapp      #  Ensure that we have latest version (possibly not required)
 - docker tag britboy4321/todoapp registry.heroku.com/todoappbritboy/web  # Tag it ready for Heroku
-- docker login --username=drawlinson48@gmail.com --password=12d12e9c-c546-498f-9bdb-5c8911cf27ec registry.heroku.com
+- docker login --username=drawlinson48@gmail.com --password=$HEROKU_PASSWORD registry.heroku.com
 - docker push registry.heroku.com/todoappbritboy/web   # put it onto Heroku
 
 echo "CONTINUOUS DEPLOYMENT SETUP COMPLETED NOW"
