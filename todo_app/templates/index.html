@@ -14,6 +14,7 @@
       <ul class="list-group mb-4">  
         {% for eachrow in passed_items_todo %}   
             <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+            <li>>This item was created on:  {{eachrow['mongodate']}}</li>
             <form action="/move_to_doing_item" method="POST">
             <input type="hidden" id="todo.title" name="item_title" value="{{ eachrow.title }}"> 
               <button class="button button1" id='btn1' type="submit" >Change to doing</button>
@@ -50,6 +51,21 @@
    
 
             {% endfor %}
+            <details>
+              <summary>OLDER Items from MONGO done list</summary>
+     
+            <ul class="list-group mb-4">  
+              {% for eachrow in passed_items_olddone %}   
+                  <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+      
+                  <form action="/move_to_todo_item" method="POST">
+                    <input type="hidden" id="todo.title" name="item_title" value="{{ eachrow.title }}"> 
+                      <button class="button button1" id='btn1' type="submit" >Old Item didn't work, send back to todo</button>
+         
+      
+                  {% endfor %}
+                  </details>
+
       </ul>
       <form action="/addmongoentry" method="post">
         <label for="title">Insert a new mongo title:</label><br>
@@ -97,10 +113,7 @@
         <li>Date it was done:</li>
         <li>{{item.carddate}}</li>
       {% endfor %}
-    </details
-
-
-      </ul>  
+    </details>  
 
     </div>
   </div>

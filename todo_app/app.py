@@ -5,7 +5,7 @@ import requests                     # Import the whole of requests
 import json
 import os        # Secrets for example Trello tokens etc in here (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
-
+from datetime import datetime, timedelta   # Needed for Mongo dates
 
 # import pytest
 from todo_app.models.view_model import ViewModel
@@ -25,15 +25,20 @@ client = pymongo.MongoClient("mongodb+srv://britboy4321:Mongodbpass@cluster0.qfy
 db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
 cardsurl = "https://api.trello.com/1/cards"
+olddate = (datetime.now() - timedelta(days=5))   # Used later to hide items older than 5 days
+
+# olddate = (datetime.now() + timedelta(days=5))  #Uncomment this line to check 'older items'
+                                                  # work without having to hang around for 5 days!
 
 @app.route('/', methods = ["GET","PUT"])
 def index():
     thislist=[]                  
     superlist=[] 
-    mongosuperlist=[]               # The name of the Mongo OVERALL list
+    mongosuperlist=[]               # The name of the Mongo OVERALL list with all items in it
     mongo_view_model=[]             # The name of the Mongo TO DO list (section of collection)
     mongo_view_model_doing=[]       # The name of the Mongo DOING list (section of collection)
     mongo_view_model_done=[]        # The name of the Mongo DONE list (section of collection)
+    mongo_view_model_olddone=[]   # Older 'done' items
     cardsurl = "https://api.trello.com/1/cards"      
     boardurl = f"https://api.trello.com/1/boards/{os.environ['board_id']}/cards"             # The board ID is not a secret!
 
@@ -48,23 +53,32 @@ def index():
          boardurl,
          params=query
      )
+
+
+    # db.newposts.remove()    # Emergency wipeout all Mongo data here if needed USE WITH CAUTION!
+
     # dave = client.list_database_names     #  WORKS - good test
     mongosuperlist = list(db.newposts.find()) 
-    # print(mongosuperlist[1]['status']) 
+ 
 
 #  Create the various lists depending on status
     counter=0                   # Well, it works!
     for mongo_card in mongosuperlist:
         mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts' 
         whatsthestatus=(mongosuperlist[counter]['status'])
+        whatsthedate=(mongosuperlist[counter]['mongodate'])      # Need the date to seperate older 'Done'
         counter=counter+1                                   #Increment as need to get next list item
         if whatsthestatus == "todo":
             mongo_view_model.append(mongo_card)             # Append to the todo
         elif whatsthestatus == "doing":
             mongo_view_model_doing.append(mongo_card)       # Append to doing
         elif whatsthestatus == "done":
-            mongo_view_model_done.append(mongo_card)        # Append to done
-
+            if whatsthedate > olddate:
+                mongo_view_model_done.append(mongo_card)        # Append to display in done - recently
+            else: 
+                mongo_view_model_olddone.append(mongo_card)  
+                  
+                  
                                                             # note: Invalid or no status won't appear at all
 
 
@@ -80,7 +94,8 @@ def index():
     view_model=item_view_model,                     # The trello list
     passed_items_todo=mongo_view_model,             # Mongo To Do
     passed_items_doing=mongo_view_model_doing,      # Mongo Doing
-    passed_items_done=mongo_view_model_done         # Mongo Done
+    passed_items_done=mongo_view_model_done,        # Mongo Done
+    passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
     )
 
 
@@ -99,25 +114,19 @@ def entry():
     )
     return redirect("/")
 
-
-
-
 @app.route('/addmongoentry', methods = ["POST"])
 def mongoentry():
 
 # 'name': request.form['title']
 
     name = request.form['title']
-    mongodict={'title':name,'status':'todo'}
-
+    mongodict={'title':name,'status':'todo', 'mongodate':datetime.now()}
+    # olddate=(datetime.now()-5)
+    # print(datetime.now())
     db.newposts.insert(mongodict)
 
 
     return redirect("/")
-
-
-
-
 
 
 
@@ -140,9 +149,6 @@ def complete_item():
     return redirect("/")
 
 
-
-
-
 # MONGO move item to 'doing'
 
 @app.route('/move_to_doing_item', methods = ["PUT","GET","POST"])
@@ -150,11 +156,6 @@ def complete_item():
 def move_to_doing_item():
     # update 'row' sent from collection, set status = "doing"
     title = request.form['item_title']
-    # print("Debug print")
-    # print(title)  # I couldn't get it to work for ID and running out of time so settled for title
-    # db.newposts.update({"_id":id},{set:{"status":"doing"}})
-    # db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
-
     myquery = { "title": title }
     newvalues = { "$set": { "status": "doing" } }
     db.newposts.update_one(myquery, newvalues)
