@@ -13,27 +13,12 @@ def get_trello_todo_boardid():
     trello_todo_board_id = os.environ.get('TRELLO_TODO_BOARDID')
     return trello_todo_board_id
 
-def get_trello_todo_listid():
+def get_trello_listid(listname):
     lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
     lists_json = lists.json()
     for list in lists_json:
-        if list['name'] == "To Do":
+        if list['name'] == listname:
             return list['id']
-
-def get_trello_doing_listid():
-    lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
-    lists_json = lists.json()
-    for list in lists_json:
-        if list['name'] == "Doing":
-            return list['id']
-
-def get_trello_done_listid():
-    lists = requests.get(get_lists_on_boards_url(), params=build_auth_query())
-    lists_json = lists.json()
-    for list in lists_json:
-        if list['name'] == "Done":
-            return list['id']
-
 
 apiurl = "https://api.trello.com/1/"
 boardsurl = apiurl + 'boards/'
@@ -63,17 +48,6 @@ class Item:
         self.title = title
         self.lastmodifieddate = lastmodifieddate
 
-def get_items_from_trello_api():
-    """
-    Fetches all cards from the Trello.
-
-    Returns:
-        list: Json formatted list from Trello
-    """
-    cards = requests.get(get_cards_on_boards_url(), params=build_auth_query())
-    cards_json = cards.json()
-    return cards_json
-
 def get_items_trello():
     """
     Fetches all cards from the Trello.
@@ -81,14 +55,15 @@ def get_items_trello():
     Returns:
         list: The list of saved items.
     """   
-    cards_json = get_items_from_trello_api()
+    cards = requests.get(get_cards_on_boards_url(), params=build_auth_query())
+    cards_json = cards.json()
     items = []
     for card in cards_json:
-        if card['idList'] == get_trello_done_listid():
+        if card['idList'] == get_trello_listid("Done"):
             cardstatus = 'Done'
-        elif card['idList'] == get_trello_doing_listid():
+        elif card['idList'] == get_trello_listid("Doing"):
             cardstatus = 'Doing'
-        elif card['idList'] == get_trello_todo_listid():
+        elif card['idList'] == get_trello_listid("To Do"):
             cardstatus = "To Do"
         else:
             raise AttributeError
@@ -106,7 +81,7 @@ def mark_item_done_trello(id):
         item: The ID of the item to save.
     """
     query = build_auth_query()
-    query['idList'] = get_trello_done_listid()
+    query['idList'] = get_trello_listid("Done")
     requests.put(putcardsonlist_URL(id), params=query)
     return id
 
@@ -118,7 +93,7 @@ def mark_item_todo_trello(id):
         item: The ID of the item to save.
     """
     query = build_auth_query()
-    query['idList'] = get_trello_todo_listid()
+    query['idList'] = get_trello_listid("To Do")
     requests.put(putcardsonlist_URL(id), params=query)
     return id
 
@@ -130,7 +105,7 @@ def mark_item_doing_trello(id):
         item: The ID of the item to save.
     """
     query = build_auth_query()
-    query['idList'] = get_trello_doing_listid()
+    query['idList'] = get_trello_listid("Doing")
     requests.put(putcardsonlist_URL(id), params=query)
     return id
 
@@ -145,7 +120,7 @@ def add_item_trello(title):
         item: The saved item.
     """
     query = build_auth_query()
-    query['idList'] = get_trello_todo_listid()
+    query['idList'] = get_trello_listid("To Do")
     query['name'] = title
     requests.post(cardsurl, params=query)
     return 

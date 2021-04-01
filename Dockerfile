@@ -11,7 +11,7 @@ COPY todo_app/poetry.toml todo_app/pyproject.toml todo_app/poetry.lock ./
 
 FROM base as production
 EXPOSE 5000
-COPY todo_app todo_app
+COPY todo_app /todo_app
 WORKDIR /todo_app
 RUN poetry install --no-dev
 ENTRYPOINT [ "poetry", "run", "gunicorn", "--config", "gunicorn.conf.py", "app:create_app()" ]
