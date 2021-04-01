@@ -50,13 +50,14 @@ def index():
      )
     # dave = client.list_database_names     #  WORKS - good test
     mongosuperlist = list(db.newposts.find()) 
-     
+    print(mongosuperlist[1]['status']) 
 
 #  Create the mongo list for status TO DO items
     for mongo_card in mongosuperlist:
-        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
-        # print(mongo_card)                     # Debugging stuff 
+        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts' 
+        print("----")
         mongo_view_model.append(mongo_card)             # Append to the list (class)
+
 #  Create the mongo list for status DOING items
     for mongo_card in mongosuperlist:
         mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
