@@ -21,6 +21,12 @@ TRELLO_TOKEN = ##replace with Trello API Token##
 TRELLO_TODO_BOARDID = ##replace with ID of board from Trello to use with this app##
 
 ```
+
+## Travis CI & Docker Hub
+create an account at Travis CI and Docker Hub
+Login to the Travis account and navigate to more options -> Settings
+add an environment variable called DOCKER_USER with a value of your docker hub username
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
