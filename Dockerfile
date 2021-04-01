@@ -13,7 +13,7 @@ FROM base as production
 EXPOSE $PORT
 COPY todo_app /todo_app
 WORKDIR /todo_app
-RUN poetry install --no-dev
+RUN poetry config virtualenvs.create false --local && poetry install --no-dev
 ENTRYPOINT [ "poetry", "run", "gunicorn", "--config", "gunicorn.conf.py", "app:create_app()" ]
 
 FROM base as development
