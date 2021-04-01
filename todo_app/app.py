@@ -50,26 +50,22 @@ def index():
      )
     # dave = client.list_database_names     #  WORKS - good test
     mongosuperlist = list(db.newposts.find()) 
-    print(mongosuperlist[1]['status']) 
+    # print(mongosuperlist[1]['status']) 
 
-#  Create the mongo list for status TO DO items
+#  Create the various lists depending on status
+    counter=0                   # Well, it works!
     for mongo_card in mongosuperlist:
         mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts' 
-        print("----")
-        mongo_view_model.append(mongo_card)             # Append to the list (class)
+        whatsthestatus=(mongosuperlist[counter]['status'])
+        counter=counter+1                                   #Increment as need to get next list item
+        if whatsthestatus == "todo":
+            mongo_view_model.append(mongo_card)             # Append to the todo
+        elif whatsthestatus == "doing":
+            mongo_view_model_doing.append(mongo_card)       # Append to doing
+        elif whatsthestatus == "done":
+            mongo_view_model_done.append(mongo_card)        # Append to done
 
-#  Create the mongo list for status DOING items
-    for mongo_card in mongosuperlist:
-        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
-        # print(mongo_card)                     # Debugging stuff 
-        mongo_view_model_doing.append(mongo_card)             # Append to the list (class)
-
-#  Create the mongo list for status DONE items
-
-    for mongo_card in mongosuperlist:
-        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts'
-        # print(mongo_card)                     # Debugging stuff 
-        mongo_view_model_done.append(mongo_card)             # Append to the list (class)
+                                                            # note: Invalid or no status won't appear at all
 
 
 # Keep the trello list for the moment
@@ -154,8 +150,8 @@ def complete_item():
 def move_to_doing_item():
     # update 'row' sent from collection, set status = "doing"
     title = request.form['item_title']
-    print("Debug print")
-    print(title)       # The ID of what I want to change DOES show
+    # print("Debug print")
+    # print(title)  # I couldn't get it to work for ID and running out of time so settled for title
     # db.newposts.update({"_id":id},{set:{"status":"doing"}})
     # db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
 
@@ -166,7 +162,27 @@ def move_to_doing_item():
       print(doc)
     return redirect("/")
 
+@app.route('/move_to_done_item', methods = ["PUT","GET","POST"])
+def move_to_done_item():
+  
+    title = request.form['item_title']
+    myquery = { "title": title }
+    newvalues = { "$set": { "status": "done" } }
+    db.newposts.update_one(myquery, newvalues)
+    for doc in db.newposts.find():  
+      print(doc)
+    return redirect("/")
 
+
+@app.route('/move_to_todo_item', methods = ["PUT","GET","POST"])
+def move_to_todo_item():
+    title = request.form['item_title']
+    myquery = { "title": title }
+    newvalues = { "$set": { "status": "todo" } }
+    db.newposts.update_one(myquery, newvalues)
+    for doc in db.newposts.find():  
+      print(doc)
+    return redirect("/")
 
 
 

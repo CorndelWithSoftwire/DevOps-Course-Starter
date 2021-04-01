@@ -28,7 +28,13 @@
       <ul class="list-group mb-4">  
         {% for eachrow in passed_items_doing %}   
             <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
-            <button class="button button1" id='btn1' type="submit" >Change to done</button>
+            
+            <form action="/move_to_done_item" method="POST">
+              <input type="hidden" id="todo.title" name="item_title" value="{{ eachrow.title }}"> 
+                <button class="button button1" id='btn1' type="submit" >Change to done</button>
+   
+              </form>
+
             {% endfor %}
       </ul>
 
@@ -37,6 +43,12 @@
       <ul class="list-group mb-4">  
         {% for eachrow in passed_items_done %}   
             <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+
+            <form action="/move_to_todo_item" method="POST">
+              <input type="hidden" id="todo.title" name="item_title" value="{{ eachrow.title }}"> 
+                <button class="button button1" id='btn1' type="submit" >Item didn't work, send back to todo</button>
+   
+
             {% endfor %}
       </ul>
       <form action="/addmongoentry" method="post">
