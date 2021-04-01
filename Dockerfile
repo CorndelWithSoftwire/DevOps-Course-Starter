@@ -10,7 +10,7 @@ WORKDIR /todo_app
 COPY todo_app/poetry.toml todo_app/pyproject.toml todo_app/poetry.lock ./
 
 FROM base as production
-EXPOSE 5000
+EXPOSE $PORT
 COPY todo_app /todo_app
 WORKDIR /todo_app
 RUN poetry install --no-dev
