@@ -110,3 +110,16 @@ heroku login
 heroku container:release web --app=todo-app-pv
 ```
 Note: Setup up the Trello related environment varaibles and PORT (for heroku) in Config Vars section on heroku app settings (https://dashboard.heroku.com/apps/todo-app-pv/settings)
+
+
+### Database setup
+Setup below environment variable for Database connections
+```
+MONGO_DB_URL ( required)
+MONGO_DB_NAME (optional)
+ITEMS_TABLE_NAME (optional)
+
+Default values
+MONGO_DB_NAME=Board
+ITEMS_TABLE_NAME=Items
+```

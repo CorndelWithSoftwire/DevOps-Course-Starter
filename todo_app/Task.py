@@ -5,4 +5,4 @@ class Task:
         self.id = id
         self.title = title
         self.status = status
-        self.last_modified = dateutil.parser.parse(last_modified)
+        self.last_modified = last_modified
