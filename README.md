@@ -6,7 +6,7 @@
 3. create 3 collections as below 
 
 ```bash
-MONGO_CONN=mongodb+srv://<username>:<password>@corndel.gyf3r.mongodb.net/test?w=majority 
+MONGO_CONN=mongodb+srv://<username>:<password>@<hostname>/<db>?w=majority 
 MONGO_DB_NAME=DevOps
 MONGO_LIST_TODO=todo
 MONGO_LIST_INPROGRESS=inprogress

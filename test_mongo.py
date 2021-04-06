@@ -35,7 +35,12 @@ def test_create_and_delete_board():
 @pytest.fixture(scope='module')
 def test_app():
     # Create the new board & update the board id environment variable
-    board_id = mongo.create_database("TestAppBoard") 
+    mongo.create_database("TestAppBoard") 
+    os.environ['MONGO_DB_NAME'] = "TestAppBoard"
+    os.environ['MONGO_LIST_TODO'] = 'todo'
+    os.environ['MONGO_LIST_INPROGRESS']  = 'inprogress'
+    os.environ['MONGO_LIST_DONE'] = 'done'
+
     # construct the new application
     application = app.create_app()
     # start the app in its own thread.

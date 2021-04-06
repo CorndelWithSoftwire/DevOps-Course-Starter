@@ -21,7 +21,6 @@ def get_items():
     db = connect_to_mongo()
 
     for collection in collections:
-        collectionsize = db[collection].count()
         cards = db[collection].find()
 
         for card in cards:

@@ -15,12 +15,4 @@ class Item:
         title = card['name']
         status = card['idList']
 
-
-        # if trello_card['idList'] == os.environ['todo_list_id']:
-        #     status = 'Things To Do'
-        # elif trello_card['idList'] == os.environ['doing_list_id']:
-        #     status = 'Doing'
-        # elif trello_card['idList'] == os.environ['done_list_id']:
-        #     status = 'Done'       
-
         return cls(id, title, time, status)
