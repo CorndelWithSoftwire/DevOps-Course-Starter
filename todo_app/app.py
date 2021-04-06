@@ -13,7 +13,7 @@ from todo_app.todo import Todo
 # from dateutil.parser import parser
 
 app = Flask(__name__)
-print ("Program starting now") 
+print ("Program starting right now") 
 mongopassword=os.environ["mongopass"]           # Secure password
 #Set up variables we'll be using.
 client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
