@@ -6,7 +6,7 @@ script:
 - docker run --env TRELLO_KEY --env TRELLO_TOKEN --env SECRET_KEY todo-app:travis tests_e2e
 deploy:
   provider: script
-  script: bash deploy.sh
+  script: bash todo_app/deploy.sh
   on:
     branch: master
 env:
