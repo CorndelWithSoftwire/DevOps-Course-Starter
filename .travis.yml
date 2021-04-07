@@ -1,7 +1,8 @@
 services:
 - docker
 script:
-- docker build --target travistest --tag todo-app:travis .
+- docker pull --cache-from kevineatondevops/todo_app:latest
+- docker build --target travistest --tag todo-app:travis --cache-from kevineatondevops/todo_app:latest .
 - docker run todo-app:travis tests
 - docker run --env TRELLO_KEY --env TRELLO_TOKEN --env SECRET_KEY todo-app:travis tests_e2e
 deploy:
