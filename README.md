@@ -49,8 +49,8 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
-## An Alternative to manually running the app 
-The setup.sh script should be ran to configure and prepare the application to run within Flask.
+## An alternative to running the App using Vagrant
+The setup.sh script should be ran to configure and prepare the application to run within Vagrant.
 
 You should see output similar to the following:
 ```bash
