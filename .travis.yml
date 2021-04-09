@@ -30,7 +30,7 @@ deploy:
   heroku container:release web --app todoappbritboy
   on: 
     branch:
-      - master
-      - module7       # To be removed eventually
-      - module8       # To be removed eventually
-      - module9       # To be removed eventually
+    - master
+    - module7       # To be removed eventually
+    - module8       # To be removed eventually
+    - module9       # To be removed eventually
