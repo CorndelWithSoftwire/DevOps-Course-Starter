@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import requests                     # Import the whole of requests
 import json
-import os        # Secrets for example Trello tokens etc in here (local only)
+import os        # Secrets  (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
 from datetime import datetime, timedelta   # Needed for Mongo dates for 'older' records seperation
 
@@ -15,7 +15,7 @@ from todo_app.todo import Todo
 app = Flask(__name__)
 print ("Program starting right now") 
 mongopassword=os.environ["mongopass"]           # Secure password
-mongopassword="Mongodbpass"                     # Temporary to assist Travis
+
 #Set up variables we'll be using.
 client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
 
