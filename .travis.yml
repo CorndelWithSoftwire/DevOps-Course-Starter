@@ -18,16 +18,16 @@ script:
 - docker login --username=drawlinson48@gmail.com --password=Herokupass123 registry.heroku.com
 - docker push registry.heroku.com/todoappbritboy/web   # put it onto Heroku
 
-echo "CONTINUOUS DEPLOYMENT SETUP COMPLETED NOW"
-echo "-----------------------------------------"
+- echo "CONTINUOUS DEPLOYMENT SETUP COMPLETED NOW"
+- echo "-----------------------------------------"
 # ---
-echo "TIME FOR ACTUAL DEPLOY and RELEASE NOW"
-echo "--------------------------------------"
+- echo "TIME FOR ACTUAL DEPLOY and RELEASE NOW"
+- echo "--------------------------------------"
 
 deploy:
   provider: script 
   script: 
-  heroku container:release web --app todoappbritboy
+    heroku container:release web --app todoappbritboy
   on: 
     branch:
     - master
