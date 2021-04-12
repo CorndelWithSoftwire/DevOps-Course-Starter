@@ -13,10 +13,17 @@
       <ul class="list-group mb-4">
         {% for item in items  %}
         <li> Id: {{item.id}} Title: {{ item.title}} Status: {{item.status}}</li>
-        <form  action="/deleteitem" method ='POST'>
-          <input type =text name= "id" value = "{{item.id}}"/>
-         
-          <input type= "submit" value = "Delete"/>
+        <form  action="/movecarddoing" method ='POST'>
+          <input type ="hidden" name= "id" value = "{{item.id}}"/>
+          <input type= "submit" value = "Move Card To Doing"/>
+        </form>
+        <form  action="/movecarddone" method ='POST'>
+          <input type ="hidden" name= "id" value = "{{item.id}}"/>
+          <input type= "submit" value = "Move Card To Done"/>
+        </form>
+        <form  action="/deletecard" method ='POST'>
+          <input type ="hidden" name= "id" value = "{{item.id}}"/>
+          <input type= "submit" value = "Delete Card"/>
         </form>
         {% endfor%}
       </ul>
