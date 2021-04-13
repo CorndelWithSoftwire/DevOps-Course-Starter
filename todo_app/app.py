@@ -1,6 +1,8 @@
 # SETUP INFO
 
 from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager
+# from flask import LoginManager
 import requests                     # Import the whole of requests
 import json
 import os        # Secrets  (local only)
@@ -13,6 +15,25 @@ from todo_app.todo import Todo
 # from dateutil.parser import parser
 
 app = Flask(__name__)
+#  MODULE 10 LOGIN MANAGER SETUP
+
+login_manager = LoginManager()
+
+@login_manager.unauthorized_handler
+
+def unauthenticated():
+	pass 	# Add logic to redirect to the
+		# Github OAuth flow when unauthenticated
+
+@login_manager.user_loader
+def load_user(user_id):
+    return None
+
+login_manager.init_app(app)
+
+
+
+
 print ("Program starting right now") 
 mongopassword=os.environ["mongopassword"]           # Secure password
 

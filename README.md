@@ -1,6 +1,8 @@
 # Docker Container :  To do list
 Python code interacts with MongoDB to give a unique front end interacting with Mongo systems
 
+OAUTH Security implemented
+
 Getting Started
 
 Docker image 1 (tag:  dave2): 
@@ -18,6 +20,10 @@ docker build --target test --tag my-test-image .
 ## Latest Updates:  Travis CI environment setting up
 
 ## Prerequisities
+
+To run locally, run:
+
+poetry add oauthlib flask-login
 
 In order to run this container you'll need 
 1) Docker installed
