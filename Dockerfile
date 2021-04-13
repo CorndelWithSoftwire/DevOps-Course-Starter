@@ -47,6 +47,7 @@ COPY ./todo_app/test_e2e.py ./todo_app/test_e2e.py
 # RUN poetry install    <-- old command kept here for prosperity!
 RUN poetry config virtualenvs.create false --local && poetry install
 
+poetry add oauthlib flask-login
 
 #Entrypoints
 
