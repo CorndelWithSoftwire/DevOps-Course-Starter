@@ -15,10 +15,10 @@ from todo_app.todo import Todo
 # from dateutil.parser import parser
 
 app = Flask(__name__)
+#################################
 #  MODULE 10 LOGIN MANAGER SETUP
-
+#################################
 login_manager = LoginManager()
-
 @login_manager.unauthorized_handler
 
 def unauthenticated():
@@ -32,8 +32,7 @@ def load_user(user_id):
 login_manager.init_app(app)
 
 
-
-
+################################
 print ("Program starting right now") 
 mongopassword=os.environ["mongopassword"]           # Secure password
 
@@ -85,6 +84,7 @@ def index():
     passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
     )
 
+@login_required(unauthenticated)
 @app.route('/addmongoentry', methods = ["POST"])
 def mongoentry():
     name = request.form['title']
