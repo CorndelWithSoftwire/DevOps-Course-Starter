@@ -35,4 +35,5 @@ deploy:
     - module8       # To be removed eventually
     - module9       # To be removed eventually
     - Module10
+    - module10
     
