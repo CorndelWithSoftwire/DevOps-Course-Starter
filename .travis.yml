@@ -16,7 +16,7 @@ jobs:
     - stage: test
       name: "Build and deploy"
       script: bash travis_test
-      after_success:
+      before_deploy:
         - bash docker_push
       deploy:
         provider: script

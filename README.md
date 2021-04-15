@@ -60,3 +60,7 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 #### how to run tests
 - ensure chromedriver is downloaded and added to system path (https://chromedriver.chromium.org/downloads) 
 - run `poetry run pytest` from the command line
+
+### Deployment
+The application is deployed to heroku when a new commit/merge is made to the `master` branch
+The application can be assessed on https://<HEROKU_APP_NAME>.herokuapp.com/. (HEROKU_APP_NAME is 'todo-test-application' or configured env variable)
