@@ -1,13 +1,11 @@
 
 from flask import Flask, render_template, redirect, url_for, request,json
-from flask_config import Config
 import requests
 import os
-import trello_client as trello
-from todo_item import TodoItem
+import todo_app.trello_client as trello
+from todo_app.todo_item import TodoItem
 
 app = Flask(__name__)
-app.config.from_object(Config)
 
 base_url = "https://api.trello.com/1/"
 query = {'key': os.getenv('API_KEY'), 'token': os.getenv('API_TOKEN')}
