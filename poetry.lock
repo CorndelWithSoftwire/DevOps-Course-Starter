@@ -118,6 +118,26 @@ docs = ["sphinx", "pallets-sphinx-themes", "sphinxcontrib-log-cabinet", "sphinx-
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-dance"
+version = "3.3.1"
+description = "Doing the OAuth dance with style using Flask, requests, and oauthlib"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Flask = ">=0.7"
+oauthlib = "*"
+requests = ">=2.0"
+requests-oauthlib = ">=1.0.0"
+six = "*"
+urlobject = "*"
+
+[package.extras]
+signals = ["blinker"]
+sqla = ["sqlalchemy", "sqlalchemy-utils"]
+
+[[package]]
 name = "flask-login"
 version = "0.5.0"
 description = "User session management for Flask"
@@ -326,6 +346,21 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 
 [[package]]
+name = "requests-oauthlib"
+version = "1.3.0"
+description = "OAuthlib authentication support for Requests."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[package.dependencies]
+oauthlib = ">=3.0.0"
+requests = ">=2.0.0"
+
+[package.extras]
+rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
+
+[[package]]
 name = "selenium"
 version = "3.141.0"
 description = "Python bindings for Selenium"
@@ -335,6 +370,14 @@ python-versions = "*"
 
 [package.dependencies]
 urllib3 = "*"
+
+[[package]]
+name = "six"
+version = "1.15.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "toml"
@@ -356,6 +399,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 brotli = ["brotlipy (>=0.6.0)"]
 secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+
+[[package]]
+name = "urlobject"
+version = "2.4.3"
+description = "A utility class for manipulating URLs."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "webdriver-manager"
@@ -385,7 +436,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "1ec7cea79924efa0d71c1fe1b14b1a856eada8e486f9b667db8cdfa183c51979"
+content-hash = "cdbd4d4e8d901247fdbd83dc31148ec0989dc9d9ae23b9b030d3f9451405bb3f"
 
 [metadata.files]
 atomicwrites = [
@@ -478,6 +529,11 @@ dnspython = [
 flask = [
     {file = "Flask-1.1.2-py2.py3-none-any.whl", hash = "sha256:8a4fdd8936eba2512e9c85df320a37e694c93945b33ef33c89946a340a238557"},
     {file = "Flask-1.1.2.tar.gz", hash = "sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060"},
+]
+flask-dance = [
+    {file = "Flask-Dance-3.3.1.tar.gz", hash = "sha256:6a570e051fe40148698080c65b815704641bf05091fbb9becae549b8d8e1e33b"},
+    {file = "Flask_Dance-3.3.1-py2.7.egg", hash = "sha256:4a0fbfc6c2f9356d8d1dda9c91fa1359d641324e597d8097b7f39a441561f4d6"},
+    {file = "Flask_Dance-3.3.1-py2.py3-none-any.whl", hash = "sha256:cd2955a46cf3b72ff9b0b5a6521df5aed05dd5189eb312a5d27a9e2e4983ce29"},
 ]
 flask-login = [
     {file = "Flask-Login-0.5.0.tar.gz", hash = "sha256:6d33aef15b5bcead780acc339464aae8a6e28f13c90d8b1cf9de8b549d1c0b4b"},
@@ -659,9 +715,18 @@ requests = [
     {file = "requests-2.25.1-py2.py3-none-any.whl", hash = "sha256:c210084e36a42ae6b9219e00e48287def368a26d03a048ddad7bfee44f75871e"},
     {file = "requests-2.25.1.tar.gz", hash = "sha256:27973dd4a904a4f13b263a19c866c13b92a39ed1c964655f025f3f8d3d75b804"},
 ]
+requests-oauthlib = [
+    {file = "requests-oauthlib-1.3.0.tar.gz", hash = "sha256:b4261601a71fd721a8bd6d7aa1cc1d6a8a93b4a9f5e96626f8e4d91e8beeaa6a"},
+    {file = "requests_oauthlib-1.3.0-py2.py3-none-any.whl", hash = "sha256:7f71572defaecd16372f9006f33c2ec8c077c3cfa6f5911a9a90202beb513f3d"},
+    {file = "requests_oauthlib-1.3.0-py3.7.egg", hash = "sha256:fa6c47b933f01060936d87ae9327fead68768b69c6c9ea2109c48be30f2d4dbc"},
+]
 selenium = [
     {file = "selenium-3.141.0-py2.py3-none-any.whl", hash = "sha256:2d7131d7bc5a5b99a2d9b04aaf2612c411b03b8ca1b1ee8d3de5845a9be2cb3c"},
     {file = "selenium-3.141.0.tar.gz", hash = "sha256:deaf32b60ad91a4611b98d8002757f29e6f2c2d5fcaf202e1c9ad06d6772300d"},
+]
+six = [
+    {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
+    {file = "six-1.15.0.tar.gz", hash = "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
@@ -670,6 +735,9 @@ toml = [
 urllib3 = [
     {file = "urllib3-1.26.3-py2.py3-none-any.whl", hash = "sha256:1b465e494e3e0d8939b50680403e3aedaa2bc434b7d5af64dfd3c958d7f5ae80"},
     {file = "urllib3-1.26.3.tar.gz", hash = "sha256:de3eedaad74a2683334e282005cd8d7f22f4d55fa690a2a1020a416cb0a47e73"},
+]
+urlobject = [
+    {file = "URLObject-2.4.3.tar.gz", hash = "sha256:47b2e20e6ab9c8366b2f4a3566b6ff4053025dad311c4bb71279bbcfa2430caa"},
 ]
 webdriver-manager = [
     {file = "webdriver_manager-3.3.0-py2.py3-none-any.whl", hash = "sha256:22ae0ace4da117472302c21ead8ec05eb5c1312eeeba97547395d79f83afb241"},
