@@ -14,13 +14,12 @@ class Item:
 
     @staticmethod
     def from_response(response):
-        config = Config()
         r_title = response['name']
-        r_status = Status.COMPLETED if config.DONE_LIST_ID == response['idList'] else Status.NOT_STARTED
-        r_id = response['id']
+        r_status = Status[response['status']]
+        r_id = response['_id']
         r_desc = response['desc']
-        datestr = response['dateLastActivity'].split('T')[0]
-        r_last_changed = datetime.fromisoformat(datestr).date()
+        r_last_changed = response['dateLastActivity'].date()
+        # r_last_changed = datetime.fromisoformat(datestr).date()
         return Item(r_id, r_title, r_status, r_desc, r_last_changed)
 
 
