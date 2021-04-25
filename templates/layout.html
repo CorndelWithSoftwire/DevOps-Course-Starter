@@ -24,12 +24,27 @@
           content: "\f067"; 
           background-color: #bde3ff;
       }
+      .jumbotron {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      .jumbotron p{
+        margin-bottom: 0;
+      }
 
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <a class="navbar-brand" href="/">To-Do App v.Module9</a>
+      <div><a class="navbar-brand" href="/">To-Do App</a></div>
+      <div style="position: absolute; right: 50px;">
+      {% if current_user.is_authenticated %}
+       <form action="/logout">
+         <input type="submit" value="LogOut" />
+       </form>
+      {% endif %}
+      </div>  
     </nav>
 
     <div class="container body-content">
