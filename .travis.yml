@@ -12,8 +12,8 @@ env:
     #heroku_login
     - secure: "J6O8nLCQq8Qr4fkXRtd9kc0kp5UNymXcWZk6d2j/SGHWLiNxsgkGNVOMv8L5SqYCx5GfmUC7Tvag72f8+TIc2BiznlCAgia5kXY2syWxhwxhT5bvXXGoRL9j53W20FvjHWwUMiwTnqV4d+1eSpqWGoWCtd/kT5XiGgXQW3I2d6R4OzhOjNR2UcZEYhu3U6o5Zn5pZPzfFgaqMdk6iKoa5KFwBR+1wLJYOndlp0SlsNBjbtnDfy2GrqeZiEIjnn3HjyhPkAqWBtEGkut167JVYQRbJ1mC+puStpZeK0oRBh4Um5i9ufYCKnOqi/lRmH6oD8hHPXRY2P2ZlY4c1FcfflseoT36/Zlh78/LZBKVSFd0Z/LYPr3eWylHF+0gfbxA4zda+cgcVlPiOgt52OZopk3RQm19CHnMQSAuxhCpCii+zDB9dYJ+dA5+TtWCF1XEx1G4efNFDJIFw6A/ix5Pu+/vHdkA0XJnQd5WXPuHJmdKKN5NaRA2TiHeS2rwJhWLm+zKCfTBhCWyxMHHUOmq2P/IejeAXab1Fcq7t4oOmX86UXUkAc6lyCmH8QcG36uYYKqZbRDk4lvy0HEOnp1MdX1yuAr4SrUjfYixrAq846DASyszgp2Ou6m8WtpcVGx+qz6Hh/ByfrTM2YCkOSBndj7Jkc7d933AfYjf/4puIVI="
   # Azure
-    # mongo_connection
-    -   secure: "dzmE/aKOVLaJ0lum3hq1mQ/e/gc46BkpeXp3fnOnCpO2R+AYF9GoU18DQamV+cS2cDNavlMBdbOMH7ZjKK0jhkFnYKQgIaIUQ8Kx/AiFvjypp7GiXXMXT7KZMjFaA5WWN2rYQCaHSwmLhbjReFLz6eNE6QazCWyF/9yxQ8hGn6W9Dqqwx0vqVi63WgbA7lPielLsId3Ian92SZyDitleDWQdXxux3rwe0l+hF75WFDFwxqsuivDiER37IXC74yx/D4YsdbhPJ08XLOonsmAYD89ni5BSfHGaepKFbLMJp2aDlz4Zt/oEQ+5+1kmVDlt5RoE8+2T7vQmVZa8ATPt68tGQ4vDmzzwLfhXWKhhLep3nd0FtgebrpV6p8HpLyxWuMMkbzmEoDmdq5LFzT9WfadCq6jzChJdFgmKtgFRHRHJ+g+94uWNJg/MxUGSB8siR3g86InGgPDGiN8wuOS3GCRDRN/is5Gj3qnGxI67tA1upFdOffQBahbWBoZj8W7UoSOfsmwFOu0g17nb/u5Sw4cp42ifDhLHDBAb9dmdocahGhmbGxqZTKtuPVAaKYCVJGhvRiHig7Pt3MxldyOj5Ic2LDFO1Uqie7IVFmtto22jUqZC2S4AMfOEWHUnh6H5K9oHgV3hKFtccJ/L/GdxAeQnoyG/IKpKK2qNXhhhqJME="
+    # azure_hook
+    - secure: "cqqZFqiKK3hFRxkubTGCC/wEeZ/jKykh7rYMH63/KTZjX2ZLQAeHxBgq20p+OaeYIs4oK8LalTIeJLXmVZ1TQ0cFrRtrglA0NCrXmwCfgWoOyodIEQEgo8vh+YI5zNHIkiZyKwL5k+KG/ASE65O0ELs5saSooXDrAkRlzrFy/UAPEYCzTPf35bYE0bTGZPZfJeFX319B3VVCL9vWao4InVkDxSaFhEaqC4Fcd8k69kT46wNrc6RP72LUax4nBoromRZXcUvglOZWlBqLAqqGIER1mnDk30rMRyTFF54d8fH8sU34sTJwZoh350MrOWr5acha9HP9knIcKDEJd0HDh61T3/f4N/5Lj799SJYOaYvA+Tz1Y1Eo+4zSIqB0WgT0Yy4yoxkoklNnrBxpqK/M7uyxHw//ddSKfCOu00ERsh3ZiQkUfhIPv+0detzT0skoKbjPzPSt3ZZMF0dKNcaMkEk3Rly92cJz7S/oK0OckctBghUJMnw5OzQv9mp9K1t/x+prR1XwHd18OZnm45z6oge6GqqsD9tnGNVVVjzerC86nCEhptVRMINTsbMuIfiPwZrcneU1om4894YefevXFJV53s/pirZWpXxqWM4XezQ/CByZ3ZYquWCUYW/QkxfJ/8av7G+/ybGAfcHnu6fsmUxP0yJ5FTtnHge8Rps+ov0="
 services:
   - docker
 
@@ -42,13 +42,11 @@ script:
   - docker build --target production --tag $docker_login/todoapp:latest .
   - docker push $docker_login/todoapp:latest
 
-  - echo "Pull image from Dockerhub and Tag"
-  - docker pull $docker_login/todoapp:latest     
-  - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
+  - echo "Trigger docker image pull on Azure"
 
 # Trigger Azure Deploy
 deploy:
   provider: script
-  script: curl -dH -X POST $mongo_connection
+  script: curl -dH -X POST $azure_hook
   on:
       all_branches: true
