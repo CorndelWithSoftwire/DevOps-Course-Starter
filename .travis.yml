@@ -46,17 +46,13 @@ script:
   - docker build --target production --tag $docker_login/todoapp:latest .
   - docker push $docker_login/todoapp:latest
 
-  # Docker Pull latest image & Tag
   - echo "Pull image from Dockerhub and Tag"
   - docker pull $docker_login/todoapp:latest     
   - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
-  # Trigger Azure Deploy
-  - curl -dH -X POST $mongo_connection
-
-# Release image in Heroku
+# Trigger Azure Deploy
 deploy:
   provider: script
-  script: heroku container:release web --app rajrahmantodoapp
+  script: curl -dH -X POST $mongo_connection
   on:
       all_branches: true
