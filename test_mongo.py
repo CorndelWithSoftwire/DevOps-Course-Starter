@@ -4,6 +4,7 @@ import pytest
 import requests
 import app as app
 import mongo_items as mongo
+import pymongo
 from threading import Thread 
 import time
 import unittest
@@ -35,11 +36,15 @@ def test_create_and_delete_board():
 @pytest.fixture(scope='module')
 def test_app():
     # Create the new board & update the board id environment variable
-    mongo.create_database("TestAppBoard") 
     os.environ['MONGO_DB_NAME'] = "TestAppBoard"
     os.environ['MONGO_LIST_TODO'] = 'todo'
     os.environ['MONGO_LIST_INPROGRESS']  = 'inprogress'
     os.environ['MONGO_LIST_DONE'] = 'done'
+
+    mongo_conn = os.environ["MONGO_CONN"]
+    client = pymongo.MongoClient(mongo_conn)
+    db = client[os.environ['MONGO_DB_NAME']]
+    collection = db[os.environ['MONGO_LIST_TODO']]
 
     # construct the new application
     application = app.create_app()
@@ -53,9 +58,6 @@ def test_app():
     mongo.delete_database("TestAppBoard")
 
 @pytest.fixture(scope="module")
-# def driver():
-#     with webdriver.Firefox() as driver:
-#         yield driver
 def driver():
     opts = webdriver.ChromeOptions()
     opts.add_argument('--headless')

@@ -54,10 +54,10 @@ def create_app():
     @login_required
     def add_item():
         task = request.form['task_description']
-        if(current_user.userrole == 'writer'):
-            mongo_items.add_item(task)
-        else:
-            flash('You must be logged in to add tasks','alert alert-danger')
+        #if(current_user.userrole == 'writer'):
+        mongo_items.add_item(task)
+        #else:
+        #    flash('You must be logged in to add tasks','alert alert-danger')
         return redirect(url_for('index'))
 
     @app.route('/tasks/<id>/complete', methods=['POST'])
