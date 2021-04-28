@@ -15,7 +15,9 @@ env:
     - secure: "DKYA4sYt6Qet39+erw7L/RMSgBp3Up0KUk51SUnddzZAizg3wWy+vrWyjM6PN/B4AtlKpYiJORf0ENvMtLO6q0IiT0aM3u+Ha7CDgcG10F8cBYvQSVhUh5BXoX4+bsjn3D7e+ldTAfMOzqrHDUIVsi1xe2Mog6HNSlHu+MW6Q+UtFAQ8Q7qBS2zknVXLhtkzoMw64czqvAuM8TXFi+fSOeeWlbZx9fYlZmieLZ2giOClb8+3Y+e/zGS2EmWtD1Welb7byjJUh4Vq7k0lvWDQy80z1K1AHBuJI4BHvoJ8Zlup51P9OhfOblbpDCvU+L78rYsHLnPwLablak0nxdcuxbtKsv/kMl22hXt2ZLNb4C9x5WYbhCgPy1Ur2o9D+Tj/4VT5qo4HO0UPdPeL/2m5j8sFjk3MB2zYx6UEGrv79CKZ7EZJwGdcswijGGva+/e5CIVk7svZM6gQJfmoDrHmCFSbkPkcDX/cgtgakOS1CH5Kx5O6e6vOx2vGAcMAqxpv4LWP6pVzAbhmuwE46FyvA8M+CfzYsnWYRz4lqnVQxjf2RRIIhZ/idrSHc0Qgs1MWrvsZX2YPUc2jU38pInQMVh+2VFjuRjBW2f6T/so+CgcSEeW62Sl3epwsuHYodbI7Nqb9X5auwbS80xlO8XUu4LECY7x9NUrOsaUTMSU7hPU="
     #heroku_login
     - secure: "J6O8nLCQq8Qr4fkXRtd9kc0kp5UNymXcWZk6d2j/SGHWLiNxsgkGNVOMv8L5SqYCx5GfmUC7Tvag72f8+TIc2BiznlCAgia5kXY2syWxhwxhT5bvXXGoRL9j53W20FvjHWwUMiwTnqV4d+1eSpqWGoWCtd/kT5XiGgXQW3I2d6R4OzhOjNR2UcZEYhu3U6o5Zn5pZPzfFgaqMdk6iKoa5KFwBR+1wLJYOndlp0SlsNBjbtnDfy2GrqeZiEIjnn3HjyhPkAqWBtEGkut167JVYQRbJ1mC+puStpZeK0oRBh4Um5i9ufYCKnOqi/lRmH6oD8hHPXRY2P2ZlY4c1FcfflseoT36/Zlh78/LZBKVSFd0Z/LYPr3eWylHF+0gfbxA4zda+cgcVlPiOgt52OZopk3RQm19CHnMQSAuxhCpCii+zDB9dYJ+dA5+TtWCF1XEx1G4efNFDJIFw6A/ix5Pu+/vHdkA0XJnQd5WXPuHJmdKKN5NaRA2TiHeS2rwJhWLm+zKCfTBhCWyxMHHUOmq2P/IejeAXab1Fcq7t4oOmX86UXUkAc6lyCmH8QcG36uYYKqZbRDk4lvy0HEOnp1MdX1yuAr4SrUjfYixrAq846DASyszgp2Ou6m8WtpcVGx+qz6Hh/ByfrTM2YCkOSBndj7Jkc7d933AfYjf/4puIVI="
-
+  # Azure
+    # mongo_connection
+    -   secure: "dzmE/aKOVLaJ0lum3hq1mQ/e/gc46BkpeXp3fnOnCpO2R+AYF9GoU18DQamV+cS2cDNavlMBdbOMH7ZjKK0jhkFnYKQgIaIUQ8Kx/AiFvjypp7GiXXMXT7KZMjFaA5WWN2rYQCaHSwmLhbjReFLz6eNE6QazCWyF/9yxQ8hGn6W9Dqqwx0vqVi63WgbA7lPielLsId3Ian92SZyDitleDWQdXxux3rwe0l+hF75WFDFwxqsuivDiER37IXC74yx/D4YsdbhPJ08XLOonsmAYD89ni5BSfHGaepKFbLMJp2aDlz4Zt/oEQ+5+1kmVDlt5RoE8+2T7vQmVZa8ATPt68tGQ4vDmzzwLfhXWKhhLep3nd0FtgebrpV6p8HpLyxWuMMkbzmEoDmdq5LFzT9WfadCq6jzChJdFgmKtgFRHRHJ+g+94uWNJg/MxUGSB8siR3g86InGgPDGiN8wuOS3GCRDRN/is5Gj3qnGxI67tA1upFdOffQBahbWBoZj8W7UoSOfsmwFOu0g17nb/u5Sw4cp42ifDhLHDBAb9dmdocahGhmbGxqZTKtuPVAaKYCVJGhvRiHig7Pt3MxldyOj5Ic2LDFO1Uqie7IVFmtto22jUqZC2S4AMfOEWHUnh6H5K9oHgV3hKFtccJ/L/GdxAeQnoyG/IKpKK2qNXhhhqJME="
 services:
   - docker
 
@@ -38,7 +40,7 @@ script:
 
   # Docker Run E2E 
   - echo "Running E2E Tests"
-  - docker run -e MONGO_DB_NAME -e MONGO_CONN -e MONGO_LIST_TODO -e MONGO_LIST_INPROGRESS -e MONGO_LIST_DONE todoapp:test test_mongo.py
+  - docker run -e MONGO_DB_NAME=$MONGO_DB_NAME -e MONGO_CONN=$MONGO_CONN -e MONGO_LIST_TODO=$MONGO_LIST_TODO -e MONGO_LIST_INPROGRESS=$MONGO_LIST_INPROGRESS -e MONGO_LIST_DONE=$MONGO_LIST_DONE todoapp:test test_mongo.py
 
   # Docker PRODUCTION Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
@@ -49,13 +51,8 @@ script:
   - docker pull $docker_login/todoapp:latest     
   - docker tag $docker_login/todoapp:latest registry.heroku.com/rajrahmantodoapp/web
 
-  # Login to Heroku
-  - echo "Login to Heroku"
-  - echo $HEROKU_API_KEY | docker login --username=$heroku_login --password-stdin registry.heroku.com
- 
-  # Push image to Heroku
-  - echo "Push image to Heroku"
-  - docker push registry.heroku.com/rajrahmantodoapp/web
+  # Trigger Azure Deploy
+  - curl -dH -X POST $mongo_connection
 
 # Release image in Heroku
 deploy:
