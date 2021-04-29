@@ -40,8 +40,9 @@ def test_app():
     os.environ['MONGO_LIST_TODO'] = 'todo'
     os.environ['MONGO_LIST_INPROGRESS']  = 'inprogress'
     os.environ['MONGO_LIST_DONE'] = 'done'
+    os.environ['LOGIN_DISABLED'] = 'True'
 
-    mongo_conn = os.environ["MONGO_CONN"]
+    mongo_conn = os.environ.get('MONGO_CONN')
     client = pymongo.MongoClient(mongo_conn)
     db = client[os.environ['MONGO_DB_NAME']]
     collection = db[os.environ['MONGO_LIST_TODO']]
