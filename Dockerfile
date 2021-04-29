@@ -1,6 +1,6 @@
 FROM python:3.8.6-slim-buster as base
 
-RUN apt-get update \
+RUN apt-get update --fix-missing\
     && apt-get install -y curl \
     && mkdir todo_app \
     && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
@@ -22,13 +22,11 @@ RUN poetry install
 ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
 
 FROM base as test
-RUN apt-get update --fix-missing
 RUN apt-get install firefox-esr -y
 RUN poetry install
 ENTRYPOINT [ "poetry", "run", "watchmedo", "shell-command", "--recursive", "--patterns=*.py;*.html", "--command=poetry run pytest tests", "--debug-force-polling", "." ]
 
 FROM base as travistest
-RUN apt-get update --fix-missing
 RUN apt-get install firefox-esr -y
 COPY todo_app /todo_app
 WORKDIR /todo_app
