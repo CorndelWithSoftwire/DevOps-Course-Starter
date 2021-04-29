@@ -36,7 +36,7 @@ script:
 
   # Docker Run E2E 
   - echo "Running E2E Tests"
-  - docker run -e MONGO_CONN=$MONGO_CONN todoapp:test test_mongo.py
+  - docker run --env MONGO_CONN todoapp:test test_mongo.py
 
   # Docker PRODUCTION Build and Push 
   - docker build --target production --tag $docker_login/todoapp:latest .
@@ -45,8 +45,17 @@ script:
   - echo "Trigger docker image pull on Azure"
 
 # Trigger Azure Deploy
-deploy:
-  provider: script
-  script: curl -dH -X POST $azure_hook
-  on:
-      all_branches: true
+# deploy:
+#   provider: script
+#   script: curl -dH -X POST $azure_hook
+#   on:
+#       all_branches: true
+"notifications": {
+  "webhooks": [
+    {
+      "urls": [
+        $azure_hook
+      ]
+    }
+  ]
+}
