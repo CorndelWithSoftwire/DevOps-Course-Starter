@@ -1,6 +1,6 @@
 FROM python:3.8.6-slim-buster as base
 
-RUN apt-get update \
+RUN apt-get update --fix-missing \
     && apt-get install -y curl \
     && mkdir todo_app \
     && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python 
