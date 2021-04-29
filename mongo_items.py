@@ -6,7 +6,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 
 def connect_to_mongo():
-    mongo_conn = os.environ["MONGO_CONN"]
+    mongo_conn = os.environ.get("MONGO_CONN")
     client = pymongo.MongoClient(mongo_conn)
     database = client[os.environ["MONGO_DB_NAME"]]
 
@@ -113,7 +113,7 @@ def insert_and_update_doc(collection,card,id,status):
     )
 
 def create_database(dbname):
-    mongo_conn = os.environ["MONGO_CONN"]
+    mongo_conn = os.environ.get("MONGO_CONN")
     client = pymongo.MongoClient(mongo_conn)
     db = client[dbname]
     collection = db['test-collection']
@@ -122,7 +122,7 @@ def create_database(dbname):
     return id
 
 def delete_database(dbname):
-    mongo_conn = os.environ["MONGO_CONN"]
+    mongo_conn = os.environ.get("MONGO_CONN")
     client = pymongo.MongoClient(mongo_conn)
     client.drop_database(dbname)
 
