@@ -43,6 +43,8 @@ def test_app():
     os.environ['LOGIN_DISABLED'] = 'True'
 
     mongo_conn = os.environ.get('MONGO_CONN')
+    mongo_conn = "mongodb+srv://rajrahman:NWyZIpz9kFnOW4dn@corndel.gyf3r.mongodb.net/test?w=majority"
+    os.environ['MONGO_CONN'] = mongo_conn
     client = pymongo.MongoClient(mongo_conn)
     db = client[os.environ['MONGO_DB_NAME']]
     collection = db[os.environ['MONGO_LIST_TODO']]
