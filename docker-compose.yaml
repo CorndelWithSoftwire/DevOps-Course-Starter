@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  mongo:
+    image: dockerproxy.aexp.com/mongo:3.6.23
+    container_name: mongo
+    ports:
+    - 27017:27017
   todo_app:
     container_name: todo_app
     build:

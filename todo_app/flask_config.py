@@ -11,7 +11,6 @@ class Config:
         self.LIST_ID = os.environ.get('LIST_ID')
         self.DONE_LIST_ID = os.environ.get('DONE_LIST_ID')
         self.MONGO_URL = os.environ.get('MONGO_URL')
-        # self.MONGO_PORT = os.environ.get('MONGO_PORT')
         self.MONGO_DB_NAME = os.environ.get('MONGO_DB_NAME')
         self.MONGO_LIST_COLLECTION = os.environ.get('MONGO_LIST_COLLECTION')
         if not self.SECRET_KEY:

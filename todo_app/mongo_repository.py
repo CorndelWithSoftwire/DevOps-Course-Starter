@@ -1,8 +1,9 @@
 from datetime import datetime
 from pprint import pprint
 
+import pymongo
 from bson import ObjectId
-from pymongo import MongoClient, ReturnDocument
+from pymongo import ReturnDocument
 
 from todo_app.flask_config import Config
 from todo_app.item import Status, Item
@@ -11,10 +12,7 @@ from todo_app.item import Status, Item
 class MongoRepository:
     def __init__(self):
         self.config = Config()
-        pprint(self.config.MONGO_URL)
-        pprint(self.config.MONGO_DB_NAME)
-        pprint(self.config.MONGO_LIST_COLLECTION)
-        mongo_client = MongoClient(self.config.MONGO_URL)
+        mongo_client = pymongo.MongoClient(self.config.MONGO_URL)
         self.db = mongo_client[self.config.MONGO_DB_NAME]
         self.todo_collection = self.db[self.config.MONGO_LIST_COLLECTION]
 
