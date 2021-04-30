@@ -22,10 +22,8 @@ TRELLO_TODO_BOARDID = ##replace with ID of board from Trello to use with this ap
 
 ```
 
-## Travis CI & Docker Hub
-create an account at Travis CI and Docker Hub
-Login to the Travis account and navigate to more options -> Settings
-add an environment variable called DOCKER_USER with a value of your docker hub username
+## Travis CI, Docker Hub & Heroku
+This app uses an account at Travis CI, Docker Hub & heroku to run a CI/CD pipeline to deploy to http://kedevopstodoapp.herokuapp.com/
 
 ## Running the App
 
