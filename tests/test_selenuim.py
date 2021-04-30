@@ -1,39 +1,28 @@
-import os
 from threading import Thread
 
+import mongomock
 import pytest
 from selenium import webdriver
 from dotenv import find_dotenv, load_dotenv
 
-from todo_app import trello_boards, app
-from todo_app.trello_boards import TrelloBoard
+from todo_app import app
 
 
 @pytest.fixture(scope='module')
 def test_app():
-    file_path = find_dotenv('.env')
-    load_dotenv(file_path, override=True)
-    # Create the new board & update the board id environment variable
-    create_board_response = trello_boards.create_board('sel_test_board')
-    board_id = create_board_response.json()['id']
-    os.environ['TRELLO_BOARD_ID'] = board_id
-    # Set board list ids
-    board_lists = trello_boards.get_lists_in_board(board_id)
-    trello_board = TrelloBoard(board_lists.json())
-    todo_id = trello_board.list_id('To Do')
-    done_id = trello_board.list_id('Done')
-    os.environ['LIST_ID'] = todo_id
-    os.environ['DONE_LIST_ID'] = done_id
-    # construct the new application
-    application = app.create_app()
-    # start the app in its own thread.
-    thread = Thread(target=lambda: application.run(use_reloader=False))
-    thread.daemon = True
-    thread.start()
-    yield app
-    # Tear Down
-    thread.join(1)
-    trello_boards.delete_board(board_id)
+    with mongomock.patch(servers=('mongodb://example:27017/',)):
+        file_path = find_dotenv('../.env.test')
+        load_dotenv(file_path, override=True)
+        # construct the new application
+        application = app.create_app()
+        # start the app in its own thread.
+        thread = Thread(target=lambda: application.run(use_reloader=False))
+        thread.daemon = True
+        thread.start()
+        yield app
+        # Tear Down
+        thread.join(1)
+        print('Completed tests')
 
 
 @pytest.fixture(scope="module")

@@ -64,13 +64,3 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 ### Deployment
 The application is deployed to heroku when a new commit/merge is made to the `master` branch
 The application can be assessed on https://<HEROKU_APP_NAME>.herokuapp.com/. (HEROKU_APP_NAME is 'todo-test-application' or configured env variable)
-
-
-password1234
-
-app-user
-
-client = pymongo.MongoClient("mongodb+srv://app-user:<password>@cluster0.z0xnz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-db = client.test
-
-cluster0-shard-00-01.z0xnz.mongodb.net

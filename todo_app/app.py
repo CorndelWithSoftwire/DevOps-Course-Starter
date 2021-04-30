@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-import todo_app.trello_items as trello
 from todo_app.mongo_repository import MongoRepository
 from todo_app.viewmodel import ViewModel
 
