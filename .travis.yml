@@ -5,20 +5,14 @@ env:
   # Docker
     - secure: "xxUmhWPB0MLv7DrKeLrt7Q5eNOjSFOL1phnaLLdmvipKBz12eCzgRiAhCmXWroMe4diIaodvcgKgc32kMwiNXaAVGuSOdTs04vRPB5YyGJSQn0BcFuVfBHH+ZPdtLDHzMB/toC1Nk/vF9cUGPvBPA1wDlxbFuEP7ARFUzdfhANIttNB2PVpWOAEWRBFceCpmcKzonhyRKCHZUO1rn64hzTMHJJbPKrpeDDrlJKwIlCSL3JzmuLxZ7cAGoLwQ2irAat6ZX+o+E4L042/+/AFmmlW9AouGHhEACqL9HhzZ1Z7p7SDYV3c6yXQ75j/HpW5RtaJWywEO1aX7Kk0q9mcWjH/X+rlPhtIaUmxFhQyrw9wW6KphQSxIDUYD6bivEWtdwGxPSYQWeO0GczXDv8/dw+mtz8i0/MfsGzUXadmy8F/zvhxSMx5WwaKvleBzLpbuKxXO4BCxcpgXofECByqTdi00NogwEaQOgm+0YU90cl0bvDEqqGP/kDqsR0Q0ZPBiK3+ckrnJrqMnPYCo3eBDKaVVT6PWDSACfVo0xdTxmS0KJWVnAXsYBz8hOr8v0nkiTD3GL/fUZe1wNQO+3T1oRPeYB+Lj7A/WzMcGCBomcyzeW3a4oxCaiRAA4MMS5QFIX9K5NWvSage9NzCJux2dFDU9UgPj8Dylby94Fu4wlBY="
     - secure: "J61/KUCNGuWiZ6kiZDMjcKWFXGfnluE2+umVV8zgKX0MmGMv5ZyB1QIBNgQi72UUZSrvCUFh+lf77t7SgdHVM2hrsAITgFraFIl3Cyd3nfSoyoI2g7clhtar3rOovyg+hmScVDy96xeIgbT+DOzdEqKw5AEanQO9wZxI+X6jUcqOJsj8dTVPJwaNOfQ/416qQxGQXKQMyBRn9N6e/Im0UmpfifqYLvnWK5+ELhxuFNs7ZZd/nzQRgA97u9ytDzHC1SIIK2LPLgn64IaiBdau8jWqD2PiveYlKzLEAu7aiDkLF7KUcOkh8Q3UUbf0sJt3IO0TJRUe0hdvcbpHpgHHQlTdKUuTVijpN9spdWobuLIp1QUug+zv1vlFUvypt1wR80wmiv9xFPYHrOvV7hTksNReo6yDeIE2H/YSLQSSKJaWfvT9vXDxMj4aNb3UVWp0FTdmd4d0xFG94pxYImXI/ZyzFqPES33MDDSC8ffIJfyX9MmNsEl3e6PaeWrgulp4Nkhene25R+kLrosqw+cTPoc92Hctm6zndrbUVeiywBPbRjXiEWakJ2MDzAqzd4GP/1tuxIL1YY8MOpKw4SNV19Ke1ywy59iRAb8GY4nj66aQOgErOdkGla8s69KJrr221rh4PusisYDRrirMev4MS0b68snxNjcN0FEk+IBvlL4="
-  # Heroku
-    - herokuapp: rajrahmantodoapp
-    #apikey
-    - secure: "DKYA4sYt6Qet39+erw7L/RMSgBp3Up0KUk51SUnddzZAizg3wWy+vrWyjM6PN/B4AtlKpYiJORf0ENvMtLO6q0IiT0aM3u+Ha7CDgcG10F8cBYvQSVhUh5BXoX4+bsjn3D7e+ldTAfMOzqrHDUIVsi1xe2Mog6HNSlHu+MW6Q+UtFAQ8Q7qBS2zknVXLhtkzoMw64czqvAuM8TXFi+fSOeeWlbZx9fYlZmieLZ2giOClb8+3Y+e/zGS2EmWtD1Welb7byjJUh4Vq7k0lvWDQy80z1K1AHBuJI4BHvoJ8Zlup51P9OhfOblbpDCvU+L78rYsHLnPwLablak0nxdcuxbtKsv/kMl22hXt2ZLNb4C9x5WYbhCgPy1Ur2o9D+Tj/4VT5qo4HO0UPdPeL/2m5j8sFjk3MB2zYx6UEGrv79CKZ7EZJwGdcswijGGva+/e5CIVk7svZM6gQJfmoDrHmCFSbkPkcDX/cgtgakOS1CH5Kx5O6e6vOx2vGAcMAqxpv4LWP6pVzAbhmuwE46FyvA8M+CfzYsnWYRz4lqnVQxjf2RRIIhZ/idrSHc0Qgs1MWrvsZX2YPUc2jU38pInQMVh+2VFjuRjBW2f6T/so+CgcSEeW62Sl3epwsuHYodbI7Nqb9X5auwbS80xlO8XUu4LECY7x9NUrOsaUTMSU7hPU="
-    #heroku_login
-    - secure: "J6O8nLCQq8Qr4fkXRtd9kc0kp5UNymXcWZk6d2j/SGHWLiNxsgkGNVOMv8L5SqYCx5GfmUC7Tvag72f8+TIc2BiznlCAgia5kXY2syWxhwxhT5bvXXGoRL9j53W20FvjHWwUMiwTnqV4d+1eSpqWGoWCtd/kT5XiGgXQW3I2d6R4OzhOjNR2UcZEYhu3U6o5Zn5pZPzfFgaqMdk6iKoa5KFwBR+1wLJYOndlp0SlsNBjbtnDfy2GrqeZiEIjnn3HjyhPkAqWBtEGkut167JVYQRbJ1mC+puStpZeK0oRBh4Um5i9ufYCKnOqi/lRmH6oD8hHPXRY2P2ZlY4c1FcfflseoT36/Zlh78/LZBKVSFd0Z/LYPr3eWylHF+0gfbxA4zda+cgcVlPiOgt52OZopk3RQm19CHnMQSAuxhCpCii+zDB9dYJ+dA5+TtWCF1XEx1G4efNFDJIFw6A/ix5Pu+/vHdkA0XJnQd5WXPuHJmdKKN5NaRA2TiHeS2rwJhWLm+zKCfTBhCWyxMHHUOmq2P/IejeAXab1Fcq7t4oOmX86UXUkAc6lyCmH8QcG36uYYKqZbRDk4lvy0HEOnp1MdX1yuAr4SrUjfYixrAq846DASyszgp2Ou6m8WtpcVGx+qz6Hh/ByfrTM2YCkOSBndj7Jkc7d933AfYjf/4puIVI="
   # Azure
     # azure_hook
     - secure: "cqqZFqiKK3hFRxkubTGCC/wEeZ/jKykh7rYMH63/KTZjX2ZLQAeHxBgq20p+OaeYIs4oK8LalTIeJLXmVZ1TQ0cFrRtrglA0NCrXmwCfgWoOyodIEQEgo8vh+YI5zNHIkiZyKwL5k+KG/ASE65O0ELs5saSooXDrAkRlzrFy/UAPEYCzTPf35bYE0bTGZPZfJeFX319B3VVCL9vWao4InVkDxSaFhEaqC4Fcd8k69kT46wNrc6RP72LUax4nBoromRZXcUvglOZWlBqLAqqGIER1mnDk30rMRyTFF54d8fH8sU34sTJwZoh350MrOWr5acha9HP9knIcKDEJd0HDh61T3/f4N/5Lj799SJYOaYvA+Tz1Y1Eo+4zSIqB0WgT0Yy4yoxkoklNnrBxpqK/M7uyxHw//ddSKfCOu00ERsh3ZiQkUfhIPv+0detzT0skoKbjPzPSt3ZZMF0dKNcaMkEk3Rly92cJz7S/oK0OckctBghUJMnw5OzQv9mp9K1t/x+prR1XwHd18OZnm45z6oge6GqqsD9tnGNVVVjzerC86nCEhptVRMINTsbMuIfiPwZrcneU1om4894YefevXFJV53s/pirZWpXxqWM4XezQ/CByZ3ZYquWCUYW/QkxfJ/8av7G+/ybGAfcHnu6fsmUxP0yJ5FTtnHge8Rps+ov0="
+
 services:
   - docker
 
 before_script:
-  - curl https://cli-assets.heroku.com/install.sh | sh
   - docker login --username $docker_login --password $docker_password
 
 script:
@@ -36,7 +30,7 @@ script:
 
   # Docker Run E2E 
   - echo "Running E2E Tests"
-  - docker run --env MONGO_CONN="$MONGO_CONN" todoapp:test test_mongo.py
+  - docker run -e MONGO_CONN="$MONGO_CONN" todoapp:test test_mongo.py
 
   # Docker PRODUCTION Build and Push 
   - echo "Build Docker image and push to Docker Hub"
@@ -44,14 +38,14 @@ script:
   - docker push $docker_login/todoapp:latest
 
   - echo "Trigger docker image pull on Azure"
-  - curl -dH -X POST $AZUREHOOK -H -d
+#  - curl -dH -X POST "$AZUREHOOK" -H -d
 
 # Trigger Azure Deploy
-# deploy:
-#   provider: script
-#   script: curl -dH -X POST $azure_hook
-#   on:
-#       all_branches: true
+deploy:
+  provider: script
+  script: curl -dH -X POST "$AZUREHOOK"
+  on:
+      all_branches: true
 
 
 # notifications:
