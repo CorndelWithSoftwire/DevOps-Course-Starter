@@ -12,7 +12,9 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
+import mongomock
 
+@mongomock.patch(servers=(("mongo", 27017),))   
 def test_task_journey(driver, test_app):
     driver.get('http://localhost:5000/')
     
@@ -67,6 +69,7 @@ def driver():
     with webdriver.Chrome(ChromeDriverManager().install(), options=opts) as driver:
         yield driver
 
+@mongomock.patch(servers=(("mongo", 27017),))   
 def test_createTask(driver, test_app):
     driver.get('http://localhost:5000/')
     driver.find_element_by_id("addTask").send_keys("raj is the best")
