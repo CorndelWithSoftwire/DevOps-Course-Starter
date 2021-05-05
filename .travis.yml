@@ -43,7 +43,7 @@ script:
 # Trigger Azure Deploy
 deploy:
   provider: script
-  script: curl -dH -X POST "$AZUREHOOK"
+  script: curl -dH -X POST $AZUREHOOK
   on:
       all_branches: true
 
