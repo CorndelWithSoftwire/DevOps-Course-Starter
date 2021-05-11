@@ -84,7 +84,7 @@ def index():
     passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
     )
 
-@login_required(unauthenticated)
+# @login_required(unauthenticated)
 @app.route('/addmongoentry', methods = ["POST"])
 def mongoentry():
     name = request.form['title']
