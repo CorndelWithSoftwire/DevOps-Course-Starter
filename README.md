@@ -73,3 +73,11 @@ poetry run flask run
 
 Changes to template
 index.html
+
+Module-3-Automated Testing
+Installed pytest from poetry
+Items id, items status, items title are set in items.py
+Api key, Token and ids are declared in .env
+viewModel.py have to do items, doing and done items
+unit test for checking to do items-paased test
+

@@ -1,0 +1,33 @@
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{0}: checkout: moving from Exercise2 to Exercise3
+[33m50dcd79[m[33m ([m[1;31morigin/Exercise2[m[33m, [m[1;32mExercise2[m[33m)[m HEAD@{1}: checkout: moving from Exercise3 to Exercise2
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{2}: checkout: moving from Exercise2 to Exercise3
+[33m50dcd79[m[33m ([m[1;31morigin/Exercise2[m[33m, [m[1;32mExercise2[m[33m)[m HEAD@{3}: checkout: moving from Exercise2 to Exercise2
+[33m50dcd79[m[33m ([m[1;31morigin/Exercise2[m[33m, [m[1;32mExercise2[m[33m)[m HEAD@{4}: checkout: moving from Exercise3 to Exercise2
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{5}: checkout: moving from master to Exercise3
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{6}: checkout: moving from Exercise2 to master
+[33m50dcd79[m[33m ([m[1;31morigin/Exercise2[m[33m, [m[1;32mExercise2[m[33m)[m HEAD@{7}: checkout: moving from Exercise3 to Exercise2
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{8}: checkout: moving from master to Exercise3
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{9}: checkout: moving from Exercise2 to master
+[33m50dcd79[m[33m ([m[1;31morigin/Exercise2[m[33m, [m[1;32mExercise2[m[33m)[m HEAD@{10}: checkout: moving from master to Exercise2
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{11}: checkout: moving from Exercise2 to master
+[33m50dcd79[m[33m ([m[1;31morigin/Exercise2[m[33m, [m[1;32mExercise2[m[33m)[m HEAD@{12}: commit: trello class using items class
+[33m26aeb65[m HEAD@{13}: commit: updated Readme
+[33m6955563[m HEAD@{14}: commit: Read Me updated
+[33mc9e9fdb[m HEAD@{15}: commit: Added Items Class
+[33ma92f593[m HEAD@{16}: commit: Move Card working
+[33m92749a6[m HEAD@{17}: commit: Second commit
+[33m1932d68[m HEAD@{18}: commit: Get Cards from ListId successful
+[33m03a3f10[m HEAD@{19}: checkout: moving from master to Exercise2
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{20}: merge Excercise1: Fast-forward
+[33m750548f[m HEAD@{21}: checkout: moving from master to master
+[33m750548f[m HEAD@{22}: checkout: moving from Excercise1 to master
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{23}: checkout: moving from Exercise2 to Excercise1
+[33m03a3f10[m HEAD@{24}: commit: Exercise2-First Commit
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{25}: checkout: moving from Excercise1 to Exercise2
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{26}: reset: moving to HEAD
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{27}: checkout: moving from master to Excercise1
+[33m750548f[m HEAD@{28}: checkout: moving from Excercise1 to master
+[33m2e6f221[m[33m ([m[1;36mHEAD -> [m[1;32mExercise3[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Excercise1[m[33m, [m[1;32mmaster[m[33m, [m[1;32mExcercise1[m[33m)[m HEAD@{29}: commit: Delete is now working
+[33m6523439[m HEAD@{30}: commit: Exercise 1 for Module1 Commit
+[33m750548f[m HEAD@{31}: checkout: moving from master to Excercise1
+[33m750548f[m HEAD@{32}: clone: from https://github.com/Arpitha-debug/DevOps-Course-Starter.git

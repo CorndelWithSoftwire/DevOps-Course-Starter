@@ -1,7 +1,7 @@
 import requests
 import os
 import json
-from todo_app.item import Item
+from todo_app.data.item import Item
 
 secret_key = os.getenv('SECRET_KEY')
 api_key = os.getenv('TRELLO_API_KEY')
