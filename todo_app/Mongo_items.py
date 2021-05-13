@@ -14,7 +14,35 @@ db = client.test_database
 
 collection = db.test_collection
 
-#item1 = {"author": "Kev","text": "My Test","tags": ["mongodb", "python", "pymongo"],"date": datetime.datetime.utcnow()}
+
+class Item:
+    def __init__(self, id, title, lastmodifieddate, status='To Do'):
+        self.id = id
+        self.status = status
+        self.title = title
+        self.lastmodifieddate = lastmodifieddate
+
+
+def get_items_mongo():
+    """
+    Fetches all cards from Mongo DB.
+
+    Returns:
+        list: The list of saved items.
+    """   
+    items = []
+    todo = db.todo
+    doing = db.doing
+    done = db.done
+    for item in todo.find():
+        items.append(Item(item['_id'], item['title'], item['lastmodifieddate'],"To Do"))
+    for item in doing.find():
+        items.append(Item(item['_id'], item['title'], item['lastmodifieddate'],"Doing"))
+    for item in done.find():
+        items.append(Item(item['_id'], item['title'], item['lastmodifieddate'],"Done"))        
+    return items
+
+
 
 def add_item_mongo(title):
     """
@@ -42,6 +70,7 @@ def mark_todo_item_doing_mongo(id):
     doing = db.doing
     doing.insert_one(todo.find_one({"_id" : ObjectId(id) })).inserted_id
     todo.delete_one(todo.find_one({"_id" : ObjectId(id) }))
+    return
 
 def mark_done_item_doing_mongo(id):
     """
@@ -54,6 +83,7 @@ def mark_done_item_doing_mongo(id):
     doing = db.doing
     doing.insert_one(done.find_one({"_id" : ObjectId(id) })).inserted_id
     done.delete_one(done.find_one({"_id" : ObjectId(id) }))
+    return
 
 def mark_todo_item_done_mongo(id):
     """
@@ -66,6 +96,7 @@ def mark_todo_item_done_mongo(id):
     done = db.done
     done.insert_one(todo.find_one({"_id" : ObjectId(id) })).inserted_id
     todo.delete_one(todo.find_one({"_id" : ObjectId(id) }))
+    return
 
 def mark_doing_item_done_mongo(id):
     """
@@ -78,6 +109,7 @@ def mark_doing_item_done_mongo(id):
     doing = db.doing
     done.insert_one(doing.find_one({"_id" : ObjectId(id) })).inserted_id
     doing.delete_one(doing.find_one({"_id" : ObjectId(id) }))
+    return
 
 def mark_done_item_todo_mongo(id):
     """
@@ -90,6 +122,7 @@ def mark_done_item_todo_mongo(id):
     done = db.done
     todo.insert_one(done.find_one({"_id" : ObjectId(id) })).inserted_id
     done.delete_one(done.find_one({"_id" : ObjectId(id) }))
+    return
 
 def mark_doing_item_todo_mongo(id):
     """
@@ -102,13 +135,4 @@ def mark_doing_item_todo_mongo(id):
     doing = db.doing
     todo.insert_one(doing.find_one({"_id" : ObjectId(id) })).inserted_id
     doing.delete_one(doing.find_one({"_id" : ObjectId(id) }))
-
-
-
-#add_item_mongo("todo_item_done")
-#mark_todo_item_doing_mongo("609d43d9f69eaec5f040b4c3")
-#mark_done_item_doing_mongo("609d48b25a29536c2b6d32b0")
-#mark_todo_item_done_mongo("609d48b25a29536c2b6d32b0")
-#mark_doing_item_done_mongo("60916ac16b039134c61377f1")
-#mark_done_item_todo_mongo("60916ac16b039134c61377f1")
-#mark_doing_item_todo_mongo("609d48b25a29536c2b6d32b0")
+    return
