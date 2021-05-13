@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required
-# from flask import LoginManager
+# from flask import LoginManager and login required
 import requests                     # Import the whole of requests
 import json
 import os        # Secrets  (local only)
