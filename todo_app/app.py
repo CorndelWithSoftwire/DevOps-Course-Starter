@@ -9,6 +9,9 @@ import os        # Secrets  (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
 from datetime import datetime, timedelta   # Needed for Mongo dates for 'older' records seperation
 
+from oauthlib.oauth2 import WebApplicationClient # Security prep work
+
+
 # import pytest
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
@@ -19,10 +22,15 @@ app = Flask(__name__)
 #  MODULE 10 LOGIN MANAGER SETUP
 #################################
 login_manager = LoginManager()
+clientsecurity = WebApplicationClient("7b45e6f82314a24eae60")
 @login_manager.unauthorized_handler
 
 def unauthenticated():
-	pass 	# Add logic to redirect to the
+    print("unauthenticated") 	
+    result = clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
+    print(result)
+    return redirect(result)
+
 		# Github OAuth flow when unauthenticated
 
 @login_manager.user_loader
@@ -30,7 +38,6 @@ def load_user(user_id):
     return None
 
 login_manager.init_app(app)
-
 
 ################################
 print ("Program starting right now") 
@@ -84,7 +91,7 @@ def index():
     passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
     )
 
-# @login_required(unauthenticated)
+
 @app.route('/addmongoentry', methods = ["POST"])
 @login_required
 def mongoentry():
@@ -126,8 +133,15 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
     return redirect("/")
 
 
+@app.route('/login/callback', methods = ["GET"])
 
-
+    # we want to call the login user function .. import from flask login
+    # Tp read this stage we need to parse the info github has given up
+   # understand what has github given us .. ask github who is the user .. 
+   # github will give token .. we're gonna use that token to ask github
+   # who is this
+   # login that user    --- flask login library
+    return redirect("/")
 
 
 if __name__ == '__main__':
