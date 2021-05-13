@@ -1,7 +1,7 @@
 # SETUP INFO
 
 from flask import Flask, render_template, request, redirect, url_for
-from flask_login import LoginManager
+from flask_login import LoginManager, login_required
 # from flask import LoginManager
 import requests                     # Import the whole of requests
 import json
@@ -86,6 +86,7 @@ def index():
 
 # @login_required(unauthenticated)
 @app.route('/addmongoentry', methods = ["POST"])
+@login_required
 def mongoentry():
     name = request.form['title']
     mongodict={'title':name,'status':'todo', 'mongodate':datetime.now()}
@@ -114,7 +115,6 @@ def move_to_done_item():            # Called to move a 'card' to 'done'
       print(doc)
     return redirect("/")
 
-
 @app.route('/move_to_todo_item', methods = ["PUT","GET","POST"])
 def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (was useful)
     title = request.form['item_title']
@@ -124,6 +124,11 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
     for doc in db.newposts.find():  
       print(doc)
     return redirect("/")
+
+
+
+
+
 
 if __name__ == '__main__':
    
