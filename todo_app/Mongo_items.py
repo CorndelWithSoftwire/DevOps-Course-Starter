@@ -31,11 +31,18 @@ def add_item_mongo(title):
     todo.insert_one(newitem).inserted_id
     return 
 
+def mark_todo_item_doing_mongo(id):
+    """
+    sets an existing todo in mongo to the doing collection and deletes from the todo collection
+
+    Args:
+        item: The ID of the item to update.
+    """
+    todo = db.todo
+    doing = db.doing
+    doing.insert_one(todo.find_one({"_id" : ObjectId(id) })).inserted_id
+    todo.delete_one(todo.find_one({"_id" : ObjectId(id) }))
 
 
-
-
-
-
-
-add_item_mongo("brand_new_mongo_item")
+#add_item_mongo("brand_new_mongo_item")
+#mark_todo_item_doing_mongo("609d43d9f69eaec5f040b4c3")
