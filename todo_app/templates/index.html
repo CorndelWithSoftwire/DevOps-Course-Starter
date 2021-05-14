@@ -26,10 +26,10 @@
           <li> 
             <label for="title">{{item.title}}</label>
             <div class="btn-group" role="group">
-            <form action="/{{item.id}}/doing" method="post">              
+            <form action="/{{item.id}}/tododoing" method="post">              
               <button type="submit" name="todo_doing" class="btn btn-outline-primary">Mark Doing</button>
             </form>
-            <form action="/{{item.id}}/completed" method="post">            
+            <form action="/{{item.id}}/todocompleted" method="post">            
                 <button type="submit" name="todo_complete" class="btn btn-outline-primary">Mark Completed</button>
             </form>
             </div>
@@ -41,10 +41,10 @@
           <li>
             <label for="title">{{item.title}}</label>
             <div class="btn-group" role="group">
-            <form action="/{{item.id}}/todo" method="post">              
+            <form action="/{{item.id}}/doingtodo" method="post">              
               <button type="submit" name=doing_todo class="btn btn-outline-primary">Mark To Do</button>
             </form>
-            <form action="/{{item.id}}/completed" method="post">              
+            <form action="/{{item.id}}/doingcompleted" method="post">              
               <button type="submit" name=doing_complete class="btn btn-outline-primary">Mark Completed</button>
             </form></div>
           </li>
@@ -54,18 +54,45 @@
         <br><h2>Completed Items</h2>
         <ul class="list-group mb-4">
         {% for item in view_model.show_all_done_items %}
-          <li>{{item.title}}</li>
+        <li>
+        <label for="title">{{item.title}}</label>
+        <div class="btn-group" role="group">
+        <form action="/{{item.id}}/donetodo" method="post">              
+          <button type="submit" name=done_todo class="btn btn-outline-primary">Mark To Do</button>
+        </form>
+        <form action="/{{item.id}}/donedoing" method="post">              
+          <button type="submit" name=done_doing class="btn btn-outline-primary">Mark Doing</button>
+        </form></div>
+      </li>
         {% endfor %}
       {% else %}  
         <br><h2>Recently Completed Items</h2>
         <ul class="list-group mb-4">
         {% for item in view_model.recent_done_items %}
-          <li>{{item.title}}</li>
+        <li>
+          <label for="title">{{item.title}}</label>
+          <div class="btn-group" role="group">
+          <form action="/{{item.id}}/donetodo" method="post">              
+            <button type="submit" name=done_todo class="btn btn-outline-primary">Mark To Do</button>
+          </form>
+          <form action="/{{item.id}}/donedoing" method="post">              
+            <button type="submit" name=done_doing class="btn btn-outline-primary">Mark Doing</button>
+          </form></div>
+        </li>
         {% endfor %}
         <details>
           <summary><br><h5>Old Completed Items</h5></summary>
           {% for item in view_model.older_done_items %}
-            <li>{{item.title}}</li>
+          <li>
+            <label for="title">{{item.title}}</label>
+            <div class="btn-group" role="group">
+            <form action="/{{item.id}}/donetodo" method="post">              
+              <button type="submit" name=done_todo class="btn btn-outline-primary">Mark To Do</button>
+            </form>
+            <form action="/{{item.id}}/donedoing" method="post">              
+              <button type="submit" name=done_doing class="btn btn-outline-primary">Mark Doing</button>
+            </form></div>
+          </li>
           {% endfor %}  
         </details>
       {% endif %}
