@@ -1,6 +1,6 @@
 import requests, pymongo, pprint
 import os, datetime
-from todo_app.mongo_config import Config
+from mongo_config import Config
 from bson.objectid import ObjectId
 
 
@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 mongologin = Config.MONGO_USER + ':' + Config.MONGO_PASS + "@" + Config.MONGO_URL 
 
 
-client = pymongo.MongoClient("mongodb+srv://" + mongologin + "/" + os.environ.get('MONGO_DB_NAME') + "?retryWrites=true&w=majority&ssl_cert_reqs=CERT_NONE")
+client = pymongo.MongoClient("mongodb+srv://" + mongologin + "/" + Config.MONGO_DB_NAME + "?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true")
 
 db = client.test_database
 
