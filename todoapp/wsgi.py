@@ -15,9 +15,6 @@ print(f"ENV_FULL_PATH: {ENV_FULL_PATH}")
 # Connect the path with your '.env' file name
 load_dotenv(ENV_FULL_PATH)
 
-test_var = os.getenv("APP_API_KEY")
-print(test_var)
-
 if __name__ == "__main__":
     print("Running application")
     application = create_app()

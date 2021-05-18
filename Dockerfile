@@ -96,7 +96,7 @@ RUN poetry config virtualenvs.create false && \
 COPY todoapp /app/todoapp
 COPY tests /app/tests
 
-ENTRYPOINT ["poetry", "run", "pytest", "tests/endtoend", "--junit-xml", "test_results.xml"]
+ENTRYPOINT ["poetry", "run", "pytest", "-s", "tests/endtoend", "--junit-xml", "test_results.xml"]
 
 
 

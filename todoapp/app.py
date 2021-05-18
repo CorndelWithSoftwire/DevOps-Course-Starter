@@ -3,12 +3,12 @@ import os
 import dateutil.parser
 from flask import Flask, render_template, request, redirect
 
-from todoapp.trello_request import *
+from todoapp.mongo_data_access import *
 from todoapp.viewmodel import ViewModel
 
 
 def createListWithStatus(status, itemList):
-    return [TodoItem(x['name'], status, x['id'], duedate=x['due'], last_modified=x['dateLastActivity']) for x in
+    return [TodoItem(x['title'], status, x['_id'], duedate=x['duedate'], last_modified=x['last_modified']) for x in
             itemList]
 
 
@@ -16,10 +16,9 @@ def create_app():
     app = Flask(__name__, static_url_path='/static')
     app.config.from_object('todoapp.flask_config.Config')
 
-    TrelloRequest.APP_API_KEY = os.getenv("APP_API_KEY")
-    TrelloRequest.APP_TOKEN = os.getenv("APP_TOKEN")
+    MongoDatabase.DB_URL = os.getenv("DB_URL")
 
-    board_lists = setup_lists()
+    board_lists = Lists(Lists.TODO_LIST_NAME, Lists.DONE_LIST_NAME)
 
     # Jinja filters
     @app.template_filter()
@@ -31,12 +30,12 @@ def create_app():
 
     @app.route('/')
     def index():
-        trello_get_cards = TrelloGetCards(board_lists.list_to_status_map)
+        get_items = MongoGetCards(MongoDatabase(), board_lists.list_to_status_map)
 
-        get_todo_list = trello_get_cards.fetchForList(board_lists.todo_list_id)
+        get_todo_list = get_items.fetchForList(board_lists.todo_list_id)
         to_do_items = createListWithStatus(NOT_STARTED, get_todo_list)
 
-        get_done_list = trello_get_cards.fetchForList(board_lists.done_list_id)
+        get_done_list = get_items.fetchForList(board_lists.done_list_id)
         done_items = createListWithStatus(COMPLETED, get_done_list)
 
         items = to_do_items + done_items
@@ -50,35 +49,28 @@ def create_app():
         title = request.form.get('newitem')
         duedate = request.form.get('duedate')
 
-        TrelloAddCard(board_lists.todo_list_id).add(TodoItem(title, NOT_STARTED, duedate=duedate))
+        MongoAddCard(MongoDatabase(), board_lists.todo_list_id).add(TodoItem(title, NOT_STARTED, duedate=duedate))
 
         return redirect(request.referrer)
 
     @app.route('/deleteitem/<id>', methods=['POST'])
     def delete_item(id):
-        TrelloDeleteCard().delete(id)
+        MongoDeleteCard(MongoDatabase(), board_lists.status_to_list_map).delete(id)
 
         return redirect(request.referrer)
 
     @app.route('/check/<id>', methods=['POST'])
     def check_item(id):
-        item = TrelloGetCards(board_lists.list_to_status_map).fetchCard(id)
-        list = board_lists.todo_list_id
+        new_list = board_lists.todo_list_id
+        old_list = board_lists.done_list_id
         if request.form.get(id):
-            list = board_lists.done_list_id
+            new_list = board_lists.done_list_id
+            old_list = board_lists.todo_list_id
 
-        TrelloUpdateCard().update(item, list)
+        MongoUpdateCard(MongoDatabase()).update(id, old_list, new_list)
         return redirect(request.referrer)
 
     return app
-
-
-def setup_lists():
-    board_id = os.environ['TODO_BOARD_ID']
-    todo_lists_by_name, todo_lists_by_id = TrelloBoard().fetchLists(board_id)
-    todo_list_id = todo_lists_by_name[Lists.TODO_LIST_NAME]
-    done_list_id = todo_lists_by_name[Lists.DONE_LIST_NAME]
-    return Lists(todo_list_id, done_list_id)
 
 
 if __name__ == '__main__':

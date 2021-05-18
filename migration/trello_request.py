@@ -65,7 +65,11 @@ class TrelloGetCards(TrelloRequest):
 
         jsonData = super().makeRequest(url, "GET")
 
-        return TodoItem(jsonData['name'], self._list_to_status_map[jsonData["idList"]], id)
+        return TodoItem(jsonData['name'],
+                        self._list_to_status_map[jsonData["idList"]],
+                        id,
+                        duedate=jsonData['due'], last_modified=jsonData['dateLastActivity']
+                        )
 
 
 class TrelloAddCard(TrelloRequest):
