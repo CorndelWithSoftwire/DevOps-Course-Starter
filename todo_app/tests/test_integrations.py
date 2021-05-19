@@ -1,4 +1,4 @@
-import app, pytest, Trello_items
+import app, pytest, Trello_items, Mongo_items, mongomock 
 from dotenv import find_dotenv, load_dotenv
 
 @pytest.fixture
@@ -12,7 +12,7 @@ def client():
     with test_app.test_client() as client:
         yield client
 
-class mock_get_lists_response:
+""" class mock_get_lists_response:
     @staticmethod
     def json():
         null=None; false=False
@@ -46,8 +46,8 @@ class mock_get_lists_response:
         ]
         )
         return listsjson
-
-class mock_get_response:
+ """
+""" class mock_get_response:
     @staticmethod
     def json():
         null=None; false=False
@@ -286,10 +286,27 @@ class mock_get_response:
         }
         ]
         )   
-        return cardsjson 
+        return cardsjson  """
 
+class mock_todo_find:
+    @staticmethod
+    def json():
+        null=None; false=False
+        todo_json = ([
+        {
+            "_id":"ObjectID(609e3da1407636a2a8b17a58)", 
+            "title": "TestItem1", 
+            "Lastmodifieddate" : "2021-05-13T09:06:41.902+00:00"},
+        {
+            "_id":"ObjectID(809e4da1408236a2a3f17a41)", 
+            "title": "TestItem2", 
+            "Lastmodifieddate" : "2021-05-11T12:06:41.902+00:00"
+            }
+        ]
+        )   
+        return todo_json 
 
-
+""" 
 def test_index_page(client, monkeypatch):
     def mock_get_requests(*args, **kwargs):
         if args[0] == 'https://api.trello.com/1/boards/fake_trello_boardid/lists':
@@ -301,4 +318,20 @@ def test_index_page(client, monkeypatch):
     assert "TestItem1" in str(response.data)
     assert "TestItem2" in str(response.data)
     assert "TestItem3" in str(response.data)
+    assert "TestItem4" in str(response.data) """
+
+
+def test_index(client, monkeypatch):
+    todo = mongomock.MongoClient().db.todo
+    todo.insert_many(mock_todo_find)
+
+    monkeypatch.setattr(Mongo_items.pymongo, "find", mock_todo_find)
+    response = client.get('/')
+    assert "TestItem1" in str(response.data)
+    assert "TestItem2" in str(response.data)
+    assert "TestItem3" in str(response.data)
     assert "TestItem4" in str(response.data)
+
+    #doing = mongomock.MongoClient().db.doing
+    #done = mongomock.MongoClient().db.done
+
