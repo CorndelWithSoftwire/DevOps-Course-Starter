@@ -43,8 +43,7 @@ def test_app():
     
     mongo_conn = os.environ.get('MONGO_CONN')
     client = pymongo.MongoClient(mongo_conn)
-    db = client.get_default_database()
-    #db = client[os.environ['MONGO_DB_NAME']]
+    db = client[os.environ['MONGO_DB_NAME']]
     collection = db[os.environ['MONGO_LIST_TODO']]   
 
     # construct the new application
