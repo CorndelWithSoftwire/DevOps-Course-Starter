@@ -6,7 +6,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 
 def connect_to_mongo():
-    mongo_conn = os.getenv("MONGO_CONN")
+    mongo_conn = os.environ.get("MONGO_CONN")
     client = pymongo.MongoClient(mongo_conn)
     database = client[os.environ["MONGO_DB_NAME"]]
 
@@ -45,7 +45,7 @@ def get_single_item(id):
     
 def add_item(title):
     # Post item and retrieve items list
-    todo_list_id = os.getenv["MONGO_LIST_TODO"]
+    todo_list_id = os.environ["MONGO_LIST_TODO"]
     database = connect_to_mongo()
     collection = database[todo_list_id]
     doc = collection.insert_one({
@@ -61,7 +61,7 @@ def remove_item(cardId):
     #Delete card 
     id = ObjectId(cardId)
     database = connect_to_mongo()
-    inprogress_collection = database[os.getenv["MONGO_LIST_INPROGRESS"]]
+    inprogress_collection = database[os.environ["MONGO_LIST_INPROGRESS"]]
     inprogress_collection.delete_one({"_id": id})
 
     return True
@@ -70,7 +70,7 @@ def inprogress_item(cardId):
     #move card to Doing 
     id = ObjectId(cardId)
     database = connect_to_mongo()
-    inprogress_collection = database[os.getenv["MONGO_LIST_INPROGRESS"]]
+    inprogress_collection = database[os.environ["MONGO_LIST_INPROGRESS"]]
     todo_collection = database[os.environ["MONGO_LIST_TODO"]]
 
     card = list(todo_collection.find({"_id": id}))
@@ -83,9 +83,9 @@ def markAsDone(cardId):
     # Move items marks as Done to "Done" list 
     id = ObjectId(cardId)
     database = connect_to_mongo()
-    inprogress_collection = database[os.getenv["MONGO_LIST_INPROGRESS"]]
-    todo_collection = database[os.getenv["MONGO_LIST_TODO"]]
-    done_collection = database[os.getenv["MONGO_LIST_DONE"]]
+    inprogress_collection = database[os.environ["MONGO_LIST_INPROGRESS"]]
+    todo_collection = database[os.environ["MONGO_LIST_TODO"]]
+    done_collection = database[os.environ["MONGO_LIST_DONE"]]
 
     todo_card = list(todo_collection.find({"_id": id}))
     inprogress_card = list(inprogress_collection.find({"_id": id}))
