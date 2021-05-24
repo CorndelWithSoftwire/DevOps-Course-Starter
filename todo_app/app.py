@@ -153,8 +153,6 @@ def login():
     )
     headers['Accept'] = 'application/json'
     
-   
-    
     token_response = requests.post(
         url,
         headers=headers,
@@ -163,9 +161,9 @@ def login():
 
     # Now to get the users data - commented out for now
 
-    #client.parse_request_body_response(token_response.text)
-    #url, headers, body = self.client.add_token("https://api.github.com/user")
-    #user_response = requests.get(url, headers=headers, data=body)
+    client.parse_request_body_response(token_response.text)
+    url, headers, body = self.client.add_token("https://api.github.com/user")
+    user_response = requests.get(url, headers=headers, data=body)
 
     )
     return redirect("/")
