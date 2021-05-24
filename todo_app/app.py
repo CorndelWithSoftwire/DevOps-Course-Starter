@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required
+
 # from flask import LoginManager and login required
 import requests                     # Import the whole of requests
 import json
@@ -26,9 +27,11 @@ clientsecurity = WebApplicationClient("7b45e6f82314a24eae60")
 @login_manager.unauthorized_handler
 
 def unauthenticated():
-    print("unauthenticated") 	
+    print("unauthenticated, yet!") 	
     result = clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
+    print("The place we're about to go to is ...")
     print(result)
+
     return redirect(result)
 
 		# Github OAuth flow when unauthenticated
@@ -134,13 +137,37 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
 
 
 @app.route('/login/callback', methods = ["GET"])
-
+def login():
     # we want to call the login user function .. import from flask login
-    # Tp read this stage we need to parse the info github has given up
+    # To read this stage we need to parse the info github has given up
    # understand what has github given us .. ask github who is the user .. 
    # github will give token .. we're gonna use that token to ask github
    # who is this
    # login that user    --- flask login library
+
+    # Get the access_token
+
+    url, headers, body = client.prepare_token_request(
+        "https://github.com/login/oauth/access_token",
+        authorization_response=request.url
+    )
+    headers['Accept'] = 'application/json'
+    
+   
+    
+    token_response = requests.post(
+        url,
+        headers=headers,
+        data=body,
+        auth=(client_id, client_secret)
+
+    # Now to get the users data - commented out for now
+
+    #client.parse_request_body_response(token_response.text)
+    #url, headers, body = self.client.add_token("https://api.github.com/user")
+    #user_response = requests.get(url, headers=headers, data=body)
+
+    )
     return redirect("/")
 
 
