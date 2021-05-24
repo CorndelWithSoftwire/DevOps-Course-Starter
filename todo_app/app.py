@@ -2,7 +2,8 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required
-
+from flask_login.utils import login_user
+from flask_login import login_user    # This line may not be required
 # from flask import LoginManager and login required
 import requests                     # Import the whole of requests
 import json
@@ -23,12 +24,12 @@ app = Flask(__name__)
 #  MODULE 10 LOGIN MANAGER SETUP
 #################################
 login_manager = LoginManager()
-clientsecurity = WebApplicationClient("7b45e6f82314a24eae60")
+Clientsecurity = WebApplicationClient("7b45e6f82314a24eae60")
 @login_manager.unauthorized_handler
 
 def unauthenticated():
     print("unauthenticated, yet!") 	
-    result = clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
+    result = Clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
     print("The place we're about to go to is ...")
     print(result)
 
@@ -154,10 +155,16 @@ def login():
 
     # Get the access_token
 
-    url, headers, body = client.prepare_token_request(
+    url, headers, body = Clientsecurity.prepare_token_request(
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
     )
+    print("REACHED HERE - CLIENT SECURITY INFO PRINTED BELOW:")
+    print(Clientsecurity.prepare_token_request(
+        "https://github.com/login/oauth/access_token",
+        authorization_response=request.url
+    ))
+    #print(url)
     headers['Accept'] = 'application/json'
     
     token_response = requests.post(
@@ -165,14 +172,15 @@ def login():
         headers=headers,
         data=body,
         auth=(client_id, client_secret)
+        )
 
     # Now to get the users data - commented out for now
 
-    client.parse_request_body_response(token_response.text)
-    url, headers, body = self.client.add_token("https://api.github.com/user")
-    user_response = requests.get(url, headers=headers, data=body)
+   # Clientsecurity.parse_request_body_response(token_response.text)
+   # url, headers, body = self.client.add_token("https://api.github.com/user")
+   # user_response = requests.get(url, headers=headers, data=body)
 
-    login_user(user)
+   # login_user(user)
 
     return redirect("/")
 

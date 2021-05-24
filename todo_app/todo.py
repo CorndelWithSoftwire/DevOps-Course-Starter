@@ -46,6 +46,12 @@ class Todo:
         title = ""
         status = "Todo"            # Will be overwritten by app 
         mongodate = datetime.today().strftime('%Y-%m-%d')
-        
+
+# class Clientsecurity:
+#        def __init__(self, items):
+#            self.items1 = items
+#        @property
+#        def items(self):
+#            return self.items1    
         
 
