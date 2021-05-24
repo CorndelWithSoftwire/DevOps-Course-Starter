@@ -1,6 +1,16 @@
 import os
 from datetime import datetime
 from dateutil import *
+from flask_login import UserMixin
+
+class User(UserMixin): 
+    def __init__(self,name):
+        self.name = name
+        return None
+    def id(self):
+        return (self.id)
+
+
 class Newviewmodel:
     def __init__(self, items):
         self.items1 = items
@@ -54,4 +64,14 @@ class Todo:
 #        def items(self):
 #            return self.items1    
         
+# class User(UserMixin):
+
+#    def __init__(self, id):
+#        self.id = id
+#        self.name = "user" 
+#        # + str(id)
+#        # self.password = self.name + "_secret"
+#        
+#    def __repr__(self):
+#        return "%d/%s/%s" % (self.id, self.name, self.password)
 

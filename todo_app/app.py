@@ -3,23 +3,26 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required
 from flask_login.utils import login_user
-from flask_login import login_user    # This line may not be required
+from flask_login import login_user
+from oauthlib.oauth2.rfc6749.clients.base import BODY    # This line may not be required
 # from flask import LoginManager and login required
 import requests                     # Import the whole of requests
 import json
 import os        # Secrets  (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
 from datetime import datetime, timedelta   # Needed for Mongo dates for 'older' records seperation
-
+from todo_app.todo import User              #Import simple user class
 from oauthlib.oauth2 import WebApplicationClient # Security prep work
-
 
 # import pytest
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
 # from dateutil.parser import parser
 
+
 app = Flask(__name__)
+app.secret_key = 'no idea why this line is needed or what it does, but without it everything crashes'
+
 #################################
 #  MODULE 10 LOGIN MANAGER SETUP
 #################################
@@ -46,7 +49,8 @@ login_manager.init_app(app)
 ################################
 print ("Program starting right now") 
 mongopassword=os.environ["mongopassword"]           # Secure password
-
+client_id=os.environ["client_id"]
+client_secret=os.environ["client_secret"]
 #Set up variables we'll be using.
 client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
 
@@ -59,8 +63,8 @@ olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide ite
 
 @app.route('/', methods = ["GET","PUT"])
 def index():
-    thislist=[]                  
-    superlist=[] 
+    thislist=[]                     # Maybe can be removed           
+    superlist=[]                    # Maybe can be removed
     mongosuperlist=[]               # The name of the Mongo OVERALL list with all items in it
     mongo_view_model=[]             # The name of the Mongo TO DO list (section of collection)
     mongo_view_model_doing=[]       # The name of the Mongo DOING list (section of collection)
@@ -72,7 +76,9 @@ def index():
 #  Create the various lists depending on status
     counter=0                                           # Well, it works!
     for mongo_card in mongosuperlist:
-        mongotodo = Todo.from_mongo_card(mongo_card)    #A list of mongo rows from the collection called 'newposts' 
+        mongotodo = Todo.from_mongo_card(mongo_card)  # Maybe can be removed  
+        
+        #A list of mongo rows from the collection called 'newposts' 
         whatsthestatus=(mongosuperlist[counter]['status'])
         whatsthedate=(mongosuperlist[counter]['mongodate'])      # Need the date to seperate older 'Done'
         counter=counter+1                                   #Increment as need to get next list item
@@ -87,7 +93,6 @@ def index():
                 mongo_view_model_olddone.append(mongo_card)     # Apprend to display in older done record
                   
                                                             # note: Invalid or no status won't appear at all
-
     return render_template('index.html', 
     passed_items_todo=mongo_view_model,             # Mongo To Do
     passed_items_doing=mongo_view_model_doing,      # Mongo Doing
@@ -137,7 +142,7 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
     return redirect("/")
 
 
-@app.route('/login/callback', methods = ["GET"])
+@app.route('/login/callback', methods = ["GET","POST"])
 def login():
     #This is where github has it's call back sending to .. (set in github)
 
@@ -164,9 +169,14 @@ def login():
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
     ))
-    #print(url)
-    headers['Accept'] = 'application/json'
     
+    # These next 2 lines to be shifted to get from .env when I get time
+
+#    client_idabc = ("7b45e6f82314a24eae60")
+    
+#    client_secret = ("0486e7076cac8d86f7e21ff97176791f08bfa5fd")
+
+
     token_response = requests.post(
         url,
         headers=headers,
@@ -174,13 +184,49 @@ def login():
         auth=(client_id, client_secret)
         )
 
-    # Now to get the users data - commented out for now
+    # Now to get the users data
 
-   # Clientsecurity.parse_request_body_response(token_response.text)
-   # url, headers, body = self.client.add_token("https://api.github.com/user")
-   # user_response = requests.get(url, headers=headers, data=body)
+    Clientsecurity.parse_request_body_response(token_response.text)
+    url, headers, body = Clientsecurity.add_token("https://api.github.com/user")
+    
+    user_response = requests.get(url, headers=headers, data=body)
+    # Has to be read as a JSON
+    full_user_response = json.loads(user_response.text)
+    # Now has to be split into individual values
+    values_view = full_user_response.values()
+    # Now has to be put into an interative list
+    full_user_view = iter(values_view)
+    # Now we need the first thing off that list, which is the user name
+    the_user_name = next(full_user_view)
 
-   # login_user(user)
+    # Unbelievable .. login_user won't actually accept a string it
+    # will only take a user object as the first parameter, not a string
+    # representing the user
+
+    finalusername = User(the_user_name)
+
+    
+    # I want the below kept as later may be useful for debugging
+
+    #print("---- USER NAME ----")
+    #print(the_user_name)
+    #print("---- FULL USER RESPONSE ----")
+    #print(full_user_response)
+    #print("HTML response 200 means OK - request succeeded")
+    #print("-----------------------")
+    #print("URL is")
+    #print(url)
+    #print("headers is")
+    #print(headers)
+    #print("body is")
+    #print(body)
+    #print("-----")
+    #print("Clientsecurity is")
+    #print(Clientsecurity)
+
+
+
+    login_user(finalusername)
 
     return redirect("/")
 
