@@ -138,12 +138,19 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
 
 @app.route('/login/callback', methods = ["GET"])
 def login():
+    #This is where github has it's call back sending to .. (set in github)
+
+
+    #NOTES FROM INSTRUCTORS , I JUST WANT TO KEEP HERE RIGHT NOW ..
+    
     # we want to call the login user function .. import from flask login
     # To read this stage we need to parse the info github has given up
    # understand what has github given us .. ask github who is the user .. 
    # github will give token .. we're gonna use that token to ask github
    # who is this
    # login that user    --- flask login library
+
+
 
     # Get the access_token
 
@@ -164,8 +171,10 @@ def login():
     client.parse_request_body_response(token_response.text)
     url, headers, body = self.client.add_token("https://api.github.com/user")
     user_response = requests.get(url, headers=headers, data=body)
-
     )
+
+    login_user(user)
+
     return redirect("/")
 
 
