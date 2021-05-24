@@ -21,7 +21,7 @@ from todo_app.todo import Todo
 
 
 app = Flask(__name__)
-app.secret_key = 'no idea why this line is needed or what it does, but without it everything crashes'
+app.secret_key = os.environ["SECRET_KEY"]
 
 #################################
 #  MODULE 10 LOGIN MANAGER SETUP
