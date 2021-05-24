@@ -171,7 +171,6 @@ def login():
     client.parse_request_body_response(token_response.text)
     url, headers, body = self.client.add_token("https://api.github.com/user")
     user_response = requests.get(url, headers=headers, data=body)
-    )
 
     login_user(user)
 
