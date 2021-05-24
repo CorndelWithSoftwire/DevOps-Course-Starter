@@ -203,7 +203,15 @@ def login():
     # will only take a user object as the first parameter, not a string
     # representing the user
 
-    finalusername = User(the_user_name)
+    finalusername = User(the_user_name)   
+    print("FINALUSERNAME IS")
+    print(finalusername)
+    # This printout shows:
+#    FINALUSERNAME IS
+#   <todo_app.todo.User object at 0x00000201093C8CA0>
+# I AM 99.99% SURE THIS IS WHERE THE ISSUE IS.  LOGIN_USER IS BEING
+# CALLED WITH AN INCORRECT VALUE IN finalusername.  BUT I DON'T KNOW
+# HOW TO FIX IT.
 
     
     # I want the below kept as later may be useful for debugging
