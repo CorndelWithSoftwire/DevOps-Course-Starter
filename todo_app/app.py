@@ -49,8 +49,8 @@ login_manager.init_app(app)
 ################################
 print ("Program starting right now") 
 mongopassword=os.environ["mongopassword"]           # Secure password
-client_id=os.environ["client_id"]
-client_secret=os.environ["client_secret"]
+client_id=os.environ["client_id"]                   # For security
+client_secret=os.environ["client_secret"]           # For security
 #Set up variables we'll be using.
 client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
 
@@ -170,13 +170,6 @@ def login():
         authorization_response=request.url
     ))
     
-    # These next 2 lines to be shifted to get from .env when I get time
-
-#    client_idabc = ("7b45e6f82314a24eae60")
-    
-#    client_secret = ("0486e7076cac8d86f7e21ff97176791f08bfa5fd")
-
-
     token_response = requests.post(
         url,
         headers=headers,
@@ -233,6 +226,7 @@ def login():
     #print(Clientsecurity)
 
 
+# *******  finalusername object has the wrong value in it, I'm 99% sure ****
 
     login_user(finalusername)
 
