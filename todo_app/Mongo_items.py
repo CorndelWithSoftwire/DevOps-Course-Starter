@@ -6,9 +6,8 @@ from bson.objectid import ObjectId
 
 
 mongologin = Config.MONGO_USER + ':' + Config.MONGO_PASS + "@" + Config.MONGO_URL 
-
-client = pymongo.MongoClient("mongodb+srv://" + mongologin + "/" + Config.MONGO_DB_NAME + "?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true")
-db = client.test_database
+client = pymongo.MongoClient("mongodb+srv://" + mongologin + "/" + Config.MONGO_NAME + "?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true")
+db = client.get_database(os.environ.get("MONGO_DB"))
 
 class Item:
     def __init__(self, id, title, lastmodifieddate, status='To Do'):

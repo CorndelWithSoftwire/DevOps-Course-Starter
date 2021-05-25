@@ -2,7 +2,7 @@ import os
 from dotenv import find_dotenv, load_dotenv
 
 file_path = find_dotenv('.env')
-load_dotenv(file_path, override=False)
+load_dotenv(file_path, override=True)
 
 class Config:
     MONGO_USER = os.environ.get("MONGO_USER")
@@ -14,6 +14,9 @@ class Config:
     MONGO_URL = os.environ.get("MONGO_URL")
     if not MONGO_URL:
         raise ValueError("Mongo DB URL is not expected value")
-    MONGO_DB_NAME = os.environ.get("MONGO_DB_NAME")
-    if not MONGO_DB_NAME:
-        raise ValueError("Mongo DB Name is not expected value")
+    MONGO_NAME = os.environ.get("MONGO_NAME")
+    if not MONGO_NAME:
+        raise ValueError("Mongo Name is not expected value")
+    MONGO_DB = os.environ.get("MONGO_DB")
+    if not MONGO_DB:
+        raise ValueError("Mongo DB is not expected value")

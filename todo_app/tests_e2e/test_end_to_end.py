@@ -1,8 +1,8 @@
-import os, requests, pytest, app
+import os, pytest, app
 from threading import Thread
 
-from Trello_items import boardsurl, get_trello_key, get_trello_token, build_auth_query
-from Trello_boards import create_trello_board, delete_trello_board
+from Mongo_db import delete_mongo_db
+
 from dotenv import load_dotenv, find_dotenv
 
 @pytest.fixture(scope='module')
@@ -10,9 +10,8 @@ def test_app():
     # Create the new board & update the board id environment variable
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
-    board_id = create_trello_board()
-    os.environ['TRELLO_TODO_BOARDID'] = board_id
-
+    test_db_name = "testing_database"
+    os.environ['MONGO_DB'] = test_db_name
     # construct the new application
     application = app.create_app()
 
@@ -24,7 +23,7 @@ def test_app():
 
     # Tear Down
     thread.join(1)
-    delete_trello_board(board_id)
+    delete_mongo_db(test_db_name)
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -48,7 +47,7 @@ def test_task_journey(driver, test_app):
     elem = driver.find_element_by_name("Title")
     elem.send_keys("test item")
     elem.send_keys(Keys.RETURN)
-    driver.implicitly_wait(2)
+    driver.implicitly_wait(10)
     driver.find_element_by_name('todo_doing').click()
     assert "test item" in driver.page_source
 
