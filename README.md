@@ -40,6 +40,13 @@ The `.env` file is used by flask to set environment variables when running `flas
 
 DB_URL - This is the connection url of the database instance
 
+The following environment variables need to be setup for OAUTH2. Currently the app is using GitHub and the client id and secret can
+be obtained when creating an app. See the section below regarding Github OAUTH setup.
+
+CLIENT_ID
+
+CLIENT_SECRET
+
 ### Running tests locally
 
 ```bash
@@ -58,12 +65,30 @@ pytest tests/integration
 
 #### Just End to End tests
 ```bash
+pytest tests/endtoend
+```
+
+#### Just End to End tests
+```bash
 docker-compose up -d mongodb
 DB_URL="mongodb+srv://mongo:mongo@localhost:27017/mongodb?retryWrites=true&w=majority" pytest tests/endtoend
 ```
 
 ## Running the App Locally
 
+### Oauth2 setup
+To be able to read and write, you need to ensure you have a github account for login.
+Create a new OAUTH app on github to get the clientid and client secret at 
+https://github.com/settings/applications/new
+```bash
+Application Name        = <can be anything>
+Homepage URL            = http://localhost:5000/
+Authorisation Callback  = http://localhost:5000/login/callback
+```
+
+Once registered, set the Client id and client secret in the environment variables.
+
+### Run the App
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:
 ```bash
 $ poetry run flask run
@@ -131,7 +156,7 @@ $ docker run --env-file ./.env todo-app:endtoendtests
 ```
 
 ## Migration from Trello to Mongo
-Set the DB_URL and run 
+Set the DB_URL to point to the mongo instance and run 
 ``
 PYTHONPATH=. python3 migration/migration_trello_to_mongo.py
 ``

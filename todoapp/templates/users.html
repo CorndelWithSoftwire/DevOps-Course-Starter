@@ -1,0 +1,45 @@
+{% from 'macros.html' import renderItems %}
+
+{% extends "layout.html" %}
+{% block title %}Quick and Dirty To-Do {% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Quick and Dirty To-Do</h1>
+        <p class="lead">A no nonsense to-do app.</p>
+        <p class="lead">{{user.id}}</p>
+    </div>
+
+    <div class="row">
+        <div id="todoBlock" class="col-md-12">
+            <h2>Admin - Users</h2>
+            <ul class="list-group mb-4">
+                {% for user in users %}
+                    <li>
+                        <form action="/updateuser/{{user.id}}" method="post" >
+                            <label for="{{ user.id }}">{{ user.id }}</label>
+                            <select name="role" id="{{user.id}}" onchange="this.form.submit()">
+                                <option value="reader" {% if user.role == 'reader' %} selected {% endif %} >Reader</option>
+                                <option value="writer" {% if user.role == 'writer' %} selected {% endif %} >Writer</option>
+                                <option value="admin" {% if user.role == 'admin' %} selected {% endif %} >Admin</option>
+                            </select>
+                        </form>
+                    </li>
+                {% endfor %}
+                <li>
+                    <form action="/adduser" method="post">
+                        <label for="newuser">Username </label>
+                        <input required type="text" id="newuser" name="newuser" pattern="[A-Za-z0-9-]+" >
+                        <label for="role">Role </label>
+                        <select name="role" id="role">
+                            <option value="reader">Reader</option>
+                            <option value="writer">Writer</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <input name="Add" type="submit">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

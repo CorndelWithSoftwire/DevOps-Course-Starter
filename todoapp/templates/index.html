@@ -7,32 +7,35 @@
     <div class="jumbotron">
         <h1 class="display-4">Quick and Dirty To-Do</h1>
         <p class="lead">A no nonsense to-do app.</p>
+        <p class="lead">{{user.id}}</p>
     </div>
 
     <div class="row">
         <div id="todoBlock" class="col-md-12">
             <h2>To-Do</h2>
             <ul class="list-group mb-4">
-                {{ renderItems(view_model.todo) }}
-                <li>
-                    <form action="/additem" method="post">
-                        <label for="newitem">Title: </label><input required type="text" id="newitem" name="newitem" pattern="[A-Za-z0-9 ]+" >
-                        <label for="duedate">Due: </label><input type="date" id="duedate" name="duedate">
-                        <input name="Add" type="submit">
-                    </form>
-                </li>
+                {{ renderItems(view_model.todo, user) }}
+                {% if user.role == 'writer' %}
+                    <li>
+                        <form action="/additem" method="post">
+                            <label for="newitem">Title: </label><input required type="text" id="newitem" name="newitem" pattern="[A-Za-z0-9 ]+" >
+                            <label for="duedate">Due: </label><input type="date" id="duedate" name="duedate">
+                            <input name="Add" type="submit">
+                        </form>
+                    </li>
+                {% endif %}
             </ul>
         </div>
         <div id="doneBlock" class="col-md-12">
             <h2>Done</h2>
             <ul class="list-group mb-4">
                 {% if view_model.show_all_done_items %}
-                    {{ renderItems(view_model.done) }}
+                    {{ renderItems(view_model.done, user) }}
                 {% else %}
-                    {{ renderItems(view_model.recent_done_items) }}
+                    {{ renderItems(view_model.recent_done_items, user) }}
                     <details>
                         <summary>Older Items</summary>
-                        {{ renderItems(view_model.older_done_items) }}
+                        {{ renderItems(view_model.older_done_items, user) }}
                     </details>
                 {% endif %}
             </ul>

@@ -5,7 +5,6 @@ services:
     image: mongo
     container_name: mongo
     restart: unless-stopped
-#    command: mongod --auth
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo

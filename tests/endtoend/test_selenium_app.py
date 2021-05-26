@@ -1,5 +1,7 @@
 import os
 from threading import Thread
+from unittest import mock
+from unittest.mock import patch
 
 import pytest
 from dotenv import find_dotenv, load_dotenv
@@ -7,6 +9,7 @@ from selenium import webdriver
 
 from todoapp import app
 from todoapp.mongo_database import MongoDatabase
+from todoapp.user import User
 
 
 @pytest.fixture(scope='module')
@@ -19,6 +22,8 @@ def test_app():
 
     # construct the new application
     application = app.create_app()
+    application.config["LOGIN_DISABLED"] = True
+
     # start the app in its own thread.
     thread = Thread(target=lambda: application.run(use_reloader=False))
     thread.daemon = True
@@ -38,7 +43,10 @@ def driver():
         yield driver
 
 
-def test_task_journey(driver, test_app):
+@patch('todoapp.app.current_user')
+def test_task_journey(mock_get_user, driver, test_app):
+    mock_get_user.role = User.WRITER_ROLE
+
     driver.get('http://localhost:5000/')
     assert driver.title == 'Quick and Dirty To-Do'
 
