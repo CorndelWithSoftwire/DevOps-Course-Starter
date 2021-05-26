@@ -1,13 +1,13 @@
 import os, pytest, app
-from threading import Thread
 
+from threading import Thread
 from Mongo_db import delete_mongo_db
 
 from dotenv import load_dotenv, find_dotenv
 
 @pytest.fixture(scope='module')
 def test_app():
-    # Create the new board & update the board id environment variable
+    # Create the new DB & update the DB environment variable
     file_path = find_dotenv('.env')
     load_dotenv(file_path, override=True)
     test_db_name = "testing_database"
@@ -27,9 +27,8 @@ def test_app():
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
 import geckodriver_autoinstaller
-
+import time
 
 
 @pytest.fixture(scope="module")
@@ -47,9 +46,8 @@ def test_task_journey(driver, test_app):
     elem = driver.find_element_by_name("Title")
     elem.send_keys("test item")
     elem.send_keys(Keys.RETURN)
-    driver.implicitly_wait(10)
+    time.sleep(3)
     driver.find_element_by_name('todo_doing').click()
     assert "test item" in driver.page_source
 
-    
 
