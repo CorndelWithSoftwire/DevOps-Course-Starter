@@ -1,13 +1,10 @@
-import requests, pymongo, pprint
+import pymongo
 import os, datetime
 from mongo_config import Config
+from Mongo_db import get_db
 from bson.objectid import ObjectId
 
-
-
-mongologin = Config.MONGO_USER + ':' + Config.MONGO_PASS + "@" + Config.MONGO_URL 
-client = pymongo.MongoClient("mongodb+srv://" + mongologin + "/" + Config.MONGO_NAME + "?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true")
-db = client.get_database(os.environ.get("MONGO_DB"))
+db = get_db(Config.MONGO_DB)
 
 class Item:
     def __init__(self, id, title, lastmodifieddate, status='To Do'):
