@@ -1,88 +1,88 @@
-import Trello_items, pytest, datetime
+import Mongo_items, pytest, datetime
 import viewmodel as vm
 
 
 test_list_mixture_of_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
-    Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Trello_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
-    Trello_items.Item('4','ITEM4',datetime.date.today(),'To Do'),
-    Trello_items.Item('5','ITEM5',datetime.date.today(),'Done'),
-    Trello_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'Doing')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
+    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
+    Mongo_items.Item('4','ITEM4',datetime.date.today(),'To Do'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Doing')
     ]
 
 test_list_only_todo_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'To Do'), 
-    Trello_items.Item('2','ITEM2',datetime.date.today(),'To Do'),
-    Trello_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
-    Trello_items.Item('4','ITEM4',datetime.date.today(),'To Do'),
-    Trello_items.Item('5','ITEM5',datetime.date.today(),'To Do'),
-    Trello_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'To Do')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'To Do'), 
+    Mongo_items.Item('2','ITEM2',datetime.date.today(),'To Do'),
+    Mongo_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
+    Mongo_items.Item('4','ITEM4',datetime.date.today(),'To Do'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today(),'To Do'),
+    Mongo_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'To Do')
     ]
 
 test_list_only_doing_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
-    Trello_items.Item('2','ITEM2',datetime.date.today(),'Doing'),
-    Trello_items.Item('3','ITEM3',datetime.date.today(),'Doing'),
-    Trello_items.Item('4','ITEM4',datetime.date.today(),'Doing'),
-    Trello_items.Item('5','ITEM5',datetime.date.today(),'Doing'),
-    Trello_items.Item('6','ITEM6',datetime.date.today(),'Doing'),
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'Doing')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
+    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Doing'),
+    Mongo_items.Item('3','ITEM3',datetime.date.today(),'Doing'),
+    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Doing'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Doing'),
+    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Doing'),
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Doing')
     ]
 
 test_list_only_done_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
-    Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Trello_items.Item('3','ITEM3',datetime.date.today(),'Done'),
-    Trello_items.Item('4','ITEM4',datetime.date.today(),'Done'),
-    Trello_items.Item('5','ITEM5',datetime.date.today(),'Done'),
-    Trello_items.Item('6','ITEM6',datetime.date.today(),'Done'),
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
+    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.date.today(),'Done'),
+    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Done'),
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done')
     ]
 
 test_list_missing_ids_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'Done'),
-    Trello_items.Item('5','ITEM5',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Done')
     ]
 
 test_list_empty = [
     ]
 
 test_list_done_items_with_older_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
-    Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Trello_items.Item('3','ITEM3',datetime.date.today()- datetime.timedelta(days=1),'Done'),
-    Trello_items.Item('4','ITEM4',datetime.date.today(),'Done'),
-    Trello_items.Item('5','ITEM5',datetime.date.today()- datetime.timedelta(days=1),'Done'),
-    Trello_items.Item('6','ITEM6',datetime.date.today(),'Done'),
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'Done'),
-    Trello_items.Item('8','ITEM8',datetime.date.today(),'Done'), 
-    Trello_items.Item('9','ITEM9',datetime.date.today(),'Done'),
-    Trello_items.Item('10','ITEM10',datetime.date.today()- datetime.timedelta(days=7),'Done'),
-    Trello_items.Item('11','ITEM11',datetime.date.today(),'Done'),
-    Trello_items.Item('12','ITEM12',datetime.date.today()- datetime.timedelta(days=100),'Done'),
-    Trello_items.Item('13','ITEM13',datetime.date.today(),'Done'),
-    Trello_items.Item('14','ITEM14',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
+    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.date.today()- datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today()- datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Done'),
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done'),
+    Mongo_items.Item('8','ITEM8',datetime.date.today(),'Done'), 
+    Mongo_items.Item('9','ITEM9',datetime.date.today(),'Done'),
+    Mongo_items.Item('10','ITEM10',datetime.date.today()- datetime.timedelta(days=7),'Done'),
+    Mongo_items.Item('11','ITEM11',datetime.date.today(),'Done'),
+    Mongo_items.Item('12','ITEM12',datetime.date.today()- datetime.timedelta(days=100),'Done'),
+    Mongo_items.Item('13','ITEM13',datetime.date.today(),'Done'),
+    Mongo_items.Item('14','ITEM14',datetime.date.today(),'Done')
     ]
 
 test_list_done_items_with_past_and_future_items = [
-    Trello_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
-    Trello_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Trello_items.Item('3','ITEM3',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
-    Trello_items.Item('4','ITEM4',datetime.date.today(),'Done'),
-    Trello_items.Item('5','ITEM5',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
-    Trello_items.Item('6','ITEM6',datetime.date.today(),'Done'),
-    Trello_items.Item('7','ITEM7',datetime.date.today(),'Done'),
-    Trello_items.Item('8','ITEM8',datetime.date.today(),'Done'), 
-    Trello_items.Item('9','ITEM9',datetime.date.today(),'Done'),
-    Trello_items.Item('10','ITEM10',datetime.date.today()- datetime.timedelta(days=7),'Done'),
-    Trello_items.Item('11','ITEM11',datetime.date.today(),'Done'),
-    Trello_items.Item('12','ITEM12',datetime.date.today()- datetime.timedelta(days=100),'Done'),
-    Trello_items.Item('13','ITEM13',datetime.date.today(),'Done'),
-    Trello_items.Item('14','ITEM14',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
+    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Done'),
+    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done'),
+    Mongo_items.Item('8','ITEM8',datetime.date.today(),'Done'), 
+    Mongo_items.Item('9','ITEM9',datetime.date.today(),'Done'),
+    Mongo_items.Item('10','ITEM10',datetime.date.today()- datetime.timedelta(days=7),'Done'),
+    Mongo_items.Item('11','ITEM11',datetime.date.today(),'Done'),
+    Mongo_items.Item('12','ITEM12',datetime.date.today()- datetime.timedelta(days=100),'Done'),
+    Mongo_items.Item('13','ITEM13',datetime.date.today(),'Done'),
+    Mongo_items.Item('14','ITEM14',datetime.date.today(),'Done')
     ]
 test_lists = [test_list_mixture_of_items, test_list_only_todo_items, test_list_only_doing_items, test_list_only_done_items, test_list_missing_ids_items, test_list_empty]
 test_lists_with_number_of_todo_items = [(test_list_mixture_of_items, 3), (test_list_only_todo_items, 7), (test_list_only_doing_items, 0), (test_list_only_done_items, 0), (test_list_missing_ids_items,0), (test_list_empty,0)]

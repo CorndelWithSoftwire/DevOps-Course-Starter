@@ -1,5 +1,6 @@
-import app, pytest, mongomock 
+import app, pytest, mongomock, os
 import Mongo_items 
+from mongo_config import Config
 from dotenv import find_dotenv, load_dotenv
 
 @pytest.fixture
@@ -37,14 +38,14 @@ test_todos = [
 
 def test_index(client, monkeypatch):
     def mock_get_db(*args):
-        mockdb = mongomock.MongoClient().todo_database
+        #mockdb = mongomock.MongoClient().fake_Mongo_db
+        mockdb = mongomock.MongoClient().get_database(os.getenv("MONGO_DB"))
         mockdb.todo.insert_many(test_todos)
         return mockdb
    
     monkeypatch.setattr(Mongo_items, "get_db", mock_get_db)
    
     response = client.get('/')
-    assert "test item" in str(response.data)
     assert "TestItem1" in str(response.data)
     assert "TestItem2" in str(response.data)
     assert "TestItem3" in str(response.data)
