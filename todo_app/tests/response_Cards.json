@@ -1,0 +1,9 @@
+{"id":"6054b0789b71d43acb0d5581","checkItemStates":[],"closed":false,"dateLastActivity":"2021-05-18T16:15:47.200Z",
+  "desc":"","descData":null,"dueReminder":null,"idBoard":"6054b0101e6a3d49645dbdc8","idList":"6054b0101e6a3d49645dbdca",
+  "idMembersVoted":[],"idShort":1,"idAttachmentCover":null,"idLabels":[],"manualCoverAttachment":false,"name":"DevopsTrelloBoard",
+  "pos":65535,"shortLink":"YFJtWyDm","isTemplate":false,"cardRole":null,"dueComplete":false,"due":null,"email":null,"labels":[],
+  "shortUrl":"https://trello.com/c/YFJtWyDm","start":null,"url":"https://trello.com/c/YFJtWyDm/1-devopstrelloboard","idMembers":[],
+  "badges":{"attachmentsByType":{"trello":{"board":0,"card":0}},"location":false,"votes":0,"viewingMemberVoted":false,
+  "subscribed":false,"fogbugz":"","checkItems":0,"checkItemsChecked":0,"checkItemsEarliestDue":null,"comments":0,"attachments":0,
+  "description":false,"due":null,"dueComplete":false,"start":null},"subscribed":false,"idChecklists":[],
+  "cover":{"idAttachment":null,"color":null,"idUploadedBackground":null,"size":"normal","brightness":"light","idPlugin":null}}
