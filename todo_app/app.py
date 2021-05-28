@@ -3,8 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required
 from flask_login.utils import login_user
-from flask_login import login_user
-from oauthlib.oauth2.rfc6749.clients.base import BODY    # This line may not be required
+
 # from flask import LoginManager and login required
 import requests                     # Import the whole of requests
 import json
@@ -29,7 +28,6 @@ app.secret_key = os.environ["SECRET_KEY"]
 login_manager = LoginManager()
 Clientsecurity = WebApplicationClient("7b45e6f82314a24eae60")
 @login_manager.unauthorized_handler
-
 def unauthenticated():
     print("unauthenticated, yet!") 	
     result = Clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
@@ -42,7 +40,7 @@ def unauthenticated():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return None
+    return User(user_id)
 
 login_manager.init_app(app)
 
@@ -183,7 +181,7 @@ def login():
     url, headers, body = Clientsecurity.add_token("https://api.github.com/user")
     
     user_response = requests.get(url, headers=headers, data=body)
-    # Has to be read as a JSON
+    # Has to be read as a JSON - FROM HERE TO **** MAYBE REMOVE
     full_user_response = json.loads(user_response.text)
     # Now has to be split into individual values
     values_view = full_user_response.values()
@@ -224,11 +222,10 @@ def login():
     #print("-----")
     #print("Clientsecurity is")
     #print(Clientsecurity)
+    # ****
 
-
-# *******  finalusername object has the wrong value in it, I'm 99% sure ****
-
-    login_user(finalusername)
+    the_user_name = user_response.json()['login']
+    login_user(the_user_name)
 
     return redirect("/")
 

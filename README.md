@@ -23,13 +23,13 @@ docker build --target test --tag my-test-image .
 
 To run locally, 
 
+(poetry add oauthlib flask-login is recorded in pyproject.toml)
+
 1)  For a security reason add this to .env file:
 
 OAUTHLIB_INSECURE_TRANSPORT=1
 
 then run:
-
-poetry add oauthlib flask-login
 
 In order to run this container you'll need 
 1) Docker installed
