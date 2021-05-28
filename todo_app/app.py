@@ -1,12 +1,12 @@
 # SETUP INFO
 
-from flask import Flask, render_template, request, redirect, url_for
-from flask_login import LoginManager, login_required
+from flask import Flask, render_template, request, redirect, g, url_for, session
+from flask_login import LoginManager, login_required, current_user
 from flask_login.utils import login_user
 
 # from flask import LoginManager and login required
 import requests                     # Import the whole of requests
-import json
+import json                         # May not be needed
 import os        # Secrets  (local only)
 import pymongo   # required for new mongo database   EXERCISE 9
 from datetime import datetime, timedelta   # Needed for Mongo dates for 'older' records seperation
@@ -20,13 +20,16 @@ from todo_app.todo import Todo
 
 
 app = Flask(__name__)
+
 app.secret_key = os.environ["SECRET_KEY"]
 
 #################################
 #  MODULE 10 LOGIN MANAGER SETUP
 #################################
 login_manager = LoginManager()
-Clientsecurity = WebApplicationClient("7b45e6f82314a24eae60")
+client_id=os.environ["client_id"] 
+Clientsecurity = WebApplicationClient(client_id)
+
 @login_manager.unauthorized_handler
 def unauthenticated():
     print("unauthenticated, yet!") 	
@@ -47,7 +50,7 @@ login_manager.init_app(app)
 ################################
 print ("Program starting right now") 
 mongopassword=os.environ["mongopassword"]           # Secure password
-client_id=os.environ["client_id"]                   # For security
+client_id=os.environ["client_id"]                   # Possibly not needed, defined earlier
 client_secret=os.environ["client_secret"]           # For security
 #Set up variables we'll be using.
 client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
@@ -59,16 +62,15 @@ olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide ite
 # olddate = (datetime.now() + timedelta(days=5))  #Uncomment this line to check 'older items'
                                                   # work without having to hang around for 5 days!
 
+
 @app.route('/', methods = ["GET","PUT"])
+@login_required
 def index():
-    thislist=[]                     # Maybe can be removed           
-    superlist=[]                    # Maybe can be removed
     mongosuperlist=[]               # The name of the Mongo OVERALL list with all items in it
     mongo_view_model=[]             # The name of the Mongo TO DO list (section of collection)
     mongo_view_model_doing=[]       # The name of the Mongo DOING list (section of collection)
     mongo_view_model_done=[]        # The name of the Mongo DONE list (section of collection)
     mongo_view_model_olddone=[]     # Older 'done' items to be stored here (section of collection)
-
     mongosuperlist = list(db.newposts.find()) 
  
 #  Create the various lists depending on status
@@ -88,16 +90,32 @@ def index():
             if whatsthedate > olddate:
                 mongo_view_model_done.append(mongo_card)        # Append to display in done - recently
             else: 
-                mongo_view_model_olddone.append(mongo_card)     # Apprend to display in older done record
-                  
-                                                            # note: Invalid or no status won't appear at all
-    return render_template('index.html', 
-    passed_items_todo=mongo_view_model,             # Mongo To Do
-    passed_items_doing=mongo_view_model_doing,      # Mongo Doing
-    passed_items_done=mongo_view_model_done,        # Mongo Done
-    passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
-    )
+                mongo_view_model_olddone.append(mongo_card)     # Apprend to display in older done record            
+                                                                # note: Invalid or no status won't appear at all
 
+   # print("the current user is:  ")
+    print(current_user.name)
+    write_permission_user=(current_user.name)
+
+   # If statement to go here:
+   
+    # allow_edit = (current_user.name)
+
+    if (write_permission_user == "britboy4321"):        # Just 1 user = can write, at the mo
+        return render_template('indexwrite.html',       # If user allowed to write: 
+        passed_items_todo=mongo_view_model,             # Mongo To Do
+        passed_items_doing=mongo_view_model_doing,      # Mongo Doing
+        passed_items_done=mongo_view_model_done,        # Mongo Done
+        passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
+        )
+    else:
+        return render_template('indexread.html',       # If user allowed to write: 
+        passed_items_todo=mongo_view_model,             # Mongo To Do
+        passed_items_doing=mongo_view_model_doing,      # Mongo Doing
+        passed_items_done=mongo_view_model_done,        # Mongo Done
+        passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
+        )
+    
 
 @app.route('/addmongoentry', methods = ["POST"])
 @login_required
@@ -108,7 +126,7 @@ def mongoentry():
     return redirect("/")
 
 @app.route('/move_to_doing_item', methods = ["PUT","GET","POST"])
-
+@login_required
 def move_to_doing_item():           # Called to move a 'card' to 'doing'
     title = request.form['item_title']
     myquery = { "title": title }
@@ -119,6 +137,7 @@ def move_to_doing_item():           # Called to move a 'card' to 'doing'
     return redirect("/")
 
 @app.route('/move_to_done_item', methods = ["PUT","GET","POST"])
+@login_required
 def move_to_done_item():            # Called to move a 'card' to 'done'
   
     title = request.form['item_title']
@@ -130,6 +149,7 @@ def move_to_done_item():            # Called to move a 'card' to 'done'
     return redirect("/")
 
 @app.route('/move_to_todo_item', methods = ["PUT","GET","POST"])
+@login_required
 def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (was useful)
     title = request.form['item_title']
     myquery = { "title": title }
@@ -139,22 +159,8 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
       print(doc)
     return redirect("/")
 
-
 @app.route('/login/callback', methods = ["GET","POST"])
 def login():
-    #This is where github has it's call back sending to .. (set in github)
-
-
-    #NOTES FROM INSTRUCTORS , I JUST WANT TO KEEP HERE RIGHT NOW ..
-    
-    # we want to call the login user function .. import from flask login
-    # To read this stage we need to parse the info github has given up
-   # understand what has github given us .. ask github who is the user .. 
-   # github will give token .. we're gonna use that token to ask github
-   # who is this
-   # login that user    --- flask login library
-
-
 
     # Get the access_token
 
@@ -180,55 +186,10 @@ def login():
     Clientsecurity.parse_request_body_response(token_response.text)
     url, headers, body = Clientsecurity.add_token("https://api.github.com/user")
     
-    user_response = requests.get(url, headers=headers, data=body)
-    # Has to be read as a JSON - FROM HERE TO **** MAYBE REMOVE
-    full_user_response = json.loads(user_response.text)
-    # Now has to be split into individual values
-    values_view = full_user_response.values()
-    # Now has to be put into an interative list
-    full_user_view = iter(values_view)
-    # Now we need the first thing off that list, which is the user name
-    the_user_name = next(full_user_view)
-
-    # Unbelievable .. login_user won't actually accept a string it
-    # will only take a user object as the first parameter, not a string
-    # representing the user
-
-    finalusername = User(the_user_name)   
-    print("FINALUSERNAME IS")
-    print(finalusername)
-    # This printout shows:
-#    FINALUSERNAME IS
-#   <todo_app.todo.User object at 0x00000201093C8CA0>
-# I AM 99.99% SURE THIS IS WHERE THE ISSUE IS.  LOGIN_USER IS BEING
-# CALLED WITH AN INCORRECT VALUE IN finalusername.  BUT I DON'T KNOW
-# HOW TO FIX IT.
-
-    
-    # I want the below kept as later may be useful for debugging
-
-    #print("---- USER NAME ----")
-    #print(the_user_name)
-    #print("---- FULL USER RESPONSE ----")
-    #print(full_user_response)
-    #print("HTML response 200 means OK - request succeeded")
-    #print("-----------------------")
-    #print("URL is")
-    #print(url)
-    #print("headers is")
-    #print(headers)
-    #print("body is")
-    #print(body)
-    #print("-----")
-    #print("Clientsecurity is")
-    #print(Clientsecurity)
-    # ****
-
+    user_response = requests.get(url, headers=headers, data=body) 
     the_user_name = user_response.json()['login']
-    login_user(the_user_name)
-
+    login_user(User(the_user_name))
     return redirect("/")
-
 
 if __name__ == '__main__':
    

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">To-Do App</h1>
+    <p class="lead">MODULE 10, Security nightmare.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>MONGO to do items</h2>
+      <ul class="list-group mb-4">  
+        {% for eachrow in passed_items_todo %}   
+            <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+            <li>>This item was created on:  {{eachrow['mongodate']}}</li>
+
+            </form>
+
+            {% endfor %}
+      </ul>
+
+      <h2>MONGO doing items</h2>
+
+      <ul class="list-group mb-4">  
+        {% for eachrow in passed_items_doing %}   
+            <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+
+              </form>
+
+            {% endfor %}
+      </ul>
+
+      <h2>MONGO done items</h2>
+
+      <ul class="list-group mb-4">  
+        {% for eachrow in passed_items_done %}   
+            <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+
+            {% endfor %}
+            <details>
+              <summary>OLDER Items from MONGO done list</summary>
+     
+            <ul class="list-group mb-4">  
+              {% for eachrow in passed_items_olddone %}   
+                  <li>{{eachrow['title']," IS STATUS ",eachrow['status']}} </li>
+      
+                  {% endfor %}
+                  </details>
+
+      </ul>
+      <form action="/addmongoentry" method="post">
+        <label for="title">Insert a new mongo title:</label><br>
+        <input type="text" id="title" name="title"><br>
+      
+      </form>
+     
+    </style>
+    </head>
+
+{% endblock %}

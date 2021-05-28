@@ -6,9 +6,10 @@ from flask_login import UserMixin
 class User(UserMixin): 
     def __init__(self,name):
         self.name = name
-        return None
-    def id(self):
-        return (self.id)
+    def get_id(self):
+        return (self.name)
+    # def __str__(self):
+    #     return(self.name)
 
 
 class Newviewmodel:
