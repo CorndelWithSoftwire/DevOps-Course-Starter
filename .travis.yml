@@ -33,10 +33,7 @@ after_success:
 deploy:
   provider: script
   script:
-    echo "Deploy to Heroku";
-    docker tag $DOCKER_USER/todo-app:production registry.heroku.com/$HEROKU_APP/web;
-    echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com;
-    docker push registry.heroku.com/$HEROKU_APP/web;
-    heroku container:release web --app $HEROKU_APP;
+    echo "Deploy to Azure";
+    curl https://\$quickanddirtytodo15:S8szKCi14qaz0980f0ag6xsiNMW47Y7Tnk3sqhMoNwpHQfvtZbpxavE4SNic@quickanddirtytodo15.scm.azurewebsites.net/docker/hook
   on:
-    branch: master
+    branch: module_11
