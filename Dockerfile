@@ -34,7 +34,8 @@ COPY ./todo_app/app.py ./todo_app/app.py
 COPY ./todo_app/todo.py ./todo_app/todo.py
 COPY ./todo_app/models/view_model.py ./todo_app/models/view_model.py
 COPY ./todo_app/templates/layout.html ./todo_app/templates/layout.html
-COPY ./todo_app/templates/index.html ./todo_app/templates/index.html
+COPY ./todo_app/templates/indexread.html ./todo_app/templates/indexread.html
+COPY ./todo_app/templates/indexwrite.html ./todo_app/templates/indexwrite.html
 COPY ./poetry.toml ./poetry.toml
 COPY ./pyproject.toml ./pyproject.toml
 COPY ./todo_app/wsgi.py ./todo_app/wsgi.py
