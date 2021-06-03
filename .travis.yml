@@ -1,6 +1,5 @@
 script:
-- echo "This is Daves module 10 Security work"
-- echo "-------------------------------------"
+
 - FLASK_APP=todo_app/app
 - FLASK_ENV=development
 - docker build --target test --tag todoapptest .
@@ -31,9 +30,15 @@ deploy:
   on: 
     branch:
     - master
-    - module7       # To be removed eventually
-    - module8       # To be removed eventually
-    - module9       # To be removed eventually
     - Module10
     - module10
-    
+    - Module11
+    - module11
+    - Module12
+    - module12
+    - Module13
+    - module13
+    - Module14
+    - module14
+    - Module15
+    - module15    

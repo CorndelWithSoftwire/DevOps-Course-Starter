@@ -76,7 +76,6 @@ def index():
 #  Create the various lists depending on status
     counter=0                                           # Well, it works!
     for mongo_card in mongosuperlist:
-        mongotodo = Todo.from_mongo_card(mongo_card)  # Maybe can be removed  
         
         #A list of mongo rows from the collection called 'newposts' 
         whatsthestatus=(mongosuperlist[counter]['status'])
