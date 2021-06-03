@@ -108,6 +108,7 @@ def index():
    
     # allow_edit = (current_user.name)
 
+
     if (current_user_role == "writer"):                 # Can now handle multiple users
         return render_template('indexwrite.html',       # If user allowed to write: 
         passed_items_todo=mongo_view_model,             # Mongo To Do
@@ -127,7 +128,8 @@ def index():
 @app.route('/addmongoentry', methods = ["POST"])
 @login_required
 def mongoentry():
-    if (current_user_role == "writer"):
+    write_permission_user=(current_user.name)
+    if (write_permission_user == "britboy4321"):
         name = request.form['title']
         mongodict={'title':name,'status':'todo', 'mongodate':datetime.now()}
         db.newposts.insert(mongodict)
@@ -136,7 +138,8 @@ def mongoentry():
 @app.route('/move_to_doing_item', methods = ["PUT","GET","POST"])
 @login_required
 def move_to_doing_item():           # Called to move a 'card' to 'doing'
-    if (current_user_role == "writer"):
+    write_permission_user=(current_user.name)
+    if (write_permission_user == "britboy4321"):
         title = request.form['item_title']
         myquery = { "title": title }
         newvalues = { "$set": { "status": "doing" } }
@@ -148,7 +151,8 @@ def move_to_doing_item():           # Called to move a 'card' to 'doing'
 @app.route('/move_to_done_item', methods = ["PUT","GET","POST"])
 @login_required
 def move_to_done_item():            # Called to move a 'card' to 'done'
-    if (current_user_role == "writer"):
+    write_permission_user=(current_user.name)
+    if (write_permission_user == "britboy4321"):
         title = request.form['item_title']
         myquery = { "title": title }
         newvalues = { "$set": { "status": "done" } }
@@ -160,7 +164,8 @@ def move_to_done_item():            # Called to move a 'card' to 'done'
 @app.route('/move_to_todo_item', methods = ["PUT","GET","POST"])
 @login_required
 def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (was useful)
-    if (current_user_role == "writer"):
+    write_permission_user=(current_user.name)
+    if (write_permission_user == "britboy4321"):
         title = request.form['item_title']
         myquery = { "title": title }
         newvalues = { "$set": { "status": "todo" } }
