@@ -13,11 +13,9 @@ from datetime import datetime, timedelta   # Needed for Mongo dates for 'older' 
 from todo_app.todo import User              #Import simple user class
 from oauthlib.oauth2 import WebApplicationClient # Security prep work
 
-# import pytest
+# import pytest   (Module 3 not completed yet but will need this stuff)
 from todo_app.models.view_model import ViewModel
 from todo_app.todo import Todo
-# from dateutil.parser import parser
-
 
 app = Flask(__name__)
 
@@ -39,21 +37,21 @@ def unauthenticated():
 
     return redirect(result)
 
-		# Github OAuth flow when unauthenticated
+	# Github OAuth flow when unauthenticated
 
 @login_manager.user_loader
 def load_user(user_id):
     return User(user_id)
 
 login_manager.init_app(app)
-
-################################
-print ("Program starting right now") 
-mongopassword=os.environ["mongopassword"]           # Secure password
+#Set up variables we'll be using.   Pre-Module 11 stuff
+# mongopassword=os.environ["mongopassword"]           # Secure password
 client_id=os.environ["client_id"]                   # Possibly not needed, defined earlier
 client_secret=os.environ["client_secret"]           # For security
-#Set up variables we'll be using.
-client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
+# Pre Moduole 11 client
+# client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
+# Module 11 client (azure)
+client = pymongo.MongoClient('mongodb://britboytodoapp:v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw==@britboytodoapp.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@britboytodoapp@')
 
 db = client.gettingStarted              # Database to be used
 listid=os.environ["todo_listid"]
@@ -61,7 +59,8 @@ olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide ite
 
 # olddate = (datetime.now() + timedelta(days=5))  #Uncomment this line to check 'older items'
                                                   # work without having to hang around for 5 days!
-
+################################
+print ("Program starting right now")
 
 @app.route('/', methods = ["GET","PUT"])
 @login_required

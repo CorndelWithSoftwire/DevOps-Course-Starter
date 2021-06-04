@@ -58,21 +58,5 @@ class Todo:
         status = "Todo"            # Will be overwritten by app 
         mongodate = datetime.today().strftime('%Y-%m-%d')
 
-# class Clientsecurity:
-#        def __init__(self, items):
-#            self.items1 = items
-#        @property
-#        def items(self):
-#            return self.items1    
-        
-# class User(UserMixin):
 
-#    def __init__(self, id):
-#        self.id = id
-#        self.name = "user" 
-#        # + str(id)
-#        # self.password = self.name + "_secret"
-#        
-#    def __repr__(self):
-#        return "%d/%s/%s" % (self.id, self.name, self.password)
 
