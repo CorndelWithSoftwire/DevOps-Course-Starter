@@ -55,7 +55,8 @@ RUN poetry config virtualenvs.create false --local && poetry install
 FROM base as production
 
 # ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:$PORT todo_app.wsgi:app
-ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:$PORT
+# ENTRYPOINT poetry run gunicorn --bind 0.0.0.0:$PORT
+ENTRYPOINT "poetry run flask run --host=0.0.0.0:$PORT"
 
 #Development Flask
 
