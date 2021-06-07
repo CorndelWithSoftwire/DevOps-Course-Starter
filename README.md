@@ -1,5 +1,7 @@
 # Docker Container :  To do list
-Python code interacts with MongoDB to give a unique front end interacting with Mongo systems.
+Python code interacts with MongoDB to give a unique front end interacting with Mongo systems.  
+
+Hosted on Assure.
 
 OAUTH Security implemented.
 
