@@ -20,7 +20,7 @@ class Trello():
 
     def getCardsfromList(self):
         params= {'key': self.apikey, 'token': self.token}
-        response =  requests.get(f'https://api.trello.com/1/boards/{board_id}/cards', params= params)
+        response =  requests.get(f'https://api.trello.com/1/boards/{self.board_id}/cards', params= params)
         print(response.text)
         items=[]
         for item in response.json():
@@ -52,6 +52,18 @@ class Trello():
         response = requests.put(f'https://api.trello.com/1/cards/{cardid}', params= params)
         print(response.text)
 
+    def createNewBoard(self, boardname):
+        params= {'key':self.apikey, 'token':self.token, 'name':boardname}
+        response = requests.post(f'https://api.trello.com/1/boards/', params= params)
+        print(response.text)
+        boardjson = response.json()
+        return boardjson['id']
+
+    def deleteBoard(self, boardid):
+        params= {'key':self.apikey, 'token':self.token}
+        response = requests.delete(f'https://api.trello.com/1/boards/{boardid}', params= params)
+        print(response.text)
+        
     
 
 

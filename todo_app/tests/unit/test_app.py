@@ -20,7 +20,7 @@ def test_todoitems():
 
 
 def test_doingitems():
-    item1 = Item(1, "Title 1", "Doing")
+    item1 = Item(1, "Title 1","Doing")
     item2 = Item(1, "Title 2", "Doing")
     item3 = Item(1, "Title 3", "Doing")
     item4 = Item(1, "Title 4", "Doing")

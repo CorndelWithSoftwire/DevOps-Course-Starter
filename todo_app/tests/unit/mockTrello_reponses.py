@@ -3,7 +3,7 @@ from requests import status_codes
 
 class MockResponsesforList(object):
     def __init__(self):
-        self.status_codes ==200
+        self.status_code == 200
         self.url = 'http://httpbin.org/get'
         self.headers = {'abcd', '1234'}
 
@@ -12,13 +12,13 @@ class MockResponsesforList(object):
         return self.json()
 
     def json(self):
-        with io.open('tests/trelloresponses') as f:
+        with io.open('todo_app/tests/response_list.json') as f:
             jsontext = f.read()
         return jsontext
 
 class MockResponsesforCard(object):
     def __init__(self):
-        self.status_codes ==200
+        self.status_code == 200
         self.url = 'http://httpbin.org/get'
         self.headers = {'abcd', '1234'}
 
@@ -27,7 +27,7 @@ class MockResponsesforCard(object):
         return self.json()
 
     def json(self):
-        with io.open('tests/trelloresponses') as f:
+        with io.open('todo_app/tests/response_list.json') as f:
             jsontext = f.read()
         return jsontext
 
