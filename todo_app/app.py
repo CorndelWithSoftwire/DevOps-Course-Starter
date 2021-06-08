@@ -32,7 +32,7 @@ Clientsecurity = WebApplicationClient(client_id)
 def unauthenticated():
     print("unauthenticated, yet!") 	
     result = Clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
-    print("The place we're about to go to is ...")
+    print("The place we're about to go to is called...")
     print(result)
 
     return redirect(result)

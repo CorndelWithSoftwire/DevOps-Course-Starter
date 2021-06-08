@@ -22,8 +22,8 @@ script:
 - echo "CONTINUOUS DEPLOYMENT SETUP COMPLETED NOW"
 - echo "-----------------------------------------"
 # ---
-- echo "TIME FOR ACTUAL DEPLOY and RELEASE NOW"
-- echo "--------------------------------------"
+- echo "TIME FOR ACTUAL DEPLOY and RELEASE NOW.."
+- echo "----------------------------------------"
 
 deploy:
   provider: script
