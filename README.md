@@ -80,4 +80,5 @@ Items id, items status, items title are set in items.py
 Api key, Token and ids are declared in .env
 viewModel.py have to do items, doing and done items
 unit test for checking to do items-paased test
-
+Integration Tests 
+End to End Selenium Tests
