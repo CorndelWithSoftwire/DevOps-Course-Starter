@@ -27,13 +27,12 @@ script:
 
 deploy:
   provider: script
-  script: 
-    # bash scripts/deploy.sh
-    heroku container:release web --app todoappbritboy
+  script: bash scripts/deploy.sh
+    #heroku container:release web --app todoappbritboy
     # curl -dH -X POST $azurewebhook
     # bash ./scripts/deploy.sh
     #  curl -dH -X POST "https://\$todobritboywebsite:C2SjFXndkSPHs4n8aBTYpuh5kEFHGbWXBvlaCjMzoiH08CY6D34K7WvhpKFi@todobritboywebsite.scm.azurewebsites.net/docker/hook"
-       on: 
+  on: 
     branch:
     - master
     - Module10
@@ -47,4 +46,4 @@ deploy:
     - Module14
     - module14
     - Module15
-    - module15    
+    - module15
