@@ -26,6 +26,8 @@ docker build --target test --tag my-test-image .
 
 ## Prerequisities
 
+Update .env (see .env.template for guidance)
+
 To run locally, 
 
 (poetry add oauthlib flask-login is recorded in pyproject.toml)
@@ -64,7 +66,7 @@ docker run --env-file .env -p 5000:5000 davedev
 RUN DEVELOPMENT ENVIRONMENT WITH BIND MOUNT FOR HOT RELOADING:
 docker run --env-file .env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app davedev
 RUN PRODUCTION ENVIRONMENT IMAGE:
-docker run --env-file .env -p 5000:5000 davedev
+docker run --env-file .env -p 5000:5000 dave2
 RUN TESTS FOR APP:
 docker run --env-file .env -p 5000:5000 my-test-image
 
