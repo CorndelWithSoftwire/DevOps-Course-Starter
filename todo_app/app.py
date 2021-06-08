@@ -44,17 +44,12 @@ def load_user(user_id):
     return User(user_id)
 
 login_manager.init_app(app)
-#Set up variables we'll be using.   Pre-Module 11 stuff
-# mongopassword=os.environ["mongopassword"]           # Secure password
 client_id=os.environ["client_id"]                   # Possibly not needed, defined earlier
 client_secret=os.environ["client_secret"]           # For security
-# Pre Moduole 11 client
-# client = pymongo.MongoClient('mongodb+srv://britboy4321:' + mongopassword + '@cluster0.qfyqb.mongodb.net/myFirstDatabase?w=majority')
-# Module 11 client (azure)
+
 client = pymongo.MongoClient('mongodb://britboytodoapp:v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw==@britboytodoapp.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@britboytodoapp@')
 
 db = client.gettingStarted              # Database to be used
-# listid=os.environ["todo_listid"]
 olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide items older than 5 days
 
 # olddate = (datetime.now() + timedelta(days=5))  #Uncomment this line to check 'older items'
