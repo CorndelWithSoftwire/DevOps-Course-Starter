@@ -26,8 +26,9 @@ script:
 - echo "--------------------------------------"
 
 deploy:
-  provider: script 
-  script: bash scripts/deploy.sh
+  provider: script
+  script: 
+      bash scripts/deploy.sh
     # heroku container:release web --app todoappbritboy
     #  curl -dH -X POST $azurewebhook
     #  bash ./scripts/deploy.sh
