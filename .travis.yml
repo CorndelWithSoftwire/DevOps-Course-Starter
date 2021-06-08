@@ -30,9 +30,9 @@ deploy:
   script: 
     # heroku container:release web --app todoappbritboy
     #  curl -dH -X POST $azurewebhook
-    bash ./scripts/deploy.sh
-    # "https://\$todobritboywebsite:C2SjFXndkSPHs4n8aBTYpuh5kEFHGbWXBvlaCjMzoiH08CY6D34K7WvhpKFi@todobritboywebsite.scm.azurewebsites.net/docker/hook"
-  on: 
+    #  bash ./scripts/deploy.sh
+       curl -dH -X POST "https://\$todobritboywebsite:C2SjFXndkSPHs4n8aBTYpuh5kEFHGbWXBvlaCjMzoiH08CY6D34K7WvhpKFi@todobritboywebsite.scm.azurewebsites.net/docker/hook"
+       on: 
     branch:
     - master
     - Module10
