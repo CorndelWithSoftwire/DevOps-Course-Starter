@@ -3,86 +3,86 @@ import viewmodel as vm
 
 
 test_list_mixture_of_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
-    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Mongo_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
-    Mongo_items.Item('4','ITEM4',datetime.date.today(),'To Do'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Done'),
-    Mongo_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Doing')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'Doing'), 
+    Mongo_items.Item('2','ITEM2',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('4','ITEM4',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'Doing')
     ]
 
 test_list_only_todo_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'To Do'), 
-    Mongo_items.Item('2','ITEM2',datetime.date.today(),'To Do'),
-    Mongo_items.Item('3','ITEM3',datetime.date.today(),'To Do'),
-    Mongo_items.Item('4','ITEM4',datetime.date.today(),'To Do'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today(),'To Do'),
-    Mongo_items.Item('6','ITEM6',datetime.date.today(),'To Do'),
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'To Do')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'To Do'), 
+    Mongo_items.Item('2','ITEM2',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('3','ITEM3',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('4','ITEM4',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('6','ITEM6',datetime.datetime.today(),'To Do'),
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'To Do')
     ]
 
 test_list_only_doing_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
-    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Doing'),
-    Mongo_items.Item('3','ITEM3',datetime.date.today(),'Doing'),
-    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Doing'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Doing'),
-    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Doing'),
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Doing')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'Doing'), 
+    Mongo_items.Item('2','ITEM2',datetime.datetime.today(),'Doing'),
+    Mongo_items.Item('3','ITEM3',datetime.datetime.today(),'Doing'),
+    Mongo_items.Item('4','ITEM4',datetime.datetime.today(),'Doing'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today(),'Doing'),
+    Mongo_items.Item('6','ITEM6',datetime.datetime.today(),'Doing'),
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'Doing')
     ]
 
 test_list_only_done_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
-    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Mongo_items.Item('3','ITEM3',datetime.date.today(),'Done'),
-    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Done'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Done'),
-    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Done'),
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'Done'), 
+    Mongo_items.Item('2','ITEM2',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('4','ITEM4',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'Done')
     ]
 
 test_list_missing_ids_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Doing'), 
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'Doing'), 
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today(),'Done')
     ]
 
 test_list_empty = [
     ]
 
 test_list_done_items_with_older_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
-    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Mongo_items.Item('3','ITEM3',datetime.date.today()- datetime.timedelta(days=1),'Done'),
-    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Done'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today()- datetime.timedelta(days=1),'Done'),
-    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Done'),
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done'),
-    Mongo_items.Item('8','ITEM8',datetime.date.today(),'Done'), 
-    Mongo_items.Item('9','ITEM9',datetime.date.today(),'Done'),
-    Mongo_items.Item('10','ITEM10',datetime.date.today()- datetime.timedelta(days=7),'Done'),
-    Mongo_items.Item('11','ITEM11',datetime.date.today(),'Done'),
-    Mongo_items.Item('12','ITEM12',datetime.date.today()- datetime.timedelta(days=100),'Done'),
-    Mongo_items.Item('13','ITEM13',datetime.date.today(),'Done'),
-    Mongo_items.Item('14','ITEM14',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'Done'), 
+    Mongo_items.Item('2','ITEM2',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.datetime.today()- datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('4','ITEM4',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today()- datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('8','ITEM8',datetime.datetime.today(),'Done'), 
+    Mongo_items.Item('9','ITEM9',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('10','ITEM10',datetime.datetime.today()- datetime.timedelta(days=7),'Done'),
+    Mongo_items.Item('11','ITEM11',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('12','ITEM12',datetime.datetime.today()- datetime.timedelta(days=100),'Done'),
+    Mongo_items.Item('13','ITEM13',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('14','ITEM14',datetime.datetime.today(),'Done')
     ]
 
 test_list_done_items_with_past_and_future_items = [
-    Mongo_items.Item('1','ITEM1',datetime.date.today(),'Done'), 
-    Mongo_items.Item('2','ITEM2',datetime.date.today(),'Done'),
-    Mongo_items.Item('3','ITEM3',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
-    Mongo_items.Item('4','ITEM4',datetime.date.today(),'Done'),
-    Mongo_items.Item('5','ITEM5',datetime.date.today()+ datetime.timedelta(days=1),'Done'),
-    Mongo_items.Item('6','ITEM6',datetime.date.today(),'Done'),
-    Mongo_items.Item('7','ITEM7',datetime.date.today(),'Done'),
-    Mongo_items.Item('8','ITEM8',datetime.date.today(),'Done'), 
-    Mongo_items.Item('9','ITEM9',datetime.date.today(),'Done'),
-    Mongo_items.Item('10','ITEM10',datetime.date.today()- datetime.timedelta(days=7),'Done'),
-    Mongo_items.Item('11','ITEM11',datetime.date.today(),'Done'),
-    Mongo_items.Item('12','ITEM12',datetime.date.today()- datetime.timedelta(days=100),'Done'),
-    Mongo_items.Item('13','ITEM13',datetime.date.today(),'Done'),
-    Mongo_items.Item('14','ITEM14',datetime.date.today(),'Done')
+    Mongo_items.Item('1','ITEM1',datetime.datetime.today(),'Done'), 
+    Mongo_items.Item('2','ITEM2',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('3','ITEM3',datetime.datetime.today()+ datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('4','ITEM4',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('5','ITEM5',datetime.datetime.today()+ datetime.timedelta(days=1),'Done'),
+    Mongo_items.Item('6','ITEM6',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('7','ITEM7',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('8','ITEM8',datetime.datetime.today(),'Done'), 
+    Mongo_items.Item('9','ITEM9',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('10','ITEM10',datetime.datetime.today()- datetime.timedelta(days=7),'Done'),
+    Mongo_items.Item('11','ITEM11',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('12','ITEM12',datetime.datetime.today()- datetime.timedelta(days=100),'Done'),
+    Mongo_items.Item('13','ITEM13',datetime.datetime.today(),'Done'),
+    Mongo_items.Item('14','ITEM14',datetime.datetime.today(),'Done')
     ]
 test_lists = [test_list_mixture_of_items, test_list_only_todo_items, test_list_only_doing_items, test_list_only_done_items, test_list_missing_ids_items, test_list_empty]
 test_lists_with_number_of_todo_items = [(test_list_mixture_of_items, 3), (test_list_only_todo_items, 7), (test_list_only_doing_items, 0), (test_list_only_done_items, 0), (test_list_missing_ids_items,0), (test_list_empty,0)]
@@ -127,15 +127,15 @@ def test_view_show_all_done_items_contains_correct_number_of_items(TEST_ITEMS, n
 @pytest.mark.parametrize("TEST_ITEMS, number_of_recent_done_items", test_lists_with_number_of_recent_done_items)
 def test_view_recent_done_items_contains_only_items_completed_today(TEST_ITEMS, number_of_recent_done_items):
     view = vm.ViewModel(TEST_ITEMS)
-    today = datetime.date.today()
+    today = datetime.datetime.today()
     for item in view.recent_done_items:
-        assert item.lastmodifieddate >= today
+        assert item.lastmodifieddate.date() >= today.date()
     assert len(view.recent_done_items) == number_of_recent_done_items
 
 @pytest.mark.parametrize("TEST_ITEMS, number_of_older_done_items", test_lists_with_number_of_older_done_items)
 def test_view_older_done_items_contains_only_items_completed_before_today(TEST_ITEMS, number_of_older_done_items):
     view = vm.ViewModel(TEST_ITEMS)
-    today = datetime.date.today()
+    today = datetime.datetime.today()
     for item in view.older_done_items:
-        assert item.lastmodifieddate < today
+        assert item.lastmodifieddate.date() < today.date()
     assert len(view.older_done_items) == number_of_older_done_items
