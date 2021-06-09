@@ -6,8 +6,7 @@ file_path = find_dotenv('.env')
 load_dotenv(file_path, override=True)
 
 def get_db(name):
-    mongologin = Config.MONGO_USER + ':' + Config.MONGO_PASS + "@" + Config.MONGO_URL 
-    client = pymongo.MongoClient("mongodb+srv://" + mongologin + "/" + Config.MONGO_NAME + "?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true")
+    client = pymongo.MongoClient(Config.MONGO_CONNECTION)
     db = client.get_database(name)
     return db
 
