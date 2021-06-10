@@ -2,8 +2,7 @@ services:
 - docker
 script:
 - docker pull kevineatondevops/todo-app:latest
-- docker build --target travistest --tag todo-app:travis --cache-from kevineatondevops/todo-app:latest
-  .
+- docker build --target travistest --tag todo-app:travis --cache-from kevineatondevops/todo-app:latest .
 - docker run --env MONGO_CONNECTION --env MONGO_DB todo-app:travis tests
 - docker run --env MONGO_CONNECTION --env MONGO_DB --env SECRET_KEY todo-app:travis tests_e2e
 deploy:
