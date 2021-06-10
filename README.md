@@ -3,6 +3,8 @@ Python code interacts with MongoDB to give a unique front end interacting with M
 
 Hosted on Assure.
 
+Terraform implemented
+
 OAUTH Security implemented.
 
 This application currently does not allow anonymous login.
