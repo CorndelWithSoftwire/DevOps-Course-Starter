@@ -4,15 +4,12 @@ from mongo_config import Config
 from Mongo_db import get_db
 from bson.objectid import ObjectId
 
-db = get_db(Config.MONGO_DB)
-
 class Item:
     def __init__(self, id, title, lastmodifieddate, status='To Do'):
         self.id = id
         self.status = status
         self.title = title
         self.lastmodifieddate = lastmodifieddate
-
 
 def get_items_mongo():
     """
@@ -21,6 +18,7 @@ def get_items_mongo():
     Returns:
         list: The list of saved items.
     """   
+    db = get_db(Config.MONGO_DB)
     items = []
     todo = db.todo
     doing = db.doing
@@ -33,8 +31,6 @@ def get_items_mongo():
         items.append(Item(item['_id'], item['title'], item['lastmodifieddate'],"Done"))        
     return items
 
-
-
 def add_item_mongo(title):
     """
     Adds a new item with the specified title to the Mongo DB.
@@ -45,6 +41,7 @@ def add_item_mongo(title):
     Returns:
         item: The saved item.
     """
+    db = get_db(Config.MONGO_DB)
     newitem = {'title' : title, "lastmodifieddate" : datetime.datetime.utcnow()}
     todo = db.todo
     todo.insert_one(newitem).inserted_id
@@ -57,6 +54,7 @@ def mark_todo_item_doing_mongo(id):
     Args:
         item: The ID of the item to update.
     """
+    db = get_db(Config.MONGO_DB)
     todo = db.todo
     doing = db.doing
     doing.insert_one(todo.find_one({"_id" : ObjectId(id) })).inserted_id
@@ -70,6 +68,7 @@ def mark_done_item_doing_mongo(id):
     Args:
         item: The ID of the item to update.
     """
+    db = get_db(Config.MONGO_DB)
     done = db.done
     doing = db.doing
     doing.insert_one(done.find_one({"_id" : ObjectId(id) })).inserted_id
@@ -83,6 +82,7 @@ def mark_todo_item_done_mongo(id):
     Args:
         item: The ID of the item to update.
     """
+    db = get_db(Config.MONGO_DB)
     todo = db.todo
     done = db.done
     done.insert_one(todo.find_one({"_id" : ObjectId(id) })).inserted_id
@@ -96,6 +96,7 @@ def mark_doing_item_done_mongo(id):
     Args:
         item: The ID of the item to update.
     """
+    db = get_db(Config.MONGO_DB)
     done = db.done
     doing = db.doing
     done.insert_one(doing.find_one({"_id" : ObjectId(id) })).inserted_id
@@ -109,6 +110,7 @@ def mark_done_item_todo_mongo(id):
     Args:
         item: The ID of the item to update.
     """
+    db = get_db(Config.MONGO_DB)
     todo = db.todo
     done = db.done
     todo.insert_one(done.find_one({"_id" : ObjectId(id) })).inserted_id
@@ -122,6 +124,7 @@ def mark_doing_item_todo_mongo(id):
     Args:
         item: The ID of the item to update.
     """
+    db = get_db(Config.MONGO_DB)
     todo = db.todo
     doing = db.doing
     todo.insert_one(doing.find_one({"_id" : ObjectId(id) })).inserted_id
