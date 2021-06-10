@@ -18,21 +18,21 @@ test_todos = [
     {
         "_id":"ObjectID(609e3da1407636a2a8b17a58)", 
         "title": "TestItem1", 
-        "Lastmodifieddate" : "2021-05-13T09:06:41.902+00:00"},
+        "lastmodifieddate" : "2021-05-13T09:06:41.902+00:00"},
     {
         "_id":"ObjectID(809e4da1408236a2a3f17a41)", 
         "title": "TestItem2", 
-        "Lastmodifieddate" : "2021-05-11T12:06:41.902+00:00"
+        "lastmodifieddate" : "2021-05-11T12:06:41.902+00:00"
         },
     {
         "_id":"ObjectID(7641a11e48b88f47531a157)", 
         "title": "TestItem3", 
-        "Lastmodifieddate" : "2021-05-21T15:16:41.857+00:00"
+        "lastmodifieddate" : "2021-05-21T15:16:41.857+00:00"
         },
     {
         "_id":"ObjectID(63547e9g987b23e4791b378)", 
         "title": "TestItem4", 
-        "Lastmodifieddate" : "2021-05-17T09:24:04.654+00:00"
+        "lastmodifieddate" : "2021-05-17T09:24:04.654+00:00"
         }
     ]
 
