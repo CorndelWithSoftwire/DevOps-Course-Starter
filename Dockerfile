@@ -29,7 +29,7 @@ ENTRYPOINT [ "poetry", "run", "watchmedo", "shell-command", "--recursive", "--pa
 
 FROM base as travistest
 RUN apt-get update --fix-missing\
-&& apt-get install firefox-esr -y
+    && apt-get install firefox-esr -y
 COPY todo_app /todo_app
 WORKDIR /todo_app
 RUN poetry install
