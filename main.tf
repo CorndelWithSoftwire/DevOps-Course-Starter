@@ -31,21 +31,31 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_app_service" "main" {
-  name= "britboytodolist"
+  name= "britboytodolistsuper"
   location= data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   app_service_plan_id = azurerm_app_service_plan.main.id
   site_config {
     app_command_line = ""
-    linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
+    #linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
+    linux_fx_version = "DOCKER|britboy4321/todoapp:latest"
   }
   app_settings = {
-         "MONGODB_CONNECTION_STRING" = "mongodb://{azurerm_cosmosdb_account.main.name}:azurerm_cosmosdb_account.main.primary_key}@{azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
+        "MONGODB_CONNECTION_STRING" = "mongodb://{azurerm_cosmosdb_account.main.name}:azurerm_cosmosdb_account.main.primary_key}@{azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
+        "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
+        "client_id" = "7b45e6f82314a24eae60"
+        "client_secret" = "c8f780cb0003715f913db4c39f97d3b6626e04c8"
+        "DOCKER_ENABLE_CI" = "true"
+        "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
+        "FLASK_APP" = "todo_app/app"
+        "FLASK_ENV" = "development"
+        "key" = "308200bc2fe025877202575cdf262bd4"
+        "OATH_INSECURE_TRANSPORT" = "1"
+        "SECRET_KEY" = "secret-key"
+        "WEBSITE_HTTPLOGGING_RETENTION_DAYS" = "1"
+        "WEBSITES_CONTAINER_START_TIME_LIMIT" = "1400"
+        "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
   }
-
-#  app_settings = {
-#    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
-#  }
 }
 
 ## GOING TO EDIT THE ABOVE HELLO_WORLD, MOVE IT ON TO MY APP STUFF

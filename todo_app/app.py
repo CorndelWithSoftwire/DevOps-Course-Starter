@@ -47,10 +47,11 @@ login_manager.init_app(app)
 client_id=os.environ["client_id"]                   # Possibly not needed, defined earlier
 client_secret=os.environ["client_secret"]           # For security
 
-# client = pymongo.MongoClient('mongodb://britboytodoapp:v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw==@britboytodoapp.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@britboytodoapp@')
+#client = pymongo.MongoClient('mongodb://britboytodoapp:v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw==@britboytodoapp.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@britboytodoapp@')
 mongodb_connection_string = os.environ["MONGODB_CONNECTION_STRING"]
 client = pymongo.MongoClient(mongodb_connection_string)
-
+print("mongodb_connection_string is ...")
+print(mongodb_connection_string)
 db = client.gettingStarted              # Database to be used
 
 
