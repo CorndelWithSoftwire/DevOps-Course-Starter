@@ -44,7 +44,7 @@ resource "azurerm_app_service" "main" {
         "MONGODB_CONNECTION_STRING" = "mongodb://{azurerm_cosmosdb_account.main.name}:azurerm_cosmosdb_account.main.primary_key}@{azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
         "client_id" = "7b45e6f82314a24eae60"
-        "client_secret" = "c8f780cb0003715f913db4c39f97d3b6626e04c8"
+        "client_secret" = "be07d5d4c655bf1d6765b061d3f32358aa560042"
         "DOCKER_ENABLE_CI" = "true"
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
         "FLASK_APP" = "todo_app/app"
