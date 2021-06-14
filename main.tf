@@ -40,12 +40,15 @@ resource "azurerm_app_service" "main" {
     linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
   }
   app_settings = {
-    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
+         "MONGODB_CONNECTION_STRING" = "mongodb://{azurerm_cosmosdb_account.main.name}:azurerm_cosmosdb_account.main.primary_key}@{azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
   }
+
+#  app_settings = {
+#    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
+#  }
 }
 
-## UP TO HERE OK FOR HELLO_WORLD, NOW ON TO MY APP STUFF
-
+## GOING TO EDIT THE ABOVE HELLO_WORLD, MOVE IT ON TO MY APP STUFF
 
 
 resource "azurerm_cosmosdb_account" "main" {
