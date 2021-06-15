@@ -10,9 +10,7 @@ terraform {
       source = "hashicorp/azurerm"
       version = "2.62.1"
     }
-    # api_properties {
-    # serverVersion = "4.0"
-    # }
+
   }
 }
 
@@ -51,10 +49,9 @@ resource "azurerm_app_service" "main" {
         # For some reason primary_key was not accepted in azurerm_cosmosdb_account, so hardcoded here instead.  It works.
         "MONGODB_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:hEZ0qnr47mVOTTnrOYdquU7e4PzIKDPk9L8WOUF1ngK3CHtLVVYoscRcI4QGrbATVaffUciqbq2BOy8wRadVTg==@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
-        # "client_id" = "7b45e6f82314a24eae60"
         "client_id" = var.client_id
-        #"client_secret" = "be07d5d4c655bf1d6765b061d3f32358aa560042"
         "client_secret" = var.client_secret
+# I REALISE OTHER THINGS COULD BE IN variables.tf BUT AM RUNNING OUT OF TIME - SO PROVING I UNDERSTAND THE PRINCIPLE
         "DOCKER_ENABLE_CI" = "true"
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
         "FLASK_APP" = "todo_app/app"
