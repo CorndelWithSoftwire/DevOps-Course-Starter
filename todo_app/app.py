@@ -1,12 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, login_required
+from oauthlib.oauth2 import WebApplicationClient
 import Mongo_items as mongo
 import viewmodel as vm
+import os
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object('flask_config.Config')
 
+    login_manager = LoginManager()
+
+    @login_manager.unauthorized_handler
+    def unauthenticated():
+        client = WebApplicationClient(os.getenv("CLIENT_ID"))
+        authredirect = client.prepare_request_uri("https://github.com/login/oauth/authorize")
+        return redirect(authredirect)
+    @login_manager.user_loader
+    def load_user(user_id):
+        return None
+
+    login_manager.init_app(app)
+
     @app.route('/')
+    @login_required
     def index():
         items = mongo.get_items_mongo()
         items=sorted(items, key=lambda k: k.status, reverse=True)
