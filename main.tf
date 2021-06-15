@@ -47,7 +47,8 @@ resource "azurerm_app_service" "main" {
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
         # "client_id" = "7b45e6f82314a24eae60"
         "client_id" = var.client_id
-        "client_secret" = "be07d5d4c655bf1d6765b061d3f32358aa560042"
+        #"client_secret" = "be07d5d4c655bf1d6765b061d3f32358aa560042"
+        "client_secret" = var.client_secret
         "DOCKER_ENABLE_CI" = "true"
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
         "FLASK_APP" = "todo_app/app"
@@ -114,4 +115,8 @@ output "primary_key" {
 output "connection_strings" {
   value = azurerm_cosmosdb_account.main.connection_strings
   sensitive = true
+}
+
+output "webapp_url" {
+  value = "https://${azurerm_app_service.main.default_site_hostname}"
 }
