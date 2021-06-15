@@ -1,4 +1,10 @@
 terraform {
+  backend "azurerm" {
+    resource_group_name   = "AmericanExpress1_DaveRawlinson_ProjectExercise"
+    storage_account_name  = "britboyazurestorage24051"
+    container_name        = "britboyazurecontainer"
+    key                   = "LaBye88Pf/inj0gfc0M7a/wL3/2U1ygMUYoT+h1RlyOEbLotz29rTqaemwXqBNj6/bCBzmpYD3kNXdCv+R5Zcw=="
+  }
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
@@ -13,12 +19,6 @@ terraform {
 provider "azurerm" {
   # Configuration options
   features {}
-  backend "azurerm" {
-    resource_group_name   = "AmericanExpress1_DaveRawlinson_ProjectExercise"
-    storage_account_name  = "britboyazurestorage24051"
-    container_name        = "britboyazurecontainer"
-    key                   = "LaBye88Pf/inj0gfc0M7a/wL3/2U1ygMUYoT+h1RlyOEbLotz29rTqaemwXqBNj6/bCBzmpYD3kNXdCv+R5Zcw=="
-  }
 }
 
 data "azurerm_resource_group" "main" {name= "AmericanExpress1_DaveRawlinson_ProjectExercise"}
@@ -126,6 +126,8 @@ output "connection_strings" {
 output "webapp_url" {
   value = "https://${azurerm_app_service.main.default_site_hostname}"
 }
+
+#Next required for webhook into Travis
 
 output "extra_variable" {
   value = "https://${azurerm_app_service.main.site_credential[0].username}:${azurerm_app_service.main.site_credential[0].password}@${azurerm_app_service.main.name}.scm.azurewebsites.net/docker/hook"

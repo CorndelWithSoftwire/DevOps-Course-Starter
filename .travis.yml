@@ -1,3 +1,18 @@
+install:
+- wget https://releases.hashicorp.com/terraform/"$TF_VERSION"/terraform_"$TF_VERSION"_linux_amd64.zip
+- unzip terraform_"$TF_VERSION"_linux_amd64.zip
+- sudo mv terraform /usr/local/bin/
+- rm terraform_"$TF_VERSION"_linux_amd64.zip
+- terraform init
+
+before_deploy:
+- terraform apply -var prefix="" -var location="uk south" -var client_id="7b45e6f82314a24eae60" -var client_secret="be07d5d4c655bf1d6765b061d3f32358aa560042" -auto-approve
+
+# notes From variables.tf
+#variable "prefix" default = ""  
+#variable "location"   default = "uk south"   
+#variable "client_id"   default = "7b45e6f82314a24eae60"
+#variable "client_secret" default = "be07d5d4c655bf1d6765b061d3f32358aa560042"
 
 
 script:
@@ -28,6 +43,9 @@ script:
 deploy:
   provider: script
   script: bash scripts/deploy.sh
+
+    # Very end of module 12
+    curl -dH -X POST "$(terraform output -raw extra_variable)"
     #heroku container:release web --app todoappbritboy
     # curl -dH -X POST $azurewebhook
     # bash ./scripts/deploy.sh
