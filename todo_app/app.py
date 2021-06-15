@@ -188,7 +188,7 @@ def login():
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
     ))
-    
+    print("REACHED TOKEN RESPONSE")
     token_response = requests.post(
         url,
         headers=headers,
@@ -197,13 +197,15 @@ def login():
         )
 
     # Now to get the users data
-
+    print("Reached parsing into Client security")
     Clientsecurity.parse_request_body_response(token_response.text)
     url, headers, body = Clientsecurity.add_token("https://api.github.com/user")
-    
+    print("Reached user_response")    
     user_response = requests.get(url, headers=headers, data=body) 
     the_user_name = user_response.json()['login']
+    print("Attempting to login user")
     login_user(User(the_user_name))
+    print("Reached return")
     return redirect("/")
 
 if __name__ == '__main__':
