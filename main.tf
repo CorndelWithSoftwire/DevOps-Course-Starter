@@ -65,7 +65,8 @@ resource "azurerm_app_service" "main" {
 
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                = "britboyaccountterraform"
+  name                = "britboytodoapp"
+  primary_key         = "v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw=="
   resource_group_name = "AmericanExpress1_DaveRawlinson_ProjectExercise"
   offer_type          = "Standard"
   kind                = "MongoDB"
