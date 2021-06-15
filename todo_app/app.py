@@ -48,7 +48,10 @@ client_id=os.environ["client_id"]                   # Possibly not needed, defin
 client_secret=os.environ["client_secret"]           # For security
 
 #client = pymongo.MongoClient('mongodb://britboytodoapp:v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw==@britboytodoapp.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@britboytodoapp@')
+print("Getting Mongo connection string")
+
 mongodb_connection_string = os.environ["MONGODB_CONNECTION_STRING"]
+print("Setting client")
 client = pymongo.MongoClient(mongodb_connection_string)
 print("mongodb_connection_string is ...")
 print(mongodb_connection_string)
@@ -183,7 +186,7 @@ def login():
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
     )
-    print("REACHED HERE - CLIENT SECURITY INFO PRINTED BELOW:")
+    print("REACHED HERE - CLIENT SECURITY INFO PRINTED BELOW FOR DEBUGGING:")
     print(Clientsecurity.prepare_token_request(
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
