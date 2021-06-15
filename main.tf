@@ -18,8 +18,9 @@ provider "azurerm" {
 data "azurerm_resource_group" "main" {name= "AmericanExpress1_DaveRawlinson_ProjectExercise"}
 
 resource "azurerm_app_service_plan" "main" {
-  name= "terraformed-asp"
-  location= data.azurerm_resource_group.main.location
+  name= "${var.prefix}-terraformed-asp"
+  # location= data.azurerm_resource_group.main.location
+  location = var.location
   resource_group_name = data.azurerm_resource_group.main.name
   kind= "Linux"
   reserved= true
