@@ -1,10 +1,10 @@
 variable "prefix" {
   description = "The prefix used for all resources in this environment"
+  default = ""  
 }
 variable "location" {
   description = "The Azure location where all resources in this deployment should be created"
   default = "uk south"   
-  # I got sick of typing in uk south on every terraform apply, but I understand the principle
 }
 variable "client_id" {
   description = "The client ID"
