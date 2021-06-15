@@ -3,5 +3,8 @@ variable "prefix" {
 }
 variable "location" {
   description = "The Azure location where all resources in this deployment should be created"
-  default= "uksouth"
+}
+variable "client_id" {
+  description = "The client ID"
+  default = "7b45e6f82314a24eae60"
 }

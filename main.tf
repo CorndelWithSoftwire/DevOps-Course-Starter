@@ -18,7 +18,7 @@ provider "azurerm" {
 data "azurerm_resource_group" "main" {name= "AmericanExpress1_DaveRawlinson_ProjectExercise"}
 
 resource "azurerm_app_service_plan" "main" {
-  name= "${var.prefix}-terraformed-asp"
+  name = "terraformed-asp"
   # location= data.azurerm_resource_group.main.location
   location = var.location
   resource_group_name = data.azurerm_resource_group.main.name
@@ -45,10 +45,9 @@ resource "azurerm_app_service" "main" {
         # For some reason primary_key was not accepted in azurerm_cosmosdb_account, so hardcoded here instead.  It works.
         "MONGODB_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:hEZ0qnr47mVOTTnrOYdquU7e4PzIKDPk9L8WOUF1ngK3CHtLVVYoscRcI4QGrbATVaffUciqbq2BOy8wRadVTg==@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
-        "client_id" = "7b45e6f82314a24eae60"
+        # "client_id" = "7b45e6f82314a24eae60"
+        "client_id" = var.client_id
         "client_secret" = "be07d5d4c655bf1d6765b061d3f32358aa560042"
-        # "client_id" ="31b2d3792b3580cd4648"
-        # "client_secret" = "36e20f6d639218f0505f6c90cb67afe4c713603e"
         "DOCKER_ENABLE_CI" = "true"
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
         "FLASK_APP" = "todo_app/app"
