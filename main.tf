@@ -41,7 +41,8 @@ resource "azurerm_app_service" "main" {
     linux_fx_version = "DOCKER|britboy4321/todoapp:latest"
   }
   app_settings = {
-        "MONGODB_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:$azurerm_cosmosdb_account.main.primary_key}@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
+        # For some reason primary_key was not accepted in azurerm_cosmosdb_account, so hardcoded here instead.  It works.
+        "MONGODB_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:hEZ0qnr47mVOTTnrOYdquU7e4PzIKDPk9L8WOUF1ngK3CHtLVVYoscRcI4QGrbATVaffUciqbq2BOy8wRadVTg==@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
         "client_id" = "7b45e6f82314a24eae60"
         "client_secret" = "be07d5d4c655bf1d6765b061d3f32358aa560042"
@@ -65,11 +66,12 @@ resource "azurerm_app_service" "main" {
 
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                = "britboytodoapp"
-  primary_key         = "v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw=="
+  name                = "britboytodoappterr"
+  # primary_key         = "v8o5nPzAho2xq1ddJ4ciGLGhQ15TO3MKyST4IMi4LYL5PaWy8SNiGEFR1S46Vr3yIDorL4Ra72BWyN5c2vjHBw=="
   resource_group_name = "AmericanExpress1_DaveRawlinson_ProjectExercise"
   offer_type          = "Standard"
   kind                = "MongoDB"
+  lifecycle {prevent_destroy = true}   # Prevent DB destroy
   capabilities {name = "EnableServerless"}
   capabilities {
     name = "mongoEnableDocLevelTTL"
