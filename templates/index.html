@@ -1,71 +1,264 @@
 {% extends "layout.html" %}
-{% block title %}Lindsey's To-Do App{% endblock %}
+{% block title %}Lindsey J Raven{% endblock %}
 
 {% block content %}
-<div class="jumbotron" style=background-color:#fa8dc3">
-  <h1 style="background:linear-gradient(to bottom, hsl(300, 8%, 93%) 0%, #eea4c9 100%)" class="display-3 text-center">&#129412; LINDSEY'S TO-DO APP &#129412;</h1>
+<div class="jumbotron"
+  style="background:url(https://png.pngtree.com/thumb_back/fh260/background/20190223/ourmid/pngtree-creative-color-splashing-wind-color-paint-background-backgroundpigmentsplashwatercolor-windcoatingmulticolored-backgroundbanner-image_68593.jpg) ; background-size: 100% 100%;">
+  <h1 class="display-1 text-center" style="color:rgb(9, 168, 226)">&#128151; Lindsey J Raven &#128151;</h1>
 </div>
-       
-      <!-- ADD fORM -->
-        <div class="row">
-        <div class="col-md-12 text-center">
-          <br/>
-          <form action="/add-todo" method="POST">
-            <span style='font-size:25px;'>&#9997;</span>
-              <label style="color:#0e0d0d" for="name">Enter your to-do name:</label>
-              <input class="text-info" type="text" name="name" id="name">
-            <input class="text-info" type="submit" class="btn btn-dark btn-md" style="color:#f5078a !important" value="Submit">
+
+
+<body style="background:url(https://wallpaperaccess.com/full/545053.jpg) ; background-size: 100% 100%;"></body>
+
+
+<div class="col-md-12 text-center"
+  style="background:url(https://previews.123rf.com/images/hakkiarslan/hakkiarslan1601/hakkiarslan160100032/51690961-abstract-color-splash-background.jpg) ; background-size: 100% 100%;">
+  <span style='font-size:30px;'></span>
+  <form method="POST" action="/add_item">
+    </br>
+    </br>
+    <label style="color:#0373bd" for="name">Enter your to-do:</label>
+    <input class="text-info" type="text" name="name">
+    <input class="text-info" type="submit" class="btn btn-dark btn-md" value="Submit">
+  </form>
+  {% if view_model.todo_items %}
+  <h3 class="display-5 text-left" style="color:rgb(99, 209, 132)">To-Do Items</h3>
+  <table class="table table-success table-striped">
+    <colgroup>
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+    </colgroup>
+    <tr>
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>STATUS</th>
+      <th>IN PROGRESS</th>
+      <th>DONE</th>
+      <th>REMOVE</th>
+    </tr>
+    {% for item in view_model.todo_items %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <form method="POST" action="/mark_in_progress">
+          <input type="submit" value="In Progress" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/mark_complete">
+          <input type="submit" value="Complete" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/delete_item">
+          <input class="text-danger" type="submit" class="btn btn-dark btn-md" value="Delete" name="{{ item.id }}">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <h3 class="display-5 text-left" style="color:rgb(99, 209, 132)">To-Do Items</h3>
+  <p> No To-Do Items </p>
+  {% endif %}
+
+  {% if view_model.doing_items %}
+  <h3 class="display-5 text-left" style="color:rgb(240, 250, 96)">In Progress Items</h3>
+  <table class="table table-warning table-striped">
+    <colgroup>
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+    </colgroup>
+    <tr>
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>STATUS</th>
+      <th>IN PROGRESS</th>
+      <th>DONE</th>
+      <th>REMOVE</th>
+    </tr>
+
+    {% for item in view_model.doing_items %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <form method="POST" action="/mark_in_progress">
+          <input type="submit" value="In Progress" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/mark_complete">
+          <input type="submit" value="Complete" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/delete_item">
+          <input class="text-danger" type="submit" class="btn btn-dark btn-md" value="Delete" name="{{ item.id }}">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <h3 class="display-5 text-left" style="color:rgb(246, 250, 36)">In Progress Items</h3>
+  <p> No In Progress Items </p>
+  {% endif %}
+
+  {% if view_model.done_items %}
+  {% if view_model.show_all_done_items %}
+  <h3 class="display-5 text-left" style="color:rgb(252, 76, 76)">Done Items</h3>
+  <table class="table table-info table-striped">
+    <colgroup>
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+    </colgroup>
+    <tr>
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>STATUS</th>
+      <th>IN PROGRESS</th>
+      <th>DONE</th>
+      <th>REMOVE</th>
+    </tr>
+    {% for item in view_model.done_items %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <form method="POST" action="/mark_in_progress">
+          <input type="submit" value="In Progress" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/mark_complete">
+          <input type="submit" value="Complete" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/delete_item">
+          <input class="text-danger" type="submit" class="btn btn-dark btn-md" value="Delete" name="{{ item.id }}">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  {% if view_model.recent_done_items %}
+  <h3 class="display-5 text-left" style="color:rgb(231, 129, 129)">Recently Done Items</h3>
+  <table class="table table-danger table-striped">
+    <colgroup>
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 15%;">
+    </colgroup>
+    <tr>
+      <th>ID</th>
+      <th>TITLE</th>
+      <th>STATUS</th>
+      <th>IN PROGRESS</th>
+      <th>DONE</th>
+      <th>REMOVE</th>
+    </tr>
+    {% for item in view_model.recent_done_items %}
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <form method="POST" action="/mark_in_progress">
+          <input type="submit" value="In Progress" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/mark_complete">
+          <input type="submit" value="Complete" name="{{ item.id }}">
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="/delete_item">
+          <input class="text-danger" type="submit" class="btn btn-dark btn-md" value="Delete" name="{{ item.id }}">
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  {% else %}
+  <h3 class="display-5 text-left" style="color:rgb(58, 45, 247)">Recently Done Items</h3>
+  <p> No Recently Done Items </p>
+  {% endif %}
+  {% if view_model.older_done_items %}
+  <details>
+    <summary class="display-5 text-left" style="color:rgb(69, 129, 241); font-size: x-large !important;"> Older Done
+      Items </summary>
+    <table class="table table-primary table-striped">
+      <colgroup>
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 15%;">
+      </colgroup>
+      <tr>
+        <th>ID</th>
+        <th>TITLE</th>
+        <th>STATUS</th>
+        <th>IN PROGRESS</th>
+        <th>DONE</th>
+        <th>REMOVE</th>
+      </tr>
+      {% for item in view_model.older_done_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.status }}</td>
+        <td>
+          <form method="POST" action="/mark_in_progress">
+            <input type="submit" value="In Progress" name="{{ item.id }}">
           </form>
-        </div> 
+        </td>
+        <td>
+          <form method="POST" action="/mark_complete">
+            <input type="submit" value="Complete" name="{{ item.id }}">
+          </form>
+        </td>
+        <td>
+          <form method="POST" action="/delete_item">
+            <input class="text-danger" type="submit" class="btn btn-dark btn-md" value="Delete" name="{{ item.id }}">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </details>
+  {% else %}
+  <br>
+  {% endif %}
+  {% endif %}
+  {% else %}
+  <h3 class="display-5 text-left" style="color:rgb(252, 76, 76)">Done Items</h3>
+  <p>No done items</p>
+  {% endif %}
 </div>
-</br>
-</br>
-          
-          <!-- List / Delete form -->
-            {% for todo in todos %}
-             
-            <li class="list-group-item"  style="color:#e2b1d9">
-
-            {{todo.title}} </br>
-
-              <body style="height: 2000 px; background:linear-gradient(to top, #f1c2da 0%, #f5a9e7 100%);"></body>
-                <span class="badge badge-warning" style="background-color:#d39ef7">{{todo.status}}</span>
-                <div class="btn float-right" role="group" aria-label="item actions">     
-                <!-- update button -->
-
-              <button class="btn btn-float-center"></button>
-                <form action="/update-todo" method="post">
-                  <input type="hidden" name="todo_id" value="{{ todo.id }}"> 
-                  <input type="text" name="title" value="{{ todo.title }}" class="form-control">
-                  <input class="btn btn-info btn-sm float-left" type="submit" style="color:#fffdfe !important" value="Update"> 
-                 </form> 
-                 </div>
-
-                <!-- update button -->
-                <div>
-              <br>
-              <button class="btn btn-float-right">
-              <form action="/started-todo" method="POST"> 
-                <input type="hidden" name="todo_id" value='{{ todo.id }}'>
-                <input type="submit" class="btn btn-secondary btn-sm" style="background-color:#e2b1d9 !important" value="Started"> 
-              </form>  
-            </button> 
-               <!-- status update completed -->
-            
-              <form action="/complete-todo" method="POST">
-                <input type="hidden" name="todo_id" value='{{ todo.id }}'>
-                <input type="submit" class="btn btn-dark btn-sm" style="background-color:#e4acca !important" value="Completed"> 
-              </form>   
-              
-            
-                <!-- status update delete -->
-   
-                <form action="/delete-todo" method="POST">
-                  <input type="hidden" name="todo_id" value='{{ todo.id }}'>
-                  <input type="submit" class="btn btn-dark btn-sm" style="background-color:#111313" :#e4acca !important" value="Delete"> 
-                </form>
-                </div>
-               
-            {% endfor %}
-
 {% endblock %}

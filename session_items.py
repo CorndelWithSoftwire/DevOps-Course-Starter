@@ -1,13 +1,21 @@
 from flask import session
-
-import requests
 import os
-
-from requests.models import HTTPError
+import requests
 from todo_item import TodoItem
-from flask import current_app as app
 
-_DEFAULT_ITEMS = []
+
+_DEFAULT_ITEMS = [
+    {"id": 1, "status": "Not Started", "title": "List saved todo items"},
+    {"id": 2, "status": "Not Started", "title": "Allow new items to be added"},
+]
+
+get_cards_url = f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/cards"
+
+query = {
+    "key": os.getenv("TRELLO_KEY"),
+    "token": os.getenv("TRELLO_TOKEN"),
+}
+
 
 def get_items():
     """
@@ -16,16 +24,29 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
-    # return session.get('items', _DEFAULT_ITEMS)
-    payload = {'key': os.getenv('TRELLO_KEY'), 'token': os.getenv('TRELLO_TOKEN')}
-    r = requests.get(f'https://api.trello.com/1/boards/{os.getenv("TRELLO_BOARD_ID")}/cards', params=payload)
-    list = []
- 
-    for item in r.json():
-        list_item = TodoItem(item["id"], item['name'], item["idList"])
-        list.append(list_item)
- 
-    return list
+
+    cards = requests.get(get_cards_url, params=query).json()
+    items = []
+    for card in cards:
+        items.append(TodoItem(card))
+
+    return items
+
+
+def get_item(id):
+    """
+    Fetches the saved item with the specified ID.
+
+    Args:
+        id: The ID of the item.
+
+    Returns:
+        item: The saved item, or None if no items match the specified ID.
+    """
+    items = get_items()
+    for item in items:
+        if item.id == int(id):
+            return item
 
 
 def add_item(title):
@@ -38,31 +59,36 @@ def add_item(title):
     Returns:
         item: The saved item.
     """
-    payload = {
-        'key': os.getenv('TRELLO_KEY'), 
-        'token': os.getenv('TRELLO_TOKEN'),
-        'idList': os.getenv('TRELLO_TODO_LIST'), 
-        'name': title
-    }
-    r = requests.post('https://api.trello.com/1/Cards', params=payload)
+
+    url = f"https://api.trello.com/1/cards"
+    data = {"idList": os.getenv("LIST_ID_NOT_STARTED"), "name": title}
+    response = requests.post(url, data=data, params=query)
 
 
-def delete_todo(todo_id):
-    payload = {
-        'key': os.getenv('TRELLO_KEY'), 
-        'token': os.getenv('TRELLO_TOKEN')
-    }
-    response = requests.delete(f'https://api.trello.com/1/Cards/{todo_id}', params=payload)
-    if response.status_code != 200:
-        app.logger.error(f"Delete request failed with status code {response.status_code}")
+def delete_item(item):
+    cards = requests.get(get_cards_url, params=query).json()
+    for card in cards:
+        if card["idShort"] == item.id:
+            id = card["id"]
+            url = f"https://api.trello.com/1/cards/{id}"
+            response = requests.delete(url, params=query)
 
-def complete_todo(todo_id):
-    payload = {
-        'key': os.getenv('TRELLO_KEY'), 
-        'token': os.getenv('TRELLO_TOKEN'),
-        'idList': os.getenv('TRELLO_COMPLETED_LIST'), 
-    }
-    response = requests.put(f'https://api.trello.com/1/Cards/{todo_id}', params=payload)
 
-    if response.status_code != 200:
-        app.logger.error(f"Delete request failed with status code {response.status_code}")
+def mark_in_progress(item):
+    cards = requests.get(get_cards_url, params=query).json()
+    for card in cards:
+        if card["idShort"] == item.id:
+            card_id = card["id"]
+            url = f"https://api.trello.com/1/cards/{card_id}"
+            data = {"idList": os.getenv("LIST_ID_IN_PROGRESS")}
+            response = requests.put(url, data=data, params=query)
+
+
+def mark_complete(item):
+    cards = requests.get(get_cards_url, params=query).json()
+    for card in cards:
+        if card["idShort"] == item.id:
+            card_id = card["id"]
+            url = f"https://api.trello.com/1/cards/{card_id}"
+            data = {"idList": os.getenv("LIST_ID_DONE")}
+            response = requests.put(url, data=data, params=query)

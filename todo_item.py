@@ -1,14 +1,19 @@
 import os
+from datetime import datetime
+from dateutil.parser import parse
 
 class TodoItem:
-    def __init__(self, id, name, id_list):
-        self.id = id
-        self.title = name
-        self.status = ""
+    def __init__(self, card):
+        status = ""
 
-        if id_list == os.getenv('TRELLO_TODO_LIST'):
-            self.status = "To Do"
-        elif id_list == os.getenv('TRELLO_IN_PROGRESS_LIST'):
-            self.status = "In Progress"
-        elif id_list == os.getenv('TRELLO_COMPLETED_LIST'):
-            self.status = "Done"
+        if card["idList"] == os.getenv("LIST_ID_NOT_STARTED"):
+            status = "Not Started"
+        if card["idList"] == os.getenv("LIST_ID_IN_PROGRESS"):
+            status = "In Progress"
+        if card["idList"] == os.getenv("LIST_ID_DONE"):
+            status = "Done"
+
+        self.id = card["idShort"]
+        self.status = status
+        self.title = card["name"]
+        self.last_edited = parse(card["dateLastActivity"]).replace(tzinfo=None)

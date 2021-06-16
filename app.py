@@ -1,46 +1,56 @@
 from flask import Flask, render_template, request, redirect, url_for
-import session_items as session
+import session_items
+from view_model import ViewModel
+from datetime import datetime, timedelta
 
-app = Flask(__name__)
-app.config.from_object('flask_config.Config')
 
-@app.route('/')
-def index():
-    items = session.get_items()
-    return  render_template("index.html",todos = items)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object("flask_config.Config")
 
-@app.route('/add-todo', methods = ['POST'])
-def add_todo():
-    item = request.form.get('name')
-    session.add_item(item)
-    return redirect("/")
+    @app.route("/")
+    def index():
+        items = session_items.get_items()
+        item_view_model = ViewModel(items)
 
-#delete button
-@app.route('/delete-todo', methods=['POST'])
-def delete_todo():
-    todo_id = request.form.get('todo_id')
-    session.delete_todo(todo_id)
-    return redirect("/")
+        return render_template("index.html", view_model=item_view_model)
 
-#completed status
-@app.route('/complete-todo', methods=['POST'])
-def complete_todo():
-    todo_id = request.form.get('todo_id')
-    session.complete_todo(todo_id)
-    return redirect("/")
+    @app.route("/add_item", methods=["POST"])
+    def add_item():
+        new_item = request.form.get("name")
+        session_items.add_item(new_item)
 
-#started status
-@app.route('/started-todo', methods=['POST'])
-def started_todo():
-    todo_id = request.form.get('todo_id')
-    session.started_todo(todo_id)
-    return redirect("/")
+        return redirect("/")
 
-#update function 
-@app.route('/update-todo', methods=["POST"])
-def update_todo():
-    item = request.form.get('todo_id')
-    new_todo_value = request.form.get("title")
-    new_status_value = request.form.get("status")
-    session.update_item(item, new_todo_value, new_status_value)
-    return redirect('/')
+    @app.route("/mark_complete", methods=["POST"])
+    def mark_complete():
+        new_dict = request.form.to_dict(flat=False)
+        for id in new_dict.keys():
+            item = session_items.get_item(id)
+            session_items.mark_complete(item)
+
+        return redirect("/")
+
+    @app.route("/mark_in_progress", methods=["POST"])
+    def mark_in_progress():
+        new_dict = request.form.to_dict(flat=False)
+        for id in new_dict.keys():
+            item = session_items.get_item(id)
+            session_items.mark_in_progress(item)
+
+        return redirect("/")
+
+    @app.route("/delete_item", methods=["POST"])
+    def delete_item():
+        new_dict = request.form.to_dict(flat=False)
+        for id in new_dict.keys():
+            item = session_items.get_item(id)
+            session_items.delete_item(item)
+
+        return redirect("/")
+
+    return app
+
+
+if __name__ == "__main__":
+    create_app().run()
