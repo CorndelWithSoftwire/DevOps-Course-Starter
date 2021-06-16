@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required
+import flask_login
+from flask_login.mixins import UserMixin
 from oauthlib.oauth2 import WebApplicationClient
+from oauthlib.oauth2.rfc6749.grant_types import client_credentials
 import Mongo_items as mongo
 import viewmodel as vm
-import os
+import os, requests, json
 
 def create_app():
     app = Flask(__name__)
@@ -14,13 +17,20 @@ def create_app():
     @login_manager.unauthorized_handler
     def unauthenticated():
         client = WebApplicationClient(os.getenv("CLIENT_ID"))
-        authredirect = client.prepare_request_uri("https://github.com/login/oauth/authorize")
+        authredirect = client.prepare_request_uri("https://github.com/login/oauth/authorize", state="saxasdfaa")
         return redirect(authredirect)
+
     @login_manager.user_loader
     def load_user(user_id):
-        return None
+        user = User(user_id)
+        return user
 
     login_manager.init_app(app)
+
+    class User(UserMixin):
+        def __init__(self, userid):
+            self.user_id = userid
+            self.id = userid           
 
     @app.route('/')
     @login_required
@@ -29,6 +39,23 @@ def create_app():
         items=sorted(items, key=lambda k: k.status, reverse=True)
         item_view_model = vm.ViewModel(items)
         return render_template('index.html', view_model=item_view_model)
+
+    @app.route('/login/callback')
+    def callback():
+        code = request.args.get('code')
+        client = WebApplicationClient(os.getenv("CLIENT_ID"))
+        tokenurl, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', authorization_response=request.url, state="saxasdfaa", code=code)
+        secret=os.getenv('OAUTH_SECRET')
+        id=os.getenv("CLIENT_ID")
+        tokenresponse = requests.post(tokenurl, data=body, auth=(id, secret))
+        client.parse_request_body_response(tokenresponse.text)
+        userinfo_endpoint = "https://api.github.com/user"
+        uri, headers, body = client.add_token(userinfo_endpoint)
+        userinfo_response = requests.get(uri, headers=headers, data=body)
+        userinfo_json = userinfo_response.json()
+        id = userinfo_json['id']
+        flask_login.login_user(load_user(id))
+        return redirect(url_for("index"))
 
     @app.route('/<id>/doingcompleted', methods=['POST'])
     def doingcompleteditem(id):
