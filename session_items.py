@@ -5,6 +5,8 @@ import os
 import pprint
 from datetime import datetime
 from dateutil.parser import parse
+from todo_item import TodoItem
+
 
 _DEFAULT_ITEMS = [
     {"id": 1, "status": "Not Started", "title": "List saved todo items"},
@@ -29,36 +31,7 @@ def get_items():
     cards = requests.get(get_cards_url, params=query).json()
     items = []
     for card in cards:
-        if card["idList"] == os.getenv("to_do_list"):
-            items.append(
-                {
-                    "id": card["idShort"],
-                    "status": "To Do",
-                    "title": card["name"],
-                    "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
-                    "due_date": (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set',
-                }
-            )
-        elif card["idList"] == os.getenv("in_progress_list"):
-            items.append(
-                {
-                    "id": card["idShort"],
-                    "status": "In Progress",
-                    "title": card["name"],
-                    "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
-                    "due_date": (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set',
-                }
-            )
-        elif card["idList"] == os.getenv("complete_list"):
-            items.append(
-                {
-                    "id": card["idShort"],
-                    "status": "Complete",
-                    "title": card["name"],
-                    "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
-                    "due_date": (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set',
-                }
-            )
+        items.append(TodoItem(card))
     return items
 
 

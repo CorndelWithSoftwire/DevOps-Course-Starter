@@ -12,7 +12,7 @@ class ViewModel:
     def todo_items(self):
         todo_items = []
         for item in self._items:
-            if item["status"] == "To Do":
+            if item.status == "To Do":
                 todo_items.append(item)
             else:
                 continue
@@ -22,7 +22,7 @@ class ViewModel:
     def in_progress_items(self):
         in_progress_items = []
         for item in self._items:
-            if item["status"] == "In Progress":
+            if item.status == "In Progress":
                 in_progress_items.append(item)
             else:
                 continue
@@ -32,7 +32,7 @@ class ViewModel:
     def complete_items(self):
         complete_items = []
         for item in self._items:
-            if item["status"] == "Complete":
+            if item.status == "Complete":
                 complete_items.append(item)
             else:
                 continue
@@ -50,8 +50,8 @@ class ViewModel:
         datetime_yesterday = datetime.now() - timedelta(days=1)
         recent_done_items = []
         for item in self._items:
-            if (item["status"] == "Complete") and (
-                item["last_edited"] > datetime_yesterday
+            if (item.status == "Complete") and (
+                item.last_edited > datetime_yesterday
             ):
 
                 recent_done_items.append(item)
@@ -65,8 +65,8 @@ class ViewModel:
         datetime_yesterday = datetime.now() - timedelta(minutes=1)
         older_done_items = []
         for item in self._items:
-            if (item["status"] == "Complete") and (
-                item["last_edited"] < datetime_yesterday
+            if (item.status == "Complete") and (
+                item.last_edited < datetime_yesterday
             ):
                 older_done_items.append(item)
             else:
