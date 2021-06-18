@@ -12,7 +12,7 @@
       <button type="submit">Submit</button>
     </form>
     <br>
-    <br>s
+    <br>
     {% if view_model.todo_items %}
     <h3>To-Do Items</h3>
     <table class="table table-striped">
@@ -60,7 +60,8 @@
         </td>
         <td>
           <form method="post" action="/delete_item">
-            <input type="submit" value="X" name="{{ item.id }}" />
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
           </form>
         </td>
       </tr>
@@ -119,7 +120,8 @@
         </td>
         <td>
           <form method="post" action="/delete_item">
-            <input type="submit" value="X" name="{{ item.id }}" />
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
           </form>
         </td>
       </tr>
@@ -179,7 +181,8 @@
         </td>
         <td>
           <form method="post" action="/delete_item">
-            <input type="submit" value="X" name="{{ item.id }}" />
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
           </form>
         </td>
       </tr>
@@ -233,8 +236,8 @@
         </td>
         <td>
           <form method="post" action="/delete_item">
-            <input type="submit" value="X" name="{{ item.id }}" />
-            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
           </form>
         </td>
       </tr>
@@ -294,7 +297,8 @@
           </td>
           <td>
             <form method="post" action="/delete_item">
-              <input type="submit" value="X" name="{{ item.id }}" />
+              <input type="submit" value="X"/>
+              <input type="hidden" value="{{ item.id }}" name="item_id"/>
             </form>
           </td>
         </tr>

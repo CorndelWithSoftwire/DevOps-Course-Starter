@@ -29,11 +29,6 @@ def get_items():
     cards = requests.get(get_cards_url, params=query).json()
     items = []
     for card in cards:
-        if card["due"] == None:
-            due = ""
-        else:
-            due = parse(card["due"]).strftime('%d-%m-%Y')
-
         if card["idList"] == os.getenv("to_do_list"):
             items.append(
                 {
@@ -41,7 +36,6 @@ def get_items():
                     "status": "To Do",
                     "title": card["name"],
                     "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
-                    "due_date" : due
                 }
             )
         elif card["idList"] == os.getenv("in_progress_list"):
@@ -51,7 +45,6 @@ def get_items():
                     "status": "In Progress",
                     "title": card["name"],
                     "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
-                    "due_date" : due
                 }
             )
         elif card["idList"] == os.getenv("complete_list"):
@@ -61,7 +54,6 @@ def get_items():
                     "status": "Complete",
                     "title": card["name"],
                     "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
-                    "due_date" : due
                 }
             )
 
@@ -80,7 +72,7 @@ def get_item(id):
     """
     items = get_items()
 
-    return next((item for item in items if item["id"] == int(id)), None)
+    # return next((item for item in items if item["id"] == int(id)), None)
     for item in items:
         if item["id"] == int(id):
             return item
@@ -125,34 +117,14 @@ def save_item(item):
 def delete_item(item):
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
-        print(card["id"], item["id"])
-        if card["id"] == item["id"]:
+        if card["name"] == item["title"]:
             id = card["id"]
             url = f"https://api.trello.com/1/cards/{id}"
             response = requests.delete(url, params=query)
 
-# def mark_in_progress(item):
-#     cards = requests.get(get_cards_url, params=query).json()
-#     for card in cards:
-#         if card["name"] == item["title"]:
-#             id = card["id"]
-#             url = f"https://api.trello.com/1/cards/{id}"
-#             data = {"idList": os.getenv("in_progress_list")}
-#             response = requests.put(url, data=data, params=query)
-
-
-# def mark_complete(item):
-#     cards = requests.get(get_cards_url, params=query).json()
-#     for card in cards:
-#         if card["name"] == item["title"]:
-#             id = card["id"]
-#             url = f"https://api.trello.com/1/cards/{id}"
-#             data = {"idList": os.getenv("complete_list")}
-#             response = requests.put(url, data=data, params=query)
 
 def update_status(item, string_select_update): 
     cards = requests.get(get_cards_url, params=query).json()
-    # pdb.set_trace()
     for card in cards:
         if string_select_update == "In-Progress":
             if card["name"] == item["title"]:
@@ -177,8 +149,8 @@ def update_status(item, string_select_update):
 def due_date(item, due_date_update): 
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
-            if card["name"] == item["title"]:
-                id = card["id"]
-                url = f"https://api.trello.com/1/cards/{id}"
-                data = {"due": due_date_update}
-                response = requests.put(url, data=data, params=query)
+        if card["name"] == item["title"]:
+            id = card["id"]
+            url = f"https://api.trello.com/1/cards/{id}"
+            data = {"due": due_date_update}
+            response = requests.put(url, data=data, params=query)
