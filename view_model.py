@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+
 class ViewModel:
     def __init__(self, items):
         self._items = items
@@ -50,9 +51,7 @@ class ViewModel:
         datetime_yesterday = datetime.now() - timedelta(days=1)
         recent_done_items = []
         for item in self._items:
-            if (item.status == "Complete") and (
-                item.last_edited > datetime_yesterday
-            ):
+            if (item.status == "Complete") and (item.last_edited > datetime_yesterday):
 
                 recent_done_items.append(item)
             else:
@@ -65,9 +64,7 @@ class ViewModel:
         datetime_yesterday = datetime.now() - timedelta(minutes=1)
         older_done_items = []
         for item in self._items:
-            if (item.status == "Complete") and (
-                item.last_edited < datetime_yesterday
-            ):
+            if (item.status == "Complete") and (item.last_edited < datetime_yesterday):
                 older_done_items.append(item)
             else:
                 continue

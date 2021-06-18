@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from dateutil.parser import parse
 
+
 class TodoItem:
     def __init__(self, card):
         status = ""
@@ -17,4 +18,8 @@ class TodoItem:
         self.status = status
         self.title = card["name"]
         self.last_edited = parse(card["dateLastActivity"]).replace(tzinfo=None)
-        self.due_date = (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set'
+        self.due_date = (
+            (parse(card["due"]).replace(tzinfo=None)).strftime("%d-%B-%Y")
+            if type(card["due"]) == str
+            else "No due date set"
+        )

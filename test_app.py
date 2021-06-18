@@ -41,4 +41,6 @@ def test_index_page(client, monkeypatch):
 
     monkeypatch.setattr(requests, "get", mock_get)
     response = client.get("/")
-    assert (response.status_code == 200) and ("fake feed the cat" in response.data.decode("utf-8"))
+    assert (response.status_code == 200) and (
+        "fake feed the cat" in response.data.decode("utf-8")
+    )

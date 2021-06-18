@@ -9,14 +9,12 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object("flask_config.Config")
 
-
     @app.route("/")
     def index():
         items = session_items.get_items()
         item_view_model = ViewModel(items)
 
         return render_template("index.html", view_model=item_view_model)
-
 
     @app.route("/create_item", methods=["POST"])
     def create_item():
@@ -26,15 +24,13 @@ def create_app():
 
         return redirect("/")
 
-
-    @app.route('/delete_item', methods=['POST'])
+    @app.route("/delete_item", methods=["POST"])
     def delete_item():
         new_dict = request.form.to_dict(flat=False)
-        item_id = new_dict['item_id'][0]
+        item_id = new_dict["item_id"][0]
         session_items.delete_item(item_id)
-            
-        return redirect("/")
 
+        return redirect("/")
 
     @app.route("/update_status", methods=["POST"])
     def update_status():
@@ -45,16 +41,14 @@ def create_app():
 
         return redirect("/")
 
-
     @app.route("/due_date", methods=["POST"])
-    def due_date(): 
+    def due_date():
         new_dict = request.form.to_dict(flat=False)
         due_date_update = new_dict["duedate"][0]
         item_id = new_dict["item_id"][0]
         session_items.due_date(item_id, due_date_update)
-        
-        return redirect("/")
 
+        return redirect("/")
 
     return app
 

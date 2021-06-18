@@ -37,7 +37,7 @@ def get_items():
 
 def get_item(id):
     items = get_items()
-     # return next(((item for item in items if item["id"] == int(id)), None)
+    # return next(((item for item in items if item["id"] == int(id)), None)
     for item in items:
         if item["id"] == int(id):
             return item
@@ -88,7 +88,7 @@ def delete_item(item_id):
             response = requests.delete(url, params=query)
 
 
-def update_status(string_select_update, item_id): 
+def update_status(string_select_update, item_id):
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
         if string_select_update == "In-Progress":
@@ -111,7 +111,7 @@ def update_status(string_select_update, item_id):
                 response = requests.put(url, data=data, params=query)
 
 
-def due_date(item_id, due_date_update): 
+def due_date(item_id, due_date_update):
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
         if card["idShort"] == int(item_id):
