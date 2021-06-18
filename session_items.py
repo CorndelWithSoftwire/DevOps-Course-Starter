@@ -36,6 +36,7 @@ def get_items():
                     "status": "To Do",
                     "title": card["name"],
                     "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
+                    "due_date": (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set',
                 }
             )
         elif card["idList"] == os.getenv("in_progress_list"):
@@ -45,6 +46,7 @@ def get_items():
                     "status": "In Progress",
                     "title": card["name"],
                     "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
+                    "due_date": (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set',
                 }
             )
         elif card["idList"] == os.getenv("complete_list"):
@@ -54,25 +56,15 @@ def get_items():
                     "status": "Complete",
                     "title": card["name"],
                     "last_edited": parse(card["dateLastActivity"]).replace(tzinfo=None),
+                    "due_date": (parse(card["due"]).replace(tzinfo=None)).strftime('%d-%B-%Y') if type(card["due"])==str else 'No due date set',
                 }
             )
-
     return items
 
 
 def get_item(id):
-    """
-    Fetches the saved item with the specified ID.
-
-    Args:
-        id: The ID of the item.
-
-    Returns:
-        item: The saved item, or None if no items match the specified ID.
-    """
     items = get_items()
-
-    # return next((item for item in items if item["id"] == int(id)), None)
+     # return next(((item for item in items if item["id"] == int(id)), None)
     for item in items:
         if item["id"] == int(id):
             return item
@@ -114,42 +106,42 @@ def save_item(item):
     return item
 
 
-def delete_item(item):
+def delete_item(item_id):
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
-        if card["name"] == item["title"]:
+        if card["idShort"] == int(item_id):
             id = card["id"]
             url = f"https://api.trello.com/1/cards/{id}"
             response = requests.delete(url, params=query)
 
 
-def update_status(item, string_select_update): 
+def update_status(string_select_update, item_id): 
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
         if string_select_update == "In-Progress":
-            if card["name"] == item["title"]:
+            if card["idShort"] == int(item_id):
                 id = card["id"]
                 url = f"https://api.trello.com/1/cards/{id}"
                 data = {"idList": os.getenv("in_progress_list")}
                 response = requests.put(url, data=data, params=query)
         if string_select_update == "To-Do":
-            if card["name"] == item["title"]:
+            if card["idShort"] == int(item_id):
                 id = card["id"]
                 url = f"https://api.trello.com/1/cards/{id}"
                 data = {"idList": os.getenv("to_do_list")}
                 response = requests.put(url, data=data, params=query)
         if string_select_update == "Complete":
-            if card["name"] == item["title"]:
+            if card["idShort"] == int(item_id):
                 id = card["id"]
                 url = f"https://api.trello.com/1/cards/{id}"
                 data = {"idList": os.getenv("complete_list")}
                 response = requests.put(url, data=data, params=query)
 
 
-def due_date(item, due_date_update): 
+def due_date(item_id, due_date_update): 
     cards = requests.get(get_cards_url, params=query).json()
     for card in cards:
-        if card["name"] == item["title"]:
+        if card["idShort"] == int(item_id):
             id = card["id"]
             url = f"https://api.trello.com/1/cards/{id}"
             data = {"due": due_date_update}

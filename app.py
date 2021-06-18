@@ -27,13 +27,12 @@ def create_app():
         return redirect("/")
 
 
-    @app.route("/delete_item", methods=["POST"])
+    @app.route('/delete_item', methods=['POST'])
     def delete_item():
         new_dict = request.form.to_dict(flat=False)
-        for id in new_dict.keys():
-            item = session_items.get_item(id)
-            session_items.delete_item(item)
-
+        item_id = new_dict['item_id'][0]
+        session_items.delete_item(item_id)
+            
         return redirect("/")
 
 
@@ -41,9 +40,8 @@ def create_app():
     def update_status():
         new_dict = request.form.to_dict(flat=False)
         string_select_update = new_dict["select_update"][0]
-        if "item_id" in new_dict:
-            item = session_items.get_item(int(new_dict["item_id"][0]))
-            session_items.update_status(item, string_select_update)
+        item_id = new_dict["item_id"][0]
+        session_items.update_status(string_select_update, item_id)
 
         return redirect("/")
 
@@ -52,11 +50,10 @@ def create_app():
     def due_date(): 
         new_dict = request.form.to_dict(flat=False)
         due_date_update = new_dict["duedate"][0]
-        if "item_id" in new_dict:
-            item = session_items.get_item(int(new_dict["item_id"][0]))
-            session_items.due_date(item, due_date_update)
+        item_id = new_dict["item_id"][0]
+        session_items.due_date(item_id, due_date_update)
         
-            return redirect("/")
+        return redirect("/")
 
 
     return app
