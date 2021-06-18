@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 import session_items
-import pdb
 from datetime import datetime, timedelta
 from view_model import ViewModel
 

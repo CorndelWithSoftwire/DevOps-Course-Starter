@@ -1,7 +1,6 @@
 import pytest
 from view_model import ViewModel
 from datetime import datetime, timedelta
-import pdb
 
 
 @pytest.fixture

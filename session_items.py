@@ -1,6 +1,5 @@
 from flask import session
 import requests
-import pdb
 import os
 import pprint
 from datetime import datetime
@@ -37,7 +36,6 @@ def get_items():
 
 def get_item(id):
     items = get_items()
-    # return next(((item for item in items if item["id"] == int(id)), None)
     for item in items:
         if item["id"] == int(id):
             return item
@@ -68,7 +66,6 @@ def save_item(item):
         item: The item to save.
     """
     existing_items = get_items()
-    # updated_items = [item if item['id'] == existing_item['id'] else existing_item for existing_item in existing_items]
     updated_items = []
     for existing_item in existing_items:
         if item["id"] == existing_item["id"]:
