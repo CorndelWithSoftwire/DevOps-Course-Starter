@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 from flask_login import LoginManager, login_required
 import flask_login
 from flask_login.mixins import UserMixin
@@ -7,6 +7,7 @@ from oauthlib.oauth2.rfc6749.grant_types import client_credentials
 import Mongo_items as mongo
 import viewmodel as vm
 import os, requests, json
+from functools import wraps
 
 def create_app():
     app = Flask(__name__)
@@ -36,6 +37,17 @@ def create_app():
             else :
                 self.role = 'writer'
 
+    def checkrole(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+
+            user = load_user(flask_login.current_user.id)
+            if user.role == 'reader':
+                abort(403)
+            else:
+                return f(*args, **kwargs)
+        return decorated_function
+
     @app.route('/')
     @login_required
     def index():
@@ -63,42 +75,49 @@ def create_app():
 
     @app.route('/<id>/doingcompleted', methods=['POST'])
     @login_required
+    @checkrole
     def doingcompleteditem(id):
         mongo.mark_doing_item_done_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/todocompleted', methods=['POST'])
     @login_required
+    @checkrole
     def todocompleteditem(id):
         mongo.mark_todo_item_done_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/doingtodo', methods=['POST'])
     @login_required
+    @checkrole
     def doingtodoitem(id):
         mongo.mark_doing_item_todo_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/donetodo', methods=['POST'])
     @login_required
+    @checkrole
     def donetodoitem(id):
         mongo.mark_done_item_todo_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/tododoing', methods=['POST'])
     @login_required
+    @checkrole
     def tododoingitem(id):
         mongo.mark_todo_item_doing_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/donedoing', methods=['POST'])
     @login_required
+    @checkrole
     def donedoingitem(id):
         mongo.mark_done_item_doing_mongo(id)
         return redirect('/') 
 
     @app.route('/newitems', methods=['POST'])
     @login_required
+    @checkrole
     def newitems():
         itemname = request.form.get('Title')
         mongo.add_item_mongo(itemname)
