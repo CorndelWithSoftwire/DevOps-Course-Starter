@@ -54,6 +54,10 @@ def create_app():
         items = mongo.get_items_mongo()
         items=sorted(items, key=lambda k: k.status, reverse=True)
         item_view_model = vm.ViewModel(items)
+        user = load_user(flask_login.current_user.id)
+        if user.role == 'reader':
+            return render_template('index_readonly.html', view_model=item_view_model)
+
         return render_template('index.html', view_model=item_view_model)
 
     @app.route('/login/callback')
