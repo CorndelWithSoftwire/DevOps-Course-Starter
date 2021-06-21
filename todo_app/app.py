@@ -91,7 +91,7 @@ def index():
             if whatsthedate > olddate:
                 mongo_view_model_done.append(mongo_card)        # Append to display in done - recently
             else: 
-                mongo_view_model_olddone.append(mongo_card)     # Apprend to display in older done record            
+                mongo_view_model_olddone.append(mongo_card)     # Append to display in older done record            
                                                                 # note: Invalid or no status won't appear at all
 
    # print("the current user is:  ")
@@ -119,7 +119,7 @@ def index():
         passed_items_olddone=mongo_view_model_olddone   # Old items ready to be displayed elsewhere
         )
     else:
-        return render_template('indexread.html',       # If user NOT allowed to write: 
+        return render_template('indexread.html',        # If user NOT allowed to write: 
         passed_items_todo=mongo_view_model,             # Mongo To Do
         passed_items_doing=mongo_view_model_doing,      # Mongo Doing
         passed_items_done=mongo_view_model_done,        # Mongo Done
