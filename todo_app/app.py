@@ -30,7 +30,11 @@ def create_app():
     class User(UserMixin):
         def __init__(self, userid):
             self.user_id = userid
-            self.id = userid           
+            self.id = userid
+            if self.id == "69510597" :
+                self.role = 'reader'
+            else :
+                self.role = 'writer'
 
     @app.route('/')
     @login_required
@@ -46,8 +50,8 @@ def create_app():
         client = WebApplicationClient(os.getenv("CLIENT_ID"))
         tokenurl, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', authorization_response=request.url, state="saxasdfaa", code=code)
         secret=os.getenv('OAUTH_SECRET')
-        id=os.getenv("CLIENT_ID")
-        tokenresponse = requests.post(tokenurl, data=body, auth=(id, secret))
+        clientid=os.getenv("CLIENT_ID")
+        tokenresponse = requests.post(tokenurl, data=body, auth=(clientid, secret))
         client.parse_request_body_response(tokenresponse.text)
         userinfo_endpoint = "https://api.github.com/user"
         uri, headers, body = client.add_token(userinfo_endpoint)
