@@ -21,12 +21,12 @@ class ViewModel:
     @property
     def recent_done_items(self):
         all_done_items = [item for item in self._items if item.status == 'Done']
-        today = datetime.date.today()
-        recent_done_items = [item for item in all_done_items if item.lastmodifieddate >= today]    
+        today = datetime.datetime.utcnow()
+        recent_done_items = [item for item in all_done_items if item.lastmodifieddate.date() >= today.date()]    
         return recent_done_items
     @property
     def older_done_items(self):
         all_done_items = [item for item in self._items if item.status == 'Done']
-        today = datetime.date.today()
-        older_done_items = [item for item in all_done_items if item.lastmodifieddate < today]    
-        return older_done_items
+        today = datetime.datetime.utcnow() 
+        older_done_items = [item for item in all_done_items if item.lastmodifieddate.date() < today.date()]    
+        return older_done_items     
