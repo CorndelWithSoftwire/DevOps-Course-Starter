@@ -52,10 +52,14 @@ print("Getting Mongo connection string")
 mongodb_connection_string = os.environ["MONGODB_CONNECTION_STRING"]
 print("Setting client")
 client = pymongo.MongoClient(mongodb_connection_string)
+print("Client is")
+print(client)
+
 print("mongodb_connection_string is ...")
 print(mongodb_connection_string)
 db = client.gettingStarted              # Database to be used
-
+print("Database to be used is:")
+print(db)
 
 
 olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide items older than 5 days

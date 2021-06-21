@@ -47,7 +47,8 @@ resource "azurerm_app_service" "main" {
   }
   app_settings = {
         # For some reason primary_key was not accepted in azurerm_cosmosdb_account, so hardcoded here instead.  It works.
-        "MONGODB_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:hEZ0qnr47mVOTTnrOYdquU7e4PzIKDPk9L8WOUF1ngK3CHtLVVYoscRcI4QGrbATVaffUciqbq2BOy8wRadVTg==@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
+        # "MONGODB_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:hEZ0qnr47mVOTTnrOYdquU7e4PzIKDPk9L8WOUF1ngK3CHtLVVYoscRcI4QGrbATVaffUciqbq2BOy8wRadVTg==@${azurerm_cosmosdb_account.main.name}.mongo.cosmos.azure.com:10255/DefaultDatabase?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000" 
+        "MONGO_CONNECTION_STRING" = "mongodb://${azurerm_cosmosdb_account.main.name}:gXWPV2XXgXEq1e7ldMf3mWCukwVUGpYBqCUAhcXjVkYcOV52apYTVQabyB6hTTLWXX8MgYWPXeyai7WWiYLkcQ==@britboytodoappterr.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@britboytodoappterr@"
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
         "client_id" = var.client_id
         "client_secret" = var.client_secret
@@ -120,6 +121,7 @@ output "connection_strings" {
 output "webapp_url" {
   value = "https://${azurerm_app_service.main.default_site_hostname}"
 }
+
 
 #Next required for webhook into Travis
 
