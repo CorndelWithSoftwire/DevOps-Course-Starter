@@ -52,12 +52,11 @@ def add_item(title):
         item: The saved item.
     """
     items = get_items()
-
     url = f"https://api.trello.com/1/cards"
     data = {"idList": os.getenv("to_do_list"), "name": title}
     response = requests.request("POST", url, data=data, params=query)
 
-
+    
 def save_item(item):
     """
     Updates an existing item in the session. If no existing item matches the ID of the specified item, nothing is saved.
