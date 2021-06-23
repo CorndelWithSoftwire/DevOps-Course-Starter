@@ -1,4 +1,4 @@
-import app
+import todo_app.app as app 
 import pytest
 from dotenv import load_dotenv, find_dotenv
 import os

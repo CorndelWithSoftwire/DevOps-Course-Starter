@@ -4,7 +4,7 @@ import os
 import pprint
 from datetime import datetime
 from dateutil.parser import parse
-from todo_item import TodoItem
+from todo_app.todo_item import TodoItem
 
 
 _DEFAULT_ITEMS = [
