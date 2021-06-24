@@ -38,7 +38,7 @@ deploy:
   script: bash scripts/deploy.sh
 
     # Very end of module 12 - put here theoretically - as my travis is out of credit
-    curl -dH -X POST "$(terraform output -raw extra_variable)"
+    
   on: 
     branch:
     - master

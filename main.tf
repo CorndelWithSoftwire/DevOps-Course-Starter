@@ -3,7 +3,7 @@ terraform {
     resource_group_name   = "AmericanExpress1_DaveRawlinson_ProjectExercise"
     storage_account_name  = "britboyazurestorage24051"
     container_name        = "britboyazurecontainer"
-    key                   = "LaBye88Pf/inj0gfc0M7a/wL3/2U1ygMUYoT+h1RlyOEbLotz29rTqaemwXqBNj6/bCBzmpYD3kNXdCv+R5Zcw=="
+    key                   = "terraform.tfstate"
   }
   required_providers {
     azurerm = {
@@ -23,7 +23,6 @@ data "azurerm_resource_group" "main" {name= "AmericanExpress1_DaveRawlinson_Proj
 
 resource "azurerm_app_service_plan" "main" {
   name = "terraformed-asp"
-  # location= data.azurerm_resource_group.main.location
   location = var.location
   resource_group_name = data.azurerm_resource_group.main.name
   kind= "Linux"
@@ -36,13 +35,12 @@ resource "azurerm_app_service_plan" "main" {
 }
 
 resource "azurerm_app_service" "main" {
-  name= "britboytodolistsuper"
+  name= "${var.prefix}britboytodolistsuper"
   location= data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   app_service_plan_id = azurerm_app_service_plan.main.id
   site_config {
     app_command_line = ""
-    #linux_fx_version = "DOCKER|appsvcsample/python-helloworld:latest"
     linux_fx_version = "DOCKER|britboy4321/todoapp:latest"
   }
   app_settings = {
@@ -56,7 +54,6 @@ resource "azurerm_app_service" "main" {
         "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io/v1"
         "FLASK_APP" = "todo_app/app"
         "FLASK_ENV" = "development"
-        "key" = "308200bc2fe025877202575cdf262bd4"
         "OATH_INSECURE_TRANSPORT" = "1"
         "SECRET_KEY" = "secret-key"
         "WEBSITE_HTTPLOGGING_RETENTION_DAYS" = "1"
@@ -68,7 +65,7 @@ resource "azurerm_app_service" "main" {
 
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                = "britboytodoappterr"
+  name                = "${var.prefix}britboytodoappterr"
   resource_group_name = "AmericanExpress1_DaveRawlinson_ProjectExercise"
   offer_type          = "Standard"
   kind                = "MongoDB"
@@ -98,7 +95,7 @@ resource "azurerm_cosmosdb_account" "main" {
 }
 
 resource "azurerm_cosmosdb_mongo_database" "main" {
-  name                = "britboydbterraform"
+  name                = "${var.prefix}britboydbterraform"
   resource_group_name = resource.azurerm_cosmosdb_account.main.resource_group_name
   account_name        = resource.azurerm_cosmosdb_account.main.name
   # throughput          = 400
@@ -124,6 +121,7 @@ output "webapp_url" {
 
 #Next required for webhook into Travis
 
-output "extra_variable" {
+output "webhook_url" {
   value = "https://${azurerm_app_service.main.site_credential[0].username}:${azurerm_app_service.main.site_credential[0].password}@${azurerm_app_service.main.name}.scm.azurewebsites.net/docker/hook"
+  sensitive = true
 }

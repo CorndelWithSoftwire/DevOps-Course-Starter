@@ -8,9 +8,9 @@ variable "location" {
 }
 variable "client_id" {
   description = "The client ID"
-  default = "7b45e6f82314a24eae60"
+  default = "$variables_client_id"
 }
 variable "client_secret"  {
   description = "The client secret"
-  default = "be07d5d4c655bf1d6765b061d3f32358aa560042"
+  default = "$variables_client_secret"
 }
