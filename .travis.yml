@@ -6,8 +6,7 @@ install:
 - terraform init
 
 before_deploy:
-- terraform apply -var prefix="" -var location="uk south" -var client_id="7b45e6f82314a24eae60" -var client_secret="be07d5d4c655bf1d6765b061d3f32358aa560042" -auto-approve
-
+- terraform apply -var prefix="" -var location="uk south" -var client_id="$variables_client_id" -var client_secret="$variables_client_secret" -auto-approve
 script:
 
 - FLASK_APP=todo_app/app
