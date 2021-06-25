@@ -3,7 +3,7 @@ Python code interacts with MongoDB to give a unique front end interacting with M
 
 Hosted on Azure.
 
-Terraform implemented
+Terraform implemented.
 
 OAUTH Security implemented.
 

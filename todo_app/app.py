@@ -26,17 +26,15 @@ app.secret_key = os.environ["SECRET_KEY"]
 #################################
 login_manager = LoginManager()
 client_id=os.environ["client_id"] 
-print ("Login client id is:")
-print(client_id)
+app.logger.info("Login client id is $s:", client_id)
 Clientsecurity = WebApplicationClient(client_id)
 
 @login_manager.unauthorized_handler
 def unauthenticated():
-    print("unauthenticated, yet!") 	
+    app.logger.warning("Unauthorised, yet!")	
     result = Clientsecurity.prepare_request_uri("https://github.com/login/oauth/authorize")
-    print("The place we're about to go to is called...")
-    print(result)
-
+    app.logger.info("The place we're about to go to is ... $s:", result)
+   
     return redirect(result)
 
 	# Github OAuth flow when unauthenticated
@@ -48,20 +46,15 @@ def load_user(user_id):
 login_manager.init_app(app)
 client_id=os.environ["client_id"]                   # Possibly not needed, defined earlier
 client_secret=os.environ["client_secret"]           # For security
-
-print("Getting Mongo connection string")
-
+app.logger.info("Getting Mongo connection string")
 mongodb_connection_string = os.environ["MONGODB_CONNECTION_STRING"]
-print("Setting client")
+app.logger.info("Setting client")
 client = pymongo.MongoClient(mongodb_connection_string)
-print("Client is")
-print(client)
-
-print("mongodb_connection_string is ...")
-print(mongodb_connection_string)
+app.logger.info("Client is  $s:", client)
+app.logger.info("mongodb_connection_string is ... $s:", mongodb_connection_string)
 db = client.gettingStarted              # Database to be used
-print("Database to be used is:")
-print(db)
+app.logger.info("Database to be used is... $s:", db)
+
 
 
 olddate = (datetime.now() - timedelta(days=5))   # Mongo: Used later to hide items older than 5 days
@@ -136,6 +129,7 @@ def index():
 @app.route('/addmongoentry', methods = ["POST"])
 @login_required
 def mongoentry():
+    app.logger.warning("Mongo entry being added")
     write_permission_user=(current_user.name)
     if (write_permission_user == "britboy4321"):
         name = request.form['title']
@@ -146,6 +140,7 @@ def mongoentry():
 @app.route('/move_to_doing_item', methods = ["PUT","GET","POST"])
 @login_required
 def move_to_doing_item():           # Called to move a 'card' to 'doing'
+    app.logger.warning("Mongo entry being moved to doing")
     write_permission_user=(current_user.name)
     if (write_permission_user == "britboy4321"):
         title = request.form['item_title']
@@ -159,6 +154,7 @@ def move_to_doing_item():           # Called to move a 'card' to 'doing'
 @app.route('/move_to_done_item', methods = ["PUT","GET","POST"])
 @login_required
 def move_to_done_item():            # Called to move a 'card' to 'done'
+    app.logger.warning("Mongo entry being moved to done")
     write_permission_user=(current_user.name)
     if (write_permission_user == "britboy4321"):
         title = request.form['item_title']
@@ -172,6 +168,7 @@ def move_to_done_item():            # Called to move a 'card' to 'done'
 @app.route('/move_to_todo_item', methods = ["PUT","GET","POST"])
 @login_required
 def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (was useful)
+    app.logger.warning("Mongo entry being moved back to todo")
     write_permission_user=(current_user.name)
     if (write_permission_user == "britboy4321"):
         title = request.form['item_title']
@@ -186,7 +183,7 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
 def login():
 
     # Get the access_token
-    print("ABOUT TO PREPARE THE TOKEN REQUEST")
+    print("ABOUT TO PREPARE THE TOKEN REQUIRED")
     url, headers, body = Clientsecurity.prepare_token_request(
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
