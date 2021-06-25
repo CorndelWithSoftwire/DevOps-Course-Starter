@@ -34,10 +34,7 @@ script:
 
 deploy:
   provider: script
-  script: bash scripts/deploy.sh
-
-    # Very end of module 12 - put here theoretically - as my travis is out of credit
-    
+  script: bash scripts/deploy.sh    
   on: 
     branch:
     - master
