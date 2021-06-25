@@ -26,6 +26,8 @@ app.secret_key = os.environ["SECRET_KEY"]
 #################################
 login_manager = LoginManager()
 client_id=os.environ["client_id"] 
+print ("Login client id is:")
+print(client_id)
 Clientsecurity = WebApplicationClient(client_id)
 
 @login_manager.unauthorized_handler
@@ -184,7 +186,7 @@ def move_to_todo_item():            # Called to move a 'card' BACK to 'todo' (wa
 def login():
 
     # Get the access_token
-
+    print("ABOUT TO PREPARE THE TOKEN REQUEST")
     url, headers, body = Clientsecurity.prepare_token_request(
         "https://github.com/login/oauth/access_token",
         authorization_response=request.url
