@@ -15,7 +15,7 @@ pytest = "^6.2.2"
 pymongo = {extras = ["srv"], version = "^3.11.3"}
 oauthlib = "^3.1.0"
 flask-login = "^0.5.0"
-
+loggly-python-handler = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 

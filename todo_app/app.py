@@ -1,8 +1,27 @@
 # SETUP INFO
 
+# Flask
+
 from flask import Flask, render_template, request, redirect, g, url_for, session
 from flask_login import LoginManager, login_required, current_user
 from flask_login.utils import login_user
+
+# Loggly 
+
+
+import logging
+import logging.config
+import time
+import loggly.handlers
+from logging import Formatter
+from loggly.handlers import HTTPSHandler
+
+logging.config.fileConfig('python.conf')
+logging.Formatter.converter = time.gmtime
+logger = logging.getLogger('myLogger')
+
+logger.info('Test log')
+
 
 # from flask import LoginManager and login required
 import requests                     # Import the whole of requests
@@ -21,6 +40,10 @@ app = Flask(__name__)
 
 app.secret_key = os.environ["SECRET_KEY"]
 
+##  Set token for module 13 - loggly
+
+LOGGLY_TOKEN = os.environ["LOGGLY_TOKEN"]
+
 #################################
 #  MODULE 10 LOGIN MANAGER SETUP
 #################################
@@ -28,7 +51,8 @@ login_manager = LoginManager()
 client_id=os.environ["client_id"] 
 app.logger.info("Login client id is $s:", client_id)
 Clientsecurity = WebApplicationClient(client_id)
-
+LOG_LEVEL=os.environ["LOG_LEVEL"]       # I wanted to get the log_level from .env on below line but couldn't get it to work (syntax error)
+app.logger.setLevel(logging.DEBUG)      # So Set logging level as specified  
 @login_manager.unauthorized_handler
 def unauthenticated():
     app.logger.warning("Unauthorised, yet!")	
@@ -74,6 +98,16 @@ def index():
     mongo_view_model_olddone=[]     # Older 'done' items to be stored here (section of collection)
     mongosuperlist = list(db.newposts.find()) 
  
+
+    if app.config['LOGGLY_TOKEN'] is not None:
+        handler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{app.config["LOGGLY_TOKEN"]}/tag/todo-app')
+        handler.setFormatter(
+            Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
+            )
+        app.logger.addHandler(handler)
+
+
+
 #  Create the various lists depending on status
     counter=0                                           # Well, it works!
     for mongo_card in mongosuperlist:
