@@ -39,13 +39,19 @@ def create_app():
     def checkrole(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-
-            user = load_user(flask_login.current_user.id)
-            if user.role == 'reader':
+            if get_user_role() == 'reader':
                 abort(403)
             else:
                 return f(*args, **kwargs)
         return decorated_function
+
+    def get_user_role():
+        if app.config['LOGIN_DISABLED']:
+            print('Login disabled')
+            return "writer"
+        else:
+            print('role is this')
+            return flask_login.current_user.role
 
     @app.route('/')
     @login_required
@@ -53,8 +59,7 @@ def create_app():
         items = mongo.get_items_mongo()
         items=sorted(items, key=lambda k: k.status, reverse=True)
         item_view_model = vm.ViewModel(items)
-        user = load_user(flask_login.current_user.id)
-        if user.role == 'reader':
+        if get_user_role() == 'reader':    
             return render_template('index_readonly.html', view_model=item_view_model)
         else:
             return render_template('index.html', view_model=item_view_model)
