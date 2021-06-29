@@ -29,7 +29,6 @@ def create_app():
 
     class User(UserMixin):
         def __init__(self, userid):
-            self.user_id = userid
             self.id = userid
             if self.id == "69510597" :
                 self.role = 'writer'
