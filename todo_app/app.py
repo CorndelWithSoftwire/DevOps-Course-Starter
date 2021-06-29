@@ -3,7 +3,6 @@ from flask_login import LoginManager, login_required
 import flask_login
 from flask_login.mixins import UserMixin
 from oauthlib.oauth2 import WebApplicationClient
-from oauthlib.oauth2.rfc6749.grant_types import client_credentials
 import Mongo_items as mongo
 import viewmodel as vm
 import os, requests, json
@@ -33,9 +32,9 @@ def create_app():
             self.user_id = userid
             self.id = userid
             if self.id == "69510597" :
-                self.role = 'reader'
-            else :
                 self.role = 'writer'
+            else :
+                self.role = 'reader'
 
     def checkrole(f):
         @wraps(f)
@@ -57,8 +56,8 @@ def create_app():
         user = load_user(flask_login.current_user.id)
         if user.role == 'reader':
             return render_template('index_readonly.html', view_model=item_view_model)
-
-        return render_template('index.html', view_model=item_view_model)
+        else:
+            return render_template('index.html', view_model=item_view_model)
 
     @app.route('/login/callback')
     def callback():
