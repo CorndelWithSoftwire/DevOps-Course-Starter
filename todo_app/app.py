@@ -47,10 +47,8 @@ def create_app():
 
     def get_user_role():
         if app.config['LOGIN_DISABLED']:
-            print('Login disabled')
             return "writer"
         else:
-            print('role is this')
             return flask_login.current_user.role
 
     @app.route('/')
@@ -59,10 +57,8 @@ def create_app():
         items = mongo.get_items_mongo()
         items=sorted(items, key=lambda k: k.status, reverse=True)
         item_view_model = vm.ViewModel(items)
-        if get_user_role() == 'reader':    
-            return render_template('index_readonly.html', view_model=item_view_model)
-        else:
-            return render_template('index.html', view_model=item_view_model)
+        role = get_user_role()
+        return render_template('index.html', view_model=item_view_model, role=role)
 
     @app.route('/login/callback')
     def callback():
