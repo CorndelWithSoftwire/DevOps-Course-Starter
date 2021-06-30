@@ -17,7 +17,8 @@ def create_app():
     @login_manager.unauthorized_handler
     def unauthenticated():
         client = WebApplicationClient(os.getenv("CLIENT_ID"))
-        authredirect = client.prepare_request_uri("https://github.com/login/oauth/authorize", state="saxasdfaa")
+        client.state = client.state_generator()
+        authredirect = client.prepare_request_uri("https://github.com/login/oauth/authorize", state=client.state)
         return redirect(authredirect)
 
     @login_manager.user_loader
@@ -61,9 +62,10 @@ def create_app():
 
     @app.route('/login/callback')
     def callback():
-        code = request.args.get('code')
         client = WebApplicationClient(os.getenv("CLIENT_ID"))
-        tokenurl, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', authorization_response=request.url, state="saxasdfaa", code=code)
+        client.state = request.args.get('state')
+        code = request.args.get('code')
+        tokenurl, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', authorization_response=request.url, state=client.state, code=code)
         secret=os.getenv('OAUTH_SECRET')
         clientid=os.getenv("CLIENT_ID")
         tokenresponse = requests.post(tokenurl, data=body, auth=(clientid, secret))
