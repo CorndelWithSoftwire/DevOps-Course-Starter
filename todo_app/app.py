@@ -17,9 +17,8 @@ def create_app():
 
     @app.route("/create_item", methods=["POST"])
     def create_item():
-        new_dict = request.form.to_dict(flat=False)
-        for item_name in new_dict["newitem"]:
-            session_items.add_item(item_name)
+        new_item_name = request.form["newitem"]
+        session_items.add_item(new_item_name)
 
         return redirect("/")
 
