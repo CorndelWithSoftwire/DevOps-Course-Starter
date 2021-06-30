@@ -2,12 +2,9 @@ services:
 - docker
 script:
 - docker pull kevineatondevops/todo-app:latest
-- docker build --target travistest --tag todo-app:travis --cache-from kevineatondevops/todo-app:latest
-  .
-- docker run --env MONGO_CONNECTION --env MONGO_DB --env OAUTH_SECRET --env CLIENT_ID
-  --env OAUTHLIB_INSECURE_TRANSPORT todo-app:travis tests
-- docker run --env MONGO_CONNECTION --env MONGO_DB --env SECRET_KEY --env OAUTH_SECRET
-  --env CLIENT_ID --env OAUTHLIB_INSECURE_TRANSPORT todo-app:travis  tests_e2e
+- docker build --target travistest --tag todo-app:travis --cache-from kevineatondevops/todo-app:latest .
+- docker run --env MONGO_CONNECTION --env MONGO_DB --env OAUTH_SECRET --env CLIENT_ID --env SECRET_KEY todo-app:travis tests
+- docker run --env MONGO_CONNECTION --env MONGO_DB --env SECRET_KEY --env OAUTH_SECRET --env CLIENT_ID todo-app:travis  tests_e2e
 deploy:
   provider: script
   script: bash todo_app/deploy.sh
