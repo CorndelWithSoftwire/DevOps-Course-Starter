@@ -1,7 +1,7 @@
 from flask import session
 import os
 import requests
-from todo_item import TodoItem
+from todo_app.todo_item import TodoItem
 
 
 _DEFAULT_ITEMS = [
