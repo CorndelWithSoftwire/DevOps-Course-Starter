@@ -3,10 +3,14 @@ from todo_app.view_model import ViewModel
 from datetime import datetime, timedelta
 import os 
 from todo_app.todo_item import TodoItem
+from dotenv import load_dotenv, find_dotenv
+import pdb
 
 
 @pytest.fixture
 def view_model():
+    file_path = find_dotenv(".env.test")
+    load_dotenv(file_path, override=True)
     _DEFAULT_CARDS = [
         {
             "idShort": 1,
