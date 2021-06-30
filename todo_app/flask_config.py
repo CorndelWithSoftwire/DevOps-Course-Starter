@@ -6,4 +6,6 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
     if not SECRET_KEY:
         raise ValueError("No SECRET_KEY set for Flask application. Did you forget to run setup.sh?")
-    LOGIN_DISABLED = True
+    LOGIN_DISABLED = os.environ.get('LOGIN_DISABLED')
+    if not LOGIN_DISABLED:
+        LOGIN_DISABLED = False
