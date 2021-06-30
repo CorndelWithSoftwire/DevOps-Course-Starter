@@ -15,8 +15,6 @@ class ViewModel:
         for item in self._items:
             if item.status == "Not Started":
                 todo_items.append(item)
-            else:
-                continue
 
         return todo_items
 
@@ -26,8 +24,6 @@ class ViewModel:
         for item in self._items:
             if item.status == "In Progress":
                 doing_items.append(item)
-            else:
-                continue
 
         return doing_items
 
@@ -37,8 +33,6 @@ class ViewModel:
         for item in self._items:
             if item.status == "Done":
                 done_items.append(item)
-            else:
-                continue
 
         return done_items
 
@@ -56,8 +50,6 @@ class ViewModel:
         for item in self._items:
             if (item.status == "Done") and (item.last_edited > datetime_yesterday):
                 recent_done_items.append(item)
-            else:
-                continue
 
         return recent_done_items
 
@@ -68,7 +60,5 @@ class ViewModel:
         for item in self._items:
             if (item.status == "Done") and (item.last_edited < datetime_yesterday):
                 older_done_items.append(item)
-            else:
-                continue
-
+     
         return older_done_items
