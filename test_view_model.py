@@ -3,10 +3,14 @@ from view_model import ViewModel
 from datetime import datetime, timedelta
 from todo_item import TodoItem
 import os
+from dotenv import load_dotenv, find_dotenv
 
 
 @pytest.fixture
 def view_model():
+    file_path = find_dotenv(".env.test")
+    load_dotenv(file_path, override=True)
+
     _DEFAULT_ITEMS = [
         {
             "idShort": 1,
@@ -47,18 +51,27 @@ def test_items(view_model):
 
 
 def test_todo_items(view_model):
-    for item in view_model.todo_items:
-        assert item.status == "Not Started"
+    if len(view_model.todo_items) >= 1:
+        for item in view_model.todo_items:
+            assert item.status == "Not Started"
+    else:
+        assert view_model.todo_items == []
 
 
 def test_doing_items(view_model):
-    for item in view_model.doing_items:
-        assert item.status == "In Progress"
+    if len(view_model.doing_items) >= 1:
+        for item in view_model.doing_items:
+            assert item.status == "In Progress"
+    else:
+        assert view_model.doing_items == []
 
 
 def test_done_items(view_model):
-    for item in view_model.done_items:
-        assert item.status == "Done"
+    if len(view_model.done_items) >= 1:
+        for item in view_model.done_items:
+            assert item.status == "Done"
+    else:
+        assert view_model.done_items == []
 
 
 def test_show_all_done_items(view_model):
