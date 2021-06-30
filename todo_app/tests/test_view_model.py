@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 import os 
 from todo_app.todo_item import TodoItem
 from dotenv import load_dotenv, find_dotenv
-import pdb
 
 
 @pytest.fixture
@@ -14,7 +13,7 @@ def view_model():
     _DEFAULT_CARDS = [
         {
             "idShort": 1,
-            "idList": os.getenv("in_progress_list"),
+            "idList": os.getenv("to_do_list"),
             "name": "List saved todo items",
             "dateLastActivity": '2021-06-18T11:27:41.098Z',
             "due": '2030-06-18T11:27:41.098Z'
