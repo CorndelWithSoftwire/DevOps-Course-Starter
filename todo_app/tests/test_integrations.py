@@ -1,6 +1,6 @@
 import app, pytest, mongomock, os
 import Mongo_items 
-from mongo_config import Config
+from flask_config import Config as flaskconfig
 from dotenv import find_dotenv, load_dotenv
 
 @pytest.fixture
@@ -8,6 +8,7 @@ def client():
     # Use our test integration config instead of the 'real' version
     file_path = find_dotenv('.env.test')
     load_dotenv(file_path, override=True)
+    flaskconfig.LOGIN_DISABLED = "True"
     # Create the new app.
     test_app = app.create_app()
     # Use the app to create a test_client that can be used in our tests.
