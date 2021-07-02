@@ -51,11 +51,9 @@ def test_items(view_model):
 
 
 def test_todo_items(view_model):
-    if len(view_model.todo_items) >= 1:
-        for item in view_model.todo_items:
-            assert item.status == "Not Started"
-    else:
-        assert view_model.todo_items == []
+    assert len(view_model.todo_items) == 1
+    for item in view_model.todo_items:
+        assert item.status == "To Do"
 
 
 def test_doing_items(view_model):
