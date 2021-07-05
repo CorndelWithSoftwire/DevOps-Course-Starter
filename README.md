@@ -50,3 +50,21 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Trello 
+
+What is Trello - Trello is a collaboration tool that organizes your projects into boards. At the moment Trello is acting as the database for our project storing our card data in the various lanes relating to their status. 
+
+How to set up a board - Create a new board from anywhere in Trello by clicking the "+" button in the header and selecting "Create Board" in the drop-down menu. Add a new board or Workspace.
+
+The .env.template file shows the values that you will need to extract from the Trello board/card data and this can be found using the Trello API - "https://api.trello.com/"
+
+
+## Pytest 
+
+Before running the app you can run unit and integration tests to see if the app works, the tests are found in the tests folder. 
+
+To run unit tests run the following command - 
+```
+$ poetry run pytest todo_app/tests
+```

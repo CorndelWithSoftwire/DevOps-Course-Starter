@@ -2,17 +2,319 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
-    </div>
+<div class="row">
+  <div class="col-md-12">
+    <form style="text-align:center" method="post" action="/create_item">
+      <br>
+      <br>
+      <h5 style="text-align:center">Enter New To-Do Items:</h5>
+      <input type="text" name="newitem" />
+      <button type="submit">Submit</button>
+    </form>
+    <br>
+    <br>
+    {% if view_model.todo_items %}
+    <h3>To-Do Items</h3>
+    <table class="table table-striped">
+      <colgroup>
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 5%;">
+      </colgroup>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Update Due Date</th>
+        <th>Update Status</th>
+        <th>Delete</th>
+      </tr>
+      {% for item in view_model.todo_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.due_date }}</td>
+        <td>
+          <form method="post" action="/due_date">
+            <input type="date" name="duedate">
+            <input type="submit">
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/update_status">
+            <select name="select_update">
+              <option value="To-Do">To Do</option>
+              <option value="In-Progress">In Progress</option>
+              <option value="Complete">Complete</option>
+            </select>
+            <input type="submit" value="Submit" class="myButton" />
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/delete_item">
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <h3>To-Do Items</h3>
+    You have no to-do items
+    {% endif %}
+    <br>
+    <br>
+    {% if view_model.in_progress_items %}
+    <h3>In Progress Items</h3>
+    <table class="table table-striped">
+      <colgroup>
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 5%;">
+      </colgroup>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Update Due Date</th>
+        <th>Update Status</th>
+        <th>Delete</th>
+      </tr>
+      {% for item in view_model.in_progress_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.due_date }}</td>
+        <td>
+          <form method="post" action="/due_date">
+            <input type="date" name="duedate">
+            <input type="submit">
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/update_status">
+            <select name="select_update">
+              <option value="To-Do">To Do</option>
+              <option value="In-Progress">In Progress</option>
+              <option value="Complete">Complete</option>
+            </select>
+            <input type="submit" value="Submit" class="myButton" />
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/delete_item">
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <h3>In Progress Items</h3>
+    You have no in progress items
+    {% endif %}
+    <br>
+    <br>
+    {% if view_model.complete_items %}
+    {% if view_model.show_all_done_items %}
+    <h3>Complete Items</h3>
+    <table class="table table-striped">
+      <colgroup>
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 5%;">
+      </colgroup>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Update Due Date</th>
+        <th>Update Status</th>
+        <th>Delete</th>
+      </tr>
+      {% for item in view_model.complete_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.due_date }}</td>
+        <td>
+          <form method="post" action="/due_date">
+            <input type="date" name="duedate">
+            <input type="submit">
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/update_status">
+            <select name="select_update">
+              <option value="To-Do">To Do</option>
+              <option value="In-Progress">In Progress</option>
+              <option value="Complete">Complete</option>
+            </select>
+            <input type="submit" value="Submit" class="myButton" />
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/delete_item">
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    {% if view_model.recent_done_items %}
+    <h3>Recent Completed Items</h3>
+    <table class="table table-striped">
+      <colgroup>
+        <col span="1" style="width: 5%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 5%;">
+      </colgroup>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Update Due Date</th>
+        <th>Update Status</th>
+        <th>Delete</th>
+      </tr>
+      {% for item in view_model.recent_done_items %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.due_date }}</td>
+        <td>
+          <form method="post" action="/due_date">
+            <input type="date" name="duedate">
+            <input type="submit">
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/update_status">
+            <select name="select_update">
+              <option value="To-Do">To Do</option>
+              <option value="In-Progress">In Progress</option>
+              <option value="Complete">Complete</option>
+            </select>
+            <input type="submit" value="Submit" class="myButton" />
+            <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/delete_item">
+            <input type="submit" value="X"/>
+            <input type="hidden" value="{{ item.id }}" name="item_id"/>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <br>
+    <br>
+    {% else %}
+    <h3>Recent Completed Items</h3>
+    <p>You have no recently completed items</p>
+    {% endif %}
+    {% if view_model.older_done_items %}
+    <details>
+      <summary style="font-size: x-large !important">Older Completed Items</summary>
+      <table class="table table-striped">
+        <colgroup>
+          <col span="1" style="width: 5%;">
+          <col span="1" style="width: 10%;">
+          <col span="1" style="width: 10%;">
+          <col span="1" style="width: 15%;">
+          <col span="1" style="width: 25%;">
+          <col span="1" style="width: 20%;">
+          <col span="1" style="width: 5%;">
+        </colgroup>
+        <tr>
+          <th>ID</th>
+          <th>Status</th>
+          <th>Title</th>
+          <th>Due Date</th>
+          <th>Update Due Date</th>
+          <th>Update Status</th>
+          <th>Delete</th>
+        </tr>
+        {% for item in view_model.older_done_items %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.title }}</td>
+          <td>{{ item.due_date }}</td>
+          <td>
+            <form method="post" action="/due_date">
+              <input type="date" name="duedate">
+              <input type="submit">
+              <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+            </form>
+          </td>
+          <td>
+            <form method="post" action="/update_status">
+              <select name="select_update">
+                <option value="To-Do">To Do</option>
+                <option value="In-Progress">In Progress</option>
+                <option value="Complete">Complete</option>
+              </select>
+              <input type="submit" value="Submit" class="myButton" />
+              <input type="hidden" value="{{ item.id }}" name="item_id" class="myButton" />
+            </form>
+          </td>
+          <td>
+            <form method="post" action="/delete_item">
+              <input type="submit" value="X"/>
+              <input type="hidden" value="{{ item.id }}" name="item_id"/>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </details>
+    {% else %}
+    {% endif %}
+    {% endif %}
+    {% else %}
+    <h3>Complete Items</h3>
+    You have no completed items
+    {% endif %}
+    <br>
+    <br>
   </div>
+</div>
 {% endblock %}
