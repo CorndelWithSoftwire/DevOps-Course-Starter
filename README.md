@@ -66,5 +66,5 @@ Before running the app you can run unit and integration tests to see if the app 
 
 To run unit tests run the following command - 
 ```
-$ pytest todo_app/tests
+$ poetry run pytest todo_app/tests
 ```
