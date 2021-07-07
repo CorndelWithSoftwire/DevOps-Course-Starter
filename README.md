@@ -68,3 +68,16 @@ To run unit tests run the following command -
 ```
 $ poetry run pytest todo_app/tests
 ```
+
+## Vagrant 
+
+To run the app using vagrant run 
+```
+$ vagrant up 
+```
+ 
+Prior to doing this please ensure you have VirtualBox and Vagrant installed 
+Virtualbox - https://www.virtualbox.org/
+Vagrant - https://www.vagrantup.com/
+
+
