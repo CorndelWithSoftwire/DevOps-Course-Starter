@@ -36,7 +36,7 @@ def create_app():
             else :
                 self.role = 'reader'
 
-    def checkrole(f):
+    def writer_required(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if get_user_role() == 'reader':
@@ -80,49 +80,49 @@ def create_app():
 
     @app.route('/<id>/doingcompleted', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def doingcompleteditem(id):
         mongo.mark_doing_item_done_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/todocompleted', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def todocompleteditem(id):
         mongo.mark_todo_item_done_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/doingtodo', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def doingtodoitem(id):
         mongo.mark_doing_item_todo_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/donetodo', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def donetodoitem(id):
         mongo.mark_done_item_todo_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/tododoing', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def tododoingitem(id):
         mongo.mark_todo_item_doing_mongo(id)
         return redirect('/') 
 
     @app.route('/<id>/donedoing', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def donedoingitem(id):
         mongo.mark_done_item_doing_mongo(id)
         return redirect('/') 
 
     @app.route('/newitems', methods=['POST'])
     @login_required
-    @checkrole
+    @writer_required
     def newitems():
         itemname = request.form.get('Title')
         mongo.add_item_mongo(itemname)
