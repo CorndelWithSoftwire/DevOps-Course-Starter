@@ -23,6 +23,14 @@ MONGO_CONNECTION= ##replace with Mongo connection string from the Mongo dashboar
 ## Travis CI, Docker Hub & Heroku
 This app uses an account at Travis CI, Docker Hub & heroku to run a CI/CD pipeline to deploy to http://kedevopstodoapp.herokuapp.com/
 
+## Githun Oauth authentication
+This app uses oauth2 via github to allow logins with github credentials.
+Please create a new oauth app at settings/developer settings and record the client secret and client id in the .env variables
+```bash
+OAUTH_SECRET=##replace with oauth secret from Github##
+CLIENT_ID=##replace with client_id from Github##
+```
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the poetry environment by running:

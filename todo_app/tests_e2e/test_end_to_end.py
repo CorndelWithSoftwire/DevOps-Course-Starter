@@ -3,6 +3,7 @@ import os, pytest, app
 from threading import Thread
 from Mongo_db import delete_mongo_db
 from mongo_config import Config
+from flask_config import Config as flaskconfig
 from dotenv import load_dotenv, find_dotenv
 
 @pytest.fixture(scope='module')
@@ -12,6 +13,7 @@ def test_app():
     load_dotenv(file_path, override=True)
     test_db_name = "testing_database"
     Config.MONGO_DB = test_db_name
+    flaskconfig.LOGIN_DISABLED = "True"
     # construct the new application
     application = app.create_app()
 
