@@ -20,8 +20,8 @@ MONGO_CONNECTION= ##replace with Mongo connection string from the Mongo dashboar
 ##This should be in the format mongodb+srv://USERNAME:PASSWORD@SERVERADDRESS/DBNAME ## 
 ```
 
-## Travis CI, Docker Hub & Heroku
-This app uses an account at Travis CI, Docker Hub & heroku to run a CI/CD pipeline to deploy to http://kedevopstodoapp.herokuapp.com/
+## Travis CI, Docker Hub & Azure
+This app uses an account at Travis CI, Docker Hub & Azure to run a CI/CD pipeline to deploy to https://ketodoapp21.azurewebsites.net/
 
 ## Githun Oauth authentication
 This app uses oauth2 via github to allow logins with github credentials.
