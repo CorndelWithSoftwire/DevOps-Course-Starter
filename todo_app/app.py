@@ -65,7 +65,7 @@ def create_app():
         client = WebApplicationClient(os.getenv("CLIENT_ID"))
         client.state = request.args.get('state')
         code = request.args.get('code')
-        tokenurl, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', authorization_response=request.url, state=client.state, code=code)
+        tokenurl, headers, body = client.prepare_token_request('https://github.com/login/oauth/access_token', state=client.state, code=code)
         secret=os.getenv('OAUTH_SECRET')
         clientid=os.getenv("CLIENT_ID")
         tokenresponse = requests.post(tokenurl, data=body, auth=(clientid, secret))
@@ -76,7 +76,7 @@ def create_app():
         userinfo_json = userinfo_response.json()
         id = userinfo_json['id']
         flask_login.login_user(load_user(id))
-        return redirect(url_for("index"))
+        return redirect("/")
 
     @app.route('/<id>/doingcompleted', methods=['POST'])
     @login_required
