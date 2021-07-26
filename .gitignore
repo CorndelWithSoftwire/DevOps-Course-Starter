@@ -121,3 +121,4 @@ env/
 
 
 .vagrant 
+gunicorn_access.log
