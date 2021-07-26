@@ -1,3 +1,4 @@
+from dotenv.main import find_dotenv, load_dotenv
 from flask import session
 import requests
 import os
@@ -6,6 +7,8 @@ from datetime import datetime
 from dateutil.parser import parse
 from todo_app.todo_item import TodoItem
 
+file_path = find_dotenv(".env")
+load_dotenv(file_path, override=True)
 
 _DEFAULT_ITEMS = [
     {"id": 1, "status": "Not Started", "title": "List saved todo items"},
