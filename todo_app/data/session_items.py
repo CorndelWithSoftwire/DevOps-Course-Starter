@@ -7,6 +7,7 @@ from datetime import datetime
 from dateutil.parser import parse
 from todo_app.todo_item import TodoItem
 
+# When running in production, we need to explicitly load the environment variables before they're used in this file
 file_path = find_dotenv(".env")
 load_dotenv(file_path, override=True)
 
