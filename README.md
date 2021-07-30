@@ -68,3 +68,48 @@ To run unit tests run the following command -
 ```
 $ poetry run pytest todo_app/tests
 ```
+
+## Vagrant 
+
+To run the app using vagrant run 
+```
+$ vagrant up 
+```
+ 
+Prior to doing this please ensure you have VirtualBox and Vagrant installed 
+Virtualbox - https://www.virtualbox.org/
+Vagrant - https://www.vagrantup.com/
+
+
+## Docker 
+
+1. To build the image 
+```
+$ docker build --tag todo-app .
+```
+
+2. To run the image 
+``` 
+$ docker run todo-app
+```
+
+3. How to run the app with the bind mount - using a bind mount when running the container makes the project directory on your host machine available as a mounted directory within the container.
+```
+$ docker run --env-file ./.env -p 500:5000 --mount type=bind,source="$(pwd)"/ todo_app,target=/app/todo_app todo-app 
+```
+
+4. To container can either be run in dev or prod 
+```
+$ docker build --target development --tag todo-app:dev .
+$ docker build --target production --tag todo-app:prod .
+```
+
+5. To get the app to run in the container using the docker-compose.yml
+```
+docker-compose up
+```
+
+6. To stop the container  
+```
+docker-compose stop
+```

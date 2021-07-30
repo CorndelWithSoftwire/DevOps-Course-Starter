@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+    web:
+        build: .
+        env_file:
+            - ./.env
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/todo_app
+        environment: 
+            PORT: 5000
+            FLASK_DEBUG: 1    
