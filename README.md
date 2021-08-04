@@ -95,7 +95,7 @@ $ docker run todo-app
 
 3. How to run the app with the bind mount - using a bind mount when running the container makes the project directory on your host machine available as a mounted directory within the container.
 ```
-$ docker run --env-file ./.env -p 500:5000 --mount type=bind,source="$(pwd)"/ todo_app,target=/app/todo_app todo-app 
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app
 ```
 
 4. To container can either be run in dev or prod 
