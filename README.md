@@ -109,3 +109,8 @@ docker-compose up --build
 ```
 docker-compose stop
 ```
+6. To build image for the tests 
+$ docker build --target test --tag my-test-image .
+
+6. To run tests 
+$ docker run my-test-image 
