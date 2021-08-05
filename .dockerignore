@@ -6,5 +6,6 @@
 .pytest_cache
 .vagrant
 .vscode
+docker-compose.yml
 Dockerfile
 Vagrantfile
