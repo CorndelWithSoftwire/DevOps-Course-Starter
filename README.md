@@ -81,3 +81,31 @@ Virtualbox - https://www.virtualbox.org/
 Vagrant - https://www.vagrantup.com/
 
 
+## Docker 
+
+1. The container can either be built in dev or prod 
+```
+$ docker build --target development --tag todo-app:dev .
+$ docker build --target production --tag todo-app:prod .
+```
+
+2. How to run the app with the bind mount - using a bind mount when running the container makes the project directory on your host machine available as a mounted directory within the container.
+```
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app
+```
+
+3. From there you can run the image in the container and specify whether you would like it to run in production or in development.
+```
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
+$ docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:production
+```
+
+4. To get the app to run in the container using the docker-compose.yml, with the build flag so it rebuilds the image as necessary.
+```
+docker-compose up --build
+```
+
+5. To stop the container  
+```
+docker-compose stop
+```

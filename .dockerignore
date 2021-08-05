@@ -1,0 +1,11 @@
+.env 
+.env.template
+.env.test
+.git
+.gitignore
+.pytest_cache
+.vagrant
+.vscode
+docker-compose.yml
+Dockerfile
+Vagrantfile
