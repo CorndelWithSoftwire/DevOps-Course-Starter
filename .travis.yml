@@ -1,4 +1,6 @@
 language: generic
+services: 
+- docker
 script:
 - echo "docker build --target test --tag my-test-image ."
 - echo "docker run --env-file ./.env.test my-test-image"
