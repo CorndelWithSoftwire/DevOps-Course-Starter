@@ -1,6 +1,9 @@
 language: generic
-services: 
+services:
 - docker
 script:
 - docker build --target test --tag my-test-image .
 - docker run --env-file ./.env.test my-test-image
+notifications:
+  slack:
+    secure: QCSRvdn9PV/vgWjmJ29kO1pXCmko5lnFLcpFwm1P6oKcWYwr82W3n+keTbYL8vJAtrKwwd0p82+OJC+CA6uqZfcId9dQC1lSVOD7xvW7vNNn1QqJgR9tn0F1Gy4M2Ptrx27hZee0MTs6FzmIr9jS9cxaqeFdoF0PjIBZeOA3fnYiOGv9g03Ex7DrSrWHIF4vH4DV1W6VOerVetCNlYw/W4svhi17neTl3uF/iVl0tvf+c6sNlEtivPGI2fJX/1D5PO5ewNRb0MYNa6lDPdrqbtj7O8rimwOcUko5rU+oi3ng10un+w9U/51IPa7r8O5zwAq70NGFqiHCKzuLerrF2O66it39mqc60LYH01oNOBJAQko600byedCUwuad5id2PmSRaKsSlQvYFrbUdCsdVN6BfDPzwB1bEFfGKN8t2AFoKaNuWhq80AzCicnTM1UeHMkdFCgMPx3Nppi6oA+XOouMjWD1eFX0km37miuFwzgB8flgE1anmyIxcSgJxzQuWGROOdswEVhkQkWwosZ1GspNeZfNtNHeFcKKHeJQ1TU385IHeC86mQ6n0w9SHSM6imm/HsMlVEuzqBXXC4avAA4bijXqki00q+ggdlEDuUlSo6MBEtMsTc5+uELk6+92SW67vJct/+8k55FtGMDEv3S3/PL4ELj4xsnxGVD0I9k=
