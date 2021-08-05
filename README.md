@@ -113,4 +113,4 @@ docker-compose stop
 $ docker build --target test --tag my-test-image .
 
 6. To run tests 
-$ docker run my-test-image 
+$ docker run --env-file ./.env.test my-test-image 
