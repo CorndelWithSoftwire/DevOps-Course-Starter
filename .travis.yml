@@ -2,8 +2,10 @@ language: generic
 services:
 - docker
 script:
+- docker login --username ncaunhye 
 - docker build --target test --tag my-test-image .
-- docker run --env-file ./.env.test my-test-image
+- docker push -my-test-image
+#- docker run --env-file ./.env.test my-test-image
 notifications:
   slack:
     secure: J0u42Ts01sTJbMwXzssCmT/VwcDhY7q/y6RGdkFS42yDdVBFWReDfdOAZ3Ei2EMAEBLAfpHTPNeU++Grw+n8zzib6voHVBeuM5x4HXZfuXQVauD/Z+4QfheKIc0HhdjnQ7AX1d5MFF1W21e3in1Zj5Yx204QviBTiyMChdDkwrmZggqGg6zTfo+Ev51Y3aBPfXewS4A1Vf7G3aKflF6Dxdf1EfRo2KKkDPgw1zmFXx/G7j8Di+/cxqmASPOQ5JrgMtac1Cf4z7T5MxgekJtgAlpL667IrcqXcKLUtY35k5bkxw7d9q3ZfCTZXRq3dZvCogivFHm9MKvXZD4qmYFXKxJ72e7ONl4Ove7UM8QAA4/5OkdVUXrfdb2brOUtYUC14lLlbSpYfCKX8UreApKSgYmy08L0fP6hd3XXCWN741cttkkzwocaXX8yuuWQXDZiOlq+sm0IRpO76vMYSyk38fbR9VRh1dE3vSs+FGmOZ9oPPBneLmnbSAP9DBvNNyoKrdeJ0RozjiS/tUyCZFJxljTvZRlU08yotSSgE3qSc8FXNkOJF5NbO/R2Eng086fy4DA/lblpKCrRuTUWCF3+RgJO6TmBZXbcG6mGF/bIyzx2oCTywFfAlzFWvYn89QYzVrTzAjda6Wqrd9m7UhZHL60mOLNYIks6YpdHHtudRfE=
@@ -11,3 +13,4 @@ notifications:
     recipients:
     - nadia.caunhye@kpmg.co.uk
     on_failure: always
+
