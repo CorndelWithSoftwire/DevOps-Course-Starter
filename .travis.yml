@@ -12,7 +12,7 @@ script:
 - docker run --env-file ./.env.test my-test-image
 - docker push ncaunhye/todo-app:latest 
 - docker pull ncaunhye/todo-app:latest 
-- docker tag ncaunhye/todo-app:latest registry.heroku.com/ nadias-app/web
+- docker tag ncaunhye/todo-app:latest registry.heroku.com/nadias-app/web
 - docker push registry.heroku.com/nadias-app/web
 notifications:
   slack:
