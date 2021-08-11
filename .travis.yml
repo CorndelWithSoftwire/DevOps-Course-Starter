@@ -14,6 +14,7 @@ script:
 - docker pull ncaunhye/todo-app:latest 
 - docker build --target production --tag registry.heroku.com/nadias-app/web .
 - docker tag ncaunhye/todo-app:latest registry.heroku.com/nadias-app/web
+- heroku container:login 
 - docker push registry.heroku.com/nadias-app/web
 - heroku container:release web -a nadias-app
 notifications:
