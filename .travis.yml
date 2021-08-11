@@ -13,6 +13,7 @@ before_deploy:
 - echo $docker_password | docker login --username $docker_username --password-stdin
 - docker build --target production --tag ncaunhye/todo-app:latest --tag registry.heroku.com/nadias-app/web .
 - heroku container:login 
+- docker push ncaunhye/todo-app:latest
 - docker push registry.heroku.com/nadias-app/web
 deploy:
   provider: script
