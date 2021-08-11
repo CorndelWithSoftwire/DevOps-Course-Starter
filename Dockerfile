@@ -7,12 +7,12 @@ RUN apt-get update \
 COPY . /app 
 WORKDIR /app 
 ENV PATH="${PATH}:/root/.poetry/bin"
-RUN poetry install 
+RUN poetry config virtualenvs.create false --local && poetry install
 EXPOSE 5000
 
 FROM base as production
 ENV FLASK_ENV=production
-CMD ["poetry", "run", "gunicorn", "-b", "0.0.0.0:5000", "todo_app.app:create_app()"]
+CMD poetry run gunicorn -b 0.0.0.0:$PORT "todo_app.app:create_app()"
 
 FROM base as development
 CMD ["poetry", "run", "flask", "run", "--host", "0.0.0.0"]
