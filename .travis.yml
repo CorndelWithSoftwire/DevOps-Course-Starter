@@ -7,13 +7,7 @@ env:
   - secure: ghlOKmkDHR3JJtMOLinkJYLfgAAKUwc2PZTIg8g35bWu90eS/yvzfnZDF5KJh1TD+6doJrop0HsdqG57jReEutmAisjJ2sk38TY+CKZ96toJ+hDXBM5zaM7/P5SvAzA50ZGqEoT9CY7S9L4k2MPUf6Ka7eiVTr1I0a1SA8NnxpCFJSg5EzPkGAyL3U9GytoFCXegT9xCCdofz2iLLGvZMNaDbjEauDJqE7+TN8uC3fuWVcQj72eW3tVt0Ge13/KeFrCbqSrR5wSDNBiwppYtGYutuHQ1x1UYbKR+zdD5OqlspWInYkxSANoJNvTIK6nFP2ZcC5zxOOljyjMLDf5f4XzD2tHMplKw36DDtzXJJXj4cnHRH7DxfRPaVYIRckZJDI26qECduXN1h7Gqq3qP6ZKvTQqmD9deeSHgqw+puKU8d5ltB4zkfS64T1AKJ/M3JJu589Xni9EIT6uE+pSrggb4wYDHKv9NKoPAJ56tla5ikAPvBQBIImI+E1R0n6xCKMnJG8pveDPMg0d7CNDmZEr/IDBpp+g96l4uo3SbNFe8xjM/Y/5bJ/Uz+a/JegpUUVBoiTioGicIsntjc3gGQ46eAgQsTnXimbOMPJiRoSYuya2Tcoglge+b2AerwR5J/zc+d0OugDDCH0P5nZnqJR74cD3euT1KJLJU3IU13Dc=
 script:
 - echo $docker_password | docker login --username $docker_username --password-stdin
-- docker build --target test --tag my-test-image .
-- docker build --target production --tag ncaunhye/todo-app:latest .
-- docker run --env-file ./.env.test my-test-image
-- docker push ncaunhye/todo-app:latest
-- docker pull ncaunhye/todo-app:latest 
 - docker build --target production --tag registry.heroku.com/nadias-app/web .
-- docker tag ncaunhye/todo-app:latest registry.heroku.com/nadias-app/web
 - heroku container:login 
 - docker push registry.heroku.com/nadias-app/web
 - heroku container:release web -a nadias-app
