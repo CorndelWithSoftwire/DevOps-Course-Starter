@@ -1,0 +1,55 @@
+
+h1 {
+    font-family: sans-serif;
+    text-align: center;
+    border: 10px solid black;
+}
+
+form.add {
+    border: 3px solid black;
+    background: #aaffaa;
+    width: 330px;
+}
+
+form.clear {
+    border: 3px solid black;
+    background: #ffaaaa;
+    width: 205px;
+}
+
+table {
+    font-family: sans-serif;
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+    table th.date {
+        width: 150px;
+    }
+
+    table td {
+        border: 2px solid black;
+        height: 20px;
+    }
+
+        table td.leftMost {
+            width: 120px;
+        }
+
+        table td.checkbox {
+            width: 40px;
+        }
+
+input[type=checkbox] + span:checked {
+    text-decoration: line-through;
+}
+
+
+table tr:nth-child(odd) {
+    background: #aaffaa;
+}
+
+table tr:nth-child(even) {
+    background: white;
+}

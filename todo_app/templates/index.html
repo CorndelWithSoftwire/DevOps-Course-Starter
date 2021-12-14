@@ -2,17 +2,56 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
-    <p class="lead">Just another to-do app.</p>
-  </div>
+<div class="jumbotron">
+    <h1 class="display-4">Francis' to-do list</h1>
+</div>
 
-  <div class="row">
+<div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+        <h3>Items</h3>
+            <p>{{alerted}}</p>
+
+            <table>
+                {% for recent in added %}
+                <tr><td class="leftMost">Recently Added:</td><td>{{ recent }}</td></tr>
+                {% endfor %}
+            </table>
+            <table>
+                {% for recent in removed %}
+                <tr><td class="leftMost">Just Completed:</td><td>{{ recent }}</td></tr>
+                {% endfor %}
+            </table>
     </div>
-  </div>
+</div>
+<form action="/complete" method="POST">
+    <table>
+        {% for todo in todos %}
+        <tr id="row{{loop.index0}}"><td>{{ todo }}</td><td class="checkbox"><input name="complete_{{loop.index0}}" id="{{loop.index0}}" type="checkbox" onclick="line(id)"></td></tr>
+        {% endfor %}
+    </table>
+    <button type="submit">Remove completed tasks</button>
+
+    <p>
+        {{alerted}}
+    </p>
+
+</form>
+
+
+<form class="add" action="/add" method="POST">
+    Add a new task: <input name="newTask" type="text" autofocus> <button type="submit">Add!</button>
+</form>
+
+{% if complete|length > 0 %}
+<table>
+    <tr><th>Completed Tasks</th><th class="date">Date Complete</th></tr>
+    {% for completed in complete %}
+    <tr><td>{{ completed[0] }}</td><td>{{completed[1]}}</td></tr>
+    {% endfor %}
+</table>
+<form class="clear" action="/clear" method="POST">
+    Clear Completed Tasks:<button type="submit">Clear</button>
+</form>
+{% else %}
+{% endif %}
 {% endblock %}
