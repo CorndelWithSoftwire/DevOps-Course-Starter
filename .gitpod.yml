@@ -1,0 +1,15 @@
+image: corndeldevopscourse/devops-course-starter-gitpod
+
+vscode:
+  extensions:
+    - ms-azuretools.vscode-docker
+    - mhutchie.git-graph
+    - ms-mssql.mssql
+    - ms-python.python
+    - eamodio.gitlens
+    - littlefoxteam.vscode-python-test-adapter
+
+tasks:
+  - command: | 
+      cp .env.template .env
+      poetry install
