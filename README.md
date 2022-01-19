@@ -12,7 +12,7 @@ The project uses poetry for Python to create an isolated environment and manage 
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 ```
 
-### Poetry installation (PowerShell)
+#### Poetry installation (PowerShell)
 
 ```powershell
 (Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py -UseBasicParsing).Content | python -
