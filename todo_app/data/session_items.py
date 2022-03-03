@@ -13,6 +13,7 @@ def get_items():
     Returns:
         list: The list of saved items.
     """
+    
     return session.get('items', _DEFAULT_ITEMS.copy())
 
 

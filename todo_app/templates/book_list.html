@@ -1,0 +1,16 @@
+<!doctype html> 
+<html> 
+ <head> 
+ <title>All Books</title> 
+ </head> 
+Corndel Digital in association with Softwire
+76. The Corndel DevOps Engineering Programme 
+in association with Softwire
+ <body> 
+ <ul> 
+ {% for book in books2 %} 
+ <li>{{ book.title }} - {{book.authors}}</li> 
+ {% endfor %} 
+ </ul> 
+ </body> 
+</html> 

@@ -10,9 +10,26 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+      <ul> 
+        {% for item in items1 %} 
+        <li>{{ item.id }} - {{item.status}} - {{item.title}}</li> 
+        {% endfor %} 
+        </ul> 
+        <h2>Items</h2>
     </div>
   </div>
+
+  <form action="/addItem" method="POST" class="form-example">
+    <div class="form-example">
+      <label for="newItem">Add new Item: </label>
+      <input name="newItem" id="newItem" required>
+    </div>
+    <div class="form-example">
+      <input type="submit" value="Add!">
+    </div>
+  </form>
+
+
+
+
 {% endblock %}
