@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, render_template
+from todo_app.data.session_items import get_items, add_item
 
 from todo_app.flask_config import Config
 
@@ -8,4 +9,5 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return 'Hello World!'
+    items = get_items()
+    return render_template("index.html", items=items)
