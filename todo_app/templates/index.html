@@ -17,4 +17,16 @@
       </ul>
     </div>
   </div>
+
+    <div class = "form_collect">
+        <form action = "/add_items" method = "post" class = "form">
+            <div class="form_item">
+                <label for="todo">Enter an item to complete: </label>
+                <input type = "text" name="todo" id="todo" required>
+            </div>
+            <div class = "form_item">
+                <Button class="submit">Add</Button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
