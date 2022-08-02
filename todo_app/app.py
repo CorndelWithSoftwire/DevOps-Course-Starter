@@ -14,12 +14,12 @@ def create_app():
     def index():
         response_json = trello_items.get_trello_cards()
         items = []
-        item_view_model = ViewModel(items)
+        get_items = ViewModel(items)
         for trello_list in response_json:
             for card in trello_list['cards']:
                 item = Item.from_trello_card(card, trello_list)
                 items.append(item)
-        return render_template('index.html', view_model=item_view_model)
+        return render_template('index.html', get_items=get_items)
    
     @app.route('/create-todo', methods=['Post'])
     def create_new_todo():
