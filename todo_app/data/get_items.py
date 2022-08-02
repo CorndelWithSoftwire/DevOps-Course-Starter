@@ -22,10 +22,3 @@ class ViewModel:
                 done_list_items.append(item)
         return done_list_items
 
-    @property
-    def get_items(self):
-        get_list_items = []
-        for item in self.items:
-            if item.status == 'Get':
-            get_list_items.append(item)
-        return get_list_items   

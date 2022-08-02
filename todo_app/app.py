@@ -1,23 +1,10 @@
-from flask import Flask
-from flask import render_template
-from todo_app.flask_config import Config
-from todo_app.data.get_items import get_items
-
-app = Flask(__name__)
-app.config.from_object(Config())
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 from flask import Flask, render_template, request
 from todo_app.flask_config import Config
-import requests  
+import requests
 import os
 from todo_app.data.item import Item
 import todo_app.data.trello_items as trello_items
-from todo_app.data.view_model import ViewModel
+from todo_app.data.get_items import ViewModel
 
 def create_app():
     app = Flask(__name__)
