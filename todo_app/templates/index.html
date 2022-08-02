@@ -2,16 +2,50 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
+  <div class="jumbotron bg-dark text-white">
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
 
+<form action="/create-todo" method="Post" class="form-example">
+  <div class="form-example">
+    <lable for="name"> Add New Item: </lable>
+    <input type="text" name="todo-name" required>
+  </div>
+    <div class="form-example">
+      <input type="submit" value="submit">
+    </div>
+  </form> 
+
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>Todo Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
+        {% for item in get_items.todo_items %}
+          <li>{{ item.title }} - {{ item.status}}</li>
+          <form action="/update_status" method="Post" class="form-example">
+            <div class="form-example">
+              <p hidden>
+                <lable for="name"> Todo Id: </lable>
+                <input type="text" name="todo-id" value="{{ item.id }}" required>
+              </p>
+            </div>
+          </form> 
+        {% endfor %}
+      </ul>
+      <h2>Done Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in get_items.done_items %}
+          <li>{{ item.title }} - {{ item.status}}</li>
+          <form action="/update_status" method="Post" class="form-example">
+            <div class="form-example">
+              <p hidden>
+                <lable for="name"> Todo Id: </lable>
+                <input type="text" name="todo-id" value="{{ item.id }}" required>
+              </p>
+            </div>
+          </form> 
+        {% endfor %}
       </ul>
     </div>
   </div>
