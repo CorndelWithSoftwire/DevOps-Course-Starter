@@ -52,3 +52,27 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+### create a place to store data for todo app
+
+*create a trello account
+
+*create a trello board to store todo app item data
+
+*create a "to do" and "done" list.(you will have the option to create a "doing" list but this can be left blank)
+
+*go to trell.com/api-key do access api key and token
+
+*get the to do and done list id's and the board id. I did this with hoptscotch 
+
+*to get board ID REQUIRES API TOKEN AND KEY- https://api.trello.com/1/members/me/boards?key=***KEY***&token=***TOKEN***.......
+
+*to get the list id's, MUST ADD VAVIABLES KEY, TOKEN, CARDS  https://api.trello.com/1/boards/***BoardID***/lists
+
+*add these to the environment file, REMEMBER virtual machines may reset this file if configured to do so.
+
+### app testing
+
+to check everything is working  you can use the unit tests to prove get_items is presenting the information correctly. 
+
+if not already install pytest then poetry run pytest in the command terminal
