@@ -9,8 +9,8 @@ def get_trello_cards():
     print(os.getenv("API_KEY"))
 
     querystring = {
-        "key":os.getenv("API_KEY"),
-        "token":os.getenv("API_TOKEN"),
+        "key": os.getenv("API_KEY"),
+        "token": os.getenv("API_TOKEN"),
         "cards": "open"
     }
 
@@ -28,6 +28,7 @@ def create_todo():
         "name": new_todo_title
     }
     response = requests.request("POST", url, params=querystring)
+    response.raise_for_status()
 
 def change_status():
     card_id = request.form['todo-id']  

@@ -3,7 +3,9 @@ from todo_app.data.get_items import ViewModel
 from todo_app.data.item import Item
 
 def test_todo_items_property_only_shows_todo_items_and_not_anything_else():
+   
     #Arrange
+
     items = [
         Item("1", "A Test Todo", "To Do"),
         Item("2", "An in progress Todo", "Doing"),
@@ -11,8 +13,12 @@ def test_todo_items_property_only_shows_todo_items_and_not_anything_else():
     ]
 
     get_items = ViewModel(items)
+  
     #Act
     test_todo_items = get_items.todo_items
+
+
+    #Assert
 
     assert len(test_todo_items) == 1
 
@@ -38,6 +44,9 @@ def test_done_items_property_only_shows_done_items_and_not_anything_else():
     #Act
 
     test_done_items = get_items.done_items
+
+    #Assert
+    
     assert len(test_done_items) == 1
 
     done_item = test_done_items[0]

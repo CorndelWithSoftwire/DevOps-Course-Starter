@@ -26,7 +26,7 @@ def create_app():
         response = trello_items.create_todo()
         return index()
         
-    @app.route('/update_status', methods=['POST'])
+    @app.route('/update_status', methods=['Post'])
     def update_status():
         response = trello_items.change_status()
         return index()
