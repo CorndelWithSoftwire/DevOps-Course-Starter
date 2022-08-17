@@ -76,3 +76,9 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 to check everything is working  you can use the unit tests to prove get_items is presenting the information correctly. 
 
 if not already install pytest then poetry run pytest in the command terminal
+
+MODULE 5
+
+Dockerfile:
+RUN poetry config virtualenvs.create false - this is because virtualenvs is included automatically but not needed as docker is in isolation.
+RUN poetry install --without dev to exclude dependancy from instalation
