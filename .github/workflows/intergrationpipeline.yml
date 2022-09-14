@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2  # Adds a step to checkout the repository code
    
       - name: Build Docker
-        run: docker build --tag todo-app:devtestpy --target devtestpy .
+        run: docker build --tag todo-app:devtest --target devtestpy .
 
 
       - name: Run Docker
