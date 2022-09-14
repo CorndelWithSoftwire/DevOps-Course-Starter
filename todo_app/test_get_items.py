@@ -17,7 +17,6 @@ def test_todo_items_property_only_shows_todo_items_and_not_anything_else():
     #Act
     test_todo_items = get_items.todo_items
 
-
     #Assert
 
     assert len(test_todo_items) == 1
