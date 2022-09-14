@@ -1,0 +1,41 @@
+name: Continuous Integration
+
+on:
+
+   push:                    # Will make the workflow run every time you push to any branch
+
+    paths-ignore:
+
+    - '**/README.md'
+
+   pull_request:
+
+    paths-ignore:
+
+    - '**/README.md'
+
+
+
+jobs:
+
+  build:
+
+    name: Build and test
+
+    runs-on: ubuntu-latest     # Sets the build environment a machine with the latest Ubuntu installed
+
+    steps:
+
+    - uses: actions/checkout@v2  # Adds a step to checkout the repository code
+
+   
+
+    - name: Build Docker
+
+      run: docker build --tag todo-app:devtest --target devtestpy .
+
+
+
+    - name: Run Docker
+
+      run: docker run -e FLASK_APP=${{ secrets.FLASK_APP}} -e FLASK_ENV=${{ secrets.FLASK_ENV}} -e SECRET_KEY=${{ secrets.SECRET_KEY }} todo-app:devtestpy
