@@ -7,7 +7,7 @@ COPY pyproject.toml .
 
 RUN pip3 install poetry
 RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev
+RUN poetry install --only main
 RUN poetry add gunicorn
 
 RUN apt-get update && apt-get upgrade -y
