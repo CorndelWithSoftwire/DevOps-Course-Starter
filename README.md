@@ -79,6 +79,66 @@ if not already install pytest then poetry run pytest in the command terminal
 
 MODULE 5
 
+Install Docker,  https://www.docker.com/products/docker-desktop/ (for Gitpod you can use pip install).
+
+Docker FaQ https://docs.docker.com/desktop/
+
+Link for more info regarding multi-stage builds https://docs.docker.com/develop/develop-images/multistage-build/
+
 Dockerfile:
+
 RUN poetry config virtualenvs.create false - this is because virtualenvs is included automatically but not needed as docker is in isolation.
+
 RUN poetry install --without dev to exclude dependancy from instalation
+## launching the todo-app into a container (Docker in this case)
+
+DOCKER IS WHITE SPACE SENSITIVE
+
+to use bash in file:
+
+docker run --env-file ./.env -p 5000:5000 --entrypoint bash -it todo-app
+
+Build the image:
+
+docker build --tag todo-app . (make sure tag is the same as used above)
+
+Run the image:
+
+docker run --env-file ./.env -p 5000:5000 todo-app (port may vary)
+
+Build the production version:
+
+docker build --tag todo-app:prod --target prodpy .
+
+Run the production version:
+
+docker run --env-file ./.env -p 5000:5000 todo-app:prod
+
+Build the developer version:
+
+docker build --tag todo-app:dev --target devpy .
+
+
+Run the developer version:
+
+docker run --env-file ./.env -p 5000:5000 todo-app:dev
+
+Dev version may be more stripped back
+
+Bind Mount and volume in dev version:
+
+Generally you can bind mount by using the option --mount (mount is a limited version of a volume, can be used to save table data)
+
+See the following command to use for this specific codebase:
+
+docker run --env-file ./.env -p 5000:5000 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
+
+To build and run all tests inside Docker in dev mode:
+
+Build the Container:
+
+docker build --tag todo-app:devtest --target devtestpy .
+
+Run the tests in Docker:
+
+docker run --env-file ./.env -p 5000:5000 todo-app:devtest
