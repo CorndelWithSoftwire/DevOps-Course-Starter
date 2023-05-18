@@ -5,7 +5,7 @@ description = "A simple ToDo app for your DevOps apprenticeship"
 authors = []
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 Flask = "^2.0.3"
 python-dotenv = "^0.14.0"
 
