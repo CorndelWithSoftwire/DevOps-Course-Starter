@@ -3,15 +3,24 @@
 
 {% block content %}
   <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
+    <h1 class="display-4">Azure To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
 
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
+      <form action = '/' method = "POST">
+        <input type = "text" name = "user todo" >  </input>
+        <input type = "submit">  </input>
+      </form>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        {% for item in html_items%}
+            <li>
+              {{ item.id }} - {{ item.status }} - {{item.title}}
+            </li>
+        {% endfor %}
       </ul>
     </div>
   </div>

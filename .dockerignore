@@ -1,0 +1,6 @@
+.env
+.git
+.venv
+Dockerfile
+.vscode
+README.md
